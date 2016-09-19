@@ -1,14 +1,18 @@
 //database header
 
-#ifndef _database.h_
-#define _database.h_
+#ifndef _databaseh_
+#define _databaseh_
 
 #include <vector>
 #include <iostream>
 
 class table{
+
+  std::string name;
   std::vector<std::string> headers;
-  std::vector<std::vector<std::string>> data;
+  std::vector< std::vector<std::string> > data;
+
+
 };
 
 #endif
