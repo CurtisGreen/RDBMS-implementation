@@ -8,10 +8,9 @@
 
 class table{
 
+ 
   std::string name;
-  std::vector<std::string> headers;
-  std::vector< std::vector<std::string> > data;
-
+  std::vector<std::string> attributes;
 
 };
 
