@@ -1,0 +1,6 @@
+//database cpp
+
+create(){
+}
+insert(){
+}
