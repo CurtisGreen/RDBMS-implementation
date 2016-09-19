@@ -21,6 +21,22 @@ Attribute::Attribute (string name_, string type_, vector<string> data_)
 	data = data_;
 }
 
+string Attribute::getName()
+{
+	return name;
+}
+
+string Attribute::getType()
+{
+	return type;
+}
+
+vector<string> Attribute::getData()
+{
+	return data;
+}
+
+
 #endif
 
 

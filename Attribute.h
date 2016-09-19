@@ -14,6 +14,9 @@ class Attribute
 	public:
 	Attribute();
 	Attribute (string name_ , string type_ , vector <string> data_);
+	string getName();
+	string getType();
+	vector<string> getData();
 	
 };
 
