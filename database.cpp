@@ -7,7 +7,7 @@ void database::insert(){
  
  void database :: destroy(){
  }
- }
+ 
  void database :: update(){
    
  }
