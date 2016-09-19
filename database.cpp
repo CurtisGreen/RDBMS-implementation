@@ -1,6 +1,6 @@
 //database cpp
 
-create(){
+void database::create(string name, vector<attributes> att, vector<string> key){
 }
-insert(){
+void database::insert(){
 }
