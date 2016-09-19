@@ -8,8 +8,8 @@ using namespace std;
 Attribute :: Attribute()
 {
 	
-	name = "Default Name";
-	type = "Default Type";
+	name = "Name";
+	type = "Type";
 	data = vector<string>();
 	
 }
