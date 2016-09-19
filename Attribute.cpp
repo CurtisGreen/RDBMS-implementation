@@ -1,6 +1,6 @@
 #include "Attribute.h"
 #include <string>
-#inlude <vector>
+#include <vector>
 #include <iostream>
 
 using namespace std;
