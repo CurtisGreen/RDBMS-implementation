@@ -17,7 +17,7 @@ public:
 class database{
  
  public:
- void create(string, vector<attributes>, vector<string>);
+ void create(string, vector<Attribute>, vector<string>);
  void insert();
  void destoy();
  void update();
