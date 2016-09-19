@@ -22,7 +22,7 @@ class Database{
 	void exit();
 	void show();
 	void create(string, vector<Attribute>, vector<string>);
-	void insert();
+	void insert(string name, vector<Attribute> att);
 	void update();
 	void destroy();	//because delete is a keyword
 };

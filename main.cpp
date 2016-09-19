@@ -8,8 +8,8 @@
 
 //Testing compilation
 int main(){
-	Table table;
-	Attribute attribute;
+	Table test_table;
+	Attribute test_attribute;
 
 	//TODO: tests regarding engine functions
 }
