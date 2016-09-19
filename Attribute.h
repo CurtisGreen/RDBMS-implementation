@@ -9,11 +9,11 @@ class Attribute
 	string name;
 	string type;
 	vector <string> data;
-	Attribute (string name , string type , vector <string> data);
+
 	
 	public:
 	Attribute();
-	~Attribute();
+	Attribute (string name_ , string type_ , vector <string> data_);
 	
 };
 
