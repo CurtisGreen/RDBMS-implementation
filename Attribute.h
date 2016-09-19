@@ -1,7 +1,7 @@
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H 
 
-#include <vector>
+using namespace std;
 
 class Attribute 
 {

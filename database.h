@@ -3,18 +3,17 @@
 #ifndef _databaseh_
 #define _databaseh_
 
-#include <vector>
-#include <iostream>
+#include "Attribute.h"
 
 using namespace std;
 
-class table{
+class Table{
 public:
   string name;
   vector<string> attributes;
 };
 
-class database{
+class Database{
  
  public:
 	void open();

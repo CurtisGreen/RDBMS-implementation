@@ -1,31 +1,39 @@
-//database cpp
-void database::open(){
+
+
+#ifndef _databasecpp_
+#define _databasecpp_
+
+#include "database.h"
+
+//Database cpp
+void Database::open(){
 	//TODO
 }
-void database::close(){
+void Database::close(){
 	//TODO
 }
-void database::write(){
+void Database::write(){
 	//TODO
 }
-void database::exit(){
+void Database::exit(){
 	//TODO
 }
-void database::show(){
+void Database::show(){
 	//TODO
 }
-void database::create(string name, vector<Attribute> att, vector<string> key){
+void Database::create(string name, vector<Attribute> att, vector<string> key){
 	//TODO
 }
-void database::update(){
+void Database::update(){
 	//TODO
 }
-void database::insert(){
+void Database::insert(){
 	//TODO
 }
-void database::destroy(){
+void Database::destroy(){
 	//TODO
 }
 
 //TODO part 2: atomic expressions
 
+#endif

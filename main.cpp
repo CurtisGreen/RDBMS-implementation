@@ -1,17 +1,16 @@
 //database header
-
-#ifndef _databaseh_
-#define _databaseh_
-
 #include <vector>
+#include <string>
 #include <iostream>
+#include "Attribute.cpp"
+#include "database.cpp"
 
-class table{
 
- 
-  std::string name;
-  std::vector<std::string> attributes;
+//Testing compilation
+int main(){
+	Table table;
+	Attribute attribute;
 
-};
+	//TODO: tests regarding engine functions
+}
 
-#endif
