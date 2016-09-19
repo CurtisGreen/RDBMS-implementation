@@ -6,16 +6,18 @@
 #include <vector>
 #include <iostream>
 
+using namespace std;
+
 class table{
 public:
-  std::string name;
-  std::vector<std::string> attributes;
+  string name;
+  vector<string> attributes;
 };
 
 class database{
  
  public:
- void create();
+ void create(string, vector<attributes>, vector<string>);
  void insert();
  void destoy();
  void update();
