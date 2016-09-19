@@ -17,10 +17,15 @@ public:
 class database{
  
  public:
- void create(string, vector<Attribute>, vector<string>);
- void insert();
- void destroy();
- void update();
+	void open();
+	void close();
+	void write();
+	void exit();
+	void show();
+	void create(string, vector<Attribute>, vector<string>);
+	void insert();
+	void update();
+	void destroy();	//because delete is a keyword
 };
 
 #endif
