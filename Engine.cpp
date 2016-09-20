@@ -19,7 +19,6 @@ void Engine::write(Table table){
 	bool table_exists; // boolean to figure out if table already exists
 	for (int i =0; i < all_tables.size(); i++){
 		if (all_tables[i]->getName() == table->getName()){
-			
 			all_tables[i] = table;
 			table_exists = true;
 		}
