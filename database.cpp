@@ -6,31 +6,36 @@
 #include "database.h"
 
 //Database cpp
-void Database::open(){
+void Engine::open(){
 	//TODO
 }
-void Database::close(){
+void Engine::close(){
 	//TODO
 }
-void Database::write(){
+void Engine::write(){
 	//TODO
 }
-void Database::exit(){
+void Engine::exit(){
 	//TODO
 }
-void Database::show(){
+void Engine::show(){
 	//TODO
 }
-void Database::create(string name, vector<Attribute> att, vector<string> key){
+
+void Engine::create(string name, vector<Attribute> att, vector<string> key){
+
+	Table* table = new Table(name,att,key);
+	tables.push_back(table);
+}
+
+
+void Engine::update(){
 	//TODO
 }
-void Database::update(){
+void Engine::insert(string name, vector<Attribute> att){
 	//TODO
 }
-void Database::insert(){
-	//TODO
-}
-void Database::destroy(){
+void Engine::destroy(){
 	//TODO
 }
 

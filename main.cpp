@@ -8,8 +8,20 @@
 
 //Testing compilation
 int main(){
-	Table table;
-	Attribute attribute;
+
+
+
+
+	Engine e; 
+
+
+
+
+
+
+	Attribute test_attribute;
+
+	/// table.create("SuperHero", "test_attribute",  );
 
 	//TODO: tests regarding engine functions
 }
