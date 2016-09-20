@@ -16,6 +16,7 @@ public:
 class Database{
  
  public:
+ 	vector <Table> all_tables; // database will contain multiple tables - Human, Superhero, Group
 	void open();
 	void close();
 	void write();
