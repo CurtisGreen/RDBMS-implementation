@@ -51,5 +51,5 @@ void Database :: drop(string table_name){
 	}
 }
 //TODO part 2: atomic expressions
-
+// selection-projection-renaming-union-difference-product-natural-join
 #endif
