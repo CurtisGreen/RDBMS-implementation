@@ -37,8 +37,23 @@ void Engine::exit(){
 }
 
 void Engine::show(string table_name){
-
-	//TODO
+	//TODO: formatting
+	//check if empty
+	Table* table;
+	for (int i = 0; i < all_tables.size(); i++){
+		if (table_name == all_tables[i]->getName()){
+			table = all_tables[i];
+		}
+	}
+	for (int i = 0; i < table->att.size(); i++){
+		cout << table->getName() << '\t';
+	}
+	cout << endl;
+	for (int k = 0; k < table->att[0].data.size(); k++){
+		for (int i = 0; i < table->att.size(); i++){
+			cout << table->att[i].data[k] << '\t';
+		}
+	}
 }
 
 /* This function creates a table and adds it to the database  */
