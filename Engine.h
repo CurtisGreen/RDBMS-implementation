@@ -12,9 +12,9 @@ class Engine{
  
  public:
  	
-	void open();
-	void close();
-	void write();
+	//void open();
+	//void close();
+	//void write();
 
  	vector <Table*> all_tables; // database will contain multiple tables - Human, Superhero, Group
 	void open(string table_name);
