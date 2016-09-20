@@ -9,14 +9,7 @@
 //Testing compilation
 int main(){
 
-
-
-
 	Engine e; 
-
-
-
-
 
 
 	Attribute test_attribute;
