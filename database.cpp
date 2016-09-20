@@ -43,7 +43,13 @@ void Database::insert(string name, vector<Attribute> att){
 void Database::destroy(){
 	//TODO
 }
-
+void Database :: drop(string table_name){
+	for(int i = 0; i < all_tables.size(); i++){
+		if (all_tables[i].name == table_name){
+			all_tables.erase(all_tables.begin() + i);
+		}
+	}
+}
 //TODO part 2: atomic expressions
 
 #endif
