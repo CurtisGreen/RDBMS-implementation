@@ -26,6 +26,7 @@ class Database{
 	void insert(string name, vector<Attribute> att);
 	void update();
 	void destroy();	//because delete is a keyword
+	void drop(string table_name); // deletes table from "all tables" vector in database
 };
 
 #endif
