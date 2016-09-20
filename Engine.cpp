@@ -16,7 +16,18 @@ void Engine::close(string table_name){
 }
 void Engine::write(Table table){
 
-	//TODO
+	bool table_exists; // boolean to figure out if table already exists
+	for (int i =0; i < all_tables.size(); i++){
+		if (all_tables[i]->getName() == table->getName()){
+			
+			all_tables[i] = table;
+			table_exists = true;
+		}
+	}
+	if (table_exists != true){ // checks if table exists in all tables vector 
+		all_tables.push_back(table); // if not, adds it to tables 
+	}
+	write(table);
 }
 void Engine::exit(){
 	//TODO
