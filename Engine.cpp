@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 #include "Engine.h"
 #include "Attribute.h"
@@ -14,7 +15,7 @@ void Engine::open(string table_name){
 void Engine::close(string table_name){
 	//TODO
 }
-void Engine::write(Table table){
+void Engine::write(Table* table){
 bool table_exists; // boolean to figure out if table already exists
 	
 	for (int i =0; i < all_tables.size(); i++){
@@ -29,6 +30,7 @@ bool table_exists; // boolean to figure out if table already exists
 	ofstream output_file(table->getName()+ ".txt");
 	cout << "Writing to file " << "\n";
 	output_file << table;
+	// Inga: compiles, but going to check if it works later
 }
 void Engine::exit(){
 	//TODO
