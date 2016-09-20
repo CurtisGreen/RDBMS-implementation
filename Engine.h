@@ -28,6 +28,7 @@ class Engine{
 	void update();
 	void destroy();	//because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database
+	Table getTable(string table_name); // have not implemented, but think we might need it to get functions to work properly
 };
 
 #endif
