@@ -38,7 +38,7 @@ void Engine::update(){
 }
 
 ///----Jose---I commented this funciton because it has a few erros. name is priviate.
-///--I think == is not use to compare strings.  I think type[] is used wrong 
+///  I think type[] is used wrong 
 void Engine::insert(string name, vector<Attribute> att){
 	//TODO
 	//Retrieve table from memory or file using 'name'
