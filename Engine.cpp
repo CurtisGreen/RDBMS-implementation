@@ -47,7 +47,7 @@ void Engine::insert(string name, vector<Attribute> att){
 
 	// for (int i = 0; i < table.attributes.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
 		// for (int k = 0; k < att.size(); k++){
-			// if (att[i].name == table.attributes[k] && att[i].type == table.attributes.type[k]){
+			// if (att[i].getName() == table.attributes[k].getName() && att[i].type == table.attributes[k].getType()){
 				// table.attributes[k].push_back(att[i].data[0]);
 			// }
 		// }
