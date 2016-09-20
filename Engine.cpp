@@ -53,7 +53,7 @@ void Engine::update(){
 	//TODO
 }
 
-void Engine::insert(string name, vector<Attribute> attributes){
+void Engine::insert(string name, vector<Attribute> new_att){
 	Table* table;
 	for (int i = 0; i < all_tables.size(); i++){
 		if (name == all_tables[i]->getName()){
@@ -62,9 +62,9 @@ void Engine::insert(string name, vector<Attribute> attributes){
 	}
 
 	 for (int i = 0; i < table->att.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
-		 for (int k = 0; k < attributes.size(); k++){
-			 if (attributes[i].getName() == table->att[k].getName() && attributes[i].type == table->att[k].getType()){
-				 table->att[k].getData().push_back(attributes[i].data[0]);
+		 for (int k = 0; k < new_att.size(); k++){
+			 if (new_att[i].getName() == table->att[k].getName() && new_att[i].type == table->att[k].getType()){
+				 table->att[k].getData().push_back(new_att[i].data[0]);
 			 }
 		 }
 	 }
