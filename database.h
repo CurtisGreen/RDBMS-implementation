@@ -17,11 +17,11 @@ class Database{
  
  public:
  	vector <Table> all_tables; // database will contain multiple tables - Human, Superhero, Group
-	void open();
-	void close();
-	void write();
+	void open(string table_name);
+	void close(string table_name);
+	void write(Table table);
 	void exit();
-	void show();
+	void show(string table_name);
 	void create(string, vector<Attribute>, vector<string>);
 	void insert(string name, vector<Attribute> att);
 	void update();
