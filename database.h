@@ -10,7 +10,7 @@ using namespace std;
 class Table{
 public:
   string name;
-  vector<string> attributes;
+  vector<Attribute> attributes;
 };
 
 class Database{
