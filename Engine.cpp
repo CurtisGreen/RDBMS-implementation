@@ -37,6 +37,7 @@ void Engine::show(string table_name){
 	//TODO
 }
 
+/* This function creates a table and adds it to the database  */
 void Engine::create(string name, vector<Attribute> att, vector<string> key){
 
 	Table* table =  new Table(name,att,key);
@@ -64,9 +65,11 @@ void Engine::insert(string name, vector<Attribute> att){
 	// }
 	
 }
+/* This function deletes record from a table  */
 void Engine::destroy(){
 	//TODO
 }
+/* This function deletes table from the database of tables  */
 void Engine::drop(string table_name){
 	
 	for(int i = 0; i < all_tables.size(); i++){
