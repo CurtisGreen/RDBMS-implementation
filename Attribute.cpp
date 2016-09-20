@@ -1,9 +1,9 @@
-
-
-#ifndef _attributecpp_
-#define _attributecpp_
-
 #include "Attribute.h"
+#include <string> 
+#include <vector>
+#include <iostream>
+
+using namespace std;
 
 Attribute::Attribute()
 {
@@ -14,7 +14,7 @@ Attribute::Attribute()
 	
 }
 
-Attribute::Attribute (string name_, string type_, vector<string> data_)
+Attribute::Attribute(string name_, string type_, vector<string> data_)
 {
 	name = name_;
 	type = type_;
@@ -36,7 +36,5 @@ vector<string> Attribute::getData()
 	return data;
 }
 
-
-#endif
 
 

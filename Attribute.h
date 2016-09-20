@@ -1,17 +1,21 @@
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H 
 
-using namespace std;
+#include <string>
+#include <vector>
+#include <iostream>
+
+
+using namespace std; 
 
 class Attribute 
 {
-	private:
+	
+	public:
 	string name;
 	string type;
 	vector <string> data;
-
 	
-	public:
 	Attribute();
 	Attribute (string name_ , string type_ , vector <string> data_);
 	string getName();
