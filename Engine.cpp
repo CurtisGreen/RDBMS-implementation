@@ -69,11 +69,12 @@ void Engine::destroy(){
 }
 void Engine::drop(string table_name){
 	
-	// for(int i = 0; i < all_tables.size(); i++){
-		// if (all_tables[i].name == table_name){
-			// all_tables.erase(all_tables.begin() + i);
-		// }
-	// }
+	for(int i = 0; i < all_tables.size(); i++){
+		if (all_tables[i]->getName() == table_name){
+		delete (all_tables[i]); // trying to delete table from vector of pointer to table?
+		}
+	}
+	//Inga: compiles, not sure if it works yet or if we are definitely using pointers
 	
 }
 //TODO part 2: atomic expressions
