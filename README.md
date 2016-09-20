@@ -1,5 +1,5 @@
 # RDBMS
 Relational Database Management System
 
-  * Compile using g++ -std=c++11 main.cpp
+  * To compile "make clean" then type "make" then type "make run"
   * Run on compute.cs.tamu.edu
