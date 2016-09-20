@@ -18,7 +18,6 @@ public:
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
  
-  vector <Attribute> attributes;
 };
 
 #endif

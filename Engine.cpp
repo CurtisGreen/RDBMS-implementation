@@ -53,20 +53,21 @@ void Engine::update(){
 	//TODO
 }
 
-///----Jose---I commented this funciton because it has a few erros. name is priviate.
-///  I think type[] is used wrong 
-void Engine::insert(string name, vector<Attribute> att){
-	//TODO
-	//Retrieve table from memory or file using 'name'
-	// Table table;	//For right now just create one, will change later TODO
+void Engine::insert(string name, vector<Attribute> attributes){
+	Table* table;
+	for (int i = 0; i < all_tables.size(); i++){
+		if (name == all_tables[i]->getName()){
+			table = all_tables[i];
+		}
+	}
 
-	// for (int i = 0; i < table.attributes.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
-		// for (int k = 0; k < att.size(); k++){
-			// if (att[i].getName() == table.attributes[k].getName() && att[i].type == table.attributes[k].getType()){
-				// table.attributes[k].push_back(att[i].data[0]);
-			// }
-		// }
-	// }
+	 for (int i = 0; i < table->att.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
+		 for (int k = 0; k < attributes.size(); k++){
+			 if (attributes[i].getName() == table->att[k].getName() && attributes[i].type == table->att[k].getType()){
+				 table->att[k].getData().push_back(attributes[i].data[0]);
+			 }
+		 }
+	 }
 	
 }
 /* This function deletes record from a table  */
