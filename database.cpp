@@ -6,19 +6,19 @@
 #include "database.h"
 
 //Database cpp
-void Database::open(){
+void Database::open(string table_name){
 	//TODO
 }
-void Database::close(){
+void Database::close(string table_name){
 	//TODO
 }
-void Database::write(){
+void Database::write(Table table){
 	//TODO
 }
 void Database::exit(){
 	//TODO
 }
-void Database::show(){
+void Database::show(string table_name){
 	//TODO
 }
 void Database::create(string name, vector<Attribute> att, vector<string> key){
