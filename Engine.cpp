@@ -45,17 +45,32 @@ void Engine::show(string table_name){
 	//TODO: formatting
 	//TODO:check if empty
 	Table table;
+	bool found = false;
+	
 	for (int i = 0; i < all_tables.size(); i++){
 		if (table_name == all_tables[i].getName()){
+			found = true;
 			table = all_tables[i];
 		}
 	}
-	cout << table.getName() <<endl;
-	for (int k = 0; k < table.att[0].data.size(); k++){
-		for (int i = 0; i < table.att.size(); i++){
-			cout << table.att[i].data[k] << '\t';
+	if (found){
+		if (table.att.size() != 0){
+			cout << table.getName() <<endl;
+			for (int k = 0; k < table.att[0].data.size(); k++){
+				cout << '\n';
+				for (int i = 0; i < table.att.size(); i++){
+					cout << table.att[i].data[k] << '\t';
+				}
+			}
+		}
+		else{
+			cout << "Table is empty" << endl;
 		}
 	}
+	else{
+		cout << "Table not found" << endl;
+	}
+	
 }
 
 /* This function creates a table and adds it to the database  */

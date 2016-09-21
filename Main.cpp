@@ -43,7 +43,7 @@ int main(){
 
 
     //-----------------------------------------------------------------------
-	//-----------------Hero Indentiry Table----------------------------------
+	//-----------------Hero Indentity Table----------------------------------
 	//-----------------------------------------------------------------------
 	vector<string> h_name = {"Spider Man","Super Man","Hulk"};
 	vector<string> h_ability = {"Strenght","Fly","Strenght"};
@@ -64,7 +64,7 @@ int main(){
 	hero_attributes.push_back(att_hero_weight);
 	hero_attributes.push_back(att_hero_height);
 
-	Table hero_table("Hero",hero_attributes,key_hero);//crates table 
+	Table hero_table("Hero",hero_attributes,key_hero);//creates table 
 
 
 	//-----------------------------------------------------------------------
@@ -100,16 +100,25 @@ int main(){
 	int size1 = e.all_tables.size();
 	 
 	cout << "Dropping a table\n";
-	cout << size1;
+	cout << "Number of tables = " <<size1<<endl;
 	
 	e.drop("Human");
 	
 	cout << "\nDropped " << "\n" ;
 	int size2 = e.all_tables.size();
-	cout << size2;
-	Attribute test_attribute;
+	cout << "Number of tables = "<< size2<<endl;
 
-	cout << "This is just a test ";
+	//-----------------------------------------------------------------------
+	//---------------------Show Test----------------------------------------
+	//-----------------------------------------------------------------------
+	cout << endl;
+	cout << "Show test:"<< endl;
+	e.show("Human");
+	cout << "\n" << endl;
+	e.show("Hero");
+	cout << "\n" << endl;
+	e.show("Affiliation");
+
 	/// table.create("SuperHero", "test_attribute",  );
 
 	//TODO: tests regarding engine functions
