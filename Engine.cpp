@@ -55,7 +55,8 @@ void Engine::show(string table_name){
 	}
 	if (found){
 		if (table.att.size() != 0){
-			cout << table.getName() <<endl;
+			cout << '\n' << table.getName() <<endl;
+			cout << table.att[0].data.size() << "x" << table.att.size() << endl;
 			for (int k = 0; k < table.att[0].data.size(); k++){
 				cout << '\n';
 				for (int i = 0; i < table.att.size(); i++){
@@ -68,7 +69,7 @@ void Engine::show(string table_name){
 		}
 	}
 	else{
-		cout << "Table not found" << endl;
+		cout << "Table not found, cannot show" << endl;
 	}
 	
 }
@@ -86,17 +87,24 @@ void Engine::update(){
 	//TODO
 }
 
-void Engine::insert(string name, vector<string> new_row){
-	Table table;
+void Engine::insert(string table_name, vector<string> new_row){
+	Table* table;
+	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
-		if (name == all_tables[i].getName()){
-			table = all_tables[i];
+		if (table_name == all_tables[i].getName()){
+			found = true;
+			table = &(all_tables[i]);
 		}
 	}
-
-	 for (int i = 0; i < table.att.size(); i++){	//Assume data is passed in correct order
-		table.att[i].getData().push_back(new_row[i]); 
-	 }
+	if (found){
+		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+			table->att[i].getData().push_back(new_row[i]); //Why doesn't this work?
+	 	}
+	}
+	else{
+		cout << "Table not found, cannot insert" << endl;
+	}
+	 
 }
 /* This function deletes record from a table  */
 void Engine::destroy(){

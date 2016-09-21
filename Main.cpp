@@ -119,8 +119,20 @@ int main(){
 	cout << "\n" << endl;
 	e.show("Affiliation");
 
-	/// table.create("SuperHero", "test_attribute",  );
+	//-----------------------------------------------------------------------
+	//---------------------Create test----------------------------------------
+	//-----------------------------------------------------------------------
+	
+	// TODO: table.create("SuperHero", "test_attribute", ... );
 
+	//-----------------------------------------------------------------------
+	//---------------------Insert Test---------------------------------------
+	//-----------------------------------------------------------------------
+	cout << "\n\n" << endl;
+	cout << "Insert test:"<< endl;
+	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
+	e.insert("Hero", insert_test);
+	e.show("Hero");
 	//TODO: tests regarding engine functions
 }
 
