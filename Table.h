@@ -1,5 +1,7 @@
 #ifndef TABLE_H
 #define TABLE_H
+#include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -17,6 +19,7 @@ public:
   string getName();
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
+  Table();
  
 };
 

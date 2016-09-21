@@ -16,10 +16,10 @@ class Engine{
 	//void close();
 	//void write();
 
- 	vector <Table*> all_tables; // database will contain multiple tables - Human, Superhero, Group
+ 	vector <Table> all_tables; // database will contain multiple tables - Human, Superhero, Group
 	void open(string table_name);
 	void close(string table_name);
-	void write(Table* table);
+	void write(Table table);
 
 	void exit_();
 	void show(string table_name);

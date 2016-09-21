@@ -9,6 +9,7 @@ Table :: Table(string new_name, vector<Attribute> new_att, vector<string> new_id
   	att = new_att;
   	id = new_id;
 }
+Table::Table(){}
 string Table:: getName()
 {
 	return name;
