@@ -34,7 +34,7 @@ void Engine::write(Table* table){
 	output_file << table; 
 	
 }
-void Engine::exit(){
+void Engine::exit_(){
 	cerr << "Exiting RDBMS now" << "\n";
 	exit(0);
 }
