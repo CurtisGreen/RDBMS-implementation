@@ -132,8 +132,12 @@ Table Engine :: projection(Table table)
 
 /* The function sets a union between two attributes that appear in either or both of the two relations. 
  For the set union to be valid they must have the same number of attributes */
+<<<<<<< HEAD
 
 
+=======
+/*
+>>>>>>> 05daa77b3fa5539f61c52e4ef15ade8b9cc13887
 Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 {
 	//TODO : still working on set Union : unfinished  
@@ -168,6 +172,7 @@ Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 	
 	
 }
+*/
 
 /* This function forms a cartesian product of its two arguments. 
 It will then check if the equality of those attributes appear in both relations.
