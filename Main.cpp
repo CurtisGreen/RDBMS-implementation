@@ -14,36 +14,48 @@ using namespace std;
 int main(){
 
 	Engine e; 
-
+	vector<Attribute> header; 
+	header.data = {"Name", "Occupation", "Weight", "Height"};
+	vector<string> key = {"Name", "Occupation"};
 	vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	vector<string> ocupataion = {"students","Proffesor","Boxer"};
+	vector<string> occupation = {"students","Proffesor","Boxer"};
 	vector<string> weight = {"150","160","250"};
 	vector<string> height = {"5","10","8"};
-
- 
+	
 
 	vector<string> hname = {"Spider Man","Super Man","Hulk"};
 	vector<string> hability = {"Strenght","Fly","Strenght"};
 	vector<string> hweight = {"150","160","250"};
 	vector<string> hheight = {"5","10","8"};
-
+	
 
 	vector<string> universe = {"Earth","Mars","Earth"};
 	vector<string> purpose = {"life saver","life saver","life saver"};
 	vector<string> gname = {"Marvel","DC","Marvel"};
 
 
+<<<<<<< HEAD
 	// Attribute att_human_name("Name","string",name);
 	// Attribute att_human_name("ocupation","string",name);
 	// Attribute att_human_name("weight","string",name);
 	// Attribute att_human_name("Name","string",name);
+=======
+	Attribute att_human_name("Name","string",name);
+	
+	//e.create("Superhero", header, key);
+	//e.insert("superhero", header)
+	
+	Attribute att_human_name("ocupation","string",name);
+	Attribute att_human_name("weight","string",name);
+	//Attribute att_human_name("Name","string",name);
+>>>>>>> 62f96614f1e9a6b163bff3416c7be4510859bc29
 
 	
 	
 
 
 
-	Attribute test_attribute;
+	//Attribute test_attribute;
 
 
 
