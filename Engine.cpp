@@ -109,3 +109,55 @@ void Engine::drop(string table_name){
 //TODO part 2: atomic expressions
 // selection-projection-renaming-union-difference-product-natural-join
 
+/* This function deletes table from the database of tables  */
+
+Table Engine :: selection(Table table)
+{
+	//TODO
+}
+
+/* This function selects a subset of the attributes in a relation. */
+
+Table Engine :: projection(Table table)
+{
+	//TODO
+}
+
+/* The function sets a union between two attributes that appear in either or both of the two relations. 
+ For the set union to be valid they must have the same number of attributes */
+
+Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
+{
+	//TODO
+}
+
+/* This function forms a cartesian product of its two arguments. 
+It will then check if the equality of those attributes appear in both relations.
+Lastly, it removes duplicates attributes  */
+
+Table Engine :: natural_join(Table table1, Table table2)
+{
+	// TODO
+}
+
+/* This function renames the attributes in a relation  */
+
+Table Engine :: renaming(Table table)
+
+{
+	//TODO
+}
+
+/* This function should find the tuples in one relation but not in other */
+
+Table Engine :: difference(Table table1, Table table2)
+{
+	//TODO
+}
+
+/* This function combines information from two relations.*/
+
+Table Engine :: cross_product(Table table1, Table table2)
+{
+	//TODO
+}
