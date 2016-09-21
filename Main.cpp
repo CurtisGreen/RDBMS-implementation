@@ -90,10 +90,23 @@ int main(){
 
 
 	
+	cout << "Pushing back tables" << "\n";
+	e.all_tables.push_back(human_table);
+	e.all_tables.push_back(hero_table);
+	e.all_tables.push_back(affiliation_table);
 	
-
-
+	cout << "Done pushing" << "\n" ;
 	
+	int size1 = e.all_tables.size();
+	 
+	cout << "Dropping a table\n";
+	cout << size1;
+	
+	e.drop("Human");
+	
+	cout << "\nDropped " << "\n" ;
+	int size2 = e.all_tables.size();
+	cout << size2;
 	Attribute test_attribute;
 
 	cout << "This is just a test ";
