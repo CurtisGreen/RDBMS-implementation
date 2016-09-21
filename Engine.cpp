@@ -43,17 +43,14 @@ void Engine::exit_(){
 
 void Engine::show(string table_name){
 	//TODO: formatting
-	//check if empty
+	//TODO:check if empty
 	Table table;
 	for (int i = 0; i < all_tables.size(); i++){
 		if (table_name == all_tables[i].getName()){
 			table = all_tables[i];
 		}
 	}
-	for (int i = 0; i < table.att.size(); i++){
-		cout << table.getName() << '\t';
-	}
-	cout << endl;
+	cout << table.getName() <<endl;
 	for (int k = 0; k < table.att[0].data.size(); k++){
 		for (int i = 0; i < table.att.size(); i++){
 			cout << table.att[i].data[k] << '\t';
