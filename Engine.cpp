@@ -29,7 +29,7 @@ bool table_exists; // boolean to figure out if table already exists
 	}
 	ofstream output_file(table->getName()+ ".txt");
 	cout << "Writing to file " << "\n";
-	output_file << table;
+	output_file << table; // need to define << operator
 	// Inga: compiles, but going to check if it works later
 }
 void Engine::exit(){
