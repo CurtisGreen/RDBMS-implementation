@@ -16,21 +16,22 @@ void Engine::close(string table_name){
 	//TODO
 }
 void Engine::write(Table* table){
-bool table_exists; // boolean to figure out if table already exists
+	//TODO: need to define >> << operators
+	bool table_exists; // boolean to figure out if table already exists
 	
 	for (int i =0; i < all_tables.size(); i++){
 		if (all_tables[i]->getName() == table->getName()){
 			table_exists = true;
 		}
 	}
-	// checks if table exists in all tables vector
+	// checks if table exists in all tables vector, if not adds to tables vector
 	if (table_exists != true){
-		all_tables.push_back(table); // if not, adds it to tables 
+		all_tables.push_back(table); 
 	}
 	ofstream output_file(table->getName()+ ".txt");
 	cout << "Writing to file " << "\n";
-	output_file << table; // need to define << operator
-	// Inga: compiles, but going to check if it works later
+	output_file << table; 
+	
 }
 void Engine::exit(){
 	//TODO
