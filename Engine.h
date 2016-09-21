@@ -21,7 +21,7 @@ class Engine{
 	void close(string table_name);
 	void write(Table* table);
 
-	void exit();
+	void exit_();
 	void show(string table_name);
 	void create(string, vector<Attribute>, vector<string>);
 	void insert(string name, vector<Attribute> att);
