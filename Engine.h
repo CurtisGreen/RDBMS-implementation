@@ -23,7 +23,7 @@ class Engine{
 	void exit_();
 	void show(string table_name);
 	void create(string, vector<Attribute>, vector<string>);
-	void insert(string name, vector<Attribute> att);
+	void insert(string name, vector<string> new_row);
 	void update();
 	void destroy();	//because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database

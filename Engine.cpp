@@ -71,7 +71,7 @@ void Engine::update(){
 	//TODO
 }
 
-void Engine::insert(string name, vector<Attribute> new_att){
+void Engine::insert(string name, vector<string> new_row){
 	Table table;
 	for (int i = 0; i < all_tables.size(); i++){
 		if (name == all_tables[i].getName()){
@@ -79,14 +79,9 @@ void Engine::insert(string name, vector<Attribute> new_att){
 		}
 	}
 
-	 for (int i = 0; i < table.att.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
-		 for (int k = 0; k < new_att.size(); k++){
-			 if (new_att[i].getName() == table.att[k].getName() && new_att[i].type == table.att[k].getType()){
-				 table.att[k].getData().push_back(new_att[i].data[0]);
-			 } 
-		 }
+	 for (int i = 0; i < table.att.size(); i++){	//Assume data is passed in correct order
+		table.att[i].getData().push_back(new_row[i]); 
 	 }
-	
 }
 /* This function deletes record from a table  */
 void Engine::destroy(){
