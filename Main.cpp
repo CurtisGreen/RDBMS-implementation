@@ -33,10 +33,10 @@ int main(){
 	vector<string> gname = {"Marvel","DC","Marvel"};
 
 
-	Attribute att_human_name("Name","string",name);
-	Attribute att_human_name("ocupation","string",name);
-	Attribute att_human_name("weight","string",name);
-	Attribute att_human_name("Name","string",name);
+	// Attribute att_human_name("Name","string",name);
+	// Attribute att_human_name("ocupation","string",name);
+	// Attribute att_human_name("weight","string",name);
+	// Attribute att_human_name("Name","string",name);
 
 	
 	

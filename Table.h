@@ -10,8 +10,8 @@ using namespace std;
 class Table
 {
 public:
-  string name;
 
+  string name;
   vector<string> id;
   vector<Attribute> att;
   

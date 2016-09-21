@@ -131,7 +131,37 @@ Table Engine :: projection(Table table)
 
 Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 {
-	//TODO
+	//TODO : still working on set Union : unfinished  
+	bool table_exists;
+	for (int i = 0; i < all_tables.size(); i++)
+	{
+		if (table1.name == all_tables[i].name)
+		{
+			table_exists = true;
+		}
+	}
+	if (table_exists != true)
+	{
+		cout << " Error: Table does not exist" << "\n";
+	}
+	
+	// find size of attribute vector
+	int table1_att = table1.att.size();
+	int table2_att = table2.att.size();
+	
+	if (table1_att != table2_att) // if they are not equal then we cannot perform UNION
+	{
+		cout << "Error : The tables entered does not have the same number of attributes " << "\n";
+	}
+	for (int i = 0; i < table1_att; i++)
+	{
+		if(table1[i].att.getName() != table2[i].att.getName())
+		{
+			cout << " Error: The tables attributes do not match " << "\n" ;
+		}
+	}
+	
+	
 }
 
 /* This function forms a cartesian product of its two arguments. 
