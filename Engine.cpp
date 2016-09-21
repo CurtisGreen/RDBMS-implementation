@@ -98,7 +98,7 @@ void Engine::drop(string table_name){
 		delete (all_tables[i]); // trying to delete table from vector of pointer to table?
 		}
 	}
-	//Inga: compiles, not sure if it works yet or if we are definitely using pointers
+	
 	
 }
 //TODO part 2: atomic expressions
