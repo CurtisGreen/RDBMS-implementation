@@ -109,7 +109,10 @@ void Engine::drop(string table_name){
 //TODO part 2: atomic expressions
 // selection-projection-renaming-union-difference-product-natural-join
 
-/* This function deletes table from the database of tables  */
+/*This function identifies a set of tuples which is part of relation and then extracts the tuples.  
+The operation selects the tuples that satisfy a given predicate or condition. 
+It will involve logical conditions as defined in the grammar. 
+*/
 
 Table Engine :: selection(Table table)
 {
