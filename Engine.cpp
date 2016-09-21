@@ -106,6 +106,8 @@ void Engine::drop(string table_name){
 	
 	
 }
+
+
 //TODO part 2: atomic expressions
 // selection-projection-renaming-union-difference-product-natural-join
 
@@ -114,9 +116,11 @@ The operation selects the tuples that satisfy a given predicate or condition.
 It will involve logical conditions as defined in the grammar. 
 */
 
+/*
 Table Engine :: selection(Table table)
 {
 	//TODO
+
 }
 
 /* This function selects a subset of the attributes in a relation. */
@@ -141,6 +145,7 @@ Lastly, it removes duplicates attributes  */
 Table Engine :: natural_join(Table table1, Table table2)
 {
 	// TODO
+	//return NULL;
 }
 
 /* This function renames the attributes in a relation  */
@@ -164,3 +169,5 @@ Table Engine :: cross_product(Table table1, Table table2)
 {
 	//TODO
 }
+
+
