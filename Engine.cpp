@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 #include "Engine.h"
 #include "Attribute.h"
@@ -34,7 +35,8 @@ void Engine::write(Table* table){
 	
 }
 void Engine::exit(){
-	//TODO
+	cerr << "Exiting RDBMS now" << "\n";
+	exit(0);
 }
 
 void Engine::show(string table_name){
