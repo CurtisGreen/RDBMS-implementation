@@ -89,29 +89,66 @@ int main(){
 	Table affiliation_table("Affiliation",affiliatin_attibutes,key_affiliation);//crates table 
 
 
-	
+	//-------------------------Test to see if drop table works --------------------------------//
 	cout << "Pushing back tables" << "\n";
+	
 	e.all_tables.push_back(human_table);
 	e.all_tables.push_back(hero_table);
 	e.all_tables.push_back(affiliation_table);
 	
 	cout << "Done pushing" << "\n" ;
 	
-	int size1 = e.all_tables.size();
-	 
-	cout << "Dropping a table\n";
-	cout << size1;
-	
-	e.drop("Human");
-	
-	cout << "\nDropped " << "\n" ;
-	int size2 = e.all_tables.size();
-	cout << size2;
-	Attribute test_attribute;
+	int size1 = e.all_tables.size(); 
 
-	cout << "This is just a test ";
-	/// table.create("SuperHero", "test_attribute",  );
+	cout << size1 << "\n";
+	
+	//e.drop("Human");
+	
+	cout << "Dropped " << "\n" ;
+	
+	int size2 = e.all_tables.size();
+	
+	cout << size2 << "\n";
+	//------------------------------UNION CHECKING : BEGINNING CONDITIONS CHECK ----------------------------------------------------------//
+	
+	
+
+	vector<string> weight_ = {"150","160","250"};
+	vector<string> height_ = {"5","10","8"};
+	
+	Attribute human_weight("Weight","string",weight_);
+	Attribute human_height("Name","string",height_);
+	
+	vector<Attribute> human_atts;
+	human_atts.push_back(human_weight);
+	human_atts.push_back(human_height);
+	
+	Table human("human table", human_atts, key_name);
+	
+	vector<string> h_weight_ = {"150","160","250"};
+	vector<string> h_height_ = {"5","10","8"};
+	
+	Attribute hero_weight("Weight","string",h_weight_);
+	Attribute hero_height("Name","string",h_height_);
+	
+	vector<Attribute> hero_atts;
+	hero_atts.push_back(hero_weight);
+	hero_atts.push_back(hero_height);
+
+	Table hero("hero table", hero_atts, key_hero);
+	
+	e.all_tables.push_back(hero);
+	e.all_tables.push_back(human);
+	e.set_union("height", human, hero);
+	
+	// table.create("SuperHero", "test_attribute",  );
 
 	//TODO: tests regarding engine functions
+	
+	
+	
+	//Attribute test_attribute;
+
+	//cout << "This is just a test ";
 }
 

@@ -132,11 +132,11 @@ Table Engine :: projection(Table table)
 
 /* The function sets a union between two attributes that appear in either or both of the two relations. 
  For the set union to be valid they must have the same number of attributes */
-/*
+
 Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 {
-	// TODO : still working on set Union : unfinished  
-	bool table_exists;
+	//TODO : still working on set Union : unfinished  
+	bool table_exists = false;
 	for (int i = 0; i < all_tables.size(); i++)
 	{
 		if (table1.name == all_tables[i].name)
@@ -157,18 +157,31 @@ Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 	{
 		cout << "Error : The tables entered does not have the same number of attributes " << "\n";
 	}
-	// for (int i = 0; i < table1_att; i++)
-	// {
-		// if(table1[i].att.getName() != table2[i].att.getName())
-		// {
-			// cout << " Error: The tables attributes do not match " << "\n" ;
-		// }
-	// }
+
+	for (int i = 0; i < table1_att; i++)
+	{
+		if(table1.att[i].getName() != table2.att[i].getName())
+		{
+			cout << "Error: The tables' attributes do not match " << "\n" ;
+		}
+		
+	}
+	
+	// ^^ CODE WORKS UNTIL HERE FOR SURE
+	
+	int data_vector_size = 0; // gets data vector size :height of table
+	
+	for (int i =0; i< table1.att.size(); i++)
+	{	
+		data_vector_size = table1.att[i].data.size();	
+	}
+	
+	return table1;
 	
 	
 }
 
-*/
+
 /* This function forms a cartesian product of its two arguments. 
 It will then check if the equality of those attributes appear in both relations.
 Lastly, it removes duplicates attributes  */
@@ -191,7 +204,37 @@ Table Engine :: renaming(Table table)
 
 Table Engine :: difference(Table table1, Table table2)
 {
-	//TODO
+	//TODO : finish difference
+	bool table_exists = false;
+	for (int i = 0; i < all_tables.size(); i++)
+	{
+		if (table1.name == all_tables[i].name)
+		{
+			table_exists = true;
+		}
+	}
+	if (table_exists != true)
+	{
+		cout << " Error: Table does not exist" << "\n";
+	}
+	
+	// find size of attribute vector
+	int table1_att = table1.att.size();
+	int table2_att = table2.att.size();
+	
+	if (table1_att != table2_att) // if they are not equal then we cannot perform UNION
+	{
+		cout << "Error : The tables entered does not have the same number of attributes " << "\n";
+	}
+
+	for (int i = 0; i < table1_att; i++)
+	{
+		if(table1.att[i].getName() != table2.att[i].getName())
+		{
+			cout << "Error: The tables' attributes do not match " << "\n" ;
+		}
+		
+	}
 }
 
 /* This function combines information from two relations.*/
