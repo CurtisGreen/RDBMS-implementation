@@ -36,6 +36,7 @@ class Engine{
 	Table natural_join(Table table1, Table table2);
 	Table cross_product(Table table1, Table table2);
 	Table renaming(Table table);
+	vector<string> createTuples(Table t);
 	Table difference(Table table1, Table table2);
 	
 

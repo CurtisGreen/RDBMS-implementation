@@ -17,6 +17,7 @@ class Attribute
 	vector <string> data;
 	
 	Attribute();
+    Attribute(vector<string> data);
 	Attribute (string name_ , string type_ , vector <string> data_);
 	string getName();
 	string getType();

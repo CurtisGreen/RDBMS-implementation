@@ -15,7 +15,8 @@ int main(){
 
 	Engine e; 
 
-
+///was commented because I was testing diference(Table,Table),Jose
+/*
 	//-----------------------------------------------------------------------
 	//------------------Human Identity Table---------------------------------
 	//-----------------------------------------------------------------------
@@ -190,11 +191,57 @@ int main(){
 	e.write(human_table);
 	
 	//TODO: tests regarding engine functions
-	
-	
-	
-	//Attribute test_attribute;
 
-	//cout << "This is just a test ";
+
+*/
+	//------------------Testing difference with a new tables ------------------------------------
+	//This table is from a webiste it show the corret result after checking for difference of two table
+	//
+
+	vector<string> tuple_1g = {"7274","Robinson","37"};
+	vector<string> tuple_2g = {"7432","O'Malley","39"};
+	vector<string> tuple_3g = {"9824","Darkes","38"};
+
+	//TUPLE
+	Attribute t_1g(tuple_1g);
+	Attribute t_2g(tuple_2g );
+	Attribute t_3g(tuple_3g);
+
+	vector<Attribute> g_att;
+
+	g_att.push_back(t_1g);
+	g_att.push_back(t_2g);
+	g_att.push_back(t_3g);
+
+	vector<string> tuple_1 = {"9297","O'Malley","56"};
+	vector<string> tuple_2 = {"7432","O'Malley","39"};
+	vector<string> tuple_3 = {"9824","Darkes","38"};
+
+	//TUPLE
+	Attribute t_1(tuple_1);
+	Attribute t_2(tuple_2 );
+	Attribute t_3(tuple_3);
+
+	vector<Attribute> m_att;
+
+	m_att.push_back(t_1);
+	m_att.push_back(t_2);
+	m_att.push_back(t_3);
+
+	vector<string> key = {"1","2","3"};
+
+
+	Table graduate_table("Graduate",g_att,key);
+	Table manager_table("Manager",m_att,key);
+
+	e.all_tables.push_back(graduate_table);
+	e.all_tables.push_back(manager_table);
+
+
+	e.difference(graduate_table,manager_table);
+		
+	
+
+	
 }
 

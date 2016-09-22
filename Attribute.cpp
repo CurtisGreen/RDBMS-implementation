@@ -14,6 +14,14 @@ Attribute::Attribute()
 	
 }
 
+
+Attribute::Attribute(vector<string> data_)
+{
+	
+	data = data_;
+}
+
+
 Attribute::Attribute(string name_, string type_, vector<string> data_)
 {
 	name = name_;

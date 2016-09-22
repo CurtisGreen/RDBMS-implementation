@@ -150,7 +150,7 @@ Table Engine :: projection(Table table)
 /* The function sets a union between two attributes that appear in either or both of the two relations. 
  For the set union to be valid they must have the same number of attributes */
 
-Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
+Table Engine::set_union(string attribute_name , Table table1, Table table2 )
 {
 	//TODO : still working on set Union : unfinished  
 	bool table_exists = false;
@@ -203,7 +203,7 @@ Table Engine :: set_union(string attribute_name , Table table1, Table table2 )
 It will then check if the equality of those attributes appear in both relations.
 Lastly, it removes duplicates attributes  */
 
-Table Engine :: natural_join(Table table1, Table table2)
+Table Engine::natural_join(Table table1, Table table2)
 {
 	// TODO
 	//return NULL;
@@ -211,15 +211,33 @@ Table Engine :: natural_join(Table table1, Table table2)
 
 /* This function renames the attributes in a relation  */
 
-Table Engine :: renaming(Table table)
-
-{
-	//TODO
+Table Engine::renaming(Table table){
+	
 }
 
-/* This function should find the tuples in one relation but not in other */
 
-Table Engine :: difference(Table table1, Table table2)
+/* This function should find the tuples in one relation but not in other */
+///creates a vector of tuples,I was trying to figure out how  to compare rows(tuples)
+vector<string> Engine::createTuples(Table t){//return a string, needs to return a tuple(vector<attributes>)
+
+	vector<string> tuples;
+	string str;
+
+	for(int i = 0; i< t.att.size(); i++){
+
+		for(int j = 0; j< t.att.size(); j++){
+
+			str += t.att[i].data[j];
+		}
+		tuples.push_back(str);
+		str ="";
+	}
+
+	return tuples; //return a vector of tuples 
+}
+
+//TODO, needs to return a Table, right now prints a string for testing purposes
+Table Engine::difference(Table table1, Table table2)
 {
 	//TODO : finish difference
 	bool table_exists = false;
@@ -236,27 +254,47 @@ Table Engine :: difference(Table table1, Table table2)
 	}
 	
 	// find size of attribute vector
-	int table1_att = table1.att.size();
-	int table2_att = table2.att.size();
+	int table1_size = table1.att.size();
+	int table2_size = table2.att.size();
 	
-	if (table1_att != table2_att) // if they are not equal then we cannot perform UNION
+	if (table1_size != table2_size) // if they are not equal then we cannot perform UNION
 	{
 		cout << "Error : The tables entered does not have the same number of attributes " << "\n";
 	}
 
-	for (int i = 0; i < table1_att; i++)
-	{
-		if(table1.att[i].getName() != table2.att[i].getName())
-		{
-			cout << "Error: The tables' attributes do not match " << "\n" ;
-		}
-		
+
+	Table rtn_table = Table(); /// stores the difference of tuples
+
+	vector<string> t_1 = createTuples(table1); 
+	vector<string> t_2 = createTuples(table2); 
+	
+	vector<string> stored;
+	string str;
+	int count = 0;
+
+	for(int i = 0; i< t_1.size(); i++ ){
+
+		for(int j = 0; j< t_2.size(); j++){
+
+			if(t_1[i] == t_2[j]){
+				count++;
+		    }
+        }
+        if(count == 0){
+        	cout<<t_1[i]<<endl;
+        }
 	}
+
+	for(int i = 0; i< stored.size(); i++){
+		cout<<stored[i]<<endl;
+	}
+
+	return rtn_table;
 }
 
 /* This function combines information from two relations.*/
 
-Table Engine :: cross_product(Table table1, Table table2)
+Table Engine::cross_product(Table table1, Table table2)
 {
 	//TODO
 }
