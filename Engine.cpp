@@ -11,7 +11,32 @@
 using namespace std;
 
 void Engine::open(string table_name){
-	//TODO
+	//TODO : Need help finishing this last line, but otherwise works.
+	bool table_exists; // boolean to figure out if table already exists
+	
+	for (int i =0; i < all_tables.size(); i++){
+		if (all_tables[i].getName() == table_name){
+			table_exists = true;
+		}
+	}
+	if (table_exists != true){
+		cout << " Error: Table does not exist" << "\n";
+	}
+	
+	ifstream input_file(table_name + ".txt");
+	
+	if(!input_file.is_open())
+	{
+		cout << "Error: Could not open file" << "\n";
+	}
+	else
+	{
+		Table new_table = Table();
+		new_table.Read(input_file);
+		all_tables.push_back(new_table);
+		
+	}
+	
 }
 void Engine::close(string table_name){
 	//TODO
