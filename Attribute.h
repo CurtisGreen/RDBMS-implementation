@@ -21,7 +21,8 @@ class Attribute
 	string getName();
 	string getType();
 	vector<string> getData();
-	
+	istream& Read(istream& input); // needed to be able to print attributes to txt file
+	ostream& Write(ostream& output);
 };
 
 #endif

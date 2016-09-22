@@ -98,23 +98,23 @@ int main(){
 	
 	cout << "Done pushing" << "\n" ;
 	
-<<<<<<< HEAD
+
 	int size1 = e.all_tables.size(); 
 
 	cout << size1 << "\n";
-=======
-	int size1 = e.all_tables.size();
+
+	//int size1 = e.all_tables.size();
 	 
 	cout << "Dropping a table\n";
 	cout << "Number of tables = " <<size1<<endl;
->>>>>>> 8a6a39d55171312541bb209f675bd85dbf1e866c
+
 	
 	//e.drop("Human");
 	
 	cout << "Dropped " << "\n" ;
 	
 	int size2 = e.all_tables.size();
-<<<<<<< HEAD
+
 	
 	cout << size2 << "\n";
 	//------------------------------UNION CHECKING : BEGINNING CONDITIONS CHECK ----------------------------------------------------------//
@@ -150,7 +150,7 @@ int main(){
 	e.set_union("height", human, hero);
 	
 	// table.create("SuperHero", "test_attribute",  );
-=======
+
 	cout << "Number of tables = "<< size2<<endl;
 
 	//-----------------------------------------------------------------------
@@ -169,7 +169,7 @@ int main(){
 	//-----------------------------------------------------------------------
 	
 	// TODO: table.create("SuperHero", "test_attribute", ... );
->>>>>>> 8a6a39d55171312541bb209f675bd85dbf1e866c
+
 
 	//-----------------------------------------------------------------------
 	//---------------------Insert Test---------------------------------------
@@ -179,6 +179,16 @@ int main(){
 	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
 	e.insert("Hero", insert_test);
 	e.show("Hero");
+	
+	
+	
+	//------------------------------------------------------------------------
+	//----------------------------Write function test -----------------------
+	//-----------------------------------------------------------------------
+	
+	cout << "\n Writing Test" << "\n";
+	e.write(human_table);
+	
 	//TODO: tests regarding engine functions
 	
 	

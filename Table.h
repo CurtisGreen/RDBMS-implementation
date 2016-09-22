@@ -20,7 +20,13 @@ public:
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
   Table();
+  
+  istream& Read(istream& input);
+  ostream& Write(ostream& output);
  
 };
 
+// input & out put operators >> << 
+istream& operator >> (istream& input, Table& t); 
+ostream& operator << (ostream& output, Table& t);
 #endif

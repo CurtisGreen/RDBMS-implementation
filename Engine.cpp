@@ -18,7 +18,8 @@ void Engine::close(string table_name){
 }
 
 void Engine::write(Table table){
-	//TODO: need to define >> << operators
+	
+	//TODO : fix formating, but function works
 	bool table_exists; // boolean to figure out if table already exists
 	
 	for (int i =0; i < all_tables.size(); i++){
@@ -30,9 +31,10 @@ void Engine::write(Table table){
 	if (table_exists != true){
 		all_tables.push_back(table); 
 	}
+	
 	ofstream output_file(table.getName()+ ".txt");
-	cout << "Writing to file " << "\n";
-	//output_file << table; 
+	
+	output_file << table; 
 	
 }
 
@@ -258,5 +260,6 @@ Table Engine :: cross_product(Table table1, Table table2)
 {
 	//TODO
 }
+
 
 

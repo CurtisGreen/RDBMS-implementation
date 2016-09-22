@@ -36,5 +36,18 @@ vector<string> Attribute::getData()
 	return data;
 }
 
-
+istream&  Attribute ::Read(istream& input)
+{
+	
+	//TODO:
+}
+ostream&  Attribute :: Write(ostream& output)
+{
+	for (int i =0; i < data.size(); i++)
+	{
+		output << data[i] << ":" << "\n";
+	}
+	return output;
+	
+}
 
