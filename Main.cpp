@@ -43,7 +43,7 @@ int main(){
 
 
     //-----------------------------------------------------------------------
-	//-----------------Hero Indentiry Table----------------------------------
+	//-----------------Hero Indentity Table----------------------------------
 	//-----------------------------------------------------------------------
 	vector<string> h_name = {"Spider Man","Super Man","Hulk"};
 	vector<string> h_ability = {"Strenght","Fly","Strenght"};
@@ -64,7 +64,7 @@ int main(){
 	hero_attributes.push_back(att_hero_weight);
 	hero_attributes.push_back(att_hero_height);
 
-	Table hero_table("Hero",hero_attributes,key_hero);//crates table 
+	Table hero_table("Hero",hero_attributes,key_hero);//creates table 
 
 
 	//-----------------------------------------------------------------------
@@ -98,15 +98,23 @@ int main(){
 	
 	cout << "Done pushing" << "\n" ;
 	
+<<<<<<< HEAD
 	int size1 = e.all_tables.size(); 
 
 	cout << size1 << "\n";
+=======
+	int size1 = e.all_tables.size();
+	 
+	cout << "Dropping a table\n";
+	cout << "Number of tables = " <<size1<<endl;
+>>>>>>> 8a6a39d55171312541bb209f675bd85dbf1e866c
 	
 	//e.drop("Human");
 	
 	cout << "Dropped " << "\n" ;
 	
 	int size2 = e.all_tables.size();
+<<<<<<< HEAD
 	
 	cout << size2 << "\n";
 	//------------------------------UNION CHECKING : BEGINNING CONDITIONS CHECK ----------------------------------------------------------//
@@ -142,7 +150,35 @@ int main(){
 	e.set_union("height", human, hero);
 	
 	// table.create("SuperHero", "test_attribute",  );
+=======
+	cout << "Number of tables = "<< size2<<endl;
 
+	//-----------------------------------------------------------------------
+	//---------------------Show Test----------------------------------------
+	//-----------------------------------------------------------------------
+	cout << endl;
+	cout << "Show test:"<< endl;
+	e.show("Human");
+	cout << "\n" << endl;
+	e.show("Hero");
+	cout << "\n" << endl;
+	e.show("Affiliation");
+
+	//-----------------------------------------------------------------------
+	//---------------------Create test----------------------------------------
+	//-----------------------------------------------------------------------
+	
+	// TODO: table.create("SuperHero", "test_attribute", ... );
+>>>>>>> 8a6a39d55171312541bb209f675bd85dbf1e866c
+
+	//-----------------------------------------------------------------------
+	//---------------------Insert Test---------------------------------------
+	//-----------------------------------------------------------------------
+	cout << "\n\n" << endl;
+	cout << "Insert test:"<< endl;
+	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
+	e.insert("Hero", insert_test);
+	e.show("Hero");
 	//TODO: tests regarding engine functions
 	
 	

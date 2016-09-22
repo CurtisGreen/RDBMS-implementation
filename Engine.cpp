@@ -43,22 +43,35 @@ void Engine::exit_(){
 
 void Engine::show(string table_name){
 	//TODO: formatting
-	//check if empty
+	//TODO:check if empty
 	Table table;
+	bool found = false;
+	
 	for (int i = 0; i < all_tables.size(); i++){
 		if (table_name == all_tables[i].getName()){
+			found = true;
 			table = all_tables[i];
 		}
 	}
-	for (int i = 0; i < table.att.size(); i++){
-		cout << table.getName() << '\t';
-	}
-	cout << endl;
-	for (int k = 0; k < table.att[0].data.size(); k++){
-		for (int i = 0; i < table.att.size(); i++){
-			cout << table.att[i].data[k] << '\t';
+	if (found){
+		if (table.att.size() != 0){
+			cout << '\n' << table.getName() <<endl;
+			cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+			for (int k = 0; k < table.att[0].data.size(); k++){
+				cout << '\n';
+				for (int i = 0; i < table.att.size(); i++){
+					cout << table.att[i].data[k] << '\t';
+				}
+			}
+		}
+		else{
+			cout << "Table is empty" << endl;
 		}
 	}
+	else{
+		cout << "Table not found, cannot show" << endl;
+	}
+	
 }
 
 /* This function creates a table and adds it to the database  */
@@ -74,22 +87,24 @@ void Engine::update(){
 	//TODO
 }
 
-void Engine::insert(string name, vector<Attribute> new_att){
-	Table table;
+void Engine::insert(string table_name, vector<string> new_row){
+	Table* table;
+	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
-		if (name == all_tables[i].getName()){
-			table = all_tables[i];
+		if (table_name == all_tables[i].getName()){
+			found = true;
+			table = &(all_tables[i]);
 		}
 	}
-
-	 for (int i = 0; i < table.att.size(); i++){	//Loop through comparing header & data b/c data might not be in the right order
-		 for (int k = 0; k < new_att.size(); k++){
-			 if (new_att[i].getName() == table.att[k].getName() && new_att[i].type == table.att[k].getType()){
-				 table.att[k].getData().push_back(new_att[i].data[0]);
-			 } 
-		 }
-	 }
-	
+	if (found){
+		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+			table->att[i].getData().push_back(new_row[i]); //Why doesn't this work?
+	 	}
+	}
+	else{
+		cout << "Table not found, cannot insert" << endl;
+	}
+	 
 }
 /* This function deletes record from a table  */
 void Engine::destroy(){
