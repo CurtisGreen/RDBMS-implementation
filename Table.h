@@ -14,13 +14,14 @@ public:
   string name;
   vector<string> id;
   vector<Attribute> att;
+  vector<Attribute>tuple;
   
   
   string getName();
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
   Table();
-  
+  //void addAttribute(Attribute t);
   istream& Read(istream& input);
   ostream& Write(ostream& output);
  

@@ -22,6 +22,12 @@ string Table:: getName()
 	return name;
 }
 
+/*
+ void addAttribute(Attribute t)
+ {
+ 	tuple.push_back(t);
+ }
+*/
 ostream& Table :: Write(ostream& output)
 {
 	for (int i =0; i < att.size(); i++)

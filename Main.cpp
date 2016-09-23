@@ -210,7 +210,6 @@ int main(){
 	//TODO: tests regarding engine functions
 
 
-*/
 	//------------------Testing difference with a new tables ------------------------------------
 	//This table is from a webiste it show the corret result after checking for difference of two table
 	//
@@ -251,14 +250,63 @@ int main(){
 	Table graduate_table("Graduate",g_att,key);
 	Table manager_table("Manager",m_att,key);
 
-	e.all_tables.push_back(graduate_table);
-	e.all_tables.push_back(manager_table);
+	//e.all_tables.push_back(graduate_table);
+	//e.all_tables.push_back(manager_table);
+	//e.difference(graduate_table,manager_table);
+
+	//e.set_union("Name" ,graduate_table,manager_table);
+
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
 
 
-	e.difference(graduate_table,manager_table);
-		
+*/
+
+	//Graduate table
+    vector<string> number = {"7274","7432","9894","111"};
+	vector<string> surname = {"Robinson","O'Malley","Darkes","111"};
+	vector<string> age = {"37","39","38","111"};
+	Attribute g_number("Number","Integer",number);
+	Attribute g_surname("Surname","string",surname );
+	Attribute g_age("Age","Integer",age);
+	vector<string> key_name = {"1","2","3"};
+	vector<Attribute> graduate_att;
+	graduate_att.push_back(g_number);
+	graduate_att.push_back(g_surname);
+	graduate_att.push_back(g_age);
+
+	//Manager Table
+	vector<string> number2 = {"9297","7432","9894"};
+	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+	vector<string> age2 = {"56","39","38"};
+
+	Attribute m_number("Number","Integer",number2);
+	Attribute m_surname("Surname","string",surname2 );
+	Attribute m_age("Age","Integer",age2);
+
+	vector<Attribute> manager_att;
+
+	manager_att.push_back(m_number);
+	manager_att.push_back(m_surname);
+	manager_att.push_back(m_age);
+
+
+	Table t1("Gradutate",graduate_att,key_name);
+	Table t2("Manager",manager_att,key_name);
+
+	vector<string> r = e.rtn_Row(t1,0);
+
+	/*
+	for(int i = 0; i<r.size(); i++){
+		cout<<r[i]<<" ";
+	}
+*/
+ 	
+
+ 	
 	
 
-	
+ 
+
 }
 
