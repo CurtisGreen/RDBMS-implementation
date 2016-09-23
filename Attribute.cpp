@@ -33,6 +33,11 @@ string Attribute::getName()
 {
 	return name;
 }
+void Attribute :: setName(string name_)
+{
+	name = name_;
+	
+}
 
 string Attribute::getType()
 {

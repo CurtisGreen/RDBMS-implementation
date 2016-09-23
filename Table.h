@@ -17,9 +17,11 @@ public:
   
   
   string getName();
+  vector<Attribute> getAttributes() const {return att;}
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
   Table();
+  Table(const Table& table);
   
   istream& Read(istream& input);
   ostream& Write(ostream& output);

@@ -21,7 +21,17 @@ string Table:: getName()
 {
 	return name;
 }
-
+// vector <Attribute> Table :: getAttributes();
+// {
+	// return att;
+// }
+Table::Table (const Table& table)
+{
+	name = table.name;
+	att = table.att;
+	id = table.id;
+	
+}
 ostream& Table :: Write(ostream& output)
 {
 	for (int i =0; i < att.size(); i++)
