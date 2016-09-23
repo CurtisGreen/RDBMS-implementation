@@ -43,23 +43,24 @@ void Engine::close(string table_name){
 }
 
 void Engine::read(string table_name){
-	Table table;
-	bool found = false;
+	// Table table;
+	// bool found = false;
 	
-	for (int i = 0; i < all_tables.size(); i++){
-	    if (table_name == all_tables[i].getName()){
-	    	found = true;
-		table = all_tables[i];
-	    }
-	}
+	// for (int i = 0; i < all_tables.size(); i++){
+	    // if (table_name == all_tables[i].getName()){
+	    	// found = true;
+		// table = all_tables[i];
+	    // }
+	// }
 	
-	if (!table_exists){
-		all_tables.push_back(table);
-	}
+	// if (!table_exists){
+		// all_tables.push_back(table);
+	// }
 	//TODO: check to make sure file exists
-	ifstream input_file(table.getName()+".txt");
-	output_file >> table;
+	// ifstream input_file(table.getName()+".txt");
+	// output_file >> table;
 }
+
 void Engine::write(Table table){
 	
 	//TODO : fix formating, but function works
@@ -452,54 +453,8 @@ Table Engine::difference(Table table1, Table table2)
 	
 }
 
-<<<<<<< HEAD
-=======
+
 /* This function combines information from two relations. And removes duplicates*/
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* This function combines information from two relations.*/
 Table Engine::cross_product(Table table1, Table table2)
 {
 	//TODO

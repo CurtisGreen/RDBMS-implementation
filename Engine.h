@@ -36,12 +36,8 @@ class Engine{
 	Table set_union(string attribute_name , Table table1, Table table2 );
 	Table natural_join(Table table1, Table table2);
 	Table cross_product(Table table1, Table table2);
-<<<<<<< HEAD
-	Table renaming(Table table);
-=======
 	void renaming(string old_attr, string new_attr, string table_name);
 	vector<string> createTuples(Table t);
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 	Table difference(Table table1, Table table2);
 
 	vector<string> rtn_stringRow(Table t);

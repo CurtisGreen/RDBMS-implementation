@@ -51,15 +51,15 @@ vector<string> Attribute::getData()
 
 istream&  Attribute ::Read(istream& input)
 {
-	string in_name, in_type;
-	string in_data;
-	input >> in_name >> in_type >> "\n";
-	name = in_name;
-	type = in_type;
-	for (int i = 0; i < data.size(); i++){
-	    input >> in_data;
-	    data.push_back(in_data);
-	}
+	// string in_name, in_type;
+	// string in_data;
+	// input >> in_name >> in_type >> '\n';
+	// name = in_name;
+	// type = in_type;
+	// for (int i = 0; i < data.size(); i++){
+	    // input >> in_data;
+	    // data.push_back(in_data);
+	// }
 }
 ostream&  Attribute :: Write(ostream& output)
 {

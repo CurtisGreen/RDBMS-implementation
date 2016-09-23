@@ -190,9 +190,7 @@ int main(){
 	cout << "\n Writing Test:" << "\n";
 	e.write(human_table);
 	
-<<<<<<< HEAD
-=======
-	
+
 	//------------------------------------------------------------------------
 	//----------------------------Open function test -----------------------
 	//-----------------------------------------------------------------------
@@ -200,7 +198,7 @@ int main(){
 	e.open("Human");
 	//TODO: tests regarding engine functions
 	
->>>>>>> 0cffe440a50b346a906ba6368dabc5d92508df18
+
 	
 	//------------------------------------------------------------------------
 	//----------------------------Open function test -----------------------
@@ -264,6 +262,7 @@ int main(){
 */
 
 	//Graduate table
+	/*
     vector<string> number = {"7274","7432","9894","111"};
 	vector<string> surname = {"Robinson","O'Malley","Darkes","111"};
 	vector<string> age = {"37","39","38","111"};
@@ -276,7 +275,10 @@ int main(){
 	graduate_att.push_back(g_surname);
 	graduate_att.push_back(g_age);
 
+	*/
 	//Manager Table
+	
+	/*
 	vector<string> number2 = {"9297","7432","9894"};
 	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
 	vector<string> age2 = {"56","39","38"};
@@ -286,14 +288,15 @@ int main(){
 	Attribute m_age("Age","Integer",age2);
 
 	vector<Attribute> manager_att;
-=======
-	e.difference(graduate_table,manager_table);
-		
+	*/
+	//e.difference(graduate_table,manager_table);
+	
 	
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
 	
+	/*
 	vector<string> new_names = {"love","happiness"};
 	
 	vector<string> weight_ = {"150","160","250"};
@@ -311,7 +314,7 @@ int main(){
 	Table human("human table", human_atts, key_name);
 	
 	e.all_tables.push_back(human);
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
+
 
 	manager_att.push_back(m_number);
 	manager_att.push_back(m_surname);
@@ -329,24 +332,16 @@ int main(){
 	}
 */
  	
+	
+	// cout << "RENAME TEST\n" ;
+	
+	
+	// e.renaming("Weight", "love","human table");
+	
+	// cout << "MADE IT HERE \n";
+	
+	// e.show("human table");
+	
 
- 	
-	
-<<<<<<< HEAD
-
- 
-
-=======
-	
-	cout << "RENAME TEST\n" ;
-	
-	
-	e.renaming("Weight", "love","human table");
-	
-	cout << "MADE IT HERE \n";
-	
-	e.show("human table");
-	
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 }
 

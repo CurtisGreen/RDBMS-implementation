@@ -22,12 +22,10 @@ public:
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
   Table();
-<<<<<<< HEAD
+
   //void addAttribute(Attribute t);
-=======
   Table(const Table& table);
   
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
   istream& Read(istream& input);
   ostream& Write(ostream& output);
  
