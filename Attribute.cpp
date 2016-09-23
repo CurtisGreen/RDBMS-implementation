@@ -56,9 +56,11 @@ istream&  Attribute ::Read(istream& input)
 }
 ostream&  Attribute :: Write(ostream& output)
 {
+	cout << name << type << "\n";
+	
 	for (int i =0; i < data.size(); i++)
 	{
-		output << data[i] << ":" << "\n";
+		output << data[i] << " " ;
 	}
 	return output;
 	
