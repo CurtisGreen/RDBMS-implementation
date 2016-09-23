@@ -125,7 +125,7 @@ void Engine::insert(string table_name, vector<string> new_row){
 	}
 	if (found){
 		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-			table->att[i].getData().push_back(new_row[i]); //Why doesn't this work?
+			table->att[i].data.push_back(new_row[i]); /
 	 	}
 	}
 	else{
