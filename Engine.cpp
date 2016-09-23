@@ -235,35 +235,31 @@ Table Engine::natural_join(Table table1, Table table2)
 
 /* This function renames the attributes in a relation  */
 
-Table Engine::renaming( string old_attr, string new_attr, Table& table){
+void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
 	//TODO : Help ! Why doesn't this work ?
 	bool table_exists = false;
+	Table* table;
 	for (int i = 0; i < all_tables.size(); i++)
 	{
-		if (table.name == all_tables[i].name)
+		if (table_name == all_tables[i].name)
 		{
 			table_exists = true;
+			table = all_tables[i];
 		}
 	}
 	if (table_exists != true)
 	{
 		cout << " Error: Table does not exist" << "\n";
-		
-	
 	}
 	
-	for (int i = 0; i < table.att.size(); i++)
+	for (int i = 0; i < table->att.size(); i++)
 	{
-		if (table.att[i].getName() == old_attr)
+		if (table->att[i].getName() == old_attr)
 		{
-			table.att[i].setName(new_attr);
+			table->att[i].setName(new_attr);
 		}
 	}
-	return table;
-
-	
-	
 }
 
 
