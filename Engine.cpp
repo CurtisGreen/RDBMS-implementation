@@ -70,7 +70,6 @@ void Engine::exit_(){
 
 void Engine::show(string table_name){
 	//TODO: formatting
-	//TODO:check if empty
 	Table table;
 	bool found = false;
 	
