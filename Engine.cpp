@@ -164,9 +164,13 @@ Table Engine :: selection(Table table)
 
 /* This function selects a subset of the attributes in a relation. */
 
-Table Engine :: projection(string att_name, string table_name)
+Table Engine :: projection(vector <string> att_names, string table_name)
 {
-	//TODO
+	
+	
+	
+	
+	
 }
 
 /* The function sets a union between two attributes that appear in either or both of the two relations. 
@@ -337,7 +341,7 @@ Table Engine::difference(Table table1, Table table2)
 	return rtn_table;
 }
 
-/* This function combines information from two relations.*/
+/* This function combines information from two relations. And removes duplicates*/
 
 Table Engine::cross_product(Table table1, Table table2)
 {
