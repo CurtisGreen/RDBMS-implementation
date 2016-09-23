@@ -164,7 +164,7 @@ Table Engine :: selection(Table table)
 
 /* This function selects a subset of the attributes in a relation. */
 
-Table Engine :: projection(Table table)
+Table Engine :: projection(string att_name, string table_name)
 {
 	//TODO
 }
