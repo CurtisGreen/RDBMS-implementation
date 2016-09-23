@@ -114,24 +114,24 @@ void Engine::update(){
 }
 
 void Engine::insert(string table_name, vector<string> new_row){
-	// Table* table;
-	// bool found = false;
-	// for (int i = 0; i < all_tables.size(); i++){
-		// if (table_name == all_tables[i].getName()){
-			// found = true;
-			// table = &(all_tables[i]);
-		// }
-	// }
-	// if (found){
-		// for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-			// table->att[i].data.push_back(new_row[i]); /
-	 	// }
-	// }
-	// else{
-		// cout << "Table not found, cannot insert" << endl;
-	// }
+	Table* table;
+	bool found = false;
+	for (int i = 0; i < all_tables.size(); i++){
+		if (table_name == all_tables[i].getName()){
+			found = true;
+			table = &(all_tables[i]);
+		}
+	}
+	if (found){
+		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+			table->att[i].data.push_back(new_row[i]); 
+	 	}
+	}
+	else{
+		cout << "Table not found, cannot insert" << endl;
+	}
 	 
-}
+ }
 /* This function deletes record from a table  */
 void Engine::destroy(){
 	//TODO
@@ -144,8 +144,6 @@ void Engine::drop(string table_name){
 		all_tables.erase(all_tables.begin()+i); 
 		}
 	}
-	
-	
 }
 
 
