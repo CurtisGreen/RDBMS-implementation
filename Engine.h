@@ -18,6 +18,7 @@ class Engine{
 	//commands
 	void open(string table_name);
 	void close(string table_name);
+	void read(string table_name);
 	void write(Table table);
 	void exit_();
 	void show(string table_name);
