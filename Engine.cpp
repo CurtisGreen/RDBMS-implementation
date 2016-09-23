@@ -162,11 +162,9 @@ Table Engine :: selection(Table table)
 
 /* This function selects a subset of the attributes in a relation. */
 
-<<<<<<< HEAD
+
 Table Engine :: projection(vector <string> att_names, string table_name)
-=======
-Table Engine :: projection(Table table)
->>>>>>> 57d301b73ee089f23b5a5d2e1d7f6e76d1c511b7
+
 {
 	
 	
