@@ -21,7 +21,6 @@ string Table:: getName()
 {
 	return name;
 }
-<<<<<<< HEAD
 
 /*
  void addAttribute(Attribute t)
@@ -29,7 +28,6 @@ string Table:: getName()
  	tuple.push_back(t);
  }
 */
-=======
 // vector <Attribute> Table :: getAttributes();
 // {
 	// return att;
@@ -41,7 +39,6 @@ Table::Table (const Table& table)
 	id = table.id;
 	
 }
->>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 ostream& Table :: Write(ostream& output)
 {
 	for (int i =0; i < att.size(); i++)
@@ -54,22 +51,13 @@ ostream& Table :: Write(ostream& output)
 istream& Table :: Read(istream& input)
 
 {
-	/*//TODO:finish it
-	string data;
-	while (input << data){
-	    if(att.size() == 0){
-	    	//pushback new attribute
-	    	Attribute new_att;
-	    }
-	    else{
-	    	//pushback data
-	    }
+	//TODO:finish it
+	int i = 0;
+	while(input){
+	    att[i].Read(input);
+	    i++;
 	}
-	
-	
 	return input;
-	*/
-	
 }
 
 
