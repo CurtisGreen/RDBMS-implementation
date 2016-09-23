@@ -285,7 +285,7 @@ int main(){
 	cout << "RENAME TEST\n" ;
 	
 	
-	e.renaming("Weight", "love", human);
+	e.renaming("Weight", "love","human table");
 	
 	cout << "MADE IT HERE \n";
 	

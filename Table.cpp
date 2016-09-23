@@ -44,7 +44,7 @@ ostream& Table :: Write(ostream& output)
 istream& Table :: Read(istream& input)
 
 {
-	//TODO:finish it
+	/*//TODO:finish it
 	string data;
 	while (input << data){
 	    if(att.size() == 0){
@@ -58,6 +58,7 @@ istream& Table :: Read(istream& input)
 	
 	
 	return input;
+	*/
 	
 }
 

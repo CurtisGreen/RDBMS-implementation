@@ -114,22 +114,22 @@ void Engine::update(){
 }
 
 void Engine::insert(string table_name, vector<string> new_row){
-	Table* table;
-	bool found = false;
-	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].getName()){
-			found = true;
-			table = &(all_tables[i]);
-		}
-	}
-	if (found){
-		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-			table->att[i].data.push_back(new_row[i]); /
-	 	}
-	}
-	else{
-		cout << "Table not found, cannot insert" << endl;
-	}
+	// Table* table;
+	// bool found = false;
+	// for (int i = 0; i < all_tables.size(); i++){
+		// if (table_name == all_tables[i].getName()){
+			// found = true;
+			// table = &(all_tables[i]);
+		// }
+	// }
+	// if (found){
+		// for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+			// table->att[i].data.push_back(new_row[i]); /
+	 	// }
+	// }
+	// else{
+		// cout << "Table not found, cannot insert" << endl;
+	// }
 	 
 }
 /* This function deletes record from a table  */
@@ -237,7 +237,7 @@ Table Engine::natural_join(Table table1, Table table2)
 
 void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
-	//TODO : Help ! Why doesn't this work ?
+	//TODO : It works !! HOORAY !!
 	bool table_exists = false;
 	Table* table;
 	for (int i = 0; i < all_tables.size(); i++)
@@ -245,7 +245,7 @@ void Engine::renaming( string old_attr, string new_attr, string table_name){
 		if (table_name == all_tables[i].name)
 		{
 			table_exists = true;
-			table = all_tables[i];
+			table = &(all_tables[i]);
 		}
 	}
 	if (table_exists != true)
