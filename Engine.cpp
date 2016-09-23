@@ -74,30 +74,29 @@ void Engine::show(string table_name){
 	bool found = false;
 	
 	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].getName()){
-			found = true;
-			table = all_tables[i];
-		}
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+		table = all_tables[i];
+	    }
 	}
 	if (found){
-		if (table.att.size() != 0){
-			cout << '\n' << table.getName() <<endl;
-			cout << table.att[0].data.size() << "x" << table.att.size() << endl;
-			for (int k = 0; k < table.att[0].data.size(); k++){
-				cout << '\n';
-				for (int i = 0; i < table.att.size(); i++){
-					cout << table.att[i].getName() <<  table.att[i].data[k] << '\t';
-				}
-			}
+	    if (table.att.size() != 0){
+		cout << '\n' << table.getName() <<endl;
+		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+		for (int k = 0; k < table.att[0].data.size(); k++){
+		    cout << '\n';
+		    for (int i = 0; i < table.att.size(); i++){
+			cout << table.att[i].getName() <<  table.att[i].data[k] << '\t';
+		    }
 		}
-		else{
-			cout << "Table is empty" << endl;
-		}
+	    }
+	    else{
+	    	cout << "Table is empty" << endl;
+	    }
 	}
 	else{
-		cout << "Table not found, cannot show" << endl;
+	    cout << "Table not found, cannot show" << endl;
 	}
-	
 }
 
 /* This function creates a table and adds it to the database  */
@@ -117,20 +116,19 @@ void Engine::insert(string table_name, vector<string> new_row){
 	Table* table;
 	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].getName()){
-			found = true;
-			table = &(all_tables[i]);
-		}
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+		table = &(all_tables[i]);
+	    }
 	}
 	if (found){
-		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-			table->att[i].data.push_back(new_row[i]); 
-	 	}
+	    for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+	        table->att[i].data.push_back(new_row[i]); 
+	     }
 	}
 	else{
-		cout << "Table not found, cannot insert" << endl;
+	    cout << "Table not found, cannot insert" << endl;
 	}
-	 
  }
 /* This function deletes record from a table  */
 void Engine::destroy(){
@@ -164,7 +162,7 @@ Table Engine :: selection(Table table)
 
 /* This function selects a subset of the attributes in a relation. */
 
-Table Engine :: projection(string att_name, string table_name)
+Table Engine :: projection(Table table)
 {
 	//TODO
 }
