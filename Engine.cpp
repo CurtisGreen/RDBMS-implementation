@@ -70,35 +70,33 @@ void Engine::exit_(){
 
 void Engine::show(string table_name){
 	//TODO: formatting
-	//TODO:check if empty
 	Table table;
 	bool found = false;
 	
 	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].getName()){
-			found = true;
-			table = all_tables[i];
-		}
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+		table = all_tables[i];
+	    }
 	}
 	if (found){
-		if (table.att.size() != 0){
-			cout << '\n' << table.getName() <<endl;
-			cout << table.att[0].data.size() << "x" << table.att.size() << endl;
-			for (int k = 0; k < table.att[0].data.size(); k++){
-				cout << '\n';
-				for (int i = 0; i < table.att.size(); i++){
-					cout << table.att[i].data[k] << '\t';
-				}
-			}
+	    if (table.att.size() != 0){
+		cout << '\n' << table.getName() <<endl;
+		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+		for (int k = 0; k < table.att[0].data.size(); k++){
+		    cout << '\n';
+		    for (int i = 0; i < table.att.size(); i++){
+			cout << table.att[i].getName() <<  table.att[i].data[k] << '\t';
+		    }
 		}
-		else{
-			cout << "Table is empty" << endl;
-		}
+	    }
+	    else{
+	    	cout << "Table is empty" << endl;
+	    }
 	}
 	else{
-		cout << "Table not found, cannot show" << endl;
+	    cout << "Table not found, cannot show" << endl;
 	}
-	
 }
 
 /* This function creates a table and adds it to the database  */
@@ -118,21 +116,20 @@ void Engine::insert(string table_name, vector<string> new_row){
 	Table* table;
 	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].getName()){
-			found = true;
-			table = &(all_tables[i]);
-		}
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+		table = &(all_tables[i]);
+	    }
 	}
 	if (found){
-		for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-			table->att[i].getData().push_back(new_row[i]); //Why doesn't this work?
-	 	}
+	    for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
+	        table->att[i].data.push_back(new_row[i]); 
+	     }
 	}
 	else{
-		cout << "Table not found, cannot insert" << endl;
+	    cout << "Table not found, cannot insert" << endl;
 	}
-	 
-}
+ }
 /* This function deletes record from a table  */
 void Engine::destroy(){
 	//TODO
@@ -145,8 +142,6 @@ void Engine::drop(string table_name){
 		all_tables.erase(all_tables.begin()+i); 
 		}
 	}
-	
-	
 }
 
 
@@ -167,9 +162,15 @@ Table Engine :: selection(Table table)
 
 /* This function selects a subset of the attributes in a relation. */
 
-Table Engine :: projection(Table table)
+
+Table Engine :: projection(vector <string> att_names, string table_name)
+
 {
-	//TODO
+	
+	
+	
+	
+	
 }
 
 /* The function sets a union between two attributes that appear in either or both of the two relations. 
@@ -287,8 +288,31 @@ Table Engine::natural_join(Table table1, Table table2)
 
 /* This function renames the attributes in a relation  */
 
-Table Engine::renaming(Table table){
+void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
+	//TODO : It works !! HOORAY !!
+	bool table_exists = false;
+	Table* table;
+	for (int i = 0; i < all_tables.size(); i++)
+	{
+		if (table_name == all_tables[i].name)
+		{
+			table_exists = true;
+			table = &(all_tables[i]);
+		}
+	}
+	if (table_exists != true)
+	{
+		cout << " Error: Table does not exist" << "\n";
+	}
+	
+	for (int i = 0; i < table->att.size(); i++)
+	{
+		if (table->att[i].getName() == old_attr)
+		{
+			table->att[i].setName(new_attr);
+		}
+	}
 }
 
 
@@ -410,6 +434,10 @@ Table Engine::difference(Table table1, Table table2)
 	
 }
 
+<<<<<<< HEAD
+=======
+/* This function combines information from two relations. And removes duplicates*/
+>>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 
 
 

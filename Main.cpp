@@ -256,6 +256,7 @@ int main(){
 
 	//e.set_union("Name" ,graduate_table,manager_table);
 
+<<<<<<< HEAD
 //-----------------------------------------------------------------
 //-----------------------------------------------------------------
 
@@ -285,6 +286,32 @@ int main(){
 	Attribute m_age("Age","Integer",age2);
 
 	vector<Attribute> manager_att;
+=======
+	e.difference(graduate_table,manager_table);
+		
+	
+	//------------------------------------------------------------------------
+	//----------------------------Rename function test -----------------------
+	//-----------------------------------------------------------------------
+	
+	vector<string> new_names = {"love","happiness"};
+	
+	vector<string> weight_ = {"150","160","250"};
+	vector<string> height_ = {"5","10","8"};
+	
+	Attribute human_weight("Weight","string",weight_);
+	Attribute human_height("Name","string",height_);
+	
+	vector<Attribute> human_atts;
+	
+	human_atts.push_back(human_weight);
+	human_atts.push_back(human_height);
+	vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	
+	Table human("human table", human_atts, key_name);
+	
+	e.all_tables.push_back(human);
+>>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 
 	manager_att.push_back(m_number);
 	manager_att.push_back(m_surname);
@@ -305,8 +332,21 @@ int main(){
 
  	
 	
+<<<<<<< HEAD
 
  
 
+=======
+	
+	cout << "RENAME TEST\n" ;
+	
+	
+	e.renaming("Weight", "love","human table");
+	
+	cout << "MADE IT HERE \n";
+	
+	e.show("human table");
+	
+>>>>>>> 7166c85a52b2a7f586080322e21a13ab67fe3e71
 }
 
