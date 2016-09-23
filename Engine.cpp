@@ -42,6 +42,24 @@ void Engine::close(string table_name){
 	//TODO
 }
 
+void Engine::read(string table_name){
+	Table table;
+	bool found = false;
+	
+	for (int i = 0; i < all_tables.size(); i++){
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+		table = all_tables[i];
+	    }
+	}
+	
+	if (!table_exists){
+		all_tables.push_back(table);
+	}
+	//TODO: check to make sure file exists
+	ifstream input_file(table.getName()+".txt");
+	output_file >> table;
+}
 void Engine::write(Table table){
 	
 	//TODO : fix formating, but function works
