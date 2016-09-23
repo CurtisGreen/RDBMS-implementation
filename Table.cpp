@@ -44,7 +44,19 @@ ostream& Table :: Write(ostream& output)
 istream& Table :: Read(istream& input)
 
 {
-	//TODO:
+	//TODO:finish it
+	string data;
+	while (input << data){
+	    if(att.size() == 0){
+	    	//pushback new attribute
+	    	Attribute new_att;
+	    }
+	    else{
+	    	//pushback data
+	    }
+	}
+	
+	
 	return input;
 	
 }
