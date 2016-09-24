@@ -296,7 +296,7 @@ int main(){
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
 	
-	/*
+	
 	vector<string> new_names = {"love","happiness"};
 	
 	vector<string> weight_ = {"150","160","250"};
@@ -313,9 +313,21 @@ int main(){
 	
 	Table human("human table", human_atts, key_name);
 	
+	
 	e.all_tables.push_back(human);
 
 
+	
+	//----------------------------PROJECTION TEST----------------------------------
+	
+	cout << "Projection Test" << "\n";
+	vector<string> names__ = {"Weight", "Love"};
+	e. projection(names__, "human table");
+	
+	
+	
+	
+	/*
 	manager_att.push_back(m_number);
 	manager_att.push_back(m_surname);
 	manager_att.push_back(m_age);

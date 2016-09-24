@@ -185,10 +185,35 @@ Table Engine :: selection(Table table)
 Table Engine :: projection(vector <string> att_names, string table_name)
 
 {
+	// TODO: Inga : it works. 
 	
+	Table table;
 	
+	bool table_exists = false;
 	
+	for (int i = 0; i < all_tables.size(); i++)
+	{
+		if (table_name == all_tables[i].name)
+		{
+			table_exists = true;
+			table = all_tables[i];
+		}
+	}
+	cout << table.getName() << endl;
 	
+	for (int i =0; i < table.att.size(); i++)
+	{
+		if(att_names[i] == table.att[i].getName())
+		{
+			cout << table.att[i].getName() << endl;
+			
+			for(int j =0; j < table.att[0].data.size(); j++)
+			{
+				cout << table.att[i].data[j] << endl;
+			}
+		}
+	}
+	return table;
 	
 }
 
@@ -311,6 +336,7 @@ void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
 	//TODO : It works !! HOORAY !!
 	bool table_exists = false;
+	
 	Table* table;
 	for (int i = 0; i < all_tables.size(); i++)
 	{
