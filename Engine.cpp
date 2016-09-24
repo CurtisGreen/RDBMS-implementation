@@ -126,9 +126,29 @@ void Engine::create(string name, vector<Attribute> att, vector<string> key){
 	all_tables.push_back(table);  
 }
 
-
-void Engine::update(){
-	//TODO
+//can change data to new vlue in Attribute.
+void Engine::update(string table_name, string att_name, string data, string newVal){
+    Table* table;
+    bool found = false;
+    for (int i = 0; i < all_tables.size(); i++){
+        if (table_name == all_tables[i].getName()){
+            found = true;
+            table = &(all_tables[i]);
+        }
+    }
+    if (found){
+        for (int i = 0; i < table->att.size(); i++){
+            if ( (table->att[i].getName()) == att_name)
+           {
+               for (int j = 0; j < table->att[i].data.size(); j++)
+               {
+                   if( (table->att[i].data[j]) == data)
+                       table->att[i].data.at(j)=newVal;
+               }
+           }
+        }
+    }
+    
 }
 
 void Engine::insert(string table_name, vector<string> new_row){
@@ -149,7 +169,8 @@ void Engine::insert(string table_name, vector<string> new_row){
 	    cout << "Table not found, cannot insert" << endl;
 	}
  }
-/* This function deletes record from a table  */
+/* This function deletes record from a table  
+ you can type table name and row number you want to delete*/
 void Engine::destroy(string table_name,int row){
     Table* table;
     bool found = false;
@@ -161,7 +182,7 @@ void Engine::destroy(string table_name,int row){
     }
     if (found){
         for (int i = 0; i < table->att.size(); i++){
-            table->att[i].data.erase((table->att[i].data.begin())+row);     //accessing data each attribute and delete.
+            table->att[i].data.erase((table->att[i].data.begin())+(row-1));     //accessing data each attribute and delete.
         }
     }
     
