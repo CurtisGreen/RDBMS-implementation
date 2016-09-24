@@ -323,6 +323,7 @@ int main(){
 	cout << "Projection Test" << "\n";
 	vector<string> names__ = {"Weight", "Love"};
 	e. projection(names__, "human table");
+	e. projection(names__, "human tabl");
 	
 	
 	

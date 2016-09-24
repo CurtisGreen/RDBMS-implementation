@@ -199,6 +199,10 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 			table = all_tables[i];
 		}
 	}
+	if (table_exists != true)
+	{
+		cout << "Error: Table does not exist" << endl;
+	}
 	cout << table.getName() << endl;
 	
 	for (int i =0; i < table.att.size(); i++)
