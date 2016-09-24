@@ -150,8 +150,22 @@ void Engine::insert(string table_name, vector<string> new_row){
 	}
  }
 /* This function deletes record from a table  */
-void Engine::destroy(){
-	//TODO
+void Engine::destroy(string table_name,int row){
+    Table* table;
+    bool found = false;
+    for (int i = 0; i < all_tables.size(); i++){
+        if (table_name == all_tables[i].getName()){
+            found = true;
+            table = &(all_tables[i]);
+        }
+    }
+    if (found){
+        for (int i = 0; i < table->att.size(); i++){
+            table->att[i].data.erase((table->att[i].data.begin())+row);     //accessing data each attribute and delete.
+        }
+    }
+    
+    
 }
 /* This function deletes table from the database of tables  */
 void Engine::drop(string table_name){
