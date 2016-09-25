@@ -192,24 +192,16 @@ void Engine::drop(string table_name){
 The operation selects the tuples that satisfy a given predicate or condition. 
 It will involve logical conditions as defined in the grammar. 
 */
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine :: selection(Table table)
 {
 	//TODO
 
 }
 
-<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //This function selects a subset of the attributes in a relation. 
 //---------------------------------------------------------------------------------------
-=======
 /* This function selects a subset of the attributes in a relation. */
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine :: projection(vector <string> att_names, string table_name)
 
 {
@@ -248,12 +240,10 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 	
 }
 
-<<<<<<< HEAD
+
 //---------------------------------------------------------------------------------------
 //checks if both table are the same size, have the same attributes names
 //---------------------------------------------------------------------------------------
-=======
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 bool Engine::verify_Tables(Table table1, Table table2){
 
 	bool first_table = false;
@@ -310,15 +300,11 @@ bool Engine::verify_Tables(Table table1, Table table2){
 	return false;
 }
 
-<<<<<<< HEAD
+
 //------------------------------------------------------------------------------------------
 //The function sets a union between two attributes that appear in either or both of the 
 //two relations. For the set union to be valid they must have the same number of attributes 
 //------------------------------------------------------------------------------------------
-=======
-/* The function sets a union between two attributes that appear in either or both of the two relations. 
- For the set union to be valid they must have the same number of attributes */
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 
 	bool execute = verify_Tables(table1,table2);
@@ -369,19 +355,17 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 //---------------------------------------------------------------------------------------
 Table Engine::natural_join(Table table1, Table table2){
 
-
-<<<<<<< HEAD
-
 }
-
 
 //--------------------------------------------------------------------------------------
 // function renames the attributes in a relation 
 //--------------------------------------------------------------------------------------
-=======
-/* This function forms a cartesian product of its two arguments. 
-It will then check if the equality of those attributes appear in both relations.
-Lastly, it removes duplicates attributes  */
+
+//---------------------------------------------------------------------------------------
+//This function forms a cartesian product of its two arguments. 
+//It will then check if the equality of those attributes appear in both relations.
+//Lastly, it removes duplicates attributes
+//---------------------------------------------------------------------------------------
 Table Engine::natural_join(Table table1, Table table2)
 {
 	// TODO
@@ -389,8 +373,9 @@ Table Engine::natural_join(Table table1, Table table2)
 }
 
 
-/* This function renames the attributes in a relation  */
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
+//---------------------------------------------------------------------------------------
+// This function renames the attributes in a relation  
+//---------------------------------------------------------------------------------------
 void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
 	//TODO : Inga : it works.
@@ -444,14 +429,10 @@ vector<string> Engine::rtn_Row(Table t, int index){
 	}
    	 return rtn_row;
 }
-<<<<<<< HEAD
+
 //---------------------------------------------------------------------------------------
 //Helper function for difference and union, creates a table 
 //---------------------------------------------------------------------------------------
-=======
-
-/* This is a helper function for difference and union */
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::makeTable(Table table,string name, vector<vector<string>> difference){
 
 	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
@@ -474,12 +455,9 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
 	return new_Table;
 }
 
-<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //This function should find  the tuples in one relation but not in other
 //---------------------------------------------------------------------------------------
-=======
->>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::difference(Table table1, Table table2){
 	
 	vector<vector<string>> diff; 
