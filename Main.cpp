@@ -16,10 +16,12 @@ int main(){
 	Engine e; 
 
 ///was commented because I was testing diference(Table,Table),Jose
-/*
+
 	//-----------------------------------------------------------------------
 	//------------------Human Identity Table---------------------------------
 	//-----------------------------------------------------------------------
+
+	/*
 	vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
 	vector<string> ocupataion = {"students","Proffesor","Boxer"};
 	vector<string> weight = {"150","160","250"};
@@ -254,48 +256,67 @@ int main(){
 
 	//e.set_union("Name" ,graduate_table,manager_table);
 
-<<<<<<< HEAD
 //-----------------------------------------------------------------
 //-----------------------------------------------------------------
 
 
 */
-
+    //------------------------------------------------------------------------
+	//----------------------------DIFFERENCE & UNION TEST -----------------------
+	//----------------------------------------------------------------------- 
 	//Graduate table
-	/*
-    vector<string> number = {"7274","7432","9894","111"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes","111"};
-	vector<string> age = {"37","39","38","111"};
+    vector<string> number = {"7274","7432","9894","5555","88888"};
+	vector<string> surname = {"Robinson","O'Malley","Darkes","Mario","Antonio"};
+	vector<string> age = {"37","39","38","89","67"};
+	vector<string> parent = {"Yes","Yes","No","No","yes"};
 	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname );
+	Attribute g_surname("Surname","string",surname);
 	Attribute g_age("Age","Integer",age);
-	vector<string> key_name = {"1","2","3"};
+	Attribute g_parent("Parent","String",parent);
+
+	vector<string> key_name = {"1","2","3","4"};
 	vector<Attribute> graduate_att;
 	graduate_att.push_back(g_number);
 	graduate_att.push_back(g_surname);
 	graduate_att.push_back(g_age);
+	graduate_att.push_back(g_parent);
 
-	*/
-	//Manager Table
 	
-	/*
-	vector<string> number2 = {"9297","7432","9894"};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-	vector<string> age2 = {"56","39","38"};
+	//Manager Table
+	vector<string> number2 = {"9297","7432","9894","3333","111"};
+	vector<string> surname2 = {"O'Malley","O'Malley","Darkes","Jose","Daniel"};
+	vector<string> age2 = {"56","39","38","56","22"};
+	vector<string> parent2 = {"Yes","Yes","No","No","yes"};
 
 	Attribute m_number("Number","Integer",number2);
 	Attribute m_surname("Surname","string",surname2 );
 	Attribute m_age("Age","Integer",age2);
-
+	Attribute m_parent("Parent","String",parent2);
 	vector<Attribute> manager_att;
-	*/
-	//e.difference(graduate_table,manager_table);
+	manager_att.push_back(m_number);
+	manager_att.push_back(m_surname);
+	manager_att.push_back(m_age);
+	manager_att.push_back(m_parent);
+
+
+
+	Table g("Graduate", graduate_att, key_name);
+	Table m("Manager", manager_att, key_name);
+
+	e.all_tables.push_back(g);
+	e.all_tables.push_back(m);
 	
-	
+	e.all_tables.push_back(e.difference(g,m));
+	e.all_tables.push_back(e.set_union("d",g,m));
+
+
+	//e.show("Graduate-Manager");
+	e.show("Graduate U Manager");
+
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
-	
+	/*
 	
 	vector<string> new_names = {"love","happiness"};
 	
@@ -316,10 +337,11 @@ int main(){
 	
 	e.all_tables.push_back(human);
 
-
+*/
 	
 	//----------------------------PROJECTION TEST----------------------------------
 	
+	/*
 	cout << "Projection Test" << "\n";
 	vector<string> names__ = {"Weight", "Love"};
 	e. projection(names__, "human table");
@@ -328,7 +350,7 @@ int main(){
 	
 	
 	
-	/*
+	
 	manager_att.push_back(m_number);
 	manager_att.push_back(m_surname);
 	manager_att.push_back(m_age);
@@ -339,13 +361,13 @@ int main(){
 
 	vector<string> r = e.rtn_Row(t1,0);
 
-	/*
+	
 	for(int i = 0; i<r.size(); i++){
 		cout<<r[i]<<" ";
 	}
-*/
+
  	
-	
+	*/
 	// cout << "RENAME TEST\n" ;
 	
 	

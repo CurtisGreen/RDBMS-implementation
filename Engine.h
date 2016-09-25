@@ -40,8 +40,9 @@ class Engine{
 	vector<string> createTuples(Table t);
 	Table difference(Table table1, Table table2);
 
-	vector<string> rtn_stringRow(Table t);
 	vector<string> rtn_Row(Table t,int index);
+	Table makeTable(Table table,string name, vector<vector<string>> difference);
+	bool verify_Tables(Table table1, Table table2);
 	
 
 };
