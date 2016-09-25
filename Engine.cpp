@@ -10,33 +10,20 @@
 
 using namespace std;
 
+/* This function loads a relation from a database file, and returns error 
+message if the table does not exist */
 void Engine::open(string table_name){
-	//TODO : Need help finishing this last line, but otherwise works.
-	bool table_exists; // boolean to figure out if table already exists
 	
-	for (int i =0; i < all_tables.size(); i++){
-		if (all_tables[i].getName() == table_name){
-			table_exists = true;
-		}
-	}
-	if (table_exists != true){
-		cout << " Error: Table does not exist" << "\n";
-	}
-	
-	ifstream input_file(table_name + ".txt");
-	
+	ifstream input_file(table_name + ".db");
+
 	if(!input_file.is_open())
 	{
 		cout << "Error: Could not open file" << "\n";
 	}
 	else
 	{
-		Table new_table = Table();
-		new_table.Read(input_file);
-		all_tables.push_back(new_table);
-		
+		cout << "Error: Table is already open" << endl;
 	}
-	
 }
 void Engine::close(string table_name){
 	//TODO
@@ -61,29 +48,31 @@ void Engine::read(string table_name){
 	// output_file >> table;
 }
 
+/* This function writes table data to a disk file */
 void Engine::write(Table table){
 	
 	//TODO : fix formating, but function works
-	bool table_exists; // boolean to figure out if table already exists
+	bool table_exists; 
 	
 	for (int i =0; i < all_tables.size(); i++){
 		if (all_tables[i].getName() == table.getName()){
 			table_exists = true;
 		}
 	}
-	// checks if table exists in all tables vector, if not adds to tables vector
+	
 	if (table_exists != true){
 		all_tables.push_back(table); 
 	}
 	
-	ofstream output_file(table.getName()+ ".txt");
+	ofstream output_file(table.getName()+ ".db");
 	
+	output_file << table.getName() << endl;
 	output_file << table; 
 	
 }
-
+/* This function exists the database after tables have been added */
 void Engine::exit_(){
-	cerr << "Exiting RDBMS now" << "\n";
+	cerr << "Exiting RDBMS now" << endl;
 	exit(0);
 }
 
@@ -127,7 +116,7 @@ void Engine::create(string name, vector<Attribute> att, vector<string> key){
 	all_tables.push_back(table);  
 }
 
-//can change data to new vlue in Attribute.
+/* This function changes data to new value in Attribute */
 void Engine::update(string table_name, string att_name, string data, string newVal){
     Table* table;
     bool found = false;
@@ -152,6 +141,7 @@ void Engine::update(string table_name, string att_name, string data, string newV
     
 }
 
+/* This function inserts data into the Table */
 void Engine::insert(string table_name, vector<string> new_row){
 	Table* table;
 	bool found = false;
@@ -170,8 +160,8 @@ void Engine::insert(string table_name, vector<string> new_row){
 	    cout << "Table not found, cannot insert" << endl;
 	}
  }
-/* This function deletes record from a table  
- you can type table name and row number you want to delete*/
+ 
+/* This function deletes record (rows) from a table */
 void Engine::destroy(string table_name,int row){
     Table* table;
     bool found = false;
@@ -189,7 +179,7 @@ void Engine::destroy(string table_name,int row){
     
     
 }
-/* This function deletes table from the database of tables  */
+/* This function deletes table from the database of tables */
 void Engine::drop(string table_name){
 	
 	for(int i = 0; i < all_tables.size(); i++){
@@ -198,31 +188,32 @@ void Engine::drop(string table_name){
 		}
 	}
 }
-
-
-//TODO part 2: atomic expressions
-// selection-projection-renaming-union-difference-product-natural-join
-
 /*This function identifies a set of tuples which is part of relation and then extracts the tuples.  
 The operation selects the tuples that satisfy a given predicate or condition. 
 It will involve logical conditions as defined in the grammar. 
 */
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine :: selection(Table table)
 {
 	//TODO
 
 }
 
+<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //This function selects a subset of the attributes in a relation. 
 //---------------------------------------------------------------------------------------
+=======
+/* This function selects a subset of the attributes in a relation. */
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine :: projection(vector <string> att_names, string table_name)
 
 {
 	// TODO: Inga : it works. 
-	
 	Table table;
 	
 	bool table_exists = false;
@@ -257,9 +248,12 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 	
 }
 
+<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //checks if both table are the same size, have the same attributes names
 //---------------------------------------------------------------------------------------
+=======
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 bool Engine::verify_Tables(Table table1, Table table2){
 
 	bool first_table = false;
@@ -316,10 +310,15 @@ bool Engine::verify_Tables(Table table1, Table table2){
 	return false;
 }
 
+<<<<<<< HEAD
 //------------------------------------------------------------------------------------------
 //The function sets a union between two attributes that appear in either or both of the 
 //two relations. For the set union to be valid they must have the same number of attributes 
 //------------------------------------------------------------------------------------------
+=======
+/* The function sets a union between two attributes that appear in either or both of the two relations. 
+ For the set union to be valid they must have the same number of attributes */
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 
 	bool execute = verify_Tables(table1,table2);
@@ -371,6 +370,7 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 Table Engine::natural_join(Table table1, Table table2){
 
 
+<<<<<<< HEAD
 
 }
 
@@ -378,9 +378,22 @@ Table Engine::natural_join(Table table1, Table table2){
 //--------------------------------------------------------------------------------------
 // function renames the attributes in a relation 
 //--------------------------------------------------------------------------------------
+=======
+/* This function forms a cartesian product of its two arguments. 
+It will then check if the equality of those attributes appear in both relations.
+Lastly, it removes duplicates attributes  */
+Table Engine::natural_join(Table table1, Table table2)
+{
+	// TODO
+	//return NULL;
+}
+
+
+/* This function renames the attributes in a relation  */
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
-	//TODO : It works !! HOORAY !!
+	//TODO : Inga : it works.
 	bool table_exists = false;
 	
 	Table* table;
@@ -431,9 +444,14 @@ vector<string> Engine::rtn_Row(Table t, int index){
 	}
    	 return rtn_row;
 }
+<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //Helper function for difference and union, creates a table 
 //---------------------------------------------------------------------------------------
+=======
+
+/* This is a helper function for difference and union */
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::makeTable(Table table,string name, vector<vector<string>> difference){
 
 	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
@@ -456,9 +474,12 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
 	return new_Table;
 }
 
+<<<<<<< HEAD
 //---------------------------------------------------------------------------------------
 //This function should find  the tuples in one relation but not in other
 //---------------------------------------------------------------------------------------
+=======
+>>>>>>> 9e2add8bb8421b7c5452ecbe9dc1655cb8445082
 Table Engine::difference(Table table1, Table table2){
 	
 	vector<vector<string>> diff; 
