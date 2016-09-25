@@ -326,7 +326,7 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 			   	   second_pass = true;
 		   	    }
        		 }
-       		 if(first_pass == false){//IF ROW(TABLE) NOT IN TABLE 2, ADD TO THE UNION TABLE
+       		 if(first_pass == false){//IF ROW(TABLE1) NOT IN TABLE 2, ADD TO THE UNION TABLE
         		store_union.push_back(rtn_Row(table1,i));
        		 }
       	     if(first_pass == true){//IF ROW(TABLE 1)  IN TABLE 2, ADD TO THE UNION TABLE ONLY ONCE
