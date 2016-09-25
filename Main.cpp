@@ -381,6 +381,7 @@ int main(){
 	
 	// e.show("human table");
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -395,6 +396,46 @@ int main(){
    e.show("Graduate");
 
 	
+=======
+	////////////////////////////////////////////////////////////////////////
+	//-----------------Cross product test---------------------------------//
+	////////////////////////////////////////////////////////////////////////
+
+	//Should look like this: https://www.tutorialspoint.com/sql/sql-cartesian-joins.htm
+
+	vector<string> cross_id = {"1","2","3","4","5","6","7"};
+	vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
+	vector<string> cross_age = {"32", "25", "23", "25", "27", "22", "24"};
+	vector<string> address = {"Ahmedabad", "Delhi", "kota", "mumbai", "bhopal", "mp", "indore"};
+	vector<string> salary = {"2000", "1500", "2000", "6500", "8500", "4500", "10000"};
+	vector<string> oid = {"102", "100", "101", "103"};
+	vector<string> date = {"2009-10", "2009-10", "2009-11", "2008-05"};
+	vector<string> customer_id = {"3", "3", "2", "4"};
+	vector<string> amount = {"3000", "1500", "1560", "2060"};
+
+	Attribute CrossId("id", "int", cross_id);
+	Attribute CrossName("name", "string", cross_name);
+	Attribute CrossAge("age", "int", age);
+	Attribute Address("address", "string", address);
+	Attribute Salary("salary", "int", salary);
+	Attribute Oid("oid", "int", oid);
+	Attribute Date("date", "int", date);
+	Attribute Customer_id("customer_id", "int", customer_id);
+	Attribute Amount("amount", "int", amount);
+
+	vector<Attribute> cross_att1= {CrossId, CrossName, CrossAge, Address, Salary};
+	vector<Attribute> cross_att2 = {Oid, Date, Customer_id, Amount};
+
+	vector<string> cross_key = {"id", "name", "amount", "date"};
+
+	Table cross_product1;
+	cross_product1.att = cross_att1;
+	Table cross_product2;
+	cross_product2.att = cross_att2;
+	e.cross_product(cross_product1,cross_product2,cross_key);
+	e.show(cross_product1.name + "*" + cross_product2.name);
+
+>>>>>>> f7a8b4e07087d64657f93894d5e536b6e1df1e72
 
 }
 

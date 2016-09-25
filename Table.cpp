@@ -42,14 +42,21 @@ Table::Table (const Table& table)
 ostream& Table :: Write(ostream& output)
 {
 	output << name << endl;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> f7a8b4e07087d64657f93894d5e536b6e1df1e72
 	for (int i =0; i < att.size(); i++)
 	{
 		att[i].Write(output);
 		
 	}
+<<<<<<< HEAD
 	output << "END-OF-TABLE" ;
 	
+=======
+	output << "END" << endl;
+>>>>>>> f7a8b4e07087d64657f93894d5e536b6e1df1e72
 	return output;
 	
  }

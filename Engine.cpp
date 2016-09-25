@@ -101,6 +101,7 @@ void Engine::show(string table_name){
 	bool found = false;
 	
 	for (int i = 0; i < all_tables.size(); i++){
+		//cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
 	    if (table_name == all_tables[i].getName()){
 	    	found = true;
 		table = all_tables[i];
@@ -110,10 +111,15 @@ void Engine::show(string table_name){
 	    if (table.att.size() != 0){
 		cout << '\n' << table.getName() <<endl;
 		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+		cout << "\n";
+		for (int i = 0; i < table.att.size(); i ++){
+			cout << table.att[i].getName() <<"  \t  ";
+		}
+		cout << "\n";
 		for (int k = 0; k < table.att[0].data.size(); k++){
 		    cout << '\n';
 		    for (int i = 0; i < table.att.size(); i++){
-			cout << table.att[i].getName() <<" "<<  table.att[i].data[k] << '\t';
+				cout << table.att[i].data[k] << "  \t  ";
 		    }
 
 		}
@@ -343,9 +349,9 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 			   	   second_pass = true;
 		   	    }
        		 }
-       		 if(first_pass == false){//IF ROW(TABLE) NOT IN TABLE 2, ADD TO THE UNION TABLE
+       	     if(first_pass == false){//IF ROW(TABLE1) NOT IN TABLE 2, ADD TO THE UNION TABLE
         		store_union.push_back(rtn_Row(table1,i));
-       		 }
+             }
       	     if(first_pass == true){//IF ROW(TABLE 1)  IN TABLE 2, ADD TO THE UNION TABLE ONLY ONCE
         		store_union.push_back(rtn_Row(table1,i));
         		first_pass = false;
@@ -372,9 +378,9 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 //It will then check if the equality of those attributes appear in both relations.
 //Lastly, it removes duplicates attributes 
 //---------------------------------------------------------------------------------------
-Table Engine::natural_join(Table table1, Table table2){
+/*Table Engine::natural_join(Table table1, Table table2){
 
-}
+}*/
 
 //---------------------------------------------------------------------------------------
 // This function renames the attributes in a relation  
@@ -484,10 +490,54 @@ Table Engine::difference(Table table1, Table table2){
 }
 
 
-/* This function combines information from two relations. And removes duplicates*/
-Table Engine::cross_product(Table table1, Table table2)
+/* This function combines information from two relations by performing the cartesian product on them*/
+Table Engine::cross_product(Table table1, Table table2, vector<string> relations)
 {
-	//TODO
+	//TODO: check if tables are empty first
+	Table new_table;
+	vector<int> indices;	//stores places where table finds matching column
+	vector<int> new_table_indices;
+	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table1.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table1.att[i].name;
+				temp_att.type = table1.att[i].type;
+				new_table.att.push_back(temp_att);
+			}
+		}
+	}
+	for (int i = 0; i < table2.att.size(); i++){	//create columns matching table 2
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table2.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table2.att[i].name;
+				temp_att.type = table2.att[i].type;
+				new_table.att.push_back(temp_att);
+				indices.push_back(i);
+				new_table_indices.push_back(k);
+			}
+		}
+	}
+	for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
+		if (i < new_table.att.size() && table1.att[i].name == new_table.att[i].name){
+			for (int z = 0; z < table1.att[i].data.size(); z++){
+				for (int q = 0; q < table2.att[0].data.size(); q++){
+					new_table.att[i].data.push_back(table1.att[i].data[z]);
+				}
+			}
+		}
+	}
+	for (int k = indices.size()-1; k >= 0; k--){	//Then table 2
+		for (int z = 0; z < table1.att[0].data.size(); z++){
+			for (int q = 0; q < table2.att[indices[k]].data.size(); q++){
+				new_table.att[new_table_indices[k]].data.push_back(table2.att[indices[k]].data[q]);
+			}
+		}
+	}
+	new_table.name = table1.name + "*" + table2.name;
+	all_tables.push_back(new_table);
+	return new_table;
 }
 
 
