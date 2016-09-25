@@ -15,16 +15,20 @@ class Attribute
 	string name;
 	string type;
 	vector <string> data;
-	void setName(string name_);
-	
+
+	//Constructors
 	Attribute();
-    Attribute(vector<string> data);
+    	Attribute(vector<string> data);
 	Attribute(string name_ , string type_ , vector <string> data_);
+	
+	//Getters & Setters
 	string getName();
 	string getType();
-	
 	vector<string> getData();
-	istream& Read(istream& input); // needed to be able to print attributes to txt file
+	void setName(string name_);
+
+	// output-input operators to write to file
+	istream& Read(istream& input); 
 	ostream& Write(ostream& output);
 };
 
