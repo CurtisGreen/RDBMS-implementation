@@ -84,6 +84,7 @@ void Engine::show(string table_name){
 	bool found = false;
 	
 	for (int i = 0; i < all_tables.size(); i++){
+		//cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
 	    if (table_name == all_tables[i].getName()){
 	    	found = true;
 		table = all_tables[i];
@@ -93,10 +94,15 @@ void Engine::show(string table_name){
 	    if (table.att.size() != 0){
 		cout << '\n' << table.getName() <<endl;
 		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+		cout << "\n";
+		for (int i = 0; i < table.att.size(); i ++){
+			cout << table.att[i].getName() <<"  \t  ";
+		}
+		cout << "\n";
 		for (int k = 0; k < table.att[0].data.size(); k++){
 		    cout << '\n';
 		    for (int i = 0; i < table.att.size(); i++){
-			cout << table.att[i].getName() <<" "<<  table.att[i].data[k] << '\t';
+				cout << table.att[i].data[k] << "  \t  ";
 		    }
 
 		}
@@ -488,6 +494,8 @@ Table Engine::cross_product(Table table1, Table table2, vector<string> relations
 {
 	//TODO: check if tables are empty first
 	Table new_table;
+	vector<int> indices;	//stores places where table finds matching column
+	vector<int> new_table_indices;
 	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
 		for (int k = 0; k < relations.size(); k++){
 			if (relations[k] == table1.att[i].name){
@@ -505,11 +513,13 @@ Table Engine::cross_product(Table table1, Table table2, vector<string> relations
 				temp_att.name = table2.att[i].name;
 				temp_att.type = table2.att[i].type;
 				new_table.att.push_back(temp_att);
+				indices.push_back(i);
+				new_table_indices.push_back(k);
 			}
 		}
 	}
 	for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
-		if (table1.att[i].name == new_table.att[i].name){
+		if (i < new_table.att.size() && table1.att[i].name == new_table.att[i].name){
 			for (int z = 0; z < table1.att[i].data.size(); z++){
 				for (int q = 0; q < table2.att[0].data.size(); q++){
 					new_table.att[i].data.push_back(table1.att[i].data[z]);
@@ -517,14 +527,15 @@ Table Engine::cross_product(Table table1, Table table2, vector<string> relations
 			}
 		}
 	}
-	for (int k = 0; k < table2.att.size(); k++){	//Then table 2
-		if (table2.att[k].name == new_table.att[k].name){
-			for (int q = 0; q < table2.att[k].data.size(); q++){
-				new_table.att[k].data.push_back(table2.att[k].data[q]);
+	for (int k = indices.size()-1; k >= 0; k--){	//Then table 2
+		for (int z = 0; z < table1.att[0].data.size(); z++){
+			for (int q = 0; q < table2.att[indices[k]].data.size(); q++){
+				new_table.att[new_table_indices[k]].data.push_back(table2.att[indices[k]].data[q]);
 			}
 		}
 	}
-
+	new_table.name = table1.name + "*" + table2.name;
+	all_tables.push_back(new_table);
 	return new_table;
 }
 
