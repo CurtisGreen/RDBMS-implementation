@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdlib.h>
 
+
 #include "Engine.h"
 #include "Attribute.h"
 #include "Table.h"
@@ -30,22 +31,39 @@ void Engine::close(string table_name){
 }
 
 void Engine::read(string table_name){
-	// Table table;
-	// bool found = false;
 	
-	// for (int i = 0; i < all_tables.size(); i++){
-	    // if (table_name == all_tables[i].getName()){
-	    	// found = true;
-		// table = all_tables[i];
-	    // }
-	// }
 	
-	// if (!table_exists){
-		// all_tables.push_back(table);
-	// }
-	//TODO: check to make sure file exists
-	// ifstream input_file(table.getName()+".txt");
-	// output_file >> table;
+	Table table;
+	bool found = false;
+	
+	for (int i = 0; i < all_tables.size(); i++){
+	    if (table_name == all_tables[i].getName())
+		{
+	    	found = true;
+			table = all_tables[i];
+	    }
+	}
+	
+	ifstream input_file(table_name +".db");
+	
+	if(!input_file.is_open())
+	{
+		cout << "Could not open file" << endl;
+	}
+	else
+	{
+		Table new_table = Table();
+		new_table.Read(input_file);
+		
+		if(true)
+		{
+			all_tables.push_back(new_table);
+		}
+		else
+		{
+			cout << "Table already open" << endl;
+		}
+	}
 }
 
 /* This function writes table data to a disk file */
@@ -66,7 +84,6 @@ void Engine::write(Table table){
 	
 	ofstream output_file(table.getName()+ ".db");
 	
-	output_file << table.getName() << endl;
 	output_file << table; 
 	
 	output_file.close();
@@ -358,22 +375,6 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 Table Engine::natural_join(Table table1, Table table2){
 
 }
-
-//--------------------------------------------------------------------------------------
-// function renames the attributes in a relation 
-//--------------------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------------------
-//This function forms a cartesian product of its two arguments. 
-//It will then check if the equality of those attributes appear in both relations.
-//Lastly, it removes duplicates attributes
-//---------------------------------------------------------------------------------------
-Table Engine::natural_join(Table table1, Table table2)
-{
-	// TODO
-	//return NULL;
-}
-
 
 //---------------------------------------------------------------------------------------
 // This function renames the attributes in a relation  

@@ -302,15 +302,15 @@ int main(){
 	Table g("Graduate", graduate_att, key_name);
 	Table m("Manager", manager_att, key_name);
 
-	e.all_tables.push_back(g);
-	e.all_tables.push_back(m);
+	//e.all_tables.push_back(g);
+	//e.all_tables.push_back(m);
 	
-	e.all_tables.push_back(e.difference(g,m));
-	e.all_tables.push_back(e.set_union("d",g,m));
+	//e.all_tables.push_back(e.difference(g,m));
+	//e.all_tables.push_back(e.set_union("d",g,m));
 
 
 	//e.show("Graduate-Manager");
-	e.show("Graduate U Manager");
+	//e.show("Graduate U Manager");
 
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
@@ -380,6 +380,20 @@ int main(){
 	// cout << "MADE IT HERE \n";
 	
 	// e.show("human table");
+	
+	
+	
+	
+	//----------------------------------------READ TEST-----------------------/
+	cout << "Read test " << endl;
+	
+	//e.write(g);
+	e.read("Graduate");
+	
+	//cout << e.all_tables.size();
+
+   e.show("Graduate");
+
 	
 
 }

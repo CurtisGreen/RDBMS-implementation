@@ -41,21 +41,43 @@ Table::Table (const Table& table)
 }
 ostream& Table :: Write(ostream& output)
 {
+	output << name << endl;
+	
 	for (int i =0; i < att.size(); i++)
 	{
 		att[i].Write(output);
+		
 	}
+	output << "END-OF-TABLE" ;
+	
 	return output;
 	
  }
 istream& Table :: Read(istream& input)
 
 {
-	//TODO:finish it
-	int i = 0;
-	while(input){
-	    att[i].Read(input);
-	    i++;
+	string temp_string;
+	Attribute temp_attribute;
+	getline (input, name, '\n');
+	att = vector<Attribute>();
+	
+	while(1)
+	{
+		temp_attribute.Read(input);
+		att.push_back(temp_attribute);
+		input >> temp_string;
+		if(temp_string == "END-OF-TABLE")
+		{
+			break;
+		}
+		else
+		{
+			for (int i = 0; i < temp_string.size(); i++)
+			{
+				input.putback(temp_string.c_str()[temp_string.size()-i-1]);
+			}
+		}
+
 	}
 	return input;
 }

@@ -51,24 +51,37 @@ vector<string> Attribute::getData()
 
 istream&  Attribute ::Read(istream& input)
 {
-	// string in_name, in_type;
-	// string in_data;
-	// input >> in_name >> in_type >> '\n';
-	// name = in_name;
-	// type = in_type;
-	// for (int i = 0; i < data.size(); i++){
-	    // input >> in_data;
-	    // data.push_back(in_data);
-	// }
+	string temp_string;
+	getline(input, name, '\n');
+	getline(input, type, '\n');
+	data = vector<string>();
+	while(1)
+	{
+		getline(input, temp_string, ' ');
+		if(temp_string == ".")
+		{
+			break;
+		}
+		
+		else	
+		{
+			data.push_back(temp_string);
+		}
+	}
+	return input;
+	
 }
 ostream&  Attribute :: Write(ostream& output)
 {
-	output << endl << name << " " << type << endl;
+	output << name  << endl;
+
+	output << type << endl;
 	
 	for (int i =0; i < data.size(); i++)
 	{
 		output << data[i] << " " ;
 	}
+	output << "." << " \n";
 	return output;
 	
 }
