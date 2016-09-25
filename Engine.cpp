@@ -11,7 +11,6 @@
 using namespace std;
 
 void Engine::open(string table_name){
-	//TODO: I think this is does what it is supposed to do?
 	
 	ifstream input_file(table_name + ".db");
 
@@ -21,10 +20,7 @@ void Engine::open(string table_name){
 	}
 	else
 	{
-		
 		cout << "Error: Table is already open" << endl;
-		
-		
 	}
 }
 void Engine::close(string table_name){
