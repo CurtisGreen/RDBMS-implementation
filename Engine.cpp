@@ -355,9 +355,9 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 //It will then check if the equality of those attributes appear in both relations.
 //Lastly, it removes duplicates attributes 
 //---------------------------------------------------------------------------------------
-Table Engine::natural_join(Table table1, Table table2){
+/*Table Engine::natural_join(Table table1, Table table2){
 
-}
+}*/
 
 //--------------------------------------------------------------------------------------
 // function renames the attributes in a relation 
