@@ -208,16 +208,16 @@ The operation selects the tuples that satisfy a given predicate or condition.
 It will involve logical conditions as defined in the grammar. 
 */
 
-/*
+
 Table Engine :: selection(Table table)
 {
 	//TODO
 
 }
 
-/* This function selects a subset of the attributes in a relation. */
-
-
+//---------------------------------------------------------------------------------------
+//This function selects a subset of the attributes in a relation. 
+//---------------------------------------------------------------------------------------
 Table Engine :: projection(vector <string> att_names, string table_name)
 
 {
@@ -257,89 +257,127 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 	
 }
 
-/* The function sets a union between two attributes that appear in either or both of the two relations. 
- For the set union to be valid they must have the same number of attributes */
-
+//---------------------------------------------------------------------------------------
+//checks if both table are the same size, have the same attributes names
+//---------------------------------------------------------------------------------------
 bool Engine::verify_Tables(Table table1, Table table2){
 
-	bool next_step = true;
+	bool first_table = false;
+	bool second_table = false;
+	bool check_size = false;
+	bool list_size = true;
+	bool same_attributes = false;
 
-	for(int i = 0; i < all_tables.size(); i++){
-		if (table1.name != all_tables[i].name){
-			cout << "Error:"<<table1.name<< " does not exist" << "\n";
-			next_step = false;
+	for(int i = 0; i < all_tables.size(); i++){////CHECKS IF TABLE EXIST
+		if (table1.name == all_tables[i].name){
+			first_table = true;
 		}
-		if (table2.name != all_tables[i].name){
-			cout << " Error:"<<table2.name<<" does not exist" << "\n";
-			next_step = false;
+		if (table2.name == all_tables[i].name){
+			second_table = true;
 		}
 	}
-	if (table1.att.size() != table2.att.size()){
-		cout << "Error : The tables entered does not have the same number of attributes " << "\n";
-		next_step = false;
+
+	if(first_table == false){//PRINTS OUT WHICH TABLE DOES NOT EXIST
+		cout << "Error:"<<table1.name<< " does not exist" << "\n";
 	}
-	for(int i = 0; i < table1.att.size(); i++){
-		if(table1.att[i].getName() != table2.att[i].getName()){
+	if(second_table == false){//PRINTS OUT WHICH TABLE DOES NOT EXIST
+		cout << " Error:"<<table2.name<<" does not exist" << "\n";
+	}
+
+	if (table1.att.size() == table2.att.size()){///CHECKS IF BOTH TABLES HAVE THE SAME SIZE 
+		check_size = true;
+		if(check_size == false){
+			cout << "Error : The tables entered does not have the same number of attributes " << "\n";
+		}
+	}
+
+	for(int i = 0 ;i<table1.att.size();i++ ){//CHECKS IF BOTH TABLES HAVE THE SAME NUMBER OF ITEM IN EACH ATTRIBUTE
+		if(table1.att[i].data.size() != table2.att[i].data.size()){
+			list_size = false;
+		}
+	}
+	if(list_size == false){//PRINTS IF NUMBER OF ITEMS IN EACH ATTRIBUTE NOT THE SAME
+			cout<<"ERROR: number of items in attributes not the same"<<endl;
+		}
+	
+	for(int i = 0; i < table1.att.size(); i++){//CHECKS IF ATTRIBUTES NAMES ARE THE SAME FOR BOTH TABLES
+		if(table1.att[i].getName() == table2.att[i].getName()){
+			same_attributes = true;
+		}
+		if(same_attributes == false){
 			cout << "Error: The tables' attributes do not match " << "\n" ;
-			next_step = false;
 		}
 	}
-	return next_step;
+	//RETURN TRUE IF TABLES ARE THE SAME IN EVERY ASPECT
+	if(( first_table == true) && (second_table == true) && (check_size == true) && (same_attributes == true) && list_size == true){
+		return true;
+	}
+
+	return false;
 }
 
+//------------------------------------------------------------------------------------------
+//The function sets a union between two attributes that appear in either or both of the 
+//two relations. For the set union to be valid they must have the same number of attributes 
+//------------------------------------------------------------------------------------------
 Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
 
-	//bool execute = verify_Tables(table1,table2);
+	bool execute = verify_Tables(table1,table2);
 
-	vector<vector<string>> store_union;
-	int size = table1.att[0].data.size();
-	bool first_pass = false;
-	bool second_pass = false;
+	if(execute == true){//IF VERIFY RETURN TRUE, UNION TABLES 
+		vector<vector<string>> store_union;
+		int size = table1.att[0].data.size();
+		bool first_pass = false;
+		bool second_pass = false;
 	
-	for(int i = 0; i< size; i++ ){
-		for(int j = 0; j< size; j++){
-			if(rtn_Row(table1,i) == rtn_Row(table2,j) ){
-				first_pass = true;
-		    }
-		    if(rtn_Row(table2,i) == rtn_Row(table1,j)){
-			    second_pass = true;
-		    }
-        }
+		for(int i = 0; i< size; i++ ){
+			for(int j = 0; j< size; j++){
+				if(rtn_Row(table1,i) == rtn_Row(table2,j)){//COMPARES  ROW
+				   first_pass = true;
+		    	}
+		   	    if(rtn_Row(table2,i) == rtn_Row(table1,j)){//COMPARE ROW
+			   	   second_pass = true;
+		   	    }
+       		 }
+       		 if(first_pass == false){//IF ROW(TABLE) NOT IN TABLE 2, ADD TO THE UNION TABLE
+        		store_union.push_back(rtn_Row(table1,i));
+       		 }
+      	     if(first_pass == true){//IF ROW(TABLE 1)  IN TABLE 2, ADD TO THE UNION TABLE ONLY ONCE
+        		store_union.push_back(rtn_Row(table1,i));
+        		first_pass = false;
+             }
+             if(second_pass == false){//IF ROW(TABLE 2) NOT IN TABLE 1, ADD TO THE UNION TABLE
+        	    store_union.push_back(rtn_Row(table2,i));
+             }
+             if(second_pass == true){//IF ROW(TABLE 2)  IN TABLE 1, NO NOT ADD BECAUSE IT HAS BEEN ADDED BY FIRST_PASS
+        		second_pass = false;
+             }
+	    }
+ 		string table_name = table1.name + " U " + table2.name;
 
-        if(first_pass == false){
-        	store_union.push_back(rtn_Row(table1,i));
-        }
-        if(first_pass == true){
-        	store_union.push_back(rtn_Row(table1,i));
-        	first_pass = false;
-        }
-        if(second_pass == false){
-        	store_union.push_back(rtn_Row(table2,i));
-        }
-        if(second_pass == true){
-        	second_pass = false;
-        }
+		return 	makeTable(table1,table_name,store_union);//RETURN UNION TABLE, 
 	}
 
- 	string table_name = table1.name + " U " + table2.name;
+	Table new_Table;
 
-	return 	makeTable(table1,table_name,store_union);
-	
+	return new_Table;
+}
+
+//---------------------------------------------------------------------------------------
+//This function forms a cartesian product of its two arguments. 
+//It will then check if the equality of those attributes appear in both relations.
+//Lastly, it removes duplicates attributes 
+//---------------------------------------------------------------------------------------
+Table Engine::natural_join(Table table1, Table table2){
+
+
+
 }
 
 
-/* This function forms a cartesian product of its two arguments. 
-It will then check if the equality of those attributes appear in both relations.
-Lastly, it removes duplicates attributes  */
-
-Table Engine::natural_join(Table table1, Table table2)
-{
-	// TODO
-	//return NULL;
-}
-
-/* This function renames the attributes in a relation  */
-
+//--------------------------------------------------------------------------------------
+// function renames the attributes in a relation 
+//--------------------------------------------------------------------------------------
 void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
 	//TODO : It works !! HOORAY !!
@@ -368,10 +406,11 @@ void Engine::renaming( string old_attr, string new_attr, string table_name){
 	}
 }
 
-
-/* This function should find the tuples in one relation but not in other */
-///creates a vector of tuples,I was trying to figure out how  to compare rows(tuples)
+//---------------------------------------------------------------------------------------
+//This function should find the tuples in one relation but not in other
+//creates a vector of tuples,I was trying to figure out how  to compare rows(tuples)
 //return row
+//---------------------------------------------------------------------------------------
 vector<string> Engine::rtn_Row(Table t, int index){
 
 	int size = t.att[0].data.size();
@@ -392,11 +431,12 @@ vector<string> Engine::rtn_Row(Table t, int index){
 	}
    	 return rtn_row;
 }
-
-////Helper function for difference and union
+//---------------------------------------------------------------------------------------
+//Helper function for difference and union, creates a table 
+//---------------------------------------------------------------------------------------
 Table Engine::makeTable(Table table,string name, vector<vector<string>> difference){
 
-	vector<string> key_name = {"1","2","3"};
+	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
 	vector<Attribute> attributes;
 	vector<string> v;
 	string att_name;
@@ -416,7 +456,9 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
 	return new_Table;
 }
 
-//returns a table
+//---------------------------------------------------------------------------------------
+//This function should find  the tuples in one relation but not in other
+//---------------------------------------------------------------------------------------
 Table Engine::difference(Table table1, Table table2){
 	
 	vector<vector<string>> diff; 

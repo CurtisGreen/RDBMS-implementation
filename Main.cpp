@@ -265,10 +265,10 @@ int main(){
 	//----------------------------DIFFERENCE & UNION TEST -----------------------
 	//----------------------------------------------------------------------- 
 	//Graduate table
-    vector<string> number = {"7274","7432","9894","5555","88888"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes","Mario","Antonio"};
-	vector<string> age = {"37","39","38","89","67"};
-	vector<string> parent = {"Yes","Yes","No","No","yes"};
+    vector<string> number = {"7274","7432","9894","5555"};
+	vector<string> surname = {"Robinson","O'Malley","Darkes","Mario"};
+	vector<string> age = {"37","39","38","89"};
+	vector<string> parent = {"Yes","Yes","No","No"};
 	Attribute g_number("Number","Integer",number);
 	Attribute g_surname("Surname","string",surname);
 	Attribute g_age("Age","Integer",age);
@@ -297,7 +297,6 @@ int main(){
 	manager_att.push_back(m_surname);
 	manager_att.push_back(m_age);
 	manager_att.push_back(m_parent);
-
 
 
 	Table g("Graduate", graduate_att, key_name);
