@@ -483,10 +483,49 @@ Table Engine::difference(Table table1, Table table2){
 }
 
 
-/* This function combines information from two relations. And removes duplicates*/
-Table Engine::cross_product(Table table1, Table table2)
+/* This function combines information from two relations by performing the cartesian product on them*/
+Table Engine::cross_product(Table table1, Table table2, vector<string> relations)
 {
-	//TODO
+	//TODO: check if tables are empty first
+	Table new_table;
+	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table1.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table1.att[i].name;
+				temp_att.type = table1.att[i].type;
+				new_table.att.push_back(temp_att);
+			}
+		}
+	}
+	for (int i = 0; i < table2.att.size(); i++){	//create columns matching table 2
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table2.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table2.att[i].name;
+				temp_att.type = table2.att[i].type;
+				new_table.att.push_back(temp_att);
+			}
+		}
+	}
+	for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
+		if (table1.att[i].name == new_table.att[i].name){
+			for (int z = 0; z < table1.att[i].data.size(); z++){
+				for (int q = 0; q < table2.att[0].data.size(); q++){
+					new_table.att[i].data.push_back(table1.att[i].data[z]);
+				}
+			}
+		}
+	}
+	for (int k = 0; k < table2.att.size(); k++){	//Then table 2
+		if (table2.att[k].name == new_table.att[k].name){
+			for (int q = 0; q < table2.att[k].data.size(); q++){
+				new_table.att[k].data.push_back(table2.att[k].data[q]);
+			}
+		}
+	}
+
+	return new_table;
 }
 
 
