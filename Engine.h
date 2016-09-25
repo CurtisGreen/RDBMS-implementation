@@ -24,8 +24,8 @@ class Engine{
 	void show(string table_name);
 	void create(string, vector<Attribute>, vector<string>);
 	void insert(string name, vector<string> new_row);
-	void update();
-	void destroy();	//because delete is a keyword
+	void update(string table_name, string att_name, string data, string newVal);
+    void destroy(string table_name,int row);	//because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database
 
 	
@@ -40,8 +40,9 @@ class Engine{
 	vector<string> createTuples(Table t);
 	Table difference(Table table1, Table table2);
 
-	vector<string> rtn_stringRow(Table t);
 	vector<string> rtn_Row(Table t,int index);
+	Table makeTable(Table table,string name, vector<vector<string>> difference);
+	bool verify_Tables(Table table1, Table table2);
 	
 
 };
