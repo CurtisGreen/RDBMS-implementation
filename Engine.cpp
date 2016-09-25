@@ -69,6 +69,8 @@ void Engine::write(Table table){
 	output_file << table.getName() << endl;
 	output_file << table; 
 	
+	output_file.close();
+	
 }
 /* This function exists the database after tables have been added */
 void Engine::exit_(){
