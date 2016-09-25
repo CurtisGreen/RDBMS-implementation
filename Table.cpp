@@ -41,10 +41,12 @@ Table::Table (const Table& table)
 }
 ostream& Table :: Write(ostream& output)
 {
+	output << name << endl;
 	for (int i =0; i < att.size(); i++)
 	{
 		att[i].Write(output);
 	}
+	output << "END" << endl;
 	return output;
 	
  }
