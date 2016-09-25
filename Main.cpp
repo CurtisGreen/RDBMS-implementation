@@ -303,7 +303,7 @@ int main(){
 	vector<string> height_ = {"5","10","8"};
 	
 	Attribute human_weight("Weight","string",weight_);
-	Attribute human_height("Name","string",height_);
+	Attribute human_height("Height","string",height_);
 	
 	vector<Attribute> human_atts;
 	
@@ -323,9 +323,14 @@ int main(){
 	cout << "Projection Test" << "\n";
 	vector<string> names__ = {"Weight", "Love"};
 	e. projection(names__, "human table");
-	e. projection(names__, "human tabl");
+	//e. projection(names__, "human tabl");
 	
+	//----------------------------PROJECTION TEST----------------------------------
 	
+	cout << "OPEN test" << endl;
+	
+	e.write(human);
+	e.open("human table");
 	
 	
 	/*

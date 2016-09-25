@@ -11,32 +11,21 @@
 using namespace std;
 
 void Engine::open(string table_name){
-	//TODO : Need help finishing this last line, but otherwise works.
-	bool table_exists; // boolean to figure out if table already exists
+	//TODO: I think this is does what it is supposed to do?
 	
-	for (int i =0; i < all_tables.size(); i++){
-		if (all_tables[i].getName() == table_name){
-			table_exists = true;
-		}
-	}
-	if (table_exists != true){
-		cout << " Error: Table does not exist" << "\n";
-	}
-	
-	ifstream input_file(table_name + ".txt");
-	
+	ifstream input_file(table_name + ".db");
+
 	if(!input_file.is_open())
 	{
 		cout << "Error: Could not open file" << "\n";
 	}
 	else
 	{
-		Table new_table = Table();
-		new_table.Read(input_file);
-		all_tables.push_back(new_table);
+		
+		cout << "Error: Table is already open" << endl;
+		
 		
 	}
-	
 }
 void Engine::close(string table_name){
 	//TODO
@@ -71,13 +60,15 @@ void Engine::write(Table table){
 			table_exists = true;
 		}
 	}
-	// checks if table exists in all tables vector, if not adds to tables vector
+	
 	if (table_exists != true){
 		all_tables.push_back(table); 
 	}
 	
-	ofstream output_file(table.getName()+ ".txt");
+	ofstream output_file(table.getName()+ ".db");
 	
+	
+	output_file << table.getName() << endl;
 	output_file << table; 
 	
 }
