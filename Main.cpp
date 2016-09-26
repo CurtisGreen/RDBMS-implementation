@@ -1,4 +1,4 @@
-
+#include "MainTest.cpp"
 #include "Catch.h"
 
 #include <vector>
