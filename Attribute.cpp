@@ -5,47 +5,35 @@
 
 using namespace std;
 
-Attribute::Attribute()
-{
-	
+Attribute::Attribute(){
 	name = "Name";
 	type = "Type";
 	data = vector<string>();
-	
 }
 
-
-Attribute::Attribute(vector<string> data_)
-{
-	
+Attribute::Attribute(vector<string> data_){
 	data = data_;
 }
 
-
-Attribute::Attribute(string name_, string type_, vector<string> data_)
-{
+Attribute::Attribute(string name_, string type_, vector<string> data_){
 	name = name_;
 	type = type_;
 	data = data_;
 }
 
-string Attribute::getName()
-{
+string Attribute::getName(){
 	return name;
 }
-void Attribute :: setName(string name_)
-{
-	name = name_;
-	
+
+void Attribute :: setName(string name_){
+	name = name_;	
 }
 
-string Attribute::getType()
-{
+string Attribute::getType(){
 	return type;
 }
 
-vector<string> Attribute::getData()
-{
+vector<string> Attribute::getData(){
 	return data;
 }
 
@@ -55,34 +43,27 @@ istream&  Attribute ::Read(istream& input)
 	getline(input, name, '\n');
 	getline(input, type, '\n');
 	data = vector<string>();
-	while(1)
-	{
+
+	while(1){
 		getline(input, temp_string, ' ');
-		if(temp_string == ".")
-		{
+		if(temp_string == "."){
 			break;
 		}
-		
-		else	
-		{
+		else	{
 			data.push_back(temp_string);
 		}
 	}
 	return input;
-	
 }
-ostream&  Attribute :: Write(ostream& output)
-{
-	output << name  << endl;
 
+ostream&  Attribute :: Write(ostream& output){
+	output << name  << endl;
 	output << type << endl;
 	
-	for (int i =0; i < data.size(); i++)
-	{
+	for (int i =0; i < data.size(); i++){
 		output << data[i] << " " ;
 	}
 	output << "." << " \n";
 	return output;
-	
 }
 

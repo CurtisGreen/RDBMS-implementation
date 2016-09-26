@@ -46,15 +46,13 @@ This function reads a table into the database.
 -------------------------------------------------------------------------------------*/
 void Engine::read(string table_name){
 	
-	
 	Table table;
 	bool found = false;
 	
 	for (int i = 0; i < all_tables.size(); i++){ // checks if table exists
-	    if (table_name == all_tables[i].getName())
-		{
+	    if (table_name == all_tables[i].getName()){
 	    	found = true;
-		table = all_tables[i];
+			table = all_tables[i];
 	    }
 	}
 	
@@ -66,7 +64,6 @@ void Engine::read(string table_name){
 	else{
 		Table new_table = Table();
 		new_table.Read(input_file);
-		
 		if(true){
 			all_tables.push_back(new_table);
 		}
@@ -95,11 +92,8 @@ void Engine::write(Table table){
 	}
 	
 	ofstream output_file(table.getName()+ ".db");
-	
 	output_file << table; // write table to txt file 
-	
 	output_file.close();
-	
 }
 /*-----------------------------------------------------------------------------------
 This function exists the database after tables have been added 
@@ -139,7 +133,6 @@ void Engine::show(string table_name){
                 cout.width(20);
 				cout << table.att[i].data[k];
 		    }
-
 		}
 		cout<<endl;
 	    }
@@ -148,23 +141,26 @@ void Engine::show(string table_name){
 	    }
 	}
 	else{
-	    cout << "Table not found, cannot show" << endl;
+	    cout << "Table "<< table_name<< " not found, cannot show" << endl;
 	}
 }
 
 /* ---------------------------------------------------------------------------------
 This function creates a table and adds it to the database  
 ------------------------------------------------------------------------------------*/
-void Engine::create(string name, vector<Attribute> att, vector<string> key){
+Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 
 	Table table(name,att,key);
-	all_tables.push_back(table);  
+	all_tables.push_back(table); 
+
+	return table; 
 }
 
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
 Table Engine::update(string table_name, string att_name, string data, string newVal){
+
     Table* table;
     bool status_table = false;
     bool status_att=false;
@@ -278,11 +274,8 @@ void Engine :: selection(string table_name, string att_name)   {
              
                     cout<<table->att[i].data[j] <<"\n";
                 }
-                
             }
-        
     }
-    
     
 }  //searching column information.
 
@@ -316,7 +309,6 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 		}
 	}
 	return table;
-	
 }
 
 
@@ -422,7 +414,6 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
  		all_tables.push_back(m);
 		return m;//RETURN UNION TABLE, 
 	}
-
 	Table new_Table;
 	return new_Table;
 }
@@ -523,7 +514,6 @@ void Engine::renaming( string old_attr, string new_attr, Table& table_name){
 	if (table_exists != true){
 		cout << " Error: Table does not exist" << "\n";
 	}
-	
 	for (int i = 0; i < table_name.att.size(); i++){
 		if (table_name.att[i].getName() == old_attr){
 			table_name.att[i].setName(new_attr);
@@ -550,7 +540,6 @@ vector<string> Engine::rtn_Row(Table t, int index){
 		rows.push_back(row);
 		row.clear();
 	}
-
 	for (int i = 0; i <rows[0].size(); i++){		
 	  rtn_row.push_back(rows[index][i]);
 	}

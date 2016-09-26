@@ -19,7 +19,6 @@ public:
   vector<Attribute> att;
   vector<Attribute>tuple;
   
-  
   string getName();
   vector<Attribute> getAttributes() const {return att;}
 
@@ -28,7 +27,6 @@ public:
 
   //void addAttribute(Attribute t);
   Table(const Table& table);
-  
   istream& Read(istream& input);
   ostream& Write(ostream& output);
  
