@@ -431,12 +431,14 @@ This function forms a cartesian product of its two arguments.
 It will then check if the equality of those attributes appear in both relations.
 Lastly, it removes duplicates attributes 
 ------------------------------------------------------------------------------------------*/
-/*Table Engine::natural_join(Table table1, Table table2){
+Table Engine::natural_join(Table table1, Table table2){
 	Table new_table;
 	vector<string> com_att;	  //common attributes
 	vector< vector<string> > com_dat;	  //common data
+	//cout << table1.att.size() << " " << table2.att.size() << endl;
 	for(int i = 0; i < table1.att.size(); i++){	//Find common names
 		for (int k = 0; k < table2.att.size(); k++){
+			//cout << table1.att[i].name << " " <<  table2.att[k].name << endl;
 			if (table1.att[i].name == table2.att[k].name){
 				com_att.push_back(table1.att[i].name);
 				com_dat.push_back(table1.att[i].data);
@@ -449,6 +451,7 @@ Lastly, it removes duplicates attributes
 		}
 	}
 	int index = 0;
+	vector<string> check_passed;
 	for (int i = 0; i < table2.att.size(); i++){
 		for (int k = 0; k < new_table.att.size(); k++){
 			if (table2.att[i].name == new_table.att[k].name){
@@ -458,13 +461,32 @@ Lastly, it removes duplicates attributes
 							index = y;
 						}
 					}
-					if(new_table.att.size() < table2.size()){	//probably not right
+				}
+			}
+			if(new_table.att.size() < table2.att.size()){	//probably not right
+				if (table2.att[i].name != new_table.att[k].name){
+					bool passed = false;
+					for (int e = 0; e < check_passed.size(); e++){
+						if (table2.att[e].name == check_passed[e]){
+							passed = true;
+						}
+					}
+					if (!passed){
+						check_passed.push_back(table2.att[i].name);
 						Attribute new_att;
 						new_att.name = table2.att[i].name;
 						new_att.type = table2.att[i].type;
-						new_att.data.push_back(table2.att[i].data[y]);
+						new_att.data.push_back(table2.att[i].data[index]);
 						new_table.att.push_back(new_att);
 					}
+					else{
+						for (int m = 0; m < table2.att.size(); m++){
+							if (table2.att[m].name != new_table.att[k].name){
+								new_table.att[k].data[index] = new_table.att[k].data[m];
+							}
+						}
+					}
+					
 				}
 			}
 		}
@@ -480,9 +502,10 @@ Lastly, it removes duplicates attributes
 			}
 		}
 	}
+	new_table.name = "testerino3";
 	all_tables.push_back(new_table);
 	return new_table;
-}*/
+}
 
 /*-------------------------------------------------------------------------------------------
  This function renames the attributes in a relation  
