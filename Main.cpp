@@ -15,7 +15,10 @@ using namespace std;
 //Testing compilation
 
 
-/*
+/*	//-----------------------------------------------------------------------
+	//------------------Human Identity Table---------------------------------
+	//-----------------------------------------------------------------------
+
     vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
     vector<string> ocupataion = {"students","Proffesor","Boxer"};
     vector<string> weight = {"150","160","250"};
@@ -43,8 +46,6 @@ using namespace std;
     e.show("Human identity");
 */
 
-
-         ///was commented because I was testing diference(Table,Table),Jose
 
 	//-----------------------------------------------------------------------
 	//------------------Human Identity Table---------------------------------
@@ -207,42 +208,6 @@ using namespace std;
 		REQUIRE(all_tables[1].name) == "Human");
 		REQUIRE(all_tables[2].name) == 0);	
 	}
-	
-	//------------------------------UNION CHECKING : BEGINNING CONDITIONS CHECK ----------------------------------------------------------//
-	
-	
-
-	vector<string> weight_ = {"150","160","250"};
-	vector<string> height_ = {"5","10","8"};
-	
-	Attribute human_weight("Weight","string",weight_);
-	Attribute human_height("Name","string",height_);
-	
-	vector<Attribute> human_atts;
-	human_atts.push_back(human_weight);
-	human_atts.push_back(human_height);
-	
-	Table human("human table", human_atts, key_name);
-	
-	vector<string> h_weight_ = {"150","160","250"};
-	vector<string> h_height_ = {"5","10","8"};
-	
-	Attribute hero_weight("Weight","string",h_weight_);
-	Attribute hero_height("Name","string",h_height_);
-	
-	vector<Attribute> hero_atts;
-	hero_atts.push_back(hero_weight);
-	hero_atts.push_back(hero_height);
-
-	Table hero("hero table", hero_atts, key_hero);
-	
-	e.all_tables.push_back(hero);
-	e.all_tables.push_back(human);
-	e.set_union("height", human, hero);
-	
-	// table.create("SuperHero", "test_attribute",  );
-
-	cout << "Number of tables = "<< size2<<endl;
 
 	//-----------------------------------------------------------------------
 	//---------------------Show Test----------------------------------------
@@ -320,113 +285,12 @@ using namespace std;
 		REQUIRE(e.write(human) == human.db);	
 	}
 
+
 	
-
-   
-	
-	//------------------Testing difference with a new tables ------------------------------------
-	//This table is from a webiste it show the corret result after checking for difference of two table
-	//
-
-	vector<string> tuple_1g = {"7274","Robinson","37"};
-	vector<string> tuple_2g = {"7432","O'Malley","39"};
-	vector<string> tuple_3g = {"9824","Darkes","38"};
-
-	//TUPLE
-	Attribute t_1g(tuple_1g);
-	Attribute t_2g(tuple_2g );
-	Attribute t_3g(tuple_3g);
-
-	vector<Attribute> g_att;
-
-	g_att.push_back(t_1g);
-	g_att.push_back(t_2g);
-	g_att.push_back(t_3g);
-
-	vector<string> tuple_1 = {"9297","O'Malley","56"};
-	vector<string> tuple_2 = {"7432","O'Malley","39"};
-	vector<string> tuple_3 = {"9824","Darkes","38"};
-
-	//TUPLE
-	Attribute t_1(tuple_1);
-	Attribute t_2(tuple_2 );
-	Attribute t_3(tuple_3);
-
-	vector<Attribute> m_att;
-
-	m_att.push_back(t_1);
-	m_att.push_back(t_2);
-	m_att.push_back(t_3);
-
-	vector<string> key = {"1","2","3"};
-
-
-	Table graduate_table("Graduate",g_att,key);
-	Table manager_table("Manager",m_att,key);
-
-	//e.all_tables.push_back(graduate_table);
-	//e.all_tables.push_back(manager_table);
-	//e.difference(graduate_table,manager_table);
-
-	//e.set_union("Name" ,graduate_table,manager_table);
-
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-
-
 */
-    //------------------------------------------------------------------------
-	//----------------------------DIFFERENCE & UNION TEST -----------------------
-	//----------------------------------------------------------------------- 
-	//Graduate table
-    /*vector<string> number = {"7274","7432","9894","5555"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes","Mario"};
-	vector<string> age = {"37","39","38","89"};
-	vector<string> parent = {"Yes","Yes","No","No"};
-	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname);
-	Attribute g_age("Age","Integer",age);
-	Attribute g_parent("Parent","String",parent);
-
-	vector<string> key_name = {"1","2","3","4"};
-	vector<Attribute> graduate_att;
-	graduate_att.push_back(g_number);
-	graduate_att.push_back(g_surname);
-	graduate_att.push_back(g_age);
-	graduate_att.push_back(g_parent);
-
-	
-	//Manager Table
-	vector<string> number2 = {"9297","7432","9894","3333","111"};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes","Jose","Daniel"};
-	vector<string> age2 = {"56","39","38","56","22"};
-	vector<string> parent2 = {"Yes","Yes","No","No","yes"};
-
-	Attribute m_number("Number","Integer",number2);
-	Attribute m_surname("Surname","string",surname2 );
-	Attribute m_age("Age","Integer",age2);
-	Attribute m_parent("Parent","String",parent2);
-	vector<Attribute> manager_att;
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-	manager_att.push_back(m_parent); 
-
-
-	Table g("Graduate", graduate_att, key_name);
-	Table m("Manager", manager_att, key_name);*/
-
-	//e.all_tables.push_back(g);
-	//e.all_tables.push_back(m);
-	
-	//e.all_tables.push_back(e.difference(g,m));
-	//e.all_tables.push_back(e.set_union("d",g,m));
-
-
-	//e.show("Graduate-Manager");
-	//e.show("Graduate U Manager");
+    
 	//------------------------------------------------------------------------
-	//----------------------------Selection function test -----------------------
+	//----------------------------Selection function test ----------------------
 	//-----------------------------------------------------------------------
 	 /*
 	 e.selection( "Human identity", "Name");
@@ -581,13 +445,16 @@ using namespace std;
 
    	e.show("Graduate");*/
    	
-   	
+   	//-------------------------------------------------------------------------
+	//----------------------------Difference function test -----------------------
+	//-------------------------------------------------------------------------
+	
    	TEST_CASE( "Difference between two tables", "[difference]" ) {
 
 	Engine e;
 
 	//Graduate Table 
-    vector<string> number = {"7274","7432","9894"};
+	 vector<string> number = {"7274","7432","9894"};
 	vector<string> surname = {"Robinson","O'Malley","Darkes"};
 	vector<string> age = {"37","39","38"};
 	
@@ -636,62 +503,6 @@ using namespace std;
 
 
 }
-
-TEST_CASE( "Union between two tables", "[Union]" ) {
-
-	Engine e;
-
-	//Graduate Table 
-    vector<string> number = {"7274","7432","9894"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes"};
-	vector<string> age = {"37","39","38"};
-	
-	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname);
-	Attribute g_age("Age","Integer",age);
-
-	vector<string> key_name = {"1","2","3","4"};
-	vector<Attribute> graduate_att;
-	graduate_att.push_back(g_number);
-	graduate_att.push_back(g_surname);
-	graduate_att.push_back(g_age);
-
-	//Manager Table
-	vector<string> number2 = {"9297","7432","9894",};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-	vector<string> age2 = {"56","39","38",};
-	
-	Attribute m_number("Number","Integer",number2);
-	Attribute m_surname("Surname","string",surname2 );
-	Attribute m_age("Age","Integer",age2);
-	
-	vector<Attribute> manager_att;
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-	
-	Table g("Graduate", graduate_att, key_name);
-	Table m("Manager", manager_att, key_name);
-
-	e.all_tables.push_back(g);
-	e.all_tables.push_back(m);
-	e.all_tables.push_back(e.set_union("none",g,m));
-
-	vector<string> test_values;
-	for(int i = 0; i < e.set_union("none",g,m).att.size(); i++){
-		test_values.push_back(e.set_union("none",g,m).att[i].data[0]);
-	}
-		
-	//////////----------Require outputs to be correct------------/////////
-		
-	REQUIRE( test_values[0] == "7274" );
-	REQUIRE( test_values[1] == "Robinson" );
-	REQUIRE( test_values[2] == "37" );
-
-
-}
-	
-
 	
    	
    	
