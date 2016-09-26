@@ -432,7 +432,56 @@ It will then check if the equality of those attributes appear in both relations.
 Lastly, it removes duplicates attributes 
 ------------------------------------------------------------------------------------------*/
 /*Table Engine::natural_join(Table table1, Table table2){
-
+	Table new_table;
+	vector<string> com_att;	  //common attributes
+	vector< vector<string> > com_dat;	  //common data
+	for(int i = 0; i < table1.att.size(); i++){	//Find common names
+		for (int k = 0; k < table2.att.size(); k++){
+			if (table1.att[i].name == table2.att[k].name){
+				com_att.push_back(table1.att[i].name);
+				com_dat.push_back(table1.att[i].data);
+				Attribute new_att;
+				new_att.name = table1.att[i].name;
+				new_att.type = table1.att[i].type;
+				new_att.data = table1.att[i].data;
+				new_table.att.push_back(new_att);
+			}
+		}
+	}
+	int index = 0;
+	for (int i = 0; i < table2.att.size(); i++){
+		for (int k = 0; k < new_table.att.size(); k++){
+			if (table2.att[i].name == new_table.att[k].name){
+				for (int z = 0; z < table2.att[i].data.size();z++){
+					for (int y = 0; y < new_table.att[k].data.size(); y++){
+						if (table2.att[i].data[z] == new_table.att[k].data[y]){
+							index = y;
+						}
+					}
+					if(new_table.att.size() < table2.size()){	//probably not right
+						Attribute new_att;
+						new_att.name = table2.att[i].name;
+						new_att.type = table2.att[i].type;
+						new_att.data.push_back(table2.att[i].data[y]);
+						new_table.att.push_back(new_att);
+					}
+				}
+			}
+		}
+	}
+	for(int i = 0; i < table1.att.size(); i++){	//Find names not in common
+		for (int k = 0; k < table2.att.size(); k++){
+			if (table1.att[i].name != table2.att[k].name){
+				Attribute new_att;
+				new_att.name = table1.att[i].name;
+				new_att.type = table1.att[i].type;
+				new_att.data = table1.att[i].data;
+				new_table.att.push_back(new_att);
+			}
+		}
+	}
+	all_tables.push_back(new_table);
+	return new_table;
 }*/
 
 /*-------------------------------------------------------------------------------------------
