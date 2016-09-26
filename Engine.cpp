@@ -19,12 +19,10 @@ void Engine::open(string table_name){
 	
 	ifstream input_file(table_name + ".db");
 
-	if(!input_file.is_open())
-	{
+	if(!input_file.is_open()){
 		cout << "Error: Could not open file" << "\n";
 	}
-	else
-	{
+	else{
 		cout << "Error: Table is already open" << endl;
 	}
 }
@@ -32,21 +30,15 @@ void Engine::open(string table_name){
 This function closes a file that was open 
 ------------------------------------------------------------------------------*/
 void Engine::close(string table_name){
-    
-        
-    
+   
     ifstream close_file(table_name + ".db");
     
-    if(!close_file.is_open())
-    {
+    if(!close_file.is_open()) {
         cout << "Error: Could not open file" << "\n";
     }
-    else
-    {
+    else{
         cout << "Error: Table is already open" << endl;
     }
-
-  
     close_file.close();
 }
 /*-----------------------------------------------------------------------------------
@@ -62,27 +54,23 @@ void Engine::read(string table_name){
 	    if (table_name == all_tables[i].getName())
 		{
 	    	found = true;
-			table = all_tables[i];
+		table = all_tables[i];
 	    }
 	}
 	
 	ifstream input_file(table_name +".db");
 	
-	if(!input_file.is_open())
-	{
+	if(!input_file.is_open()){
 		cout << "Could not open file" << endl;
 	}
-	else
-	{
+	else{
 		Table new_table = Table();
 		new_table.Read(input_file);
 		
-		if(true)
-		{
+		if(true){
 			all_tables.push_back(new_table);
 		}
-		else
-		{
+		else{
 			cout << "Table already open" << endl;
 		}
 	}
@@ -272,11 +260,9 @@ void Engine :: selection(string table_name, string att_name)   {
             if( (table->att[i].getName()) == att_name)
             {
                 cout<<table->att[i].getName()<<endl;
-                for (int j = 0; j < table->att[i].data.size(); j++)
-                {
-                    
+                for (int j = 0; j < table->att[i].data.size(); j++){
+             
                     cout<<table->att[i].data[j] <<"\n";
-                    
                 }
                 
             }
@@ -295,28 +281,22 @@ Table Engine :: projection(vector <string> att_names, string table_name)
 	
 	bool table_exists = false; // checks if table exists
 	
-	for (int i = 0; i < all_tables.size(); i++)
-	{
-		if (table_name == all_tables[i].name)
-		{
+	for (int i = 0; i < all_tables.size(); i++){
+		if (table_name == all_tables[i].name){
 			table_exists = true;
 			table = all_tables[i];
 		}
 	}
-	if (table_exists != true)
-	{
+	if (table_exists != true){
 		cout << "Error: Table does not exist" << endl;
 	}
 	cout << table.getName() << endl;
 	
-	for (int i =0; i < table.att.size(); i++)
-	{
-		if(att_names[i] == table.att[i].getName()) // checks if attributes in table match attributes given
-		{
+	for (int i =0; i < table.att.size(); i++){ // checks if attributes in table match attributes given
+		if(att_names[i] == table.att[i].getName()){
 			cout << table.att[i].getName() << endl;
 			
-			for(int j =0; j < table.att[0].data.size(); j++)
-			{
+			for(int j =0; j < table.att[0].data.size(); j++){
 				cout << table.att[i].data[j] << endl;
 			}
 		}
@@ -447,27 +427,20 @@ Lastly, it removes duplicates attributes
 --------------------------------------------------------------------------------------------*/
 void Engine::renaming( string old_attr, string new_attr, string table_name){
 	
-	//TODO : Inga : it works.
 	bool table_exists = false;
-	
 	Table* table;
-	for (int i = 0; i < all_tables.size(); i++)
-	{
-		if (table_name == all_tables[i].name)
-		{
+	for (int i = 0; i < all_tables.size(); i++){
+		if (table_name == all_tables[i].name){
 			table_exists = true;
 			table = &(all_tables[i]);
 		}
 	}
-	if (table_exists != true)
-	{
+	if (table_exists != true){
 		cout << " Error: Table does not exist" << "\n";
 	}
 	
-	for (int i = 0; i < table->att.size(); i++)
-	{
-		if (table->att[i].getName() == old_attr)
-		{
+	for (int i = 0; i < table->att.size(); i++){
+		if (table->att[i].getName() == old_attr){
 			table->att[i].setName(new_attr);
 		}
 	}
