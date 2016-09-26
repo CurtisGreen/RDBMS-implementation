@@ -485,8 +485,10 @@ using namespace std;
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.difference(g,m));
+	
+	e.show("Graduate-Manager");
 
-
+	
 	vector<string> test_values;
 	for(int i = 0; i < e.difference(g,m).att.size(); i++){
 		test_values.push_back(e.difference(g,m).att[i].data[0]);
