@@ -546,7 +546,7 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.set_union("none",g,m));
-
+	e.show("Graduate U Manager");
 	vector<string> test_values;
 	for(int i = 0; i < e.set_union("none",g,m).att.size(); i++){
 		test_values.push_back(e.set_union("none",g,m).att[i].data[0]);
