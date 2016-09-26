@@ -580,4 +580,40 @@ using namespace std;
 		REQUIRE( test_values[3] == "2009-10" );
 	}
 	*/
+	
+	
+	EST_CASE( "natural join between 2 tables", "[natural_product]" ) {
+		Engine f;
+		vector<string> employee = {"smith", "black", "white"};
+		vector<string> department = {"sales", "production", "production"};
+		vector<string> department2 = {"production", "sales", "notproduction"};
+		vector<string> head = {"mori", "brown", "frank"};
+
+		Attribute emp("employee", "string", employee);
+		Attribute dep("department", "string", department);
+		Attribute dep2("department", "string", department2);
+		Attribute hed("head", "string", head);
+
+
+		vector<Attribute> cross_att1= {emp, dep};
+		vector<Attribute> cross_att2 = {dep2, hed};
+		Table nat_table1;
+		nat_table1.name = "test1";
+		nat_table1.att = cross_att1;
+		Table nat_table2;
+		nat_table2.name = "test2";
+		nat_table2.att = cross_att2;
+
+		Table nat_out_table = f.natural_join(nat_table1, nat_table2);
+		//f.show("testerino3");
+
+		vector<string> test_values;
+		for(int i = 0; i < 3; i++){
+			test_values.push_back(nat_out_table.att[i].data[0]);
+		}
+
+		REQUIRE( test_values[0] == "sales" );
+		REQUIRE( test_values[1] == "brown" );
+		REQUIRE( test_values[3] == "smith" );
+	}
 
