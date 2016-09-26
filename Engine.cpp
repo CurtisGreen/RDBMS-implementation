@@ -201,7 +201,7 @@ void Engine::update(string table_name, string att_name, string data, string newV
 /*----------------------------------------------------------------------------------
 This function inserts data into the Table
 ------------------------------------------------------------------------------------*/
-void Engine::insert(string table_name, vector<string> new_row){
+Table Engine::insert(string table_name, vector<string> new_row){
 	Table* table;
 	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
@@ -218,6 +218,7 @@ void Engine::insert(string table_name, vector<string> new_row){
 	else{
 	    cout << "Table not found, cannot insert" << endl;
 	}
+	return *table;
  }
  
 /*------------------------------------------------------------------------------------

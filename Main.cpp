@@ -186,7 +186,7 @@ using namespace std;
 	//-----------------------------------------------------------------------
 	//cout << "\n\n" << endl;
 	//cout << "Insert test:"<< endl;
-	TEST_CASE("Insert test") {
+	TEST_CASE("Insert_test", "[insert]") {
 		
 		Engine e;
 		
@@ -210,13 +210,17 @@ using namespace std;
 		hero_attributes.push_back(att_hero_height);
 		
 		Table hero_table("Hero",hero_attributes,key_hero);
+
+		e.all_tables.push_back(hero_table);
 		
-		vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
-		e.insert("Hero", insert_test);
-		REQUIRE(human.att[0].data[3] == "test_name");
-		REQUIRE(human.att[1].data[3] == "test_ability");
-		REQUIRE(human.att[2].data[3] == "test_weight");
-		REQUIRE(human.att[3].data[3] == "test_height");
+		vector <string> insertTest = {"test_name", "test_ability", "test_weight", "test_height"};
+
+		Table new_table = e.insert("Hero", insertTest);
+		//e.show("Name");
+		REQUIRE(new_table.att[0].data[3] == "test_name");
+		REQUIRE(new_table.att[1].data[3] == "test_ability");
+		REQUIRE(new_table.att[2].data[3] == "test_weight");
+		REQUIRE(new_table.att[3].data[3] == "test_height");
 		//e.show("Hero");
 	}
 
