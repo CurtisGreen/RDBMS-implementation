@@ -469,7 +469,6 @@ using namespace std;
 	
 	/*
 	cout << "Projection Test" << endl;
-	// Not finished writing the cases
 	
 	TEST_CASE("Projection") 
 	{
@@ -491,12 +490,15 @@ using namespace std;
 	
 		Table human("human table", human_atts, key_name);
 		
+		vector <string> temps = {"Weight", "Height", "Size"};
 		
-		REQUIRE(e.projection() == );
-		REQUIRE(e.projection() == );
-		REQUIRE(e.projection() == );
+		Table new_table = e.projection(temps,"human table);
 		
+		REQUIRE(new_table.att[0].getName() == "Weight" );
+		REQUIRE(new_table.att[1].getName() == "Height" );
 	}
+	
+	
 	
 	
 	//-------------------------------------------------------------------------
