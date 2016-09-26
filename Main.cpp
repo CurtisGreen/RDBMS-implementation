@@ -86,12 +86,12 @@ using namespace std;
 	affiliatin_attibutes.push_back(att_purpose);
 	
 	Table affiliation_table("Affiliation",affiliatin_attibutes,key_affiliation);//crates table 
-
+	*/
 
        //-----------------------------------------------------------------------
        //-------------Drop Function Taest--------------------------------------
        //-----------------------------------------------------------------------
-	cout << "Drop Function Test" << "\n";
+	//cout << "Drop Function Test" << "\n";
 
 	
 	TEST_CASE("Drop") 
@@ -111,73 +111,37 @@ using namespace std;
 		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
 
 		vector<Attribute> hero_attributes;
-
-		hero_attributes.push_back(att_hero_name);
-		hero_attributes.push_back(att_hero_ability);
-		hero_attributes.push_back(att_hero_weight);
-		hero_attributes.push_back(att_hero_height);
-
-		Table hero_table("Hero",hero_attributes,key_hero);
 		
-		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
-		vector<string> h_ability = {"Strenght","Fly","Strenght"};
-		vector<string> h_weight = {"150","160","250"};
-		vector<string> h_height = {"5","10","8"};
-
-		Attribute att_hero_name("Name","string",h_name);
-		Attribute att_hero_ability("Ability","string",h_ability );
-		Attribute att_hero_weight("Weight","string",h_weight);
-		Attribute att_hero_height("Name","string",h_height);
-
-		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
-
-		vector<Attribute> hero_attributes;
-
 		hero_attributes.push_back(att_hero_name);
 		hero_attributes.push_back(att_hero_ability);
 		hero_attributes.push_back(att_hero_weight);
 		hero_attributes.push_back(att_hero_height);
+		
+		Table hero_table("Hero",hero_attributes,key_hero);
+
 
 		Table human_table("Human",hero_attributes,key_hero);
-		
-		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
-		vector<string> h_ability = {"Strenght","Fly","Strenght"};
-		vector<string> h_weight = {"150","160","250"};
-		vector<string> h_height = {"5","10","8"};
-
-		Attribute att_hero_name("Name","string",h_name);
-		Attribute att_hero_ability("Ability","string",h_ability );
-		Attribute att_hero_weight("Weight","string",h_weight);
-		Attribute att_hero_height("Name","string",h_height);
-
-		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
-
-		vector<Attribute> hero_attributes;
-
-		hero_attributes.push_back(att_hero_name);
-		hero_attributes.push_back(att_hero_ability);
-		hero_attributes.push_back(att_hero_weight);
-		hero_attributes.push_back(att_hero_height);
 
 		Table happy_table("Happy",hero_attributes,key_hero);
 		
-		all_tables.push_back(hero_table);
+		e.all_tables.push_back(hero_table);
 		
-		all_tables.push_back(human_table);
+		e.all_tables.push_back(human_table);
 		
-		all_tables.push_back(happy_table);
+		e.all_tables.push_back(happy_table);
 		
 		e.drop("Happy");
 		
 
-		REQUIRE(all_tables[0].name) == "Hero");
-		REQUIRE(all_tables[1].name) == "Human");
-		REQUIRE(all_tables[2].name) == 0);	
+		REQUIRE(e.all_tables[0].name == "Hero");
+		REQUIRE(e.all_tables[1].name == "Human");
+		REQUIRE(e.all_tables[2].name != "Happy");	
 	}
 
 	//-----------------------------------------------------------------------
 	//---------------------Show Test----------------------------------------
 	//-----------------------------------------------------------------------
+	/*
 	cout << endl;
 	cout << "Show test:"<< endl;
 	e.show("Human");
@@ -205,14 +169,14 @@ using namespace std;
 	cout << "Insert test:"<< endl;
 	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
 	e.insert("Hero", insert_test);
-	e.show("Hero");
+	e.show("Hero");*/
 
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
 	//-----------------------------------------------------------------------
 	
-	cout << "\n Write function Test:" << "\n";
-	
+	//cout << "\n Write function Test:" << "\n";
+	/*
 	TEST_CASE("Write") 
 	{
 		Engine e;
@@ -241,8 +205,8 @@ using namespace std;
 	
 		REQUIRE(e.write(humans) == "Table not found, cannot insert");	
 		REQUIRE(e.write(human) == human.db);	
-	}
-*/
+	}*/
+	
         //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
 	//-----------------------------------------------------------------------
@@ -254,9 +218,9 @@ using namespace std;
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
-/*
+
 	
-	cout << "Rename function" << endl;
+	//cout << "Rename function" << endl;
 	
 	TEST_CASE("Renaming") 
 	{
@@ -281,15 +245,15 @@ using namespace std;
 	
 		e.all_tables.push_back(human);
 		
-		e.renaming(Weight", "Love", "human table");
-		e.renaming(Height", "Peace", "human table");
+		e.renaming("Weight", "Love", "human table");
+		e.renaming("Height", "Peace", "human table");
 		
 	
-		REQUIRE(human_table.att[0].getName() == "Love");
-		REQUIRE(human_table.att[1].getName() == "Peace")
+		REQUIRE(human.att[0].getName() == "Love");
+		REQUIRE(human.att[1].getName() == "Peace");
 	}
 
-	*/
+	
 	
 
 
@@ -297,9 +261,9 @@ using namespace std;
 	//----------------------------Projection function test --------------------
 	//-------------------------------------------------------------------------
 	
-	/*
-	cout << "Projection Test" << endl;
 	
+	//cout << "Projection Test" << endl;
+	/*
 	TEST_CASE("Projection") 
 	{
 		Engine e;
@@ -322,18 +286,19 @@ using namespace std;
 		
 		vector <string> temps = {"Weight", "Height", "Size"};
 		
-		Table new_table = e.projection(temps,"human table);
+		Table new_table = e.projection(temps,"human table");
 		
 		REQUIRE(new_table.att[0].getName() == "Weight" );
 		REQUIRE(new_table.att[1].getName() == "Height" );
-	}
+	}*/
 	
 	//-------------------------------------------------------------------------
 	//----------------------------Open function test -------------------------
 	//-------------------------------------------------------------------------
 	
 	
-	cout << "Open test" << endl;
+	//cout << "Open test" << endl;
+	/*
 	TEST_CASE("Open") 
 	{
 		Engine e;
@@ -377,7 +342,7 @@ using namespace std;
 	
 	for(int i = 0; i<r.size(); i++){
 		cout<<r[i]<<" ";
-	}
+	}*/
 
 	 //-------------------------------------------------------------------------
 	//----------------------------Read function test --------------------------
@@ -571,6 +536,10 @@ using namespace std;
 	
 	/*
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> a91a7233126d2f3fae4055770bce809fd3cf9a26
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine f;
 		vector<string> employee = {"smith", "black", "white"};
