@@ -362,44 +362,97 @@ using namespace std;
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
-	/*
+/*
 	
-	vector<string> new_names = {"love","happiness"};
+	// Not finished writing the cases
 	
-	vector<string> weight_ = {"150","160","250"};
-	vector<string> height_ = {"5","10","8"};
+	TEST_CASE("Renaming") 
+	{
+		Engine e;
+		
+		vector<string> new_names = {"love","happiness"};
 	
-	Attribute human_weight("Weight","string",weight_);
-	Attribute human_height("Height","string",height_);
+		vector<string> weight_ = {"150","160","250"};
+		vector<string> height_ = {"5","10","8"};
 	
-	vector<Attribute> human_atts;
+		Attribute human_weight("Weight","string",weight_);
+		Attribute human_height("Height","string",height_);
 	
-	human_atts.push_back(human_weight);
-	human_atts.push_back(human_height);
-	vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+		vector<Attribute> human_atts;
 	
-	Table human("human table", human_atts, key_name);
+		human_atts.push_back(human_weight);
+		human_atts.push_back(human_height);
+		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	
+		Table human("human table", human_atts, key_name);
 	
 	
-	e.all_tables.push_back(human);
+		e.all_tables.push_back(human);
+	
+		REQUIRE(e.renaming(Weight", "Love", "human table") == );
+		REQUIRE(e.renaming(Weight", "Peace", "human table") == );
+		REQUIRE(e.renaming(Weight", "Smile", "human table") == );
+		
+	}
+
+	*/
+	
 
 */
-	
-	//----------------------------PROJECTION TEST----------------------------------
+//-------------------------------------------------------------------------
+	//----------------------------Projection function test --------------------
+	//-------------------------------------------------------------------------
 	
 	/*
-	cout << "Projection Test" << "\n";
-	vector<string> names__ = {"Weight", "Love"};
-	e. projection(names__, "human table");
-	//e. projection(names__, "human tabl");
+	cout << "Projection Test" << endl;
+	// Not finished writing the cases
 	
-	//----------------------------PROJECTION TEST----------------------------------
+	TEST_CASE("Projection") 
+	{
+		Engine e;
+		
+		vector<string> new_names = {"love","happiness"};
 	
-	cout << "OPEN test" << endl;
+		vector<string> weight_ = {"150","160","250"};
+		vector<string> height_ = {"5","10","8"};
 	
+		Attribute human_weight("Weight","string",weight_);
+		Attribute human_height("Height","string",height_);
+	
+		vector<Attribute> human_atts;
+	
+		human_atts.push_back(human_weight);
+		human_atts.push_back(human_height);
+		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	
+		Table human("human table", human_atts, key_name);
+		
+		
+		REQUIRE(e.projection() == );
+		REQUIRE(e.projection() == );
+		REQUIRE(e.projection() == );
+		
+	}
+	
+	
+	//-------------------------------------------------------------------------
+	//----------------------------Open function test -------------------------
+	//-------------------------------------------------------------------------
+	
+	
+	cout << "Open test" << endl;
+	//Not finished writing cases 
 	e.write(human);
 	e.open("human table");
 	
+	TEST_CASE("Open") 
+	{
+		Engine e;
+		REQUIRE(e.open() == );
+		REQUIRE(e.open() == );
+		REQUIRE(e.open() == );
+		
+	}
 	
 	
 	manager_att.push_back(m_number);
