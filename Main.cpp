@@ -249,8 +249,8 @@ using namespace std;
 		e.renaming("Height", "Peace", "human table");
 		
 	
-		REQUIRE(human_table.att[0].getName() == "Love");
-		REQUIRE(human_table.att[1].getName() == "Peace")
+		REQUIRE(human.att[0].getName() == "Love");
+		REQUIRE(human.att[1].getName() == "Peace");
 	}
 
 	
@@ -297,7 +297,8 @@ using namespace std;
 	//-------------------------------------------------------------------------
 	
 	
-	cout << "Open test" << endl;
+	//cout << "Open test" << endl;
+	/*
 	TEST_CASE("Open") 
 	{
 		Engine e;
@@ -341,7 +342,7 @@ using namespace std;
 	
 	for(int i = 0; i<r.size(); i++){
 		cout<<r[i]<<" ";
-	}
+	}*/
 
 	 //-------------------------------------------------------------------------
 	//----------------------------Read function test --------------------------
