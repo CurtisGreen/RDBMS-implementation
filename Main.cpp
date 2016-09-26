@@ -14,7 +14,7 @@ using namespace std;
 
 
 
-*/
+
      //-----------------------------------------------------------------------
      //------------------Human Identity Table---------------------------------
      //-----------------------------------------------------------------------
@@ -292,7 +292,7 @@ using namespace std;
 	*/
 	
 
-*/
+
 	//-------------------------------------------------------------------------
 	//----------------------------Projection function test --------------------
 	//-------------------------------------------------------------------------
@@ -434,6 +434,9 @@ using namespace std;
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.difference(g,m));
+	e.show("Graduate-Manager");
+
+
 
 
 	vector<string> test_values;
@@ -493,6 +496,8 @@ using namespace std;
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.set_union("none",g,m));
+
+	e.show("Graduate U Manager");
 
 	vector<string> test_values;
 	for(int i = 0; i < e.set_union("none",g,m).att.size(); i++){
