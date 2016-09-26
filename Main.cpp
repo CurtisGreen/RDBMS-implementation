@@ -223,6 +223,86 @@ using namespace std;
 		REQUIRE(new_table.att[3].data[3] == "test_height");
 		//e.show("Hero");
 	}
+	//-----------------------------------------------------------------------
+    //---------------------Destroy Test----------------------------------------
+    //-----------------------------------------------------------------------
+    /*TEST_CASE("Destroy")
+    	{
+        Engine e;
+ 
+        vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+        vector<string> ocupataion = {"students","Proffesor","Boxer"};
+        vector<string> weight = {"150","160","250"};
+        vector<string> height = {"5","10","8"};
+ 
+        Attribute att_human_name("Name","string",name);
+        Attribute att_human_occupation("Ocupation","string",ocupataion );
+        Attribute att_human_weight("Weight","string",weight);
+        Attribute att_human_height("Name","string",height);
+ 
+        vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+ 
+        vector<Attribute> human_attributes;
+ 
+        human_attributes.push_back(att_human_name);
+        human_attributes.push_back(att_human_occupation);
+        human_attributes.push_back(att_human_weight);
+        human_attributes.push_back(att_human_height);
+        
+        Table human_table("Human",human_attributes,key_name);//crates table
+ 
+        e.all_tables.push_back(human_table);
+ 
+ 
+ 
+        Table new_table = e.destroy ("Human", 1 );
+ 
+ 
+        REQUIRE(new_table.att[0].data[0] != "Peter Parker");
+        REQUIRE(new_table.att[0].data[0] != "students");
+        REQUIRE(new_table.att[0].data[0] != "150");
+        REQUIRE(new_table.att[0].data[0] != "5");
+ 
+	 }*/
+
+    //-----------------------------------------------------------------------
+    //---------------------Update Test----------------------------------------
+    //-----------------------------------------------------------------------
+   /* TEST_CASE("Update")
+	 {
+        Engine e;
+    
+        vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+        vector<string> ocupataion = {"students","Proffesor","Boxer"};
+        vector<string> weight = {"150","160","250"};
+        vector<string> height = {"5","10","8"};
+        
+        Attribute att_human_name("Name","string",name);
+        Attribute att_human_occupation("Ocupation","string",ocupataion );
+        Attribute att_human_weight("Weight","string",weight);
+        Attribute att_human_height("Name","string",height);
+        
+        vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+        
+        vector<Attribute> human_attributes;
+        
+        human_attributes.push_back(att_human_name);
+        human_attributes.push_back(att_human_occupation);
+        human_attributes.push_back(att_human_weight);
+        human_attributes.push_back(att_human_height);
+        
+        Table human_table("Human",human_attributes,key_name);//crates table
+    
+        e.all_tables.push_back(human_table);
+    
+       
+    
+        Table new_table = e.update("Human","Name","Peter Parker","Eunsu Kim");
+    
+        
+        REQUIRE(new_table.att[0].data[0] == "Eunsu Kim");
+        
+	}*/
 
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
@@ -263,10 +343,36 @@ using namespace std;
         //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
 	//-----------------------------------------------------------------------
-	 
-	// e.selection( "Human identity", "Name");
-	  
-	
+	/*
+	  Engine e;
+
+	 vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	 vector<string> ocupataion = {"students","Proffesor","Boxer"};
+	 vector<string> weight = {"150","160","250"};
+	 vector<string> height = {"5","10","8"};
+
+	 Attribute att_human_name("Name","string",name);
+	 Attribute att_human_occupation("Ocupation","string",ocupataion );
+	 Attribute att_human_weight("Weight","string",weight);
+	 Attribute att_human_height("Height","string",height);
+
+	 vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+
+	  vector<Attribute> human_attributes;
+
+	  human_attributes.push_back(att_human_name);
+	 human_attributes.push_back(att_human_occupation);
+	 human_attributes.push_back(att_human_weight);
+	 human_attributes.push_back(att_human_height);
+
+	 Table human_table("Human",human_attributes,key_name);//crates table
+
+	 e.all_tables.push_back(human_table);
+
+	  e.selection( "Human", "Name");
+
+     	*/
+
 
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
