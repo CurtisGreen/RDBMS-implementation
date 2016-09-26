@@ -417,12 +417,12 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
              }
 	    }
  		string table_name = table1.name + " U " + table2.name;
-
-		return 	makeTable(table1,table_name,store_union);//RETURN UNION TABLE, 
+ 		Table m = makeTable(table1,table_name,store_union);
+ 		all_tables.push_back(m);
+		return m;//RETURN UNION TABLE, 
 	}
 
 	Table new_Table;
-
 	return new_Table;
 }
 
@@ -603,8 +603,9 @@ Table Engine::difference(Table table1, Table table2){
 		exist = false;
 	}
 	string table_name = table1.name + "-" + table2.name;
-
-	return 	makeTable(table1,table_name,diff);
+	Table d = makeTable(table1,table_name,diff);
+	all_tables.push_back(d);
+	return 	d;
 }
 
 
