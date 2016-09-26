@@ -512,19 +512,9 @@ using namespace std;
 
 
 }
-
-   /*
-	unsigned int Factorial( unsigned int number ) {	//Test example 1
-	  return number > 1 ? Factorial(number-1)*number : 1;
-	}
-
-	TEST_CASE( "Factorials are computed", "[factorial]" ) {	//Test example 1
-	    REQUIRE( Factorial(0) == 1 );
-	    REQUIRE( Factorial(1) == 1 );
-	    REQUIRE( Factorial(2) == 2 );
-	    REQUIRE( Factorial(3) == 6 );
-	    REQUIRE( Factorial(10) == 3628800 );
-	}
+	
+	
+	
 	//--------------------------------------------------------------------------------
 	//-----------------Cross product test ---EXAMPLE ---------------------------------//
 	//---------------------------------------------------------------------------------
@@ -579,7 +569,7 @@ using namespace std;
 		REQUIRE( test_values[2] == "3000" );
 		REQUIRE( test_values[3] == "2009-10" );
 	}
-	*/
+	
 	
 	
 	EST_CASE( "natural join between 2 tables", "[natural_product]" ) {
