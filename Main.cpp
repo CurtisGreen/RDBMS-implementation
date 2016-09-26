@@ -263,7 +263,7 @@ using namespace std;
 	
 	
 	//cout << "Projection Test" << endl;
-	
+	/*
 	TEST_CASE("Projection") 
 	{
 		Engine e;
@@ -290,7 +290,7 @@ using namespace std;
 		
 		REQUIRE(new_table.att[0].getName() == "Weight" );
 		REQUIRE(new_table.att[1].getName() == "Height" );
-	}
+	}*/
 	
 	//-------------------------------------------------------------------------
 	//----------------------------Open function test -------------------------
