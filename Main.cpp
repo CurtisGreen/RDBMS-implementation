@@ -233,23 +233,26 @@ using namespace std;
 	e.write(human_table);
 	
 
-	//------------------------------------------------------------------------
-	//----------------------------Open function test -----------------------
-	//-----------------------------------------------------------------------
-	cout << "\n Open Test:" << "\n";
-	e.open("Human");
-	//TODO: tests regarding engine functions
+        //-----------------------------------------------------------------------
+	//----------------------------Open function test -------------------------
+	//-------------------------------------------------------------------------
 	
-
 	
-	//------------------------------------------------------------------------
-	//----------------------------Open function test -----------------------
-	//-----------------------------------------------------------------------
-	cout << "\n Open Test:" << "\n";
-	e.open("Human");
-	//TODO: tests regarding engine functions
-
-
+	cout << "Open test" << endl;
+	//Not finished writing cases 
+	e.write(human);
+	e.open("human table");
+	
+	TEST_CASE("Open") 
+	{
+		Engine e;
+		REQUIRE(e.open() == );
+		REQUIRE(e.open() == );
+		REQUIRE(e.open() == );
+		
+	}
+	
+	
 	//------------------Testing difference with a new tables ------------------------------------
 	//This table is from a webiste it show the corret result after checking for difference of two table
 	//
