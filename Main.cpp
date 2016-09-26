@@ -12,41 +12,9 @@
 
 using namespace std; 
 
-//Testing compilation
 
 
-/*  //-----------------------------------------------------------------------
-    //------------------Human Identity Table---------------------------------
-    //-----------------------------------------------------------------------
-
-    vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-    vector<string> ocupataion = {"students","Proffesor","Boxer"};
-    vector<string> weight = {"150","160","250"};
-    vector<string> height = {"5","10","8"};
-    
-    Attribute att_human_name("Name","string",name);
-    Attribute att_human_occupation("Ocupation","string",ocupataion );
-    Attribute att_human_weight("Weight","string",weight);
-    Attribute att_human_height("Height","string",height);
-    
-    vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-    
-    vector<Attribute> human_attributes;
-    
-    human_attributes.push_back(att_human_name);
-    human_attributes.push_back(att_human_occupation);
-    human_attributes.push_back(att_human_weight);
-    human_attributes.push_back(att_human_height);
-    
-    
-    
-    Engine e;
-    e.create ("Human identity", human_attributes,key_name);
-   
-    e.show("Human identity");
 */
-
-
      //-----------------------------------------------------------------------
      //------------------Human Identity Table---------------------------------
      //-----------------------------------------------------------------------
@@ -72,8 +40,6 @@ using namespace std;
 	human_attributes.push_back(att_human_height);
 
 	Table human_table("Human",human_attributes,key_name);//crates table 
-
-
 
       //-----------------------------------------------------------------------
       //-----------------Hero Indentity Table----------------------------------
@@ -219,21 +185,15 @@ using namespace std;
 	e.show("Hero");
 	cout << "\n" << endl;
 	e.show("Affiliation");
-
-	//-----------------------------------------------------------------------
-	//---------------------Create test----------------------------------------
-	//-----------------------------------------------------------------------
 	
-	// TODO: table.create("SuperHero", "test_attribute", ... );
-	
-      //------------------------------------------------------------------------
+      //-----------------------------------------------------------------------
      //----------------------------Update function test -----------------------
      //-----------------------------------------------------------------------
-     e.update ("Human identity", "Name", "Peter Parker", "Eunsu Kim");
-     e.show ("Human identity");
-	     
+	     e.update ("Human identity", "Name", "Peter Parker", "Eunsu Kim");
+	     e.show ("Human identity");
+		     
 	 //------------------------------------------------------------------------
-	 //----------------------------Destroy function test -----------------------
+	 //----------------------------Destroy function test ----------------------
 	 //-----------------------------------------------------------------------
 	     e.destroy("Human identity",1);
 	     e.show ("Human identity");
@@ -246,9 +206,7 @@ using namespace std;
 	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
 	e.insert("Hero", insert_test);
 	e.show("Hero");
-	
-	
-	
+
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
 	//-----------------------------------------------------------------------
@@ -284,18 +242,14 @@ using namespace std;
 		REQUIRE(e.write(humans) == "Table not found, cannot insert");	
 		REQUIRE(e.write(human) == human.db);	
 	}
-
-
-	
 */
-    
-	//------------------------------------------------------------------------
-	//----------------------------Selection function test ----------------------
+        //------------------------------------------------------------------------
+	//----------------------------Selection function test --------------------
 	//-----------------------------------------------------------------------
-	 /*
-	 e.selection( "Human identity", "Name");
+	 
+	// e.selection( "Human identity", "Name");
 	  
-	*/
+	
 
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
@@ -380,9 +334,6 @@ using namespace std;
 	
 	
 	cout << "Open test" << endl;
-	cout << "Open test" << endl;
-
-	
 	TEST_CASE("Open") 
 	{
 		Engine e;
@@ -412,8 +363,6 @@ using namespace std;
 		REQUIRE(e.open("human table") == "Error: Table is already open");	
 		REQUIRE(e.open("humans table") == "Error: Could not open file");	
 	}
-
-	
 	
 	manager_att.push_back(m_number);
 	manager_att.push_back(m_surname);
@@ -430,9 +379,9 @@ using namespace std;
 		cout<<r[i]<<" ";
 	}
 
- 	
-	
-	//----------------------------------------READ TEST-----------------------/
+	 //-------------------------------------------------------------------------
+	//----------------------------Read function test --------------------------
+	//-------------------------------------------------------------------------
 	/*cout << "Read test " << endl;
 	
 	//e.write(g);
@@ -485,10 +434,8 @@ using namespace std;
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.difference(g,m));
-	
-	e.show("Graduate-Manager");
 
-	
+
 	vector<string> test_values;
 	for(int i = 0; i < e.difference(g,m).att.size(); i++){
 		test_values.push_back(e.difference(g,m).att[i].data[0]);
@@ -507,12 +454,12 @@ using namespace std;
 	//----------------------------Union function test ----------------------
 	//-----------------------------------------------------------------------
 
-TEST_CASE( "Union between two tables", "[Union]" ) {
+	TEST_CASE( "Union between two tables", "[Union]" ) {
 
 	Engine e;
 
 	//Graduate Table 
-    vector<string> number = {"7274","7432","9894"};
+    	vector<string> number = {"7274","7432","9894"};
 	vector<string> surname = {"Robinson","O'Malley","Darkes"};
 	vector<string> age = {"37","39","38"};
 	
@@ -546,7 +493,7 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 	e.all_tables.push_back(g);
 	e.all_tables.push_back(m);
 	e.all_tables.push_back(e.set_union("none",g,m));
-	e.show("Graduate U Manager");
+
 	vector<string> test_values;
 	for(int i = 0; i < e.set_union("none",g,m).att.size(); i++){
 		test_values.push_back(e.set_union("none",g,m).att[i].data[0]);
@@ -560,11 +507,7 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 
 
 }
-	
-   	
-   	
-   	
-   	
+
    /*
 	unsigned int Factorial( unsigned int number ) {	//Test example 1
 	  return number > 1 ? Factorial(number-1)*number : 1;
@@ -577,9 +520,9 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 	    REQUIRE( Factorial(3) == 6 );
 	    REQUIRE( Factorial(10) == 3628800 );
 	}
-	////////////////////////////////////////////////////////////////////////
-	//-----------------Cross product test---------------------------------//
-	////////////////////////////////////////////////////////////////////////
+	//--------------------------------------------------------------------------------
+	//-----------------Cross product test ---EXAMPLE ---------------------------------//
+	//---------------------------------------------------------------------------------
 
 	//Should look like this: https://www.tutorialspoint.com/sql/sql-cartesian-joins.htm
 	
@@ -630,49 +573,6 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 		REQUIRE( test_values[1] == "Ramesh" );
 		REQUIRE( test_values[2] == "3000" );
 		REQUIRE( test_values[3] == "2009-10" );
-	}
-
-	SCENARIO( "vectors can be sized and resized", "[vector]" ) {	//Test example 2
-
-	    GIVEN( "A vector with some items" ) {
-	        std::vector<int> v( 5 );
-
-	        REQUIRE( v.size() == 5 );
-	        REQUIRE( v.capacity() >= 5 );
-
-	        WHEN( "the size is increased" ) {
-	            v.resize( 10 );
-
-	            THEN( "the size and capacity change" ) {
-	                REQUIRE( v.size() == 10 );
-	                REQUIRE( v.capacity() >= 10 );
-	            }
-	        }
-	        WHEN( "the size is reduced" ) {
-	            v.resize( 0 );
-
-	            THEN( "the size changes but not capacity" ) {
-	                REQUIRE( v.size() == 0 );
-	                REQUIRE( v.capacity() >= 5 );
-	            }
-	        }
-	        WHEN( "more capacity is reserved" ) {
-	            v.reserve( 10 );
-
-	            THEN( "the capacity changes but not the size" ) {
-	                REQUIRE( v.size() == 5 );
-	                REQUIRE( v.capacity() >= 10 );
-	            }
-	        }
-	        WHEN( "less capacity is reserved" ) {
-	            v.reserve( 0 );
-
-	            THEN( "neither size nor capacity are changed" ) {
-	                REQUIRE( v.size() == 5 );
-	                REQUIRE( v.capacity() >= 5 );
-	            }
-	        }
-	    }
 	}
 	*/
 
