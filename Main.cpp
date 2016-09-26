@@ -169,18 +169,7 @@ using namespace std;
 	cout << "\n" << endl;
 	e.show("Affiliation");
 	
-      //-----------------------------------------------------------------------
-     //----------------------------Update function test -----------------------
-     //-----------------------------------------------------------------------
-	     e.update ("Human identity", "Name", "Peter Parker", "Eunsu Kim");
-	     e.show ("Human identity");
-		     
-	 //------------------------------------------------------------------------
-	 //----------------------------Destroy function test ----------------------
-	 //-----------------------------------------------------------------------
-	     e.destroy("Human identity",1);
-	     e.show ("Human identity");
-	*/
+      
 	//-----------------------------------------------------------------------
 	//---------------------Insert Test---------------------------------------
 	//-----------------------------------------------------------------------
@@ -223,33 +212,33 @@ using namespace std;
 		REQUIRE(new_table.att[3].data[3] == "test_height");
 		//e.show("Hero");
 	}
-	//-----------------------------------------------------------------------
-    //---------------------Destroy Test----------------------------------------
-    //-----------------------------------------------------------------------
-    /*TEST_CASE("Destroy")
-    	{
-        Engine e;
+    	 //-----------------------------------------------------------------------
+	 //---------------------Destroy Test----------------------------------------
+	 //-----------------------------------------------------------------------
+	 /*TEST_CASE("Destroy")
+    		{
+	   Engine e;
  
-        vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-        vector<string> ocupataion = {"students","Proffesor","Boxer"};
-        vector<string> weight = {"150","160","250"};
-        vector<string> height = {"5","10","8"};
+	  vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	  vector<string> ocupataion = {"students","Proffesor","Boxer"};
+	  vector<string> weight = {"150","160","250"};
+	   vector<string> height = {"5","10","8"};
  
-        Attribute att_human_name("Name","string",name);
-        Attribute att_human_occupation("Ocupation","string",ocupataion );
-        Attribute att_human_weight("Weight","string",weight);
-        Attribute att_human_height("Name","string",height);
+	   Attribute att_human_name("Name","string",name);
+	   Attribute att_human_occupation("Ocupation","string",ocupataion );
+	   Attribute att_human_weight("Weight","string",weight);
+	   Attribute att_human_height("Name","string",height);
  
-        vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	   vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
  
-        vector<Attribute> human_attributes;
+	  vector<Attribute> human_attributes;
  
-        human_attributes.push_back(att_human_name);
-        human_attributes.push_back(att_human_occupation);
-        human_attributes.push_back(att_human_weight);
-        human_attributes.push_back(att_human_height);
+	 human_attributes.push_back(att_human_name);
+	 human_attributes.push_back(att_human_occupation);
+	 human_attributes.push_back(att_human_weight);
+	 human_attributes.push_back(att_human_height);
         
-        Table human_table("Human",human_attributes,key_name);//crates table
+	 Table human_table("Human",human_attributes,key_name);//crates table
  
         e.all_tables.push_back(human_table);
  
@@ -297,10 +286,15 @@ using namespace std;
     
        
     
-        Table new_table = e.update("Human","Name","Peter Parker","Eunsu Kim");
-    
+        Table new_table1 = e.update("Human","Name","Peter Parker","Eunsu Kim");
+        Table new_table2 = e.update("Human","Name","Andrew Wills","Iron Man");
+        Table new_table3 = e.update("Human","Occupation","students","professor");
+
         
-        REQUIRE(new_table.att[0].data[0] == "Eunsu Kim");
+        REQUIRE(new_table1.att[0].data[0] == "Eunsu Kim");
+        REQUIRE(new_table2.att[0].data[1] == "Iron Man");
+        REQUIRE(new_table3.att[1].data[0] == "professor");
+
         
 	}*/
 
