@@ -124,43 +124,90 @@ using namespace std;
         //-----------------------------------------------------------------------
 	//-------------Drop Function Taest--------------------------------------
 	//-----------------------------------------------------------------------
-	cout << "Pushing back tables" << "\n";
-	
-	e.all_tables.push_back(human_table);
-	e.all_tables.push_back(hero_table);
-	e.all_tables.push_back(affiliation_table);
-	
-	cout << "Done pushing" << "\n" ;
-	
+	cout << "Drop Function Test" << "\n";
 
-	int size1 = e.all_tables.size(); 
-
-	cout << size1 << "\n";
-
-	//int size1 = e.all_tables.size();
-	 
-	cout << "Dropping a table\n";
-	cout << "Number of tables = " <<size1<<endl;
-
-	
-	//e.drop("Human");
-	
-	cout << "Dropped " << "\n" ;
-	
-	int size2 = e.all_tables.size();
-
-	
-	cout << size2 << "\n";
-	
 	
 	TEST_CASE("Drop") 
 	{
 		Engine e;
-		REQUIRE(e.drop() == );
-		REQUIRE(e.drop() == );
-		REQUIRE(e.drop() == );
 		
+		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
+		vector<string> h_ability = {"Strenght","Fly","Strenght"};
+		vector<string> h_weight = {"150","160","250"};
+		vector<string> h_height = {"5","10","8"};
+
+		Attribute att_hero_name("Name","string",h_name);
+		Attribute att_hero_ability("Ability","string",h_ability );
+		Attribute att_hero_weight("Weight","string",h_weight);
+		Attribute att_hero_height("Name","string",h_height);
+
+		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
+
+		vector<Attribute> hero_attributes;
+
+		hero_attributes.push_back(att_hero_name);
+		hero_attributes.push_back(att_hero_ability);
+		hero_attributes.push_back(att_hero_weight);
+		hero_attributes.push_back(att_hero_height);
+
+		Table hero_table("Hero",hero_attributes,key_hero);
+		
+		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
+		vector<string> h_ability = {"Strenght","Fly","Strenght"};
+		vector<string> h_weight = {"150","160","250"};
+		vector<string> h_height = {"5","10","8"};
+
+		Attribute att_hero_name("Name","string",h_name);
+		Attribute att_hero_ability("Ability","string",h_ability );
+		Attribute att_hero_weight("Weight","string",h_weight);
+		Attribute att_hero_height("Name","string",h_height);
+
+		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
+
+		vector<Attribute> hero_attributes;
+
+		hero_attributes.push_back(att_hero_name);
+		hero_attributes.push_back(att_hero_ability);
+		hero_attributes.push_back(att_hero_weight);
+		hero_attributes.push_back(att_hero_height);
+
+		Table human_table("Human",hero_attributes,key_hero);
+		
+		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
+		vector<string> h_ability = {"Strenght","Fly","Strenght"};
+		vector<string> h_weight = {"150","160","250"};
+		vector<string> h_height = {"5","10","8"};
+
+		Attribute att_hero_name("Name","string",h_name);
+		Attribute att_hero_ability("Ability","string",h_ability );
+		Attribute att_hero_weight("Weight","string",h_weight);
+		Attribute att_hero_height("Name","string",h_height);
+
+		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
+
+		vector<Attribute> hero_attributes;
+
+		hero_attributes.push_back(att_hero_name);
+		hero_attributes.push_back(att_hero_ability);
+		hero_attributes.push_back(att_hero_weight);
+		hero_attributes.push_back(att_hero_height);
+
+		Table happy_table("Happy",hero_attributes,key_hero);
+		
+		all_tables.push_back(hero_table);
+		
+		all_tables.push_back(human_table);
+		
+		all_tables.push_back(happy_table);
+		
+		e.drop("Happy");
+		
+
+		REQUIRE(all_tables[0].name) == "Hero");
+		REQUIRE(all_tables[1].name) == "Human");
+		REQUIRE(all_tables[2].name) == 0);	
 	}
+	
 	//------------------------------UNION CHECKING : BEGINNING CONDITIONS CHECK ----------------------------------------------------------//
 	
 	
