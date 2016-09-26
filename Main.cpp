@@ -572,7 +572,7 @@ using namespace std;
 	
 	
 	
-	EST_CASE( "natural join between 2 tables", "[natural_product]" ) {
+	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine f;
 		vector<string> employee = {"smith", "black", "white"};
 		vector<string> department = {"sales", "production", "production"};
