@@ -124,13 +124,32 @@ using namespace std;
 
 		Table happy_table("Happy",hero_attributes,key_hero);
 		
+		Table  hungry_table("Hungry", hero_attributes, key_hero);
+
 		e.all_tables.push_back(hero_table);
 		
 		e.all_tables.push_back(human_table);
 		
 		e.all_tables.push_back(happy_table);
-		
+
+		e.all_tables.push_back(hungry_table);
+
+
+		for(int i = 0; i< e.all_tables.size(); i++){
+			cout<<e.all_tables[i].getName()<<endl;
+		}
+
 		e.drop("Happy");
+
+		cout<<endl;
+		cout<<"Drop table happy"<<endl;
+		for(int i = 0; i< e.all_tables.size(); i++){
+			cout<<e.all_tables[i].getName()<<endl;
+		}
+
+	
+
+
 		
 
 		REQUIRE(e.all_tables[0].name == "Hero");
@@ -220,10 +239,14 @@ using namespace std;
 	//-----------------------------------------------------------------------
 
 	
-	//cout << "Rename function" << endl;
-	
-	TEST_CASE("Renaming","[Renaming]") 
-	{
+	/*-------------------------------------------------------------------------
+	----------------------------Renaming function test ----------------------
+	---------------------------------------------------------------------------*/
+
+	TEST_CASE("Renaming","[Renaming]"){
+		cout<<endl;
+		cout<<endl;
+		cout<< "----------------Renaming function test--------------------------" <<endl;
 		Engine e;
 		
 		vector<string> new_names = {"love","happiness"};
@@ -243,13 +266,14 @@ using namespace std;
 		Table human("human table", human_atts, key_name);
 	
 		e.all_tables.push_back(human);
+		e.show("human table");
 		
 		e.renaming("Weight", "Love",human);
 		e.renaming("Height", "Peace",human);
 
-		//e.show("human table");
+		e.all_tables.push_back(human);
+		e.show("human table");
 		
-		cout<<"Testingffffff:"<< human.att[0].getName();
 		REQUIRE(human.att[0].getName() == "Love");
 		REQUIRE(human.att[1].getName() == "Peace");
 	}
@@ -360,57 +384,60 @@ using namespace std;
    	/*-------------------------------------------------------------------------
 	----------------------------Difference function test ----------------------
 	---------------------------------------------------------------------------*/
-	
    	TEST_CASE( "Difference between two tables", "[difference]" ) {
 
-	Engine e;
-	//Graduate Table 
-	vector<string> number = {"7274","7432","9894"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes"};
-	vector<string> age = {"37","39","38"};
-	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname);
-	Attribute g_age("Age","Integer",age);
-	vector<string> key_name = {"1","2","3","4"};
-	vector<Attribute> graduate_att;
-	graduate_att.push_back(g_number);
-	graduate_att.push_back(g_surname);
-	graduate_att.push_back(g_age);
+	   	cout<<endl;
+	   	cout<<endl;
+	   	cout<< "----------------Difference function test--------------------------" <<endl;
 
-	//Manager Table
-	vector<string> number2 = {"9297","7432","9894",};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-	vector<string> age2 = {"56","39","38",};
-	Attribute m_number("Number","Integer",number2);
-	Attribute m_surname("Surname","string",surname2 );
-	Attribute m_age("Age","Integer",age2);
-	vector<Attribute> manager_att;
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-	
-	//Tables
-	Table g("Graduate", graduate_att, key_name);
-	Table m("Manager", manager_att, key_name);
+		Engine e;
+		//Graduate Table 
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		vector<string> key_name = {"1","2","3","4"};
+		vector<Attribute> graduate_att;
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
 
-	e.all_tables.push_back(g);
-	e.all_tables.push_back(m);
-	Table diff_table = e.difference(g,m);
-	e.show("Graduate-Manager");
+		//Manager Table
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+		vector<Attribute> manager_att;
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		Table g("Graduate", graduate_att, key_name);
+		Table m("Manager", manager_att, key_name);
 
-	int i_size = diff_table.att.size();
-	int j_size = diff_table.att[0].data.size();
+		e.all_tables.push_back(g);
+		e.all_tables.push_back(m);
+		Table diff_table = e.difference(g,m);
+		e.show("Graduate-Manager");
 
-	vector<string> test_values;
-	for(int i = 0; i < i_size; i++){
-		for(int j = 0; j < j_size; j++){
-			test_values.push_back(diff_table.att[i].data[j]);
+		int i_size = diff_table.att.size();
+		int j_size = diff_table.att[0].data.size();
+
+		vector<string> test_values;
+		for(int i = 0; i < i_size; i++){
+			for(int j = 0; j < j_size; j++){
+				test_values.push_back(diff_table.att[i].data[j]);
+			}
 		}
-	}
-	//////////----------Require outputs to be correct------------/////////
-	REQUIRE( test_values[0] == "7274" );
-	REQUIRE( test_values[1] == "Robinson" );
-	REQUIRE( test_values[2] == "37" );
+		//////////----------Require outputs to be correct------------/////////
+		REQUIRE( test_values[0] == "7274" );
+		REQUIRE( test_values[1] == "Robinson" );
+		REQUIRE( test_values[2] == "37" );
 }
 
    	/*-------------------------------------------------------------------------
@@ -418,64 +445,68 @@ using namespace std;
 	---------------------------------------------------------------------------*/
 	TEST_CASE( "Union between two tables", "[Union]" ) {
 
-	Engine e;
-	//Graduate Table 
-       vector<string> number = {"7274","7432","9894"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes"};
-	vector<string> age = {"37","39","38"};
-	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname);
-	Attribute g_age("Age","Integer",age);
-	vector<string> key_name = {"1","2","3","4"};
-	vector<Attribute> graduate_att;
-	graduate_att.push_back(g_number);
-	graduate_att.push_back(g_surname);
-	graduate_att.push_back(g_age);
+		cout<<endl;
+		cout<<endl;
+	   	cout<< "----------------Set Union function test--------------------------" <<endl;
 
-	//Manager Table
-	vector<string> number2 = {"9297","7432","9894",};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-	vector<string> age2 = {"56","39","38",};
-	Attribute m_number("Number","Integer",number2);
-	Attribute m_surname("Surname","string",surname2 );
-	Attribute m_age("Age","Integer",age2);
-	vector<Attribute> manager_att;
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-	
-	Table g("Graduate", graduate_att, key_name);
-	Table m("Manager", manager_att, key_name);
+		Engine e;
+		//Graduate Table 
+	    vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		vector<string> key_name = {"1","2","3","4"};
+		vector<Attribute> graduate_att;
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
 
-	e.all_tables.push_back(g);
-	e.all_tables.push_back(m);
-	Table union_table = e.set_union("none",g,m);
-	e.show("Graduate U Manager");
+		//Manager Table
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+		vector<Attribute> manager_att;
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		Table g("Graduate", graduate_att, key_name);
+		Table m("Manager", manager_att, key_name);
 
-	int i_size = union_table.att.size();
-	int j_size = union_table.att[0].data.size();
+		e.all_tables.push_back(g);
+		e.all_tables.push_back(m);
+		Table union_table = e.set_union("none",g,m);
+		e.show("Graduate U Manager");
+
+		int i_size = union_table.att.size();
+		int j_size = union_table.att[0].data.size();
 
 
-	vector<string> test_values;
-	for(int i = 0; i < i_size; i++){
-		for(int j = 0; j < j_size; j++){
-			test_values.push_back(union_table.att[i].data[j]);
+		vector<string> test_values;
+		for(int i = 0; i < i_size; i++){
+			for(int j = 0; j < j_size; j++){
+				test_values.push_back(union_table.att[i].data[j]);
+			}
 		}
-	}
 
-	//////////----------Require outputs to be correct------------/////////
-	REQUIRE( test_values[0]  == "7274");
-	REQUIRE( test_values[1]  == "9297");
-	REQUIRE( test_values[2]  == "7432");
-	REQUIRE( test_values[3]  == "9894");
-	REQUIRE( test_values[4]  == "Robinson");
-	REQUIRE( test_values[5]  == "O'Malley");
-	REQUIRE( test_values[6]  == "O'Malley");
-	REQUIRE( test_values[7]  ==  "Darkes");
-	REQUIRE( test_values[8]  ==  "37");
-	REQUIRE( test_values[9]  ==  "56");
-	REQUIRE( test_values[10] == "39");
-	REQUIRE( test_values[11] == "38");
+		//////////----------Require outputs to be correct------------/////////
+		REQUIRE( test_values[0]  == "7274");
+		REQUIRE( test_values[1]  == "9297");
+		REQUIRE( test_values[2]  == "7432");
+		REQUIRE( test_values[3]  == "9894");
+		REQUIRE( test_values[4]  == "Robinson");
+		REQUIRE( test_values[5]  == "O'Malley");
+		REQUIRE( test_values[6]  == "O'Malley");
+		REQUIRE( test_values[7]  ==  "Darkes");
+		REQUIRE( test_values[8]  ==  "37");
+		REQUIRE( test_values[9]  ==  "56");
+		REQUIRE( test_values[10] == "39");
+		REQUIRE( test_values[11] == "38");
 }
 	
 	
@@ -487,6 +518,8 @@ using namespace std;
 	//Should look like this: https://www.tutorialspoint.com/sql/sql-cartesian-joins.htm
 	
 	TEST_CASE( "Cross product between 2 tables", "[cross_product]" ) {
+		cout<<endl;
+   		cout<< "----------------Cross Product function test--------------------------" <<endl;
 		Engine e; 
 		vector<string> cross_id = {"1","2","3","4","5","6","7"};
 		vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
@@ -535,7 +568,7 @@ using namespace std;
 	}
 	
 	
-<<<<<<< HEAD
+
 	/*-------------------------------------------------------------------------
 	----------------------------natural Union function test -------------------
 	---------------------------------------------------------------------------*/
