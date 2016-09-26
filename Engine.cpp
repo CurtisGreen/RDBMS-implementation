@@ -164,7 +164,7 @@ void Engine::create(string name, vector<Attribute> att, vector<string> key){
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
-void Engine::update(string table_name, string att_name, string data, string newVal){
+Table Engine::update(string table_name, string att_name, string data, string newVal){
     Table* table;
     bool status_table = false;
     bool status_att=false;
@@ -194,7 +194,7 @@ void Engine::update(string table_name, string att_name, string data, string newV
         cout<<"Attribute not found!!"<<endl;
     }else
         cout<<"Table not found!! cannot update!!"<<endl;
-    
+    return *table;
 }
 
 
@@ -224,7 +224,7 @@ Table Engine::insert(string table_name, vector<string> new_row){
 /*------------------------------------------------------------------------------------
 This function deletes record (rows) from a table 
 --------------------------------------------------------------------------------------*/
-void Engine::destroy(string table_name,int row){
+Table Engine::destroy(string table_name,int row){
     Table* table;
     bool status_table = false;
     
@@ -241,7 +241,7 @@ void Engine::destroy(string table_name,int row){
     }else
         cout<<"Table not found, cannot delete a row"<<endl;
     
-    
+    return *table;
 }
 
 /*------------------------------------------------------------------------------------------------
