@@ -161,15 +161,45 @@ using namespace std;
 	 //-----------------------------------------------------------------------
 	     e.destroy("Human identity",1);
 	     e.show ("Human identity");
-
+	*/
 	//-----------------------------------------------------------------------
 	//---------------------Insert Test---------------------------------------
 	//-----------------------------------------------------------------------
-	cout << "\n\n" << endl;
-	cout << "Insert test:"<< endl;
-	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
-	e.insert("Hero", insert_test);
-	e.show("Hero");*/
+	//cout << "\n\n" << endl;
+	//cout << "Insert test:"<< endl;
+	TEST_CASE("Insert test") {
+		
+		Engine e;
+		
+		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
+		vector<string> h_ability = {"Strenght","Fly","Strenght"};
+		vector<string> h_weight = {"150","160","250"};
+		vector<string> h_height = {"5","10","8"};
+
+		Attribute att_hero_name("Name","string",h_name);
+		Attribute att_hero_ability("Ability","string",h_ability );
+		Attribute att_hero_weight("Weight","string",h_weight);
+		Attribute att_hero_height("Name","string",h_height);
+
+		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
+
+		vector<Attribute> hero_attributes;
+		
+		hero_attributes.push_back(att_hero_name);
+		hero_attributes.push_back(att_hero_ability);
+		hero_attributes.push_back(att_hero_weight);
+		hero_attributes.push_back(att_hero_height);
+		
+		Table hero_table("Hero",hero_attributes,key_hero);
+		
+		vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
+		e.insert("Hero", insert_test);
+		REQUIRE(human.att[0].data[3] == "test_name");
+		REQUIRE(human.att[1].data[3] == "test_ability");
+		REQUIRE(human.att[2].data[3] == "test_weight");
+		REQUIRE(human.att[3].data[3] == "test_height");
+		//e.show("Hero");
+	}
 
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
