@@ -28,7 +28,9 @@ void Engine::open(string table_name){
 		cout << "Error: Table is already open" << endl;
 	}
 }
-//this function close that was opened
+/*----------------------------------------------------------------------------
+This function closes a file that was open 
+------------------------------------------------------------------------------*/
 void Engine::close(string table_name){
     
         
