@@ -322,25 +322,7 @@ using namespace std;
 
 	
 
-        //-----------------------------------------------------------------------
-	//----------------------------Open function test -------------------------
-	//-------------------------------------------------------------------------
-	
-	
-	cout << "Open test" << endl;
-	//Not finished writing cases 
-	e.write(human);
-	e.open("human table");
-	
-	TEST_CASE("Open") 
-	{
-		Engine e;
-		REQUIRE(e.open() == );
-		REQUIRE(e.open() == );
-		REQUIRE(e.open() == );
-		
-	}
-	
+   
 	
 	//------------------Testing difference with a new tables ------------------------------------
 	//This table is from a webiste it show the corret result after checking for difference of two table
@@ -588,17 +570,6 @@ using namespace std;
 	}
 
  	
-	*/
-	// cout << "RENAME TEST\n" ;
-	
-	
-	// e.renaming("Weight", "love","human table");
-	
-	// cout << "MADE IT HERE \n";
-	
-	// e.show("human table");
-	
-	
 	
 	//----------------------------------------READ TEST-----------------------/
 	/*cout << "Read test " << endl;
