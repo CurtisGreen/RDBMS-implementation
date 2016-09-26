@@ -86,7 +86,7 @@ using namespace std;
 	affiliatin_attibutes.push_back(att_purpose);
 	
 	Table affiliation_table("Affiliation",affiliatin_attibutes,key_affiliation);//crates table 
-
+	*/
 
        //-----------------------------------------------------------------------
        //-------------Drop Function Taest--------------------------------------
@@ -178,6 +178,7 @@ using namespace std;
 	//-----------------------------------------------------------------------
 	//---------------------Show Test----------------------------------------
 	//-----------------------------------------------------------------------
+	/*
 	cout << endl;
 	cout << "Show test:"<< endl;
 	e.show("Human");
@@ -205,7 +206,7 @@ using namespace std;
 	cout << "Insert test:"<< endl;
 	vector <string> insert_test = {"test_name", "test_ability", "test_weight", "test_height"};
 	e.insert("Hero", insert_test);
-	e.show("Hero");
+	e.show("Hero");*/
 
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
@@ -242,7 +243,7 @@ using namespace std;
 		REQUIRE(e.write(humans) == "Table not found, cannot insert");	
 		REQUIRE(e.write(human) == human.db);	
 	}
-*/
+	
         //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
 	//-----------------------------------------------------------------------
@@ -254,7 +255,7 @@ using namespace std;
 	//------------------------------------------------------------------------
 	//----------------------------Rename function test -----------------------
 	//-----------------------------------------------------------------------
-/*
+
 	
 	cout << "Rename function" << endl;
 	
@@ -289,7 +290,7 @@ using namespace std;
 		REQUIRE(human_table.att[1].getName() == "Peace")
 	}
 
-	*/
+	
 	
 
 
@@ -297,7 +298,7 @@ using namespace std;
 	//----------------------------Projection function test --------------------
 	//-------------------------------------------------------------------------
 	
-	/*
+	
 	cout << "Projection Test" << endl;
 	
 	TEST_CASE("Projection") 
