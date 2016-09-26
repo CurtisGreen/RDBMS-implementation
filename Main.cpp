@@ -537,18 +537,39 @@ using namespace std;
 	
 	
 	cout << "Open test" << endl;
-	//Not finished writing cases 
-	e.write(human);
-	e.open("human table");
+	cout << "Open test" << endl;
+
 	
 	TEST_CASE("Open") 
 	{
 		Engine e;
-		REQUIRE(e.open() == );
-		REQUIRE(e.open() == );
-		REQUIRE(e.open() == );
 		
+		vector<string> new_names = {"love","happiness"};
+	
+		vector<string> weight_ = {"150","160","250"};
+		vector<string> height_ = {"5","10","8"};
+	
+		Attribute human_weight("Weight","string",weight_);
+		Attribute human_height("Height","string",height_);
+	
+		vector<Attribute> human_atts;
+	
+		human_atts.push_back(human_weight);
+		human_atts.push_back(human_height);
+		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	
+		Table human("human table", human_atts, key_name);
+	
+	
+		e.all_tables.push_back(human);
+		
+		e.write(human);
+		
+	
+		REQUIRE(e.open("human table") == "Error: Table is already open");	
+		REQUIRE(e.open("humans table") == "Error: Could not open file");	
 	}
+
 	
 	
 	manager_att.push_back(m_number);
