@@ -113,13 +113,17 @@ void Engine::show(string table_name){
 		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
 		cout << "\n";
 		for (int i = 0; i < table.att.size(); i ++){
-			cout << table.att[i].getName() <<"  \t  ";
+            cout<<left;
+            cout.width(20);
+			cout << table.att[i].getName();
 		}
 		cout << "\n";
 		for (int k = 0; k < table.att[0].data.size(); k++){
 		    cout << '\n';
 		    for (int i = 0; i < table.att.size(); i++){
-				cout << table.att[i].data[k] << "  \t  ";
+                cout<<left;
+                cout.width(20);
+				cout << table.att[i].data[k];
 		    }
 
 		}
@@ -217,11 +221,33 @@ void Engine::drop(string table_name){
 The operation selects the tuples that satisfy a given predicate or condition. 
 It will involve logical conditions as defined in the grammar. 
 */
-Table Engine :: selection(Table table)
-{
-	//TODO
-
-}
+void Engine :: selection(string table_name, string att_name)   {
+    Table* table;
+    bool found = false;
+    for (int i = 0; i < all_tables.size(); i++){
+        if (table_name == all_tables[i].getName()){
+            found = true;
+            table = &(all_tables[i]);
+        }
+    }
+    if (found){
+        for (int i = 0; i < table->att.size(); i++)
+            if( (table->att[i].getName()) == att_name)
+            {
+                cout<<table->att[i].getName()<<endl;
+                for (int j = 0; j < table->att[i].data.size(); j++)
+                {
+                    
+                    cout<<table->att[i].data[j] <<"\n";
+                    
+                }
+                
+            }
+        
+    }
+    
+    
+}  //searching column information.
 
 //---------------------------------------------------------------------------------------
 //This function selects a subset of the attributes in a relation. 

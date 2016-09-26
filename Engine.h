@@ -30,7 +30,7 @@ class Engine{
 
 	
 	// Atomic expressions
-	Table selection(Table table);
+	void selection(string table_name, string att_name);
 	Table projection(vector<string> att_names, string table_name);
 	Table set_union(string attribute_name , Table table1, Table table2 );
 	Table difference(Table table1, Table table2);

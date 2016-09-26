@@ -1,4 +1,4 @@
-#include "MainTest.cpp"
+
 #include "Catch.h"
 
 #include <vector>
@@ -16,7 +16,35 @@ using namespace std;
 
 
 
-	Engine e; 
+int main(){
+    vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+    vector<string> ocupataion = {"students","Proffesor","Boxer"};
+    vector<string> weight = {"150","160","250"};
+    vector<string> height = {"5","10","8"};
+    
+    Attribute att_human_name("Name","string",name);
+    Attribute att_human_occupation("Ocupation","string",ocupataion );
+    Attribute att_human_weight("Weight","string",weight);
+    Attribute att_human_height("Height","string",height);
+    
+    vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+    
+    vector<Attribute> human_attributes;
+    
+    human_attributes.push_back(att_human_name);
+    human_attributes.push_back(att_human_occupation);
+    human_attributes.push_back(att_human_weight);
+    human_attributes.push_back(att_human_height);
+    
+    
+    
+    Engine e;
+    e.create ("Human identity", human_attributes,key_name);
+   
+    e.show("Human identity");
+    
+}
+
 
 ///was commented because I was testing diference(Table,Table),Jose
 
@@ -396,113 +424,4 @@ using namespace std;
 
    e.show("Graduate");*/
 
-	
 
-	unsigned int Factorial( unsigned int number ) {	//Test example 1
-	  return number > 1 ? Factorial(number-1)*number : 1;
-	}
-
-	TEST_CASE( "Factorials are computed", "[factorial]" ) {	//Test example 1
-	    REQUIRE( Factorial(0) == 1 );
-	    REQUIRE( Factorial(1) == 1 );
-	    REQUIRE( Factorial(2) == 2 );
-	    REQUIRE( Factorial(3) == 6 );
-	    REQUIRE( Factorial(10) == 3628800 );
-	}
-	////////////////////////////////////////////////////////////////////////
-	//-----------------Cross product test---------------------------------//
-	////////////////////////////////////////////////////////////////////////
-
-	//Should look like this: https://www.tutorialspoint.com/sql/sql-cartesian-joins.htm
-	
-	TEST_CASE( "Cross product between 2 tables", "[cross_product]" ) {
-		Engine e; 
-		vector<string> cross_id = {"1","2","3","4","5","6","7"};
-		vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
-		vector<string> cross_age = {"32", "25", "23", "25", "27", "22", "24"};
-		vector<string> address = {"Ahmedabad", "Delhi", "kota", "mumbai", "bhopal", "mp", "indore"};
-		vector<string> salary = {"2000", "1500", "2000", "6500", "8500", "4500", "10000"};
-		vector<string> oid = {"102", "100", "101", "103"};
-		vector<string> date = {"2009-10", "2009-10", "2009-11", "2008-05"};
-		vector<string> customer_id = {"3", "3", "2", "4"};
-		vector<string> amount = {"3000", "1500", "1560", "2060"};
-
-		Attribute CrossId("id", "int", cross_id);
-		Attribute CrossName("name", "string", cross_name);
-		Attribute CrossAge("age", "int", cross_age);
-		Attribute Address("address", "string", address);
-		Attribute Salary("salary", "int", salary);
-		Attribute Oid("oid", "int", oid);
-		Attribute Date("date", "int", date);
-		Attribute Customer_id("customer_id", "int", customer_id);
-		Attribute Amount("amount", "int", amount);
-
-		vector<Attribute> cross_att1= {CrossId, CrossName, CrossAge, Address, Salary};
-		vector<Attribute> cross_att2 = {Oid, Date, Customer_id, Amount};
-
-		vector<string> cross_key = {"id", "name", "amount", "date"};
-
-		Table cross_product1;
-		cross_product1.att = cross_att1;
-		Table cross_product2;
-		cross_product2.att = cross_att2;
-		Table cross_product_out = e.cross_product(cross_product1,cross_product2,cross_key);
-		e.show(cross_product1.name + "*" + cross_product2.name);
-
-
-		vector<string> test_values;
-		for(int i = 0; i < cross_product_out.att.size(); i++){
-			test_values.push_back(cross_product_out.att[i].data[0]);
-		}
-		
-
-		//////////----------Require outputs to be correct------------/////////
-		
-		REQUIRE( test_values[0] == "1" );
-		REQUIRE( test_values[1] == "Ramesh" );
-		REQUIRE( test_values[2] == "3000" );
-		REQUIRE( test_values[3] == "2009-10" );
-	}
-
-	SCENARIO( "vectors can be sized and resized", "[vector]" ) {	//Test example 2
-
-	    GIVEN( "A vector with some items" ) {
-	        std::vector<int> v( 5 );
-
-	        REQUIRE( v.size() == 5 );
-	        REQUIRE( v.capacity() >= 5 );
-
-	        WHEN( "the size is increased" ) {
-	            v.resize( 10 );
-
-	            THEN( "the size and capacity change" ) {
-	                REQUIRE( v.size() == 10 );
-	                REQUIRE( v.capacity() >= 10 );
-	            }
-	        }
-	        WHEN( "the size is reduced" ) {
-	            v.resize( 0 );
-
-	            THEN( "the size changes but not capacity" ) {
-	                REQUIRE( v.size() == 0 );
-	                REQUIRE( v.capacity() >= 5 );
-	            }
-	        }
-	        WHEN( "more capacity is reserved" ) {
-	            v.reserve( 10 );
-
-	            THEN( "the capacity changes but not the size" ) {
-	                REQUIRE( v.size() == 5 );
-	                REQUIRE( v.capacity() >= 10 );
-	            }
-	        }
-	        WHEN( "less capacity is reserved" ) {
-	            v.reserve( 0 );
-
-	            THEN( "neither size nor capacity are changed" ) {
-	                REQUIRE( v.size() == 5 );
-	                REQUIRE( v.capacity() >= 5 );
-	            }
-	        }
-	    }
-	}
