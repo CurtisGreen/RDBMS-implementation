@@ -222,7 +222,7 @@ using namespace std;
 	
 	//cout << "Rename function" << endl;
 	
-	TEST_CASE("Renaming") 
+	TEST_CASE("Renaming","[Renaming]") 
 	{
 		Engine e;
 		
@@ -242,13 +242,14 @@ using namespace std;
 	
 		Table human("human table", human_atts, key_name);
 	
-	
 		e.all_tables.push_back(human);
 		
-		e.renaming("Weight", "Love", "human table");
-		e.renaming("Height", "Peace", "human table");
+		e.renaming("Weight", "Love",human);
+		e.renaming("Height", "Peace",human);
+
+		//e.show("human table");
 		
-	
+		cout<<"Testingffffff:"<< human.att[0].getName();
 		REQUIRE(human.att[0].getName() == "Love");
 		REQUIRE(human.att[1].getName() == "Peace");
 	}
@@ -527,19 +528,18 @@ using namespace std;
 		
 
 		//////////----------Require outputs to be correct------------/////////
-		
 		REQUIRE( test_values[0] == "1" );
 		REQUIRE( test_values[1] == "Ramesh" );
 		REQUIRE( test_values[2] == "3000" );
 		REQUIRE( test_values[3] == "2009-10" );
 	}
 	
+	
+	/*-------------------------------------------------------------------------
+	----------------------------natural Union function test -------------------
+	---------------------------------------------------------------------------*/
+
 	/*
-	
-<<<<<<< HEAD
-=======
-	
->>>>>>> a91a7233126d2f3fae4055770bce809fd3cf9a26
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine f;
 		vector<string> employee = {"smith", "black", "white"};

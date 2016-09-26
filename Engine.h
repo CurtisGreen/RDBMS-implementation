@@ -25,7 +25,7 @@ class Engine{
 	void create(string, vector<Attribute>, vector<string>);
 	void insert(string name, vector<string> new_row);
 	void update(string table_name, string att_name, string data, string newVal);
-        void destroy(string table_name,int row); //because delete is a keyword
+    void destroy(string table_name,int row); //because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database
 
 	
@@ -36,7 +36,7 @@ class Engine{
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
 	Table cross_product(Table table1, Table table2, vector<string> relations);
-	void renaming(string old_attr, string new_attr, string table_name);
+	void renaming(string old_attr, string new_attr, Table& table_name);
 	
 	// Helper functions
 	vector<string> createTuples(Table t);
