@@ -419,7 +419,7 @@ using namespace std;
 
 	Engine e;
 	//Graduate Table 
-    vector<string> number = {"7274","7432","9894"};
+       vector<string> number = {"7274","7432","9894"};
 	vector<string> surname = {"Robinson","O'Malley","Darkes"};
 	vector<string> age = {"37","39","38"};
 	Attribute g_number("Number","Integer",number);
@@ -536,10 +536,7 @@ using namespace std;
 	
 	/*
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> a91a7233126d2f3fae4055770bce809fd3cf9a26
+
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine f;
 		vector<string> employee = {"smith", "black", "white"};
