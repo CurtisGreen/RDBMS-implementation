@@ -28,8 +28,24 @@ void Engine::open(string table_name){
 		cout << "Error: Table is already open" << endl;
 	}
 }
+//this function close that was opened
 void Engine::close(string table_name){
-	//TODO
+    
+        
+    
+    ifstream close_file(table_name + ".db");
+    
+    if(!close_file.is_open())
+    {
+        cout << "Error: Could not open file" << "\n";
+    }
+    else
+    {
+        cout << "Error: Table is already open" << endl;
+    }
+
+  
+    close_file.close();
 }
 /*-----------------------------------------------------------------------------------
 This function reads a table into the database.
