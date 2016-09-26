@@ -420,7 +420,7 @@ using namespace std;
 
 	Engine e;
 	//Graduate Table 
-    vector<string> number = {"7274","7432","9894"};
+       vector<string> number = {"7274","7432","9894"};
 	vector<string> surname = {"Robinson","O'Malley","Darkes"};
 	vector<string> age = {"37","39","38"};
 	Attribute g_number("Number","Integer",number);
@@ -535,11 +535,15 @@ using namespace std;
 	}
 	
 	
+<<<<<<< HEAD
 	/*-------------------------------------------------------------------------
 	----------------------------natural Union function test -------------------
 	---------------------------------------------------------------------------*/
 
 	/*
+=======
+
+>>>>>>> d73f7c53f04d6e70722f2e696629f19d534449fe
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine f;
 		vector<string> employee = {"smith", "black", "white"};
