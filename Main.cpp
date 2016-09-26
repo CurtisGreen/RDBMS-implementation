@@ -124,18 +124,18 @@ using namespace std;
 
 		Table happy_table("Happy",hero_attributes,key_hero);
 		
-		all_tables.push_back(hero_table);
+		e.all_tables.push_back(hero_table);
 		
-		all_tables.push_back(human_table);
+		e.all_tables.push_back(human_table);
 		
-		all_tables.push_back(happy_table);
+		e.all_tables.push_back(happy_table);
 		
 		e.drop("Happy");
 		
 
-		REQUIRE(all_tables[0].name) == "Hero");
-		REQUIRE(all_tables[1].name) == "Human");
-		REQUIRE(all_tables[2].name) == 0);	
+		REQUIRE(e.all_tables[0].name == "Hero");
+		REQUIRE(e.all_tables[1].name == "Human");
+		REQUIRE(e.all_tables[2].name == 0);	
 	}
 
 	//-----------------------------------------------------------------------
@@ -175,8 +175,8 @@ using namespace std;
 	//----------------------------Write function test -----------------------
 	//-----------------------------------------------------------------------
 	
-	cout << "\n Write function Test:" << "\n";
-	
+	//cout << "\n Write function Test:" << "\n";
+	/*
 	TEST_CASE("Write") 
 	{
 		Engine e;
@@ -205,7 +205,7 @@ using namespace std;
 	
 		REQUIRE(e.write(humans) == "Table not found, cannot insert");	
 		REQUIRE(e.write(human) == human.db);	
-	}
+	}*/
 	
         //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
@@ -245,8 +245,8 @@ using namespace std;
 	
 		e.all_tables.push_back(human);
 		
-		e.renaming(Weight", "Love", "human table");
-		e.renaming(Height", "Peace", "human table");
+		e.renaming("Weight", "Love", "human table");
+		e.renaming("Height", "Peace", "human table");
 		
 	
 		REQUIRE(human_table.att[0].getName() == "Love");
