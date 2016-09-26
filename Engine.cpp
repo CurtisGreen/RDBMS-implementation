@@ -166,27 +166,37 @@ This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
 void Engine::update(string table_name, string att_name, string data, string newVal){
     Table* table;
-    bool found = false;
+    bool status_table = false;
+    bool status_att=false;
     for (int i = 0; i < all_tables.size(); i++){
         if (table_name == all_tables[i].getName()){
-            found = true;
+            status_table = true;
             table = &(all_tables[i]);
         }
     }
-    if (found){
+    if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
             if ( (table->att[i].getName()) == att_name)
-           {
-               for (int j = 0; j < table->att[i].data.size(); j++)
-               {
-                   if( (table->att[i].data[j]) == data)
-                       table->att[i].data.at(j)=newVal;
-               }
-           }
+            {
+               status_att=true;
+                if (status_att == true)
+                {
+                    for (int j = 0; j < table->att[i].data.size(); j++)
+                    {
+                        if( (table->att[i].data[j]) == data)
+                            table->att[i].data.at(j)=newVal;
+                    }
+                }
+            }
+            
         }
-    }
+        if (status_att == false)
+        cout<<"Attribute not found!!"<<endl;
+    }else
+        cout<<"Table not found!! cannot update!!"<<endl;
     
 }
+
 
 /*----------------------------------------------------------------------------------
 This function inserts data into the Table
@@ -215,21 +225,24 @@ This function deletes record (rows) from a table
 --------------------------------------------------------------------------------------*/
 void Engine::destroy(string table_name,int row){
     Table* table;
-    bool found = false;
+    bool status_table = false;
+    
     for (int i = 0; i < all_tables.size(); i++){
         if (table_name == all_tables[i].getName()){
-            found = true;
+            status_table = true;
             table = &(all_tables[i]);
         }
     }
-    if (found){
+    if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
             table->att[i].data.erase((table->att[i].data.begin())+(row-1));     //accessing data each attribute and delete.
         }
-    }
+    }else
+        cout<<"Table not found, cannot delete a row"<<endl;
     
     
 }
+
 /*------------------------------------------------------------------------------------------------
 This function deletes table from the database of tables
 ---------------------------------------------------------------------------------------------------*/
