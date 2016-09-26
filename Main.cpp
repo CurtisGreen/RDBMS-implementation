@@ -426,7 +426,7 @@ using namespace std;
 	//-----------------------------------------------------------------------
 /*
 	
-	// Not finished writing the cases
+	cout << "Rename function" << endl;
 	
 	TEST_CASE("Renaming") 
 	{
@@ -450,11 +450,13 @@ using namespace std;
 	
 	
 		e.all_tables.push_back(human);
-	
-		REQUIRE(e.renaming(Weight", "Love", "human table") == );
-		REQUIRE(e.renaming(Weight", "Peace", "human table") == );
-		REQUIRE(e.renaming(Weight", "Smile", "human table") == );
 		
+		e.renaming(Weight", "Love", "human table");
+		e.renaming(Height", "Peace", "human table");
+		
+	
+		REQUIRE(human_table.att[0].getName() == "Love");
+		REQUIRE(human_table.att[1].getName() == "Peace")
 	}
 
 	*/
