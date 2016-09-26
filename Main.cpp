@@ -15,9 +15,9 @@ using namespace std;
 //Testing compilation
 
 
-/*	//-----------------------------------------------------------------------
-	//------------------Human Identity Table---------------------------------
-	//-----------------------------------------------------------------------
+/*  //-----------------------------------------------------------------------
+    //------------------Human Identity Table---------------------------------
+    //-----------------------------------------------------------------------
 
     vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
     vector<string> ocupataion = {"students","Proffesor","Boxer"};
@@ -47,9 +47,9 @@ using namespace std;
 */
 
 
-	//-----------------------------------------------------------------------
-	//------------------Human Identity Table---------------------------------
-	//-----------------------------------------------------------------------
+     //-----------------------------------------------------------------------
+     //------------------Human Identity Table---------------------------------
+     //-----------------------------------------------------------------------
 
 	/*
 	vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
@@ -75,9 +75,9 @@ using namespace std;
 
 
 
-        //-----------------------------------------------------------------------
-	//-----------------Hero Indentity Table----------------------------------
-	//-----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      //-----------------Hero Indentity Table----------------------------------
+      //-----------------------------------------------------------------------
 	vector<string> h_name = {"Spider Man","Super Man","Hulk"};
 	vector<string> h_ability = {"Strenght","Fly","Strenght"};
 	vector<string> h_weight = {"150","160","250"};
@@ -100,9 +100,9 @@ using namespace std;
 	Table hero_table("Hero",hero_attributes,key_hero);//creates table 
 
 
-	//-----------------------------------------------------------------------
-	//-------------Group Affiliation Table------------------------------------ 
-	//-----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      //-------------Group Affiliation Table------------------------------------ 
+      //-----------------------------------------------------------------------
 	vector<string> universe = {"Earth","Mars","Earth"};
 	vector<string> group_purpose = {"life saver","life saver","life saver"};
 	vector<string> group_gname = {"Marvel","DC","Marvel"};
@@ -122,9 +122,9 @@ using namespace std;
 	Table affiliation_table("Affiliation",affiliatin_attibutes,key_affiliation);//crates table 
 
 
-        //-----------------------------------------------------------------------
-	//-------------Drop Function Taest--------------------------------------
-	//-----------------------------------------------------------------------
+       //-----------------------------------------------------------------------
+       //-------------Drop Function Taest--------------------------------------
+       //-----------------------------------------------------------------------
 	cout << "Drop Function Test" << "\n";
 
 	
@@ -231,12 +231,12 @@ using namespace std;
      //-----------------------------------------------------------------------
      e.update ("Human identity", "Name", "Peter Parker", "Eunsu Kim");
      e.show ("Human identity");
-     
-      //------------------------------------------------------------------------
-     //----------------------------Destroy function test -----------------------
-     //-----------------------------------------------------------------------
-     e.destroy("Human identity",1);
-     e.show ("Human identity");
+	     
+	 //------------------------------------------------------------------------
+	 //----------------------------Destroy function test -----------------------
+	 //-----------------------------------------------------------------------
+	     e.destroy("Human identity",1);
+	     e.show ("Human identity");
 
 	//-----------------------------------------------------------------------
 	//---------------------Insert Test---------------------------------------
@@ -374,9 +374,6 @@ using namespace std;
 		REQUIRE(new_table.att[1].getName() == "Height" );
 	}
 	
-	
-	
-	
 	//-------------------------------------------------------------------------
 	//----------------------------Open function test -------------------------
 	//-------------------------------------------------------------------------
@@ -446,7 +443,7 @@ using namespace std;
    	e.show("Graduate");*/
    	
    	//-------------------------------------------------------------------------
-	//----------------------------Difference function test -----------------------
+	//----------------------------Difference function test ---------------------
 	//-------------------------------------------------------------------------
 	
    	TEST_CASE( "Difference between two tables", "[difference]" ) {
@@ -503,67 +500,12 @@ using namespace std;
 
 
 }
-
-TEST_CASE( "Union between two tables", "[Union]" ) {
-
-	Engine e;
-
-	//Graduate Table 
-      vector<string> number = {"7274","7432","9894"};
-	vector<string> surname = {"Robinson","O'Malley","Darkes"};
-	vector<string> age = {"37","39","38"};
 	
-	Attribute g_number("Number","Integer",number);
-	Attribute g_surname("Surname","string",surname);
-	Attribute g_age("Age","Integer",age);
-
-	vector<string> key_name = {"1","2","3","4"};
-	vector<Attribute> graduate_att;
-	graduate_att.push_back(g_number);
-	graduate_att.push_back(g_surname);
-	graduate_att.push_back(g_age);
-
-	//Manager Table
-	vector<string> number2 = {"9297","7432","9894",};
-	vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-	vector<string> age2 = {"56","39","38",};
-	
-	Attribute m_number("Number","Integer",number2);
-	Attribute m_surname("Surname","string",surname2 );
-	Attribute m_age("Age","Integer",age2);
-	
-	vector<Attribute> manager_att;
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-	
-	Table g("Graduate", graduate_att, key_name);
-	Table m("Manager", manager_att, key_name);
-
-	e.all_tables.push_back(g);
-	e.all_tables.push_back(m);
-	e.all_tables.push_back(e.set_union("none",g,m));
-
-	vector<string> test_values;
-	for(int i = 0; i < e.set_union("none",g,m).att.size(); i++){
-		test_values.push_back(e.set_union("none",g,m).att[i].data[0]);
-	}
-		
-	//////////----------Require outputs to be correct------------/////////
-		
-	REQUIRE( test_values[0] == "7274" );
-	REQUIRE( test_values[1] == "Robinson" );
-	REQUIRE( test_values[2] == "37" );
-
-
-}
    	
    	
    	
    	
-   	
-
-
+   /*
 	unsigned int Factorial( unsigned int number ) {	//Test example 1
 	  return number > 1 ? Factorial(number-1)*number : 1;
 	}
@@ -672,4 +614,5 @@ TEST_CASE( "Union between two tables", "[Union]" ) {
 	        }
 	    }
 	}
+	*/
 
