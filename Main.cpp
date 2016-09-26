@@ -91,7 +91,7 @@ using namespace std;
        //-----------------------------------------------------------------------
        //-------------Drop Function Taest--------------------------------------
        //-----------------------------------------------------------------------
-	cout << "Drop Function Test" << "\n";
+	//cout << "Drop Function Test" << "\n";
 
 	
 	TEST_CASE("Drop") 
@@ -135,7 +135,7 @@ using namespace std;
 
 		REQUIRE(e.all_tables[0].name == "Hero");
 		REQUIRE(e.all_tables[1].name == "Human");
-		REQUIRE(e.all_tables[2].name == 0);	
+		REQUIRE(e.all_tables[2].name != "Happy");	
 	}
 
 	//-----------------------------------------------------------------------
@@ -286,7 +286,7 @@ using namespace std;
 		
 		vector <string> temps = {"Weight", "Height", "Size"};
 		
-		Table new_table = e.projection(temps,"human table);
+		Table new_table = e.projection(temps,"human table");
 		
 		REQUIRE(new_table.att[0].getName() == "Weight" );
 		REQUIRE(new_table.att[1].getName() == "Height" );
