@@ -220,7 +220,7 @@ using namespace std;
 	//-----------------------------------------------------------------------
 
 	
-	cout << "Rename function" << endl;
+	//cout << "Rename function" << endl;
 	
 	TEST_CASE("Renaming") 
 	{
@@ -262,7 +262,7 @@ using namespace std;
 	//-------------------------------------------------------------------------
 	
 	
-	cout << "Projection Test" << endl;
+	//cout << "Projection Test" << endl;
 	
 	TEST_CASE("Projection") 
 	{
