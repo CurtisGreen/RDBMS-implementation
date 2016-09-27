@@ -27,6 +27,14 @@ class Parser{
 	};
 
 
+	private:
+	
+	//define command functions
+	void open();
+	void close();
+	void write();
+	void exit_();
+	void show();
 	
 	
 	
