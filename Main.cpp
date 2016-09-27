@@ -13,7 +13,7 @@
 using namespace std; 
 
     //-----------------------------------------------------------------------
-	//---------------------Crete Test---------------------------------------
+	//---------------------Create Test---------------------------------------
 	//-----------------------------------------------------------------------
 
 	TEST_CASE("Show", "[Show]") {
@@ -60,7 +60,7 @@ using namespace std;
 	}
 	
 	//-----------------------------------------------------------------------
-	//---------------------Crete Test---------------------------------------
+	//---------------------Create Test---------------------------------------
 	//-----------------------------------------------------------------------
 	TEST_CASE("Create test", "[Create]") {
 
@@ -155,7 +155,7 @@ using namespace std;
 	}
 
 	//-----------------------------------------------------------------------
-	//---------------------Drop Test---------------------------------------
+	//---------------------Drop Test-----------------------------------------
 	//-----------------------------------------------------------------------
 	TEST_CASE("Drop"){
 
@@ -209,7 +209,7 @@ using namespace std;
 
 	
    //-----------------------------------------------------------------------
-   //---------------------Destroy Test----------------------------------------
+   //---------------------Destroy Test--------------------------------------
    //-----------------------------------------------------------------------
    TEST_CASE("Destroy"){
     
@@ -259,7 +259,7 @@ using namespace std;
 	 }
 
     //-----------------------------------------------------------------------
-    //---------------------Update Test----------------------------------------
+    //---------------------Update Test---------------------------------------
     //-----------------------------------------------------------------------
     TEST_CASE("Update"){
         cout<<endl;
@@ -311,11 +311,16 @@ using namespace std;
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
 	//-----------------------------------------------------------------------
-	
-	//cout << "\n Write function Test:" << "\n";
+	// Not testing I/O functions
+    
 	/*
 	TEST_CASE("Write") 
+	
 	{
+	    cout << "\n Write function Test:" << "\n";
+        cout<<endl;
+        cout<<endl;
+        cout<< "----------------Write function test-----------------------------------" <<endl;
 		Engine e;
 		
 		vector<string> new_names = {"love","happiness"};
@@ -334,15 +339,14 @@ using namespace std;
 		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
 	
 		Table human("human table", human_atts, key_name);
-	
-	
+		
 		e.all_tables.push_back(human);
-		e.write(humans);
+		e.write(human);
 		
 	
-		REQUIRE(e.write(humans) == "Table not found, cannot insert");	
-		REQUIRE(e.write(human) == human.db);	
-	}*/
+		REQUIRE();
+	}
+	*/
 	
     //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
@@ -511,9 +515,14 @@ using namespace std;
 	//-------------------------------------------------------------------------
 	//----------------------------Open function test -------------------------
 	//-------------------------------------------------------------------------
+	// Not testing I/O functions
 	/*
 	TEST_CASE("Open") 
 	{
+		
+		cout<<endl;
+	   	cout<<endl;
+	   	cout<< "----------------Open function test-----------------------------------" <<endl;
 		Engine e;
 		
 		vector<string> new_names = {"love","happiness"};
@@ -539,35 +548,47 @@ using namespace std;
 		
 	
 		REQUIRE(e.open("human table") == "Error: Table is already open");	
-		REQUIRE(e.open("humans table") == "Error: Could not open file");	
+		REQUIRE(e.open("human table") == "Error: Could not open file");	
 	}
 	
-	manager_att.push_back(m_number);
-	manager_att.push_back(m_surname);
-	manager_att.push_back(m_age);
-
-
-	Table t1("Gradutate",graduate_att,key_name);
-	Table t2("Manager",manager_att,key_name);
-
-	vector<string> r = e.rtn_Row(t1,0);
-
-	
-	for(int i = 0; i<r.size(); i++){
-		cout<<r[i]<<" ";
-	}*/
-
-	 //-------------------------------------------------------------------------
+	*/
+	//-------------------------------------------------------------------------
 	//----------------------------Read function test --------------------------
 	//-------------------------------------------------------------------------
-	/*cout << "Read test " << endl;
+	// Not testing I/O functions
+	/*TEST_CASE("Read") 
 	
-	//e.write(g);
-	e.read("Graduate");
+	{
+	    cout << "\n Read function Test:" << "\n";
+        cout<<endl;
+        cout<<endl;
+        cout<< "----------------Read function test-----------------------------------" <<endl;
+		Engine e;
+		
+		vector<string> new_names = {"love","happiness"};
 	
-	//cout << e.all_tables.size();
-
-   	e.show("Graduate");*/
+		vector<string> weight_ = {"150","160","250"};
+		vector<string> height_ = {"5","10","8"};
+	
+		Attribute human_weight("Weight","string",weight_);
+		Attribute human_height("Height","string",height_);
+	
+		vector<Attribute> human_atts;
+	
+		human_atts.push_back(human_weight);
+		human_atts.push_back(human_height);
+		
+		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	
+		Table human("human table", human_atts, key_name);
+		
+		e.all_tables.push_back(human);
+		e.write(human);
+		e.read("human table");
+		
+	
+		REQUIRE();
+	}
    	
    	/*-------------------------------------------------------------------------
 	----------------------------Difference function test ----------------------
@@ -629,9 +650,6 @@ using namespace std;
 		REQUIRE( test_values[1] == "Robinson" );
 		REQUIRE( test_values[2] == "37" );
 	}
-
-
-
 
 
    	/*-------------------------------------------------------------------------

@@ -93,7 +93,7 @@ void Engine::write(Table table){
 	
 	ofstream output_file(table.getName()+ ".db");
 	output_file << table; // write table to txt file 
-	output_file.close();
+	//output_file.close();
 }
 /*-----------------------------------------------------------------------------------
 This function exists the database after tables have been added 
