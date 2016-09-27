@@ -12,13 +12,52 @@
 
 using namespace std; 
 
-/*
-	void Engine::create(string name, vector<Attribute> att, vector<string> key){
+    //-----------------------------------------------------------------------
+	//---------------------Crete Test---------------------------------------
+	//-----------------------------------------------------------------------
 
-	Table table(name,att,key);
-	all_tables.push_back(table);  
-}
-*/
+	TEST_CASE("Show", "[Show]") {
+
+		cout<<endl;
+		cout<<endl;
+		cout<< "----------------Show function test-----------------------------------" <<endl;
+		
+		Engine e;
+		
+		vector<string> h_name = {"Spider Man","Super Man","Hulk"};
+		vector<string> h_ability = {"Strenght","Fly","Strenght"};
+		vector<string> h_weight = {"150","160","250"};
+		vector<string> h_height = {"5","10","8"};
+
+		Attribute att_hero_name("Name","string",h_name);
+		Attribute att_hero_ability("Ability","string",h_ability );
+		Attribute att_hero_weight("Weight","string",h_weight);
+		Attribute att_hero_height("Height","string",h_height);
+
+		vector<string> key_hero = {"Spider Man","Super Man","Hulk"};
+
+		vector<Attribute> hero_attributes;
+		
+		hero_attributes.push_back(att_hero_name);
+		hero_attributes.push_back(att_hero_ability);
+		hero_attributes.push_back(att_hero_weight);
+		hero_attributes.push_back(att_hero_height);
+
+		Table t ("Super Heros",hero_attributes,key_hero);
+		e.all_tables.push_back(t);
+		e.show("Super Heros");
+		vector<string> att_names;
+
+		for (int i = 0; i < t.att.size(); i ++){
+			att_names.push_back(t.att[i].getName());
+		}
+
+		REQUIRE(att_names[0] == "Name");
+		REQUIRE(att_names[1] == "Ability");
+		REQUIRE(att_names[2] == "Weight");
+		REQUIRE(att_names[3] == "Height");
+		
+	}
 	
 	//-----------------------------------------------------------------------
 	//---------------------Crete Test---------------------------------------
@@ -58,7 +97,6 @@ using namespace std;
 			att_names.push_back(t.att[i].getName());
 		}
 
-		
 		REQUIRE(att_names[0] == "Name");
 		REQUIRE(att_names[1] == "Ability");
 		REQUIRE(att_names[2] == "Weight");
@@ -175,21 +213,9 @@ using namespace std;
 		REQUIRE(e.all_tables[2].name != "Happy");	
 	}
 
-	//-----------------------------------------------------------------------
-	//---------------------Show Test----------------------------------------
-	//-----------------------------------------------------------------------
-	/*
-	cout << endl;
-	cout << "Show test:"<< endl;
-	e.show("Human");
-	cout << "\n" << endl;
-	e.show("Hero");
-	cout << "\n" << endl;
-	e.show("Affiliation");
-	*/
-      
+
 	
-    	 //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 	 //---------------------Destroy Test----------------------------------------
 	 //-----------------------------------------------------------------------
 	 /*TEST_CASE("Destroy")
@@ -344,15 +370,10 @@ using namespace std;
 
      	*/
 
-
-	//------------------------------------------------------------------------
-	//----------------------------Rename function test -----------------------
-	//-----------------------------------------------------------------------
-
-	
 	/*-------------------------------------------------------------------------
 	----------------------------Renaming function test ----------------------
 	---------------------------------------------------------------------------*/
+	
 	TEST_CASE("Renaming","[Renaming]"){
 
 		cout<<endl;
@@ -396,44 +417,85 @@ using namespace std;
 	//-------------------------------------------------------------------------
 	//----------------------------Projection function test --------------------
 	//-------------------------------------------------------------------------
-	
-	
-	//cout << "Projection Test" << endl;
-	/*
-	TEST_CASE("Projection") 
-	{
+	TEST_CASE("Projection","[Projection]" ){
+
+		cout<<endl;
+		cout<<endl;
+		cout<< "----------------Projection function test-----------------------------------" <<endl;
 		Engine e;
+
+		vector<string> key_name = {"1","2","3","4"};
+	
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
 		
-		vector<string> new_names = {"love","happiness"};
-	
-		vector<string> weight_ = {"150","160","250"};
-		vector<string> height_ = {"5","10","8"};
-	
-		Attribute human_weight("Weight","string",weight_);
-		Attribute human_height("Height","string",height_);
-	
-		vector<Attribute> human_atts;
-	
-		human_atts.push_back(human_weight);
-		human_atts.push_back(human_height);
-		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	
-		Table human("human table", human_atts, key_name);
+		vector<Attribute> manager_att;
+		vector<Attribute> graduate_att;
+
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
 		
-		vector <string> temps = {"Weight", "Height", "Size"};
+		e.create("Graduate", graduate_att, key_name);
+		e.create("Manager", manager_att, key_name);
+
+		vector<string> att_names = {"Age","Number","Age"};/// You can put the attribute name in 
+
+		Table projection_table = e.projection(att_names,"Graduate");
+		e.all_tables.push_back(projection_table);
+
+		e.show("Graduate");
+		cout<<endl;
+		cout<<"AFTER CALLED PROJECTION FUNCTION"<<endl;
+		e.show("Graduate Projection");
+
+		int i_size = projection_table.att.size();
+		int j_size = projection_table.att[0].data.size();
 		
-		Table new_table = e.projection(temps,"human table");
-		
-		REQUIRE(new_table.att[0].getName() == "Weight" );
-		REQUIRE(new_table.att[1].getName() == "Height" );
-	}*/
+		vector<string> test_values;
+		for(int i = 0; i < i_size; i++){
+			for(int j = 0; j < j_size; j++){
+				test_values.push_back(projection_table.att[i].data[j]);
+			}
+		}
+
+		vector<string> test_att_name;
+		for(int i = 0; i < 3; i++){
+			test_att_name.push_back(projection_table.att[i].getName());
+		}
+
+		//////////----------Require outputs to be correct------------/////////
+		REQUIRE( test_att_name[0]  == "Age");
+		REQUIRE( test_att_name[1]  == "Number");
+		REQUIRE( test_att_name[2]  == "Age");
+		REQUIRE( test_values[0]  == "37");
+		REQUIRE( test_values[1]  == "39");
+		REQUIRE( test_values[2]  == "38");
+		REQUIRE( test_values[3]  == "7274");
+		REQUIRE( test_values[4]  == "7432");
+		REQUIRE( test_values[5]  == "9894");
+		REQUIRE( test_values[6]  == "37");
+		REQUIRE( test_values[7]  ==  "39");
+		REQUIRE( test_values[8]  ==  "38");
+	}
 	
 	//-------------------------------------------------------------------------
 	//----------------------------Open function test -------------------------
 	//-------------------------------------------------------------------------
-	
-	
-	//cout << "Open test" << endl;
 	/*
 	TEST_CASE("Open") 
 	{
@@ -495,6 +557,7 @@ using namespace std;
    	/*-------------------------------------------------------------------------
 	----------------------------Difference function test ----------------------
 	---------------------------------------------------------------------------*/
+	
    	TEST_CASE( "Difference between two tables", "[difference]" ) {
 
 	   	cout<<endl;
@@ -553,7 +616,11 @@ using namespace std;
 		REQUIRE( test_values[0] == "7274" );
 		REQUIRE( test_values[1] == "Robinson" );
 		REQUIRE( test_values[2] == "37" );
-}
+	}
+
+
+
+
 
    	/*-------------------------------------------------------------------------
 	----------------------------set Union function test -----------------------

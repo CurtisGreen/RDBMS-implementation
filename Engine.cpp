@@ -282,34 +282,50 @@ void Engine :: selection(string table_name, string att_name)   {
 /*-----------------------------------------------------------------------------------------
 This function selects a subset of the attributes in a relation. 
 ------------------------------------------------------------------------------------------*/
-Table Engine :: projection(vector <string> att_names, string table_name)
-{
+Table Engine :: projection(vector <string> att_names, string table_name){///UPDATE BY JOSE R.
+
 	Table table;
+
+	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
 	
 	bool table_exists = false; // checks if table exists
-	
+	vector<string> v;
+	vector<Attribute> attributes;
+	string att_name;
+	string att_type;
+
 	for (int i = 0; i < all_tables.size(); i++){
 		if (table_name == all_tables[i].name){
 			table_exists = true;
 			table = all_tables[i];
 		}
 	}
+
 	if (table_exists != true){
 		cout << "Error: Table does not exist" << endl;
 	}
-	cout << table.getName() << endl;
-	
-	for (int i =0; i < table.att.size(); i++){ // checks if attributes in table match attributes given
-		if(att_names[i] == table.att[i].getName()){
-			cout << table.att[i].getName() << endl;
-			
-			for(int j =0; j < table.att[0].data.size(); j++){
-				cout << table.att[i].data[j] << endl;
+
+	for (int i = 0; i < att_names.size(); i++){
+		for(int k = 0;k < table.att.size();k++ ){
+			if(att_names[i] == table.att[k].getName()){
+				for(int j = 0; j < table.att[0].data.size(); j++){
+					v.push_back(table.att[k].data[j]);
+				}
+				att_name = table.att[k].getName();
+    			att_type = table.att[k].getType();
+      			Attribute att(att_name,att_type,v);
+      			attributes.push_back(att);
+      			v.clear();
 			}
 		}
 	}
-	return table;
+
+	string name = table_name + " Projection";
+	Table new_Table = create(name,attributes, key_name);
+
+	return new_Table;
 }
+
 
 
 /*-------------------------------------------------------------------------------------------
