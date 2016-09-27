@@ -256,7 +256,7 @@ This function identifies a set of tuples which is part of relation and then extr
 The operation selects the tuples that satisfy a given predicate or condition. 
 It will involve logical conditions as defined in the grammar. 
 ----------------------------------------------------------------------------------------------------*/
-void Engine :: selection(string table_name, string att_name)   {
+Table Engine :: selection(string table_name, string att_name)   {
     Table* table;
     bool found = false;
     for (int i = 0; i < all_tables.size(); i++){
@@ -276,8 +276,9 @@ void Engine :: selection(string table_name, string att_name)   {
                 }
             }
     }
-    
-}  //searching column information.
+    return *table;
+}
+//searching column information.
 
 /*-----------------------------------------------------------------------------------------
 This function selects a subset of the attributes in a relation. 

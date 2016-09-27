@@ -28,7 +28,7 @@ class Engine{
 	void drop(string table_name); // deletes table from "all tables" vector in database
 
 	// Atomic expressions
-	void selection(string table_name, string att_name);
+	Table selection(string table_name, string att_name);
 	Table projection(vector<string> att_names, string table_name);
 	Table set_union(string attribute_name , Table table1, Table table2 );
 	Table difference(Table table1, Table table2);
