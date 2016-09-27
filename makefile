@@ -2,8 +2,8 @@
 
 all: main
 
-main: Main.o Attribute.o Engine.o Table.o Parser.o
-	g++ -std=c++11  Main.o Attribute.o Table.o Engine.o Parser.o -o main
+main: Main.o Attribute.o Engine.o Table.o 
+	g++ -std=c++11  Main.o Attribute.o Table.o Engine.o -o main
 
 Main.o: Main.cpp Attribute.h Engine.h Table.h
 	g++ -std=c++11 -c Main.cpp  
