@@ -136,9 +136,7 @@ using namespace std;
 		hero_attributes.push_back(att_hero_weight);
 		hero_attributes.push_back(att_hero_height);
 		
-		Table hero_table("Hero",hero_attributes,key_hero);
-
-		e.all_tables.push_back(hero_table);
+		e.create("Hero",hero_attributes,key_hero);
 
 		e.show("Hero");
 		
@@ -186,15 +184,10 @@ using namespace std;
 		hero_attributes.push_back(att_hero_weight);
 		hero_attributes.push_back(att_hero_height);
 		
-		Table hero_table("Hero",hero_attributes,key_hero);
-		Table human_table("Human",hero_attributes,key_hero);
-		Table happy_table("Happy",hero_attributes,key_hero);
-		Table hungry_table("Hungry", hero_attributes, key_hero);
-
-		e.all_tables.push_back(hero_table);
-		e.all_tables.push_back(human_table);
-		e.all_tables.push_back(happy_table);
-		e.all_tables.push_back(hungry_table);
+		e.create("Hero",hero_attributes,key_hero);
+		e.create("Human",hero_attributes,key_hero);
+		e.create("Happy",hero_attributes,key_hero);
+		e.create("Hungry", hero_attributes, key_hero);
 
 		for(int i = 0; i< e.all_tables.size(); i++){
 			cout<<e.all_tables[i].getName()<<endl;
@@ -395,9 +388,8 @@ using namespace std;
 		human_atts.push_back(human_height);
 		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
 	
-		Table human("human table", human_atts, key_name);
-	
-		e.all_tables.push_back(human);
+		Table human = e.create("human table", human_atts, key_name);
+
 		e.show("human table");
 		
 		e.renaming("Weight", "Love",human);
@@ -593,11 +585,8 @@ using namespace std;
 		manager_att.push_back(m_age);
 		
 		//Tables
-		Table g("Graduate", graduate_att, key_name);
-		Table m("Manager", manager_att, key_name);
-
-		e.all_tables.push_back(g);
-		e.all_tables.push_back(m);
+		Table g = e.create("Graduate", graduate_att, key_name);
+		Table m = e.create("Manager", manager_att, key_name);
 
 		Table diff_table = e.difference(g,m);
 
@@ -659,11 +648,8 @@ using namespace std;
 		graduate_att.push_back(g_surname);
 		graduate_att.push_back(g_age);
 		
-		Table g("Graduate", graduate_att, key_name);
-		Table m("Manager", manager_att, key_name);
-
-		e.all_tables.push_back(g);
-		e.all_tables.push_back(m);
+		Table g = e.create("Graduate", graduate_att, key_name);
+		Table m = e.create("Manager", manager_att, key_name);
 
 		Table union_table = e.set_union("none",g,m);
 		e.show("Graduate U Manager");

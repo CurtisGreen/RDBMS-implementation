@@ -591,26 +591,34 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
 This function should find the tuples in one relation but not in other
 -----------------------------------------------------------------------------------------*/
 Table Engine::difference(Table table1, Table table2){
-	
-	vector<vector<string>> diff; 
-	bool exist = false;
-	int size = table1.att[0].data.size();
 
-	for(int i = 0; i<size; i++){
-		for(int j = 0; j < size; j++){
-			if(rtn_Row(table1,i) == rtn_Row(table2,j)){
-				exist = true;
+	bool execute = verify_Tables(table1,table2);
+
+	if(execute == true){
+
+		vector<vector<string>> diff; 
+		bool exist = false;
+		int size = table1.att[0].data.size();
+
+		for(int i = 0; i<size; i++){
+			for(int j = 0; j < size; j++){
+				if(rtn_Row(table1,i) == rtn_Row(table2,j)){
+					exist = true;
+				}
 			}
+			if(exist == false){
+				diff.push_back(rtn_Row(table1,i));
+			}
+			exist = false;
 		}
-		if(exist == false){
-			diff.push_back(rtn_Row(table1,i));
-		}
-		exist = false;
+		string table_name = table1.name + "-" + table2.name;
+		Table d = makeTable(table1,table_name,diff);
+		all_tables.push_back(d);
+		return 	d;
 	}
-	string table_name = table1.name + "-" + table2.name;
-	Table d = makeTable(table1,table_name,diff);
-	all_tables.push_back(d);
-	return 	d;
+
+	Table t_default;
+	return t_default;
 }
 
 
@@ -664,6 +672,8 @@ Table Engine::cross_product(Table table1, Table table2, vector<string> relations
 	new_table.name = table1.name + "*" + table2.name;
 	all_tables.push_back(new_table);
 	return new_table;
+
+
 }
 
 
