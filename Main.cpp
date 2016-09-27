@@ -208,39 +208,47 @@ using namespace std;
 
 
 	
-    //-----------------------------------------------------------------------
-	 //---------------------Destroy Test----------------------------------------
-	 //-----------------------------------------------------------------------
-	 /*TEST_CASE("Destroy")
-    		{
-	   Engine e;
+   //-----------------------------------------------------------------------
+   //---------------------Destroy Test----------------------------------------
+   //-----------------------------------------------------------------------
+   TEST_CASE("Destroy"){
+    
+    cout<<endl;
+    cout<<endl;
+    cout<< "----------------Destroy function test-----------------------------------" <<endl;
+       Engine e;
  
-	  vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	  vector<string> ocupataion = {"students","Proffesor","Boxer"};
-	  vector<string> weight = {"150","160","250"};
+       vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
+	   vector<string> ocupataion = {"students","Proffesor","Boxer"};
+	   vector<string> weight = {"150","160","250"};
 	   vector<string> height = {"5","10","8"};
  
 	   Attribute att_human_name("Name","string",name);
-	   Attribute att_human_occupation("Ocupation","string",ocupataion );
+	   Attribute att_human_occupation("Occupation","string",ocupataion );
 	   Attribute att_human_weight("Weight","string",weight);
-	   Attribute att_human_height("Name","string",height);
+	   Attribute att_human_height("Height","string",height);
  
 	   vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
  
-	  vector<Attribute> human_attributes;
+	   vector<Attribute> human_attributes;
  
-	 human_attributes.push_back(att_human_name);
-	 human_attributes.push_back(att_human_occupation);
-	 human_attributes.push_back(att_human_weight);
-	 human_attributes.push_back(att_human_height);
+	   human_attributes.push_back(att_human_name);
+	   human_attributes.push_back(att_human_occupation);
+	   human_attributes.push_back(att_human_weight);
+	   human_attributes.push_back(att_human_height);
         
-	 Table human_table("Human",human_attributes,key_name);//crates table
+	   Table human_table("Human",human_attributes,key_name);//crates table
  
-        e.all_tables.push_back(human_table);
+       e.all_tables.push_back(human_table);
+       
+       e.show("Human");
+  
  
- 
- 
-        Table new_table = e.destroy ("Human", 1 );
+       Table new_table = e.destroy ("Human", 1 );
+       
+       cout<<endl;
+       cout<<"After calling destroy funciton, on Human table"<<endl;
+       e.show("Human");
  
  
         REQUIRE(new_table.att[0].data[0] != "Peter Parker");
@@ -248,13 +256,15 @@ using namespace std;
         REQUIRE(new_table.att[0].data[0] != "150");
         REQUIRE(new_table.att[0].data[0] != "5");
  
-	 }*/
+	 }
 
     //-----------------------------------------------------------------------
     //---------------------Update Test----------------------------------------
     //-----------------------------------------------------------------------
-   /* TEST_CASE("Update")
-	 {
+    TEST_CASE("Update"){
+        cout<<endl;
+        cout<<endl;
+        cout<< "----------------Update function test-----------------------------------" <<endl;
         Engine e;
     
         vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
@@ -263,9 +273,9 @@ using namespace std;
         vector<string> height = {"5","10","8"};
         
         Attribute att_human_name("Name","string",name);
-        Attribute att_human_occupation("Ocupation","string",ocupataion );
+        Attribute att_human_occupation("Occupation","string",ocupataion );
         Attribute att_human_weight("Weight","string",weight);
-        Attribute att_human_height("Name","string",height);
+        Attribute att_human_height("Height","string",height);
         
         vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
         
@@ -280,19 +290,23 @@ using namespace std;
     
         e.all_tables.push_back(human_table);
     
-       
+        e.show("Human");
     
         Table new_table1 = e.update("Human","Name","Peter Parker","Eunsu Kim");
         Table new_table2 = e.update("Human","Name","Andrew Wills","Iron Man");
-        Table new_table3 = e.update("Human","Occupation","students","professor");
-
+        Table new_table3 = e.update("Human","Occupation","Boxer","Doctor");
         
+        cout<<endl;
+        cout<<"After calling update funciton, on Human table"<<endl;
+        e.show("Human");
+    
+    
         REQUIRE(new_table1.att[0].data[0] == "Eunsu Kim");
         REQUIRE(new_table2.att[0].data[1] == "Iron Man");
-        REQUIRE(new_table3.att[1].data[0] == "professor");
+        REQUIRE(new_table3.att[1].data[2] == "Doctor");
 
         
-	}*/
+	}
 
 	//------------------------------------------------------------------------
 	//----------------------------Write function test -----------------------
@@ -330,10 +344,15 @@ using namespace std;
 		REQUIRE(e.write(human) == human.db);	
 	}*/
 	
-        //------------------------------------------------------------------------
+    //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
 	//-----------------------------------------------------------------------
-	/*
+
+    TEST_CASE("Selection"){
+     
+     cout<<endl;
+     cout<<endl;
+     cout<< "----------------Selection function test-----------------------------------" <<endl;
 	  Engine e;
 
 	 vector<string> name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
@@ -342,7 +361,7 @@ using namespace std;
 	 vector<string> height = {"5","10","8"};
 
 	 Attribute att_human_name("Name","string",name);
-	 Attribute att_human_occupation("Ocupation","string",ocupataion );
+	 Attribute att_human_occupation("Occupation","string",ocupataion );
 	 Attribute att_human_weight("Weight","string",weight);
 	 Attribute att_human_height("Height","string",height);
 
@@ -358,10 +377,14 @@ using namespace std;
 	 Table human_table("Human",human_attributes,key_name);//crates table
 
 	 e.all_tables.push_back(human_table);
-
-	  e.selection( "Human", "Name");
-
-     	*/
+     e.show("Human");
+     cout<<endl;
+     cout<<"After calling selection funciton, selected (Occupation) on Human table"<<endl;
+     cout<<endl;
+        
+	  e.selection( "Human", "Occupation");
+    }
+    
 
 	/*-------------------------------------------------------------------------
 	----------------------------Renaming function test ----------------------

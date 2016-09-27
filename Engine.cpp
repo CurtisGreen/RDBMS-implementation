@@ -269,7 +269,7 @@ void Engine :: selection(string table_name, string att_name)   {
         for (int i = 0; i < table->att.size(); i++)
             if( (table->att[i].getName()) == att_name)
             {
-                cout<<table->att[i].getName()<<endl;
+                cout<<table->att[i].getName()<<endl<<endl;
                 for (int j = 0; j < table->att[i].data.size(); j++){
              
                     cout<<table->att[i].data[j] <<"\n";
