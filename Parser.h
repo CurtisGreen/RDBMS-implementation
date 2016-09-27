@@ -20,14 +20,12 @@ class Parser{
 	lparen, rparen, larrow, plus, minus, times, equals, comma, semicolon,
 	eq, neq, less_than, greater_than, leq, geq, or_, and_, 
 		
-	create_table, select_, project_, rename_, open, close, write, show, exit_,
+	create_table, select_, project_, rename_, open_, close_, write_, show_, exit_,
 	set, where, update, primary_key, insert, destroy, varchar, identifier
 	
 	
 	};
-	
-	
-	private:
+
 
 	
 	
