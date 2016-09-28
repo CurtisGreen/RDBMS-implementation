@@ -54,3 +54,39 @@ Parser:: Token Parser:: get_token(string value)
 		return IDENTIFIER;
 	
 }
+
+/*
+void Parser :: initial(){
+	while (true) {
+		Token t = ts.get();
+		string input_str = "";
+		switch(t.kind){
+			case '0': input_str = out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
+		//Make sure to check to make sure input_str != ""
+	}
+}
+
+void Parser :: input(Token_stream ts){
+	try {
+		Table table;
+		while (true) {
+			Token t = ts.get();
+			if (t.value == ';')
+				cout << "Finished line" << endl;	
+			else
+				ts.putback(t);
+			initial();
+		}
+	}
+	catch(runtime_error& e) {
+		cerr << e.what() << endl;
+		return 1;
+	}
+	catch(...) {
+		cerr << "exception\n";
+		return 2;
+	}
+}*/
