@@ -2,10 +2,10 @@
 
 all: main
 
-main: Main.o Engine.o Table.o Parser.o Token.o Attribute.o
-	g++ -std=c++11 Attribute.o Main.o Table.o Engine.o Parser.o Token.o -o main
+main: Main.o Engine.o Table.o Parser.o Attribute.o
+	g++ -std=c++11 Attribute.o Main.o Table.o Engine.o Parser.o -o main
 
-Main.o: Main.cpp Parser.h Engine.h Table.h Token.h
+Main.o: Main.cpp Parser.h Engine.h Table.h
 	g++ -std=c++11 -c Main.cpp  
 	
 Attribute.o: Attribute.cpp Attribute.h
@@ -20,10 +20,6 @@ Engine.o: Engine.cpp Engine.h Attribute.h Table.h
 Parser.o: Parser.cpp Parser.h Engine.h
 	g++ -std=c++11 -c Parser.cpp
 	
-Token.o: Token.cpp Token.h 
-	g++ -std=c++11 -c Token.cpp
-	
-
 clean:
 	rm -f *.o
 

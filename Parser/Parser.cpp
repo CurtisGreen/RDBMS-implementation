@@ -1,32 +1,58 @@
 #include "Parser.h"
 #include "Engine.h"
-#include "Token.h"
 
 using namespace std;
 
-
-Parser:: Parser(vector<Token> tokens_, Engine* e_)
+void Parser:: read_input( string input)
 {
-	tokens = tokens_;
-	e = e_;
+	//TODO
 }
-
-bool Parser :: command()
+void  Parser:: add_token(Token token, string value)
 {
-	//TODO:
+	tokens.push_back(token);
+	buffer.push_back(value);
 }
-
-bool Parser :: query()
+Parser:: Token Parser:: get_token(string value)
 {
-	//TODO:
-}
-
-Table Parser :: atomic_expression()
-{
-	//TODO:
-}
-
-void Parser :: expect(Token:: Token_Symbols symbol)
-{
-	//TODO:
+	if(value == "SELECT")
+		return SELECT;
+	else if(value == "PROJECT")
+		return PROJECT;
+	else if(value== "RENAME")
+		return RENAME;
+	else if(value == "OPEN")
+		return OPEN;
+	else if(value== "CLOSE")
+		return CLOSE;
+	else if(value == "WRITE")
+		return WRITE;
+	else if(value == "EXIT")
+		return EXIT;
+	else if(value == "SHOW")
+		return SHOW;
+	else if(value == "UPDATE")
+		return UPDATE;
+	else if(value == "SET")
+		return SET;
+	else if(value == "WHERE")
+		return WHERE;
+	else if (value == "CREATE TABLE")
+		return CREATE_TABLE;
+	else if (value == "PRIMARY KEY")
+		return PRIMARY_KEY;
+	else if (value == "INSERT INTO")
+		return INSERT_INTO;
+	else if (value == "DELETE FROM")
+		return DELETE_FROM;
+	else if(value == "VARCHAR")
+		return VARCHAR;
+	else if(value == "INTEGER")
+		return INTEGER_SYM;
+	else if(isdigit(value[0]))			///to_string(stoi(s)) == s
+		return INTEGER;
+	else if(isalpha(value[0]))
+		return IDENTIFIER;
+	else
+		return "Error Invalid Token";	
+	
 }

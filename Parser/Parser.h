@@ -2,38 +2,59 @@
 #define PARSER_H_
 
 #include "Engine.h"
-#include "Token.h"
-#include "Table.h"
 
 #include <string>
 #include <vector>
 #include <iostream>
-#include <algorithm>
-#include <stdexcept>
+
 
 
 using namespace std;
 
 class Parser{
 	
+
 public:
-	Parser();
-	Parser(vector<Token> tokens_, Engine* e_);
+		enum Token {
+		
+		// If we need to add more we can, most of them are here I think
+		OPEN, CLOSE, WRITE, EXIT, SHOW, SELECT, PROJECT, RENAME,
+		CREATE_TABLE, PRIMARY_KEY, UPDATE, SET, WHERE, INSERT_INTO,
+		VALUES_FROM,DELETE_FROM, VARCHAR, INTEGER_SYM,
+		
+		// <-  
+		LARROW, LPAREN, RPAREN, PLUS, MINUS, TIMES, COMMA, SEMICOLON, EQUALS,
+		
+		//== 
+		EQ, NEQ, LESS, GREATER, LEQ, GEQ, AND, OR,
+		
+		// Identifier - starts with alpha, digit, or "_"
+		INTEGER, IDENTIFIER, LITERAL
+		};
+		
+		//changes won't be made to the string, so using pointer
+		const char* token_strings [38] = {
+		"OPEN", "CLOSE", "WRITE", "EXIT", "SHOW", "SELECT", "PROJECT", "RENAME",
+		"CREATE_TABLE", "PRIMARY_KEY", "UPDATE", "SET", "WHERE", "INSERT_INTO",
+		"VALUES_FROM","DELETE_FROM", "VARCHAR","LARROW", "LPAREN", "RPAREN", "PLUS",
+		"MINUS", "TIMES", "COMMA", "SEMICOLON", "EQUALS","EQ", "NEQ", "LESS", "GREATER", 
+		"LEQ", "GEQ", "AND", "OR","INTEGER", "IDENTIFIER", "LITERAL", "INTEGER"
+			
+		};
+	
 	
 private:
+
+	
 	vector<Token> tokens;
-	Engine* e;
+	vector<string> buffer;
+	Engine e;
 	
 	
-	bool command(); // finds out if input is a command
-	bool query(); // finds out if the input is a query
-	Table atomic_expression(); // figures out if  atomic expression (UNION-JOIN-DIFFERENCE-PRODUCT)
-	
-	
-	
-	void expect(Token:: Token_Symbols symbol); // tells what to expect when executing inout
-	
-	
+	void read_input(string input); //reads input until it sees an alpha numeric
+	void add_token(Token token, string value); // pushes token into buffer
+	Token get_token(string value); // returns token from string value 
+
 	
 };
 
