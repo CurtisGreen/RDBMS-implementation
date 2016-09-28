@@ -48,7 +48,7 @@ Parser:: Token Parser:: get_token(string value)
 		return VARCHAR;
 	else if(value == "INTEGER")
 		return INTEGER_SYM;
-	else if(isdigit(value[0]))			///to_string(stoi(s)) == s
+	else if(isdigit(value[0]))			
 		return INTEGER;
 	else if (isalpha(value[0]))
 		return IDENTIFIER;
