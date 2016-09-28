@@ -50,9 +50,7 @@ Parser:: Token Parser:: get_token(string value)
 		return INTEGER_SYM;
 	else if(isdigit(value[0]))			///to_string(stoi(s)) == s
 		return INTEGER;
-	else if(isalpha(value[0]))
+	else if (isalpha(value[0]))
 		return IDENTIFIER;
-	else
-		return "Error Invalid Token";	
 	
 }
