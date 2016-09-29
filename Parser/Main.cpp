@@ -6,7 +6,6 @@
 int main()
 
 {
-	cout << "Parser test" << endl;
-
+	cout << "This is a Parser test" << endl;
 
 }
