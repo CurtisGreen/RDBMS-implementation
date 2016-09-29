@@ -252,11 +252,12 @@ void Parser :: initial(){
 			case '0': input_str = out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO:
+		//TODO: finish rest of function calls
 		enum identifier = get_token(input_str);
 		switch(identifier){
-			//case: Create
-			default: //Is a relation name
+			case: Create execute_create();
+			//... fill in rest of cases here
+			default: //Is a relation name so it'll be a query
 		}
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""
