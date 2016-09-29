@@ -1,6 +1,6 @@
 #include "Parser.h"
 #include "Engine.h"
-
+#include "Token_stream.h"
 
 #include <string>
 #include <vector>
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-<<<<<<< HEAD
+
 void Parser:: read_input(string input)
 {
 	//TODO
@@ -191,7 +191,6 @@ vector <string> Parser :: attribute_list()
 	//TODO
 }
 
-=======
 void Parser:: read_input( string input)
 {
 	//TODO
@@ -201,7 +200,7 @@ void  Parser:: add_token(Token token, string value)
 	tokens.push_back(token);
 	buffer.push_back(value);
 }
-Parser:: Token Parser:: get_token(string value)
+enum Parser:: get_token(string value)	//I changed this to an enum, it doesn't seem like it returns a token
 {
 	if(value == "SELECT")
 		return SELECT;
@@ -244,7 +243,7 @@ Parser:: Token Parser:: get_token(string value)
 	
 }
 
-/*
+
 void Parser :: initial(){
 	while (true) {
 		Token t = ts.get();
@@ -252,6 +251,12 @@ void Parser :: initial(){
 		switch(t.kind){
 			case '0': input_str = out_buff(); break;
 			default: ts.putback(t); break;
+		}
+		//TODO:
+		enum identifier = get_token(input_str);
+		switch(identifier){
+			//case: Create
+			default: //Is a relation name
 		}
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""
@@ -278,5 +283,5 @@ void Parser :: input(Token_stream ts){
 		cerr << "exception\n";
 		return 2;
 	}
-}*/
->>>>>>> dc24f897a48e9adf8931845279cc7a450e64c368
+}
+
