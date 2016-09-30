@@ -1,6 +1,4 @@
 #include "Parser.h"
-#include "Engine.h"
-#include "Token_stream.h"
 
 #include <string>
 #include <vector>
@@ -10,41 +8,31 @@
 using namespace std;
 
 
+void Parser:: setToken()
+{
+	token = tokens[current_token_index]; // set token to be current token in vector 
+}
+
+
 void Parser:: read_input(string input)
 {
 	//TODO
 }
-vector <Parser:: Token> Parser:: getToken()
-{
-	return tokens;
-}
-/* Setter method to set the token to equal the current position in Token vector*/
-void Parser :: setToken()
-{
-	token = tokens[current_token_index];
-}
 /*This functions allows you to use this in your helper functions to set up
 what is to expected when you see a specific item */
-void Parser :: expect(Token t) 
+void Parser :: expect(Token_Sym::TokenSymbol symbol) 
 {
-	if(current_token_index >= tokens.size())
-	{
-		throw runtime_error("Parser: Invalid Input");
-	}
-	else if(tokens[current_token_index] == t)
-	{
-		current_token_index++;
-	}
+	//
 }
-/* Function allows input to be either put in a query category or command category */
 
+/* Function allows input to be either put in a query category or command category */
 bool Parser :: can_execute_program()
 {
-	if(tokens[tokens.size()-1] != Parser:: Token ::SEMICOLON)
+	if(tokens[tokens.size()-1].getSymbol() != Token_Sym ::SEMICOLON)
 	{
 		throw runtime_error("Statement must end with semicolon");
 	}
-	if (token == Parser:: Token ::IDENTIFIER)
+	if (token.getSymbol() == Token_Sym ::IDENTIFIER)
 	{
 		query(); // go to query execution 
 	}
@@ -59,77 +47,76 @@ bool Parser :: query()
 	//TODO
 }
 
-/* Depending on the comannd it will call the specific command to execute */
 
 bool Parser :: command()
 {
-	switch (token)
+	switch (token.getSymbol())
 	{
-		case Parser::Token::EXIT:
+		case Token_Sym::EXIT:
 			execute_exit();
 			break;
 
-		case Parser::Token::SHOW:
+		case Token_Sym::SHOW:
 		{	
 			execute_show();
 			break;
 		}
-		case Parser:: Token::OPEN:
+		case Token_Sym::OPEN:
 		{
-			expect(Token::IDENTIFIER);
+			expect(Token_Sym::IDENTIFIER);
 			execute_open();
 			break;
 		}
-		case  Parser :: Token::WRITE:
+		case  Token_Sym::WRITE:
 		{
-			expect(Parser:: Token::IDENTIFIER);
+			expect(Token_Sym::IDENTIFIER);
 			execute_write();
 			break;
 		}
-		case Parser::Token::CLOSE:
+		case Token_Sym::CLOSE:
 		{
-			expect(Parser::Token::IDENTIFIER);
+			expect(Token_Sym::IDENTIFIER);
 			execute_show();
 			break;
 		}
-		case Parser::Token::CREATE:
+		case Token_Sym::CREATE:
 			execute_create();
 			break;
 
-		case Parser::Token::UPDATE:
+		case Token_Sym::UPDATE:
 			execute_update();
 			break;
 
-		case Parser::Token::INSERT:
+		case Token_Sym::INSERT:
 			execute_insert();
 			break;
 
-		case Parser:: Token::DELETE:
+		case Token_Sym::DELETE:
 			execute_destroy();
 			break;
 	}
 }
 Table Parser :: execute_expression()
 {
-	switch (token)
+	switch (token.getSymbol())
 	{
-		case Parser::Token::LPAREN:
+		case Token_Sym::LPAREN:
 			return atomic_expression();
 			break;
 
-		case Parser::Token::SELECT:
+		case Token_Sym::SELECT:
 			return execute_selection();
 			break;
 
-		case Parser::Token::PROJECT:
+		case Token_Sym::PROJECT:
 			return execute_projection();
 			break;
 
-		case Parser::Token::IDENTIFIER:
+		case Token_Sym::IDENTIFIER:
 			return atomic_expression();
 			break;
 
-		case Parser::Token::RENAME:
+		case Token_Sym::RENAME:
 			return execute_renaming();
 			break;
 	}	
@@ -141,34 +128,34 @@ void Parser :: execute_insert()
 }
 void Parser :: execute_update()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_create()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_destroy()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_open()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_close()
 {
-	//TODOD
+	//TODO
 }void Parser :: execute_show()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_exit()
 {
-	//TODOD
+	//TODO
 }
 void Parser :: execute_write()
 {
-	//TODOD
+	//TODO
 }
 Table Parser :: execute_selection()
 {
@@ -191,59 +178,7 @@ vector <string> Parser :: attribute_list()
 	//TODO
 }
 
-void Parser:: read_input( string input)
-{
-	//TODO
-}
-void  Parser:: add_token(Token token, string value)
-{
-	tokens.push_back(token);
-	buffer.push_back(value);
-}
-enum Parser:: get_token(string value)	//I changed this to an enum, it doesn't seem like it returns a token
-{
-	if(value == "SELECT")
-		return SELECT;
-	else if(value == "PROJECT")
-		return PROJECT;
-	else if(value== "RENAME")
-		return RENAME;
-	else if(value == "OPEN")
-		return OPEN;
-	else if(value== "CLOSE")
-		return CLOSE;
-	else if(value == "WRITE")
-		return WRITE;
-	else if(value == "EXIT")
-		return EXIT;
-	else if(value == "SHOW")
-		return SHOW;
-	else if(value == "UPDATE")
-		return UPDATE;
-	else if(value == "SET")
-		return SET;
-	else if(value == "WHERE")
-		return WHERE;
-	else if (value == "CREATE TABLE")
-		return CREATE_TABLE;
-	else if (value == "PRIMARY KEY")
-		return PRIMARY_KEY;
-	else if (value == "INSERT INTO")
-		return INSERT_INTO;
-	else if (value == "DELETE FROM")
-		return DELETE_FROM;
-	else if(value == "VARCHAR")
-		return VARCHAR;
-	else if(value == "INTEGER")
-		return INTEGER_SYM;
-	else if(isdigit(value[0]))			
-		return INTEGER;
-	else if (isalpha(value[0]))
-		return IDENTIFIER;
-	
-}
-
-
+/*
 void Parser :: initial(){
 	while (true) {
 		Token t = ts.get();
@@ -255,7 +190,8 @@ void Parser :: initial(){
 		//TODO: finish rest of function calls
 		enum identifier = get_token(input_str);
 		switch(identifier){
-			case: Create execute_create();
+			case: Create :
+			execute_create();
 			//... fill in rest of cases here
 			default: //Is a relation name so it'll be a query
 		}
@@ -263,8 +199,9 @@ void Parser :: initial(){
 		//Make sure to check to make sure input_str != ""
 	}
 }
+*/
 
-void Parser :: input(Token_stream ts){
+/*void Parser :: input(Token_stream ts){
 	try {
 		Table table;
 		while (true) {
@@ -286,3 +223,4 @@ void Parser :: input(Token_stream ts){
 	}
 }
 
+*/
