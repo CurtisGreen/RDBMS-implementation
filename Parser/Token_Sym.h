@@ -8,10 +8,6 @@ using namespace std;
 #include <string>
 #include <vector>
 
-
-
-
-
 /* Token Symbol Class. We have s Token Stream class for the alpha, digits, and operators
 and we have this symbol class to handle the SQL "Tokens"
 */
@@ -24,12 +20,11 @@ class Token_Sym
 						  FROM, SEMICOLON, LPAREN, RPAREN, COMMA, EQUALSIGN,EQ, NEQ, LT, GT, LEQ, GEQ,};
 		
 		Token_Sym(TokenSymbol symbol_, string value_); // Constructor : Token has a symbol and a value 
-		Token_Sym() {};								   // Default Constructor 
+		Token_Sym() {};					// Default Constructor 
 		TokenSymbol getSymbol(){return symbol;}		   // Returns the Enum Symbol
 		string getValue();							   
 		int getNumericConversion();	
-		string getSymbolName();						   // Returns the string value of the Token_Symbol given
-
+		string getSymbolName();			   // Returns the string value of the Token_Symbol given
 	private: 
 		string value;
 		TokenSymbol symbol;
