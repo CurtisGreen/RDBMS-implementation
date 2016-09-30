@@ -17,15 +17,10 @@ string Token_Sym:: getValue()
 {
 	return value;
 }
-
-
-
 int Token_Sym :: getNumericConversion()
 {
 	return atoi(value.c_str()); 
 }
-
-
 string Token_Sym::getSymbolName()
 {
 	TokenSymbol symbol = this->symbol;
