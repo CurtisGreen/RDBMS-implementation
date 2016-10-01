@@ -13,11 +13,6 @@ void Parser:: setToken()
 	token = tokens[current_token_index]; // set token to be current token in vector 
 }
 
-
-void Parser:: read_input(string input)
-{
-	//TODO
-}
 /*This functions allows you to use this in your helper functions to set up
 what is to expected when you see a specific item */
 void Parser :: expect(Token_Sym::TokenSymbol symbol) 
@@ -56,7 +51,6 @@ Table Parser :: execute_expression()
 			break;
 	}	
 }
-
 void Parser :: execute_insert()
 {
 	//TODO
@@ -171,8 +165,6 @@ void Parser :: initial(){
 		}
 	}
 }
-
-
 int Parser :: input(){
 	try {
 		Table table;

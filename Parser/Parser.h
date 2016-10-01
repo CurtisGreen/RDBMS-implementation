@@ -19,7 +19,6 @@ class Parser{
 public: 
 	
 	Parser(){}; 
-	void read_input(string input); // reads input until it sees an alpha numeric
 	void input(Token_stream ts);
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
@@ -30,14 +29,13 @@ private:
 	Engine e;
 	Token_stream ts;
 	
-	int current_token_index; // current place in token vector
+	
 	void setToken();
 	bool query(string rel_name);
 	int input();
 
 	
-	
-	/* All of the things that need to be executed in the Engine*/ 
+	// All of the things that need to be executed in the Engine 
 	Table execute_expression();
 	Table atomic_expression();
 	Table execute_selection();
