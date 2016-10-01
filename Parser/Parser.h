@@ -48,6 +48,7 @@ private:
 	void execute_update();
     void execute_insert();
 	void execute_destroy();
+	void remove_spaces();
 
 
 	// need a helper function to get all of the attributes for create function

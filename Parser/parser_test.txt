@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
 OPEN animals;
 CLOSE animals;
+=======
+CREATE TABLE animals (name VARCHAR(20),kind VARCHAR(8),years INTEGER) PRIMARY KEY (name,kind);
+>>>>>>> e4ea33eb25afc8d839d5e61d5abd082e5a66a6a8

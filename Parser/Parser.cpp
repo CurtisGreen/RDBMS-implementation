@@ -8,6 +8,20 @@
 
 using namespace std;
 
+<<<<<<< HEAD
+=======
+void Parser:: remove_spaces(){	//removes spaces following up to a character
+	Token t('0');
+	while(t.value == ' '){
+		t = ts.get();
+	}
+}
+void Parser:: setToken()
+{
+	token = tokens[current_token_index]; // set token to be current token in vector 
+}
+
+>>>>>>> e4ea33eb25afc8d839d5e61d5abd082e5a66a6a8
 bool Parser :: query(string rel_name)
 {
 	//TODO
@@ -79,24 +93,38 @@ void Parser :: execute_create()
 		}
 	}
 	while (t.value != '('){		//go into parentheses
-		switch(t.kind){
-			case '0': input_str = ts.out_buff(); break;
-			default: ts.putback(t); break;
-		}
-	}
-	while (t.value != ')') {	//checks for attribute-list and types
-		input_str = "";
 		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
+	}
+	int paren_count = 1;
+	while (paren_count != 0) {	//checks for attribute-list and types
+		input_str = "";
+		t = ts.get();
+		if (t.value == '('){
+			paren_count++;
+		}
+		else if(t.value == ')'){
+			paren_count--;
+		}
+		if (paren_count == 0){
+			input_str = ts.out_buff();
+		}
+		else{
+			switch(t.value){
+				case ',': case ' ': input_str = ts.out_buff(); break;
+				default: ts.putback(t); break;
+			}
+		}
 		if (t.value == ' '){	//Get attribute name
 			Attribute att;
 			att.name = input_str;
 			type_att_list.push_back(att);
+			//TODO: runn space remover function here
 		}
-		else if(t.value == ','){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
+		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
 			type_att_list[type_att_list.size()-1].type = input_str;
 		}
 	}
@@ -118,6 +146,7 @@ void Parser :: execute_create()
 	}
 	//Call space removing functions
 	while (t.value != '('){		//go into parentheses
+		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
@@ -134,10 +163,13 @@ void Parser :: execute_create()
 			keys.push_back(input_str); 
 		}
 	}
-	cout << "actually here" << endl;
+	for (int i = 0; i < type_att_list.size(); i++){
+		//cout << type_att_list[i].name << type_att_list[i].type << endl;
+	}
 	e.create(rel_name, type_att_list, keys);
 	e.show(rel_name);
 }
+
 void Parser :: execute_destroy()
 {
 	//TODO
@@ -145,6 +177,7 @@ void Parser :: execute_destroy()
 }
 void Parser :: execute_open()
 {
+<<<<<<< HEAD
 	//TODO : finish it 
 	//open-cmd ::== OPEN relation-name
 	/*
@@ -200,6 +233,48 @@ void Parser :: execute_close()
 	e.close(table_name);
 	*/
 	
+=======
+    //TODO : finish it
+    //open-cmd ::== OPEN relation-name
+    string rel_name;
+    string input_str = "";
+    Token t = ts.get();
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+    
+    e.open(rel_name);
+}
+void Parser :: execute_close()
+{
+    //TODO: finsih it
+    //close-cmd ::== CLOSE relation-name
+    string rel_name;
+    string input_str = "";
+    Token t = ts.get();
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+    
+    e.close(rel_name);
+    
+>>>>>>> e4ea33eb25afc8d839d5e61d5abd082e5a66a6a8
 }
 void Parser :: execute_show()
 {
@@ -286,13 +361,15 @@ void Parser :: initial(){
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""	
 		t = ts.get();
+		//cout << "value = " << t.value << endl;
 		string input_str = "";
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		cout << input_str << endl;
+		//cout << input_str << endl;
 		if (input_str == "CREATE"){
+			cout << "executing create" << endl;
 			execute_create();
 		}
 		else if(input_str == "INSERT"){
@@ -326,11 +403,9 @@ void Parser :: initial(){
 }
 int Parser :: input(){
 	try {
-		cout << "inside input" << endl;
 		Token t('a');
 		while (t.value != ';' && t.value != '`') {
 			t = ts.get();
-			cout << t.value << endl;
 			if (t.value == ';')
 				cout << "Finished line" << endl;	
 			else
