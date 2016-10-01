@@ -13,6 +13,7 @@ class Engine{
 
 	// Holds all tables in the database
  	vector <Table> all_tables; 
+	Table getTable(string table_name); // returns a table from the database vector 
 	
 	// Database Commands 
 	void open(string table_name);

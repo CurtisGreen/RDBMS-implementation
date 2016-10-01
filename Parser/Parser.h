@@ -29,11 +29,7 @@ private:
 	Engine e;
 	Token_stream ts;
 	
-	
-	void setToken();
 	bool query(string rel_name);
-	int current_token_index;
-
 	
 	// All of the things that need to be executed in the Engine 
 	Table execute_expression();
