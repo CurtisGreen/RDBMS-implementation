@@ -8,10 +8,12 @@
 using namespace std;
 
 void Parser:: remove_spaces(){	//removes spaces following up to a character
-	Token t('0');
+	Token t('a');
+	t = ts.get();
 	while(t.value == ' '){
 		t = ts.get();
 	}
+	ts.putback(t);
 }
 void Parser:: setToken()
 {
@@ -68,6 +70,7 @@ void Parser :: execute_create()
 	string rel_name;
 	string input_str = "";
 	vector<string> keys;
+	remove_spaces();
 	while (input_str != "TABLE") {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
@@ -76,6 +79,7 @@ void Parser :: execute_create()
 		}
 		//TODO: add error if not table
 	}
+	remove_spaces();
 	Token t = ts.get();
 	while (t.value != ' ') {	//checks for relation-name
 		input_str = "";
@@ -95,6 +99,7 @@ void Parser :: execute_create()
 			default: ts.putback(t); break;
 		}
 	}
+	remove_spaces();
 	int paren_count = 1;
 	while (paren_count != 0) {	//checks for attribute-list and types
 		input_str = "";
@@ -110,7 +115,7 @@ void Parser :: execute_create()
 		}
 		else{
 			switch(t.value){
-				case ',': case ' ': input_str = ts.out_buff(); break;
+				case ',': case ' ': input_str = ts.out_buff(); remove_spaces(); break;
 				default: ts.putback(t); break;
 			}
 		}
@@ -118,12 +123,15 @@ void Parser :: execute_create()
 			Attribute att;
 			att.name = input_str;
 			type_att_list.push_back(att);
-			//TODO: runn space remover function here
+			remove_spaces();
 		}
 		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
 			type_att_list[type_att_list.size()-1].type = input_str;
+			remove_spaces();
 		}
 	}
+	remove_spaces();
+	input_str = "";
 	while (input_str != "PRIMARY") {	//check for PRIMARY
 		Token t = ts.get();
 		switch(t.kind){
@@ -132,6 +140,7 @@ void Parser :: execute_create()
 		}
 		//TODO: add error if not PRIMARY
 	}
+	remove_spaces();
 	while (input_str != "KEY") {	//check for KEY
 		Token t = ts.get();
 		switch(t.kind){
@@ -141,13 +150,9 @@ void Parser :: execute_create()
 		//TODO: add error if not KEY
 	}
 	//Call space removing functions
-	while (t.value != '('){		//go into parentheses
-		t = ts.get();
-		switch(t.kind){
-			case '0': input_str = ts.out_buff(); break;
-			default: ts.putback(t); break;
-		}
-	}
+	remove_spaces();
+	ts.out_buff();	//remove parentheses
+	remove_spaces();
 	while (t.value != ')') {	//pass back keys
 		input_str = "";
 		t = ts.get();
@@ -157,6 +162,7 @@ void Parser :: execute_create()
 		}
 		if (t.value == ','){	//Get attribute name
 			keys.push_back(input_str); 
+			remove_spaces();
 		}
 	}
 	for (int i = 0; i < type_att_list.size(); i++){
