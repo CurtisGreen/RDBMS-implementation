@@ -25,78 +25,12 @@ void Parser :: expect(Token_Sym::TokenSymbol symbol)
 	//
 }
 
-/* Function allows input to be either put in a query category or command category */
-bool Parser :: can_execute_program()
-{
-	if(tokens[tokens.size()-1].getSymbol() != Token_Sym ::SEMICOLON)
-	{
-		throw runtime_error("Statement must end with semicolon");
-	}
-	if (token.getSymbol() == Token_Sym ::IDENTIFIER)
-	{
-		//query(); // go to query execution 
-	}
-	else
-	{
-		command(); // go to command execution 
-	}
-	return true;
-}
 bool Parser :: query(string rel_name)
 {
 	//TODO
 	//query ::= relation-name <- expr ;
 }
 
-
-bool Parser :: command()
-{
-	switch (token.getSymbol())
-	{
-		case Token_Sym::EXIT:
-			execute_exit();
-			break;
-
-		case Token_Sym::SHOW:
-		{	
-			execute_show();
-			break;
-		}
-		case Token_Sym::OPEN:
-		{
-			expect(Token_Sym::IDENTIFIER);
-			execute_open();
-			break;
-		}
-		case  Token_Sym::WRITE:
-		{
-			expect(Token_Sym::IDENTIFIER);
-			execute_write();
-			break;
-		}
-		case Token_Sym::CLOSE:
-		{
-			expect(Token_Sym::IDENTIFIER);
-			execute_show();
-			break;
-		}
-		case Token_Sym::CREATE:
-			execute_create();
-			break;
-
-		case Token_Sym::UPDATE:
-			execute_update();
-			break;
-
-		case Token_Sym::INSERT:
-			execute_insert();
-			break;
-
-		case Token_Sym::DELETE:
-			execute_destroy();
-			break;
-	}
-}
 Table Parser :: execute_expression()
 {
 	switch (token.getSymbol())
