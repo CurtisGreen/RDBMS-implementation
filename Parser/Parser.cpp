@@ -7,7 +7,12 @@
 
 using namespace std;
 
-
+void Parser:: remove_spaces(){	//removes spaces following up to a character
+	Token t('0');
+	while(t.value == ' '){
+		t = ts.get();
+	}
+}
 void Parser:: setToken()
 {
 	token = tokens[current_token_index]; // set token to be current token in vector 
@@ -113,6 +118,7 @@ void Parser :: execute_create()
 			Attribute att;
 			att.name = input_str;
 			type_att_list.push_back(att);
+			//TODO: runn space remover function here
 		}
 		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
 			type_att_list[type_att_list.size()-1].type = input_str;
@@ -159,6 +165,7 @@ void Parser :: execute_create()
 	e.create(rel_name, type_att_list, keys);
 	e.show(rel_name);
 }
+
 void Parser :: execute_destroy()
 {
 	//TODO
