@@ -229,9 +229,11 @@ void Parser :: execute_destroy()
 void Parser :: execute_open()
 {
 
-	//TODO : finish it 
+	//TODO : Finish it
+	//TODO: check for semicolon
 	//open-cmd ::== OPEN relation-name
-	/*
+	
+	remove_spaces();
 	string file_name;
 	string input_string = "";
 	Token t = ts.get();
@@ -257,15 +259,16 @@ void Parser :: execute_open()
 	{
 		cout << "Opening :" << file_name << endl;
 	}
-	*/
+	
 	
 }
-/*void Parser :: execute_close()
+void Parser :: execute_close()
 {
-	//TODO: finsih it 
+	//TODO: Did not check, but compiles
+	//TODO: check for semicolon
 	//close-cmd ::== CLOSE relation-name
-	//expect identifier
 	
+	remove_spaces();
 	string table_name;
 	string input_string = "";
 	Token t = ts.get();
@@ -283,49 +286,8 @@ void Parser :: execute_open()
 	}
 	e.close(table_name);
 	
-	
-
-    //TODO : finish it
-    //open-cmd ::== OPEN relation-name
-    string rel_name;
-    string input_str = "";
-    Token t = ts.get();
-    while (t.value != ';') {
-        input_str = "";
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: ts.putback(t); break;
-        }
-        t = ts.get();
-        if (t.value == ' '){
-            rel_name = input_str;
-        }
-    }
-    
-    e.open(rel_name);
-}*/
-void Parser :: execute_close()
-{
-    //TODO: finsih it
-    //close-cmd ::== CLOSE relation-name
-    string rel_name;
-    string input_str = "";
-    Token t = ts.get();
-    while (t.value != ';') {
-        input_str = "";
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: ts.putback(t); break;
-        }
-        t = ts.get();
-        if (t.value == ' '){
-            rel_name = input_str;
-        }
-    }
-    
-    e.close(rel_name);
-    
 }
+
 void Parser :: execute_show()
 {
 	//TODO: Finish it 
@@ -346,8 +308,9 @@ void Parser :: execute_exit()
 void Parser :: execute_write()
 {
 	//TODO : Finish it 
+	//TODO: check for semicolon
 	//write-cmd ::== WRITE relation-name
-	/*
+	remove_spaces();
 	string table_name;
 	string input_string = "";
 	Token t = ts.get();
@@ -365,7 +328,7 @@ void Parser :: execute_write()
 	}
 	Table table = e.getTable(table_name);
 	e.write(table);
-	*/
+	
 	
 
 }
