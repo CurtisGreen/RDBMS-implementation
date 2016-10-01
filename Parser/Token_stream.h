@@ -10,7 +10,7 @@ struct Token
 {
   char kind;
   char value;
-  Token(char ch) : kind(ch), value('0'){}	//This is for symbols
+  Token(char ch) : kind('0'), value(ch){}	//This is for symbols
   Token(char ch, char val) : kind(ch), value(val){} //This is for characters
 };
 
