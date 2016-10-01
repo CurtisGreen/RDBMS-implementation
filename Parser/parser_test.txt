@@ -1,11 +1,1 @@
-<<<<<<< HEAD
 CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
-=======
-<<<<<<< HEAD
-CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
-OPEN animals;
-CLOSE animals;
-=======
-CREATE TABLE animals (name VARCHAR(20),kind VARCHAR(8),years INTEGER) PRIMARY KEY (name,kind);
->>>>>>> e4ea33eb25afc8d839d5e61d5abd082e5a66a6a8
->>>>>>> 0abed4b65213395037254105c11378b9d23c08ce

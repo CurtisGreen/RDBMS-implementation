@@ -83,14 +83,14 @@ void Parser :: execute_create()
 		//TODO: add error if not table
 	}
 	remove_spaces();
-	Token t = ts.get();
+	Token t = ('a');
 	while (t.value != ' ') {	//checks for relation-name
 		input_str = "";
+		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		t = ts.get();
 		if (t.value == ' '){
 			rel_name = input_str;
 		}
