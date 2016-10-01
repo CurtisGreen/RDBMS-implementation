@@ -34,7 +34,7 @@ bool Parser :: can_execute_program()
 	}
 	if (token.getSymbol() == Token_Sym ::IDENTIFIER)
 	{
-		query(); // go to query execution 
+		//query(); // go to query execution 
 	}
 	else
 	{
