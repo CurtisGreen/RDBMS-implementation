@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -31,14 +32,15 @@ Token get()
   {
 	
     char ch;
-    if (cin >> ch){
+    if (cin >> noskipws >> ch){
 		
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': 
-    case '*': case '/': case ';': case ' ': case '.': case ',':
+    case '*': case '/': case ';': case ' ': case '.': case ',':{
+	//cout << ch << "text"<< endl;
     return Token(ch);	//look up previous item as a command/expression, kind (0) = symbols
-   
+	}
     case '0': case '1': case '2': case '3': case '4': 
     case '5': case '6': case '7': case '8': case '9': 
 	{

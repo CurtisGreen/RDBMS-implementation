@@ -84,24 +84,37 @@ void Parser :: execute_create()
 		}
 	}
 	while (t.value != '('){		//go into parentheses
+		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
 	}
-	while (t.value != ')') {	//checks for attribute-list and types
+	int paren_count = 1;
+	while (paren_count != 0) {	//checks for attribute-list and types
 		input_str = "";
 		t = ts.get();
-		switch(t.kind){
-			case '0': input_str = ts.out_buff(); break;
-			default: ts.putback(t); break;
+		if (t.value == '('){
+			paren_count++;
+		}
+		else if(t.value == ')'){
+			paren_count--;
+		}
+		if (paren_count == 0){
+			input_str = ts.out_buff();
+		}
+		else{
+			switch(t.value){
+				case ',': case ' ': input_str = ts.out_buff(); break;
+				default: ts.putback(t); break;
+			}
 		}
 		if (t.value == ' '){	//Get attribute name
 			Attribute att;
 			att.name = input_str;
 			type_att_list.push_back(att);
 		}
-		else if(t.value == ','){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
+		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
 			type_att_list[type_att_list.size()-1].type = input_str;
 		}
 	}
@@ -123,6 +136,7 @@ void Parser :: execute_create()
 	}
 	//Call space removing functions
 	while (t.value != '('){		//go into parentheses
+		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
@@ -139,7 +153,9 @@ void Parser :: execute_create()
 			keys.push_back(input_str); 
 		}
 	}
-	cout << "actually here" << endl;
+	for (int i = 0; i < type_att_list.size(); i++){
+		//cout << type_att_list[i].name << type_att_list[i].type << endl;
+	}
 	e.create(rel_name, type_att_list, keys);
 	e.show(rel_name);
 }
@@ -247,13 +263,15 @@ void Parser :: initial(){
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""	
 		t = ts.get();
+		//cout << "value = " << t.value << endl;
 		string input_str = "";
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		cout << input_str << endl;
+		//cout << input_str << endl;
 		if (input_str == "CREATE"){
+			cout << "executing create" << endl;
 			execute_create();
 		}
 		else if(input_str == "INSERT"){
@@ -287,11 +305,9 @@ void Parser :: initial(){
 }
 int Parser :: input(){
 	try {
-		cout << "inside input" << endl;
 		Token t('a');
 		while (t.value != ';' && t.value != '`') {
 			t = ts.get();
-			cout << t.value << endl;
 			if (t.value == ';')
 				cout << "Finished line" << endl;	
 			else
