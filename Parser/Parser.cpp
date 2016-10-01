@@ -166,31 +166,46 @@ void Parser :: execute_destroy()
 }
 void Parser :: execute_open()
 {
-	//TODO : finish it 
-	//open-cmd ::== OPEN relation-name
-	// Expect identifier
-	// expect semicolon 
-	/*
-	string file_name = (get relation name)
-	ifstream input_file;
-	input_file.open(file_name + ".db");
-	if(!input_file.is_open())
-	{
-		throw runtime_error&("Error: Failed to Open File");
-	}
-	*/
-	
+    //TODO : finish it
+    //open-cmd ::== OPEN relation-name
+    string rel_name;
+    string input_str = "";
+    Token t = ts.get();
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+    
+    e.open(rel_name);
 }
 void Parser :: execute_close()
 {
-	//TODO: finsih it 
-	//close-cmd ::== CLOSE relation-name
-	//expect identifier
-	/*
-	string table_name = (get data )
-	//expect semicolon
-	e.close(table_name);
-	*/
+    //TODO: finsih it
+    //close-cmd ::== CLOSE relation-name
+    string rel_name;
+    string input_str = "";
+    Token t = ts.get();
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+    
+    e.close(rel_name);
+    
 }
 void Parser :: execute_show()
 {
