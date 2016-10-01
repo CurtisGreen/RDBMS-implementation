@@ -66,6 +66,82 @@ void Parser :: execute_create()
 {
 	//TODO
 	//create-cmd ::= CREATE TABLE relation-name ( typed-attribute-list ) PRIMARY KEY ( attribute-list )
+	vector<Attribute> type_att_list;
+	string rel_name;
+	string input_str = "";
+	vector<string> keys;
+	while (input_str != "TABLE") {
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not table
+	}
+	Token t = ts.get();
+	while (t.value != ' ') {
+		input_str = "";
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		t = ts.get();
+		if (t.value == ' '){
+			rel_name = input_str;
+		}
+	}
+	//3rd while loop for attribute list
+	while (t.value != ')') {
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){	//Get attribute name
+			Attribute att;
+			att.name = input_str;
+			type_att_list.push_back(att);
+		}
+		else if(t.value == ','){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
+			type_att_list[type_att_list.size()-1].type = input_str;
+		}
+	}
+	while (input_str != "PRIMARY") {
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not PRIMARY
+	}
+	while (input_str != "KEY") {
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not KEY
+	}
+	//Call space removing functions
+	while (t.value != '('){
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+	}
+	while (t.value != ')') {
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ','){	//Get attribute name
+			keys.push_back(input_str); 
+		}
+	}
+	e.create(rel_name, type_att_list, keys);	
 }
 void Parser :: execute_destroy()
 {
