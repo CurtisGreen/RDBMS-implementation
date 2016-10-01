@@ -29,10 +29,10 @@ void putback(Token t)
   
 Token get() 
   {
-    cout<<"\nIn get()"<<endl;
 	
     char ch;
-    cin >> ch;
+    if (cin >> ch){
+		
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': 
@@ -69,6 +69,11 @@ Token get()
 
 
     } 
+  }
+  else{
+	  //cout << "eof" << endl;
+	  return Token('`','`');
+  }
   }
   string out_buff()//returns buffer & clears it
   {	

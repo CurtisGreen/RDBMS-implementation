@@ -242,10 +242,11 @@ vector <string> Parser :: attribute_list()
 }
 
 void Parser :: initial(){
-	while (!EOF) {
+	Token t('a');
+	while (t.value != ';' && t.value != '`') {
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""	
-		Token t = ts.get();
+		t = ts.get();
 		string input_str = "";
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -288,8 +289,9 @@ int Parser :: input(){
 	try {
 		cout << "inside input" << endl;
 		Token t('a');
-		while (t.value != ';') {
+		while (t.value != ';' && t.value != '`') {
 			t = ts.get();
+			cout << t.value << endl;
 			if (t.value == ';')
 				cout << "Finished line" << endl;	
 			else
