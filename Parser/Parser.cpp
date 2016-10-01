@@ -31,10 +31,42 @@ bool Parser :: query(string rel_name)
 
 Table Parser :: execute_expression()
 {
+	Token t('a');
+	while (t.value != ';' && t.value != '`') {
+		t = ts.get();
+		//cout << "value = " << t.value << endl;
+		string input_str = "";
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//cout << input_str << endl;
+		if (input_str == "select"){
+			execute_selection();
+		}
+		else if(input_str == "project"){
+			execute_projection();
+		}
+		else if(input_str == "rename"){
+			execute_update();
+		}
+		else{	//Must be a relation name
+			remove_spaces();
+			switch(t.value){
+				case '*': cout << "product"<< endl; break;
+				case '-': cout << "difference"<< endl; break;
+				case '+': cout << "union"<< endl; break;
+				case 'J': cout << "natural join"<< endl; break;//needs to iterate through the rest of the word
+				default: cout << "not product, diff, union, or join" << endl;
+
+			}
+		}
+	}
+	/*
 	switch (token.getSymbol())
 	{
 		case Token_Sym::LPAREN:
-			return execute_expression();	//Was atomic expression, but atomic expression should only be relation name/attribute name
+			return execute_expression();	
 			break;
 
 		case Token_Sym::SELECT:
@@ -52,7 +84,7 @@ Table Parser :: execute_expression()
 		case Token_Sym::RENAME:
 			return execute_renaming();
 			break;
-	}	
+	}*/
 }
 void Parser :: execute_insert()
 {
