@@ -36,9 +36,9 @@ Token get()
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': 
-    case '*': case '/': case ';': case ' ':
+    case '*': case '/': case ';': case ' ': case '.':
     return Token(ch);	//look up previous item as a command/expression, kind (0) = symbols
-    case '.':
+   
     case '0': case '1': case '2': case '3': case '4': 
     case '5': case '6': case '7': case '8': case '9': 
 	{
@@ -52,7 +52,7 @@ Token get()
 	case 'k': case 'l': case 'm': case 'n': case 'o': 
     case 'p': case 'q': case 'r': case 's': case 't':
 	case 'u': case 'v': case 'w': case 'x': case 'y': 
-    case 'z':
+    case 'z': case '_':
 	{
 	   return Token('a',ch);	//kind (a) = lowercase letters
 	}
