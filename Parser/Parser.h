@@ -34,7 +34,7 @@ private:
 	void setToken();
 	bool can_execute_program(); // calls command or query functions
 	bool command();  // calls all of the different command functions 
-	bool query();	// calls all of the different query-like functions
+	bool query(string rel_name);	// calls all of the different query-like functions
 	int input();
 
 	
