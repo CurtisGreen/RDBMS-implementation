@@ -177,8 +177,54 @@ void Parser :: execute_create()
 
 void Parser :: execute_destroy()
 {
-	//TODO
-	//delete-cmd ::= DELETE FROM relation-name WHERE condition
+    //compiled but I did not check this.
+    //delete-cmd ::= DELETE FROM relation-name WHERE condition
+    string rel_name;
+    int row;
+    string input_str = "";
+    while (input_str != "FROM") {
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        //TODO: add error if not table
+    }
+    Token t = ts.get();
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+    while (input_str != "WHERE") {
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        //TODO: add error if not table
+    }
+    
+    while (t.value != ';') {
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            row = atoi(input_str.c_str());
+        }
+    }
+    
+    e.destroy(rel_name,row);
+    
 }
 void Parser :: execute_open()
 {
