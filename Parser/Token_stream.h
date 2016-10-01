@@ -36,7 +36,7 @@ Token get()
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': 
-    case '*': case '/': case ';': case ' ': case '.':
+    case '*': case '/': case ';': case ' ': case '.': case ',':
     return Token(ch);	//look up previous item as a command/expression, kind (0) = symbols
    
     case '0': case '1': case '2': case '3': case '4': 
@@ -65,7 +65,7 @@ Token get()
 	{
 		return Token('A',ch);	//kind (A) = uppercase letters
 	}
-    default : cout<<"Bad token"<<endl;
+    default : cout<<"Bad token: "<< ch <<endl;
 
 
     } 

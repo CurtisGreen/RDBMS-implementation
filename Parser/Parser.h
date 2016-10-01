@@ -19,7 +19,7 @@ class Parser{
 public: 
 	
 	Parser(){}; 
-	void input(Token_stream ts);
+	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
 
@@ -32,7 +32,6 @@ private:
 	
 	void setToken();
 	bool query(string rel_name);
-	int input();
 	int current_token_index;
 
 	

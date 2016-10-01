@@ -63,7 +63,7 @@ void Parser :: execute_create()
 	string rel_name;
 	string input_str = "";
 	vector<string> keys;
-	while (input_str != "TABLE") {
+	while (input_str != "TABLE") {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -72,7 +72,7 @@ void Parser :: execute_create()
 		//TODO: add error if not table
 	}
 	Token t = ts.get();
-	while (t.value != ' ') {
+	while (t.value != ' ') {	//checks for relation-name
 		input_str = "";
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -83,8 +83,13 @@ void Parser :: execute_create()
 			rel_name = input_str;
 		}
 	}
-	//3rd while loop for attribute list
-	while (t.value != ')') {
+	while (t.value != '('){		//go into parentheses
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+	}
+	while (t.value != ')') {	//checks for attribute-list and types
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -100,7 +105,7 @@ void Parser :: execute_create()
 			type_att_list[type_att_list.size()-1].type = input_str;
 		}
 	}
-	while (input_str != "PRIMARY") {
+	while (input_str != "PRIMARY") {	//check for PRIMARY
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -108,7 +113,7 @@ void Parser :: execute_create()
 		}
 		//TODO: add error if not PRIMARY
 	}
-	while (input_str != "KEY") {
+	while (input_str != "KEY") {	//check for KEY
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -117,13 +122,13 @@ void Parser :: execute_create()
 		//TODO: add error if not KEY
 	}
 	//Call space removing functions
-	while (t.value != '('){
+	while (t.value != '('){		//go into parentheses
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
 	}
-	while (t.value != ')') {
+	while (t.value != ')') {	//pass back keys
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -134,7 +139,9 @@ void Parser :: execute_create()
 			keys.push_back(input_str); 
 		}
 	}
-	e.create(rel_name, type_att_list, keys);	
+	cout << "actually here" << endl;
+	e.create(rel_name, type_att_list, keys);
+	e.show(rel_name);
 }
 void Parser :: execute_destroy()
 {
@@ -235,7 +242,7 @@ vector <string> Parser :: attribute_list()
 }
 
 void Parser :: initial(){
-	while (true) {
+	while (!EOF) {
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""	
 		Token t = ts.get();
@@ -244,6 +251,7 @@ void Parser :: initial(){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
+		cout << input_str << endl;
 		if (input_str == "CREATE"){
 			execute_create();
 		}
@@ -278,9 +286,10 @@ void Parser :: initial(){
 }
 int Parser :: input(){
 	try {
-		Table table;
-		while (true) {
-			Token t = ts.get();
+		cout << "inside input" << endl;
+		Token t('a');
+		while (t.value != ';') {
+			t = ts.get();
 			if (t.value == ';')
 				cout << "Finished line" << endl;	
 			else
