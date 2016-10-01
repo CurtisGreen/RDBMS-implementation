@@ -74,28 +74,60 @@ void Parser :: execute_destroy()
 }
 void Parser :: execute_open()
 {
-	//TODO
+	//TODO : finish it 
 	//open-cmd ::== OPEN relation-name
+	// Expect identifier
+	// expect semicolon 
+	/*
+	string file_name = (get relation name)
+	ifstream input_file;
+	input_file.open(file_name + ".db");
+	if(!input_file.is_open())
+	{
+		throw runtime_error&("Error: Failed to Open File");
+	}
+	*/
+	
 }
 void Parser :: execute_close()
 {
-	//TODO
+	//TODO: finsih it 
 	//close-cmd ::== CLOSE relation-name
+	//expect identifier
+	/*
+	string table_name = (get data )
+	//expect semicolon
+	e.close(table_name);
+	*/
 }
 void Parser :: execute_show()
 {
-	//TODO
+	//TODO: Finish it 
 	//show-cmd ::== SHOW atomic-expr
+	/*
+	Table t  = atomic_expression();
+	//expect semicolon
+	string table_name = t.getName();
+	e.show(table_name);
+	*/
 }
 void Parser :: execute_exit()
 {
-	//TODO
+	//TODO : Done
 	//exit-cmd ::== EXIT 
+	e.exit_();
+
 }
 void Parser :: execute_write()
 {
 	//TODO
 	//write-cmd ::== WRITE relation-name
+	/*
+	//expect identifier
+	string table_name = (get data)
+	//expect semicolon
+	e.write(table_name);
+	*/
 }
 Table Parser :: execute_selection()
 {

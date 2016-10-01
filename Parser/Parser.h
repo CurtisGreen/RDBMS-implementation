@@ -33,6 +33,7 @@ private:
 	void setToken();
 	bool query(string rel_name);
 	int input();
+	int current_token_index;
 
 	
 	// All of the things that need to be executed in the Engine 
