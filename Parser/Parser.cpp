@@ -183,7 +183,7 @@ void Parser :: initial(){
 		else if(input_str == "WRITE"){
 			execute_write();
 		}
-		else if(input_str == "EXT"){
+		else if(input_str == "EXIT"){
 			execute_exit();
 		}
 		else if(input_str == "SHOW"){
