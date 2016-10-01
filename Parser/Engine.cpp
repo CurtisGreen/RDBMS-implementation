@@ -11,6 +11,21 @@
 
 using namespace std;
 
+
+
+Table Engine :: getTable(string table_name)
+{
+	for( int i = 0; i < all_tables.size();i++)
+	{
+		if(all_tables[i].getName() == table_name)
+		{
+			return all_tables[i];
+		}
+	}
+	Table t;
+	t.setName(table_name);
+	return t;
+}
 /*-------------------------------------------------------------------------------
 This function loads a relation from a database file, and returns error 
 message if the table does not exist 

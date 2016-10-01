@@ -4,14 +4,9 @@
 #include <vector>
 #include <iostream>
 #include <stdexcept>
+#include <fstream>
 
 using namespace std;
-
-
-void Parser:: setToken()
-{
-	token = tokens[current_token_index]; // set token to be current token in vector 
-}
 
 bool Parser :: query(string rel_name)
 {
@@ -152,15 +147,31 @@ void Parser :: execute_open()
 {
 	//TODO : finish it 
 	//open-cmd ::== OPEN relation-name
-	// Expect identifier
-	// expect semicolon 
 	/*
-	string file_name = (get relation name)
+	string file_name;
+	string input_string = "";
+	Token t = ts.get();
+	while (t.value != ' ') {	
+		input_string = "";
+		switch(t.kind){
+			case '0': input_string = ts.out_buff(); 
+			break;
+			default: ts.putback(t); break;
+		}
+		t = ts.get();
+		if (t.value == ' '){
+			file_name = input_string;
+		}
+	}
 	ifstream input_file;
 	input_file.open(file_name + ".db");
 	if(!input_file.is_open())
 	{
-		throw runtime_error&("Error: Failed to Open File");
+		throw runtime_error("Error: Failed to Open File");
+	}
+	else
+	{
+		cout << "Opening :" << file_name << endl;
 	}
 	*/
 	
@@ -171,18 +182,31 @@ void Parser :: execute_close()
 	//close-cmd ::== CLOSE relation-name
 	//expect identifier
 	/*
-	string table_name = (get data )
-	//expect semicolon
+	string table_name;
+	string input_string = "";
+	Token t = ts.get();
+	while (t.value != ' ') {	
+		input_string = "";
+		switch(t.kind){
+			case '0': input_string = ts.out_buff(); 
+			break;
+			default: ts.putback(t); break;
+		}
+		t = ts.get();
+		if (t.value == ' '){
+			table_name = input_string;
+		}
+	}
 	e.close(table_name);
 	*/
+	
 }
 void Parser :: execute_show()
 {
 	//TODO: Finish it 
 	//show-cmd ::== SHOW atomic-expr
 	/*
-	Table t  = atomic_expression();
-	//expect semicolon
+	Table t = atomic_expression();
 	string table_name = t.getName();
 	e.show(table_name);
 	*/
@@ -196,14 +220,29 @@ void Parser :: execute_exit()
 }
 void Parser :: execute_write()
 {
-	//TODO
+	//TODO : Finish it 
 	//write-cmd ::== WRITE relation-name
 	/*
-	//expect identifier
-	string table_name = (get data)
-	//expect semicolon
-	e.write(table_name);
+	string table_name;
+	string input_string = "";
+	Token t = ts.get();
+	while (t.value != ' ') {	
+		input_string = "";
+		switch(t.kind){
+			case '0': input_string = ts.out_buff(); 
+			break;
+			default: ts.putback(t); break;
+		}
+		t = ts.get();
+		if (t.value == ' '){
+			table_name = input_string;
+		}
+	}
+	Table table = e.getTable(table_name);
+	e.write(table);
 	*/
+	
+
 }
 Table Parser :: execute_selection()
 {

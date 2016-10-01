@@ -22,6 +22,7 @@ public:
   vector<Attribute>tuple;
   
   string getName();
+  void setName(string table_name );
   vector<Attribute> getAttributes() const {return att;}
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);

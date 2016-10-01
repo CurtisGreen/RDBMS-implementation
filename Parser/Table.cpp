@@ -17,17 +17,10 @@ Table::Table(){
 string Table:: getName(){
 	return name;
 }
+void Table:: setName(string table_name){
+	name = table_name;
+}
 
-/*
- void addAttribute(Attribute t)
- {
- 	tuple.push_back(t);
- }
-*/
-// vector <Attribute> Table :: getAttributes();
-// {
-	// return att;
-// }
 Table::Table (const Table& table){
 	name = table.name;
 	att = table.att;
