@@ -13,13 +13,6 @@ void Parser:: setToken()
 	token = tokens[current_token_index]; // set token to be current token in vector 
 }
 
-/*This functions allows you to use this in your helper functions to set up
-what is to expected when you see a specific item */
-void Parser :: expect(Token_Sym::TokenSymbol symbol) 
-{
-	//
-}
-
 bool Parser :: query(string rel_name)
 {
 	//TODO
@@ -148,6 +141,16 @@ Table Parser :: atomic_expression()
 {
 	//TODO
 	//atomic-expr ::= relation-name | ( expr )
+}
+Table Parser :: execute_union()
+{
+	//TODO
+	// union ::= atomic-expr + atomic-expr
+}
+Table  Parser:: execute_difference()
+{
+	//TODO
+	// difference ::= atomic-expr - atomic-expr
 }
 vector <string> Parser :: attribute_list()
 {
