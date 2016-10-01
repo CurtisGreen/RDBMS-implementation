@@ -42,6 +42,8 @@ private:
 	Table execute_selection();
 	Table execute_projection();
 	Table execute_renaming();
+	Table execute_union();
+	Table execute_difference();
 	void execute_exit();
 	void execute_show();
 	void execute_open();
