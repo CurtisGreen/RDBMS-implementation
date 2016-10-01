@@ -45,7 +45,7 @@ Token get()
       cin.putback(ch);  // put digit back into the input stream
       double val;
       cin >> val;       // let C++ do the work of reading a floating-point num
-      return Token(val+'0','8');	//kind (8) = numbers
+      return Token('8',val+'0');	//kind (8) = numbers
     }
 	case 'a': case 'b': case 'c': case 'd': case 'e': 
     case 'f': case 'g': case 'h': case 'i': case 'j':
@@ -65,7 +65,7 @@ Token get()
 	{
 		return Token('A',ch);	//kind (A) = uppercase letters
 	}
-    //default : error("Bad token");
+    default : cout<<"Bad token"<<endl;
 
 
     } 
