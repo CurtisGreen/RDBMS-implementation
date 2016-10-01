@@ -28,4 +28,4 @@ clean:
 	rm -f *.o
 
 run:
-	./main
+	./main < parser_test.txt
