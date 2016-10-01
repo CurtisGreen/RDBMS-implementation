@@ -28,12 +28,14 @@ private:
 	vector<Token_Sym> tokens;
 	Token_Sym token;
 	Engine e;
+	Token_stream ts;
 	
 	int current_token_index; // current place in token vector
 	void setToken();
 	bool can_execute_program(); // calls command or query functions
 	bool command();  // calls all of the different command functions 
 	bool query();	// calls all of the different query-like functions
+	int input();
 
 	
 	

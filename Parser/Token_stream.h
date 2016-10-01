@@ -10,10 +10,8 @@ struct Token
 {
   char kind;
   char value;
-  double num;
-  Token(char ch) : kind(ch), value('0'), num(0){}	//This is for symbols
-  Token(char ch, char val) : kind(ch), value(val), num(0){} //This is for characters
-  Token(char ch, double val) : kind(ch), value('0'), num(val) {} //This is for conditionals for floating point numbers
+  Token(char ch) : kind(ch), value('0'){}	//This is for symbols
+  Token(char ch, char val) : kind(ch), value(val){} //This is for characters
 };
 
 class Token_stream 
@@ -47,7 +45,7 @@ Token get()
       cin.putback(ch);  // put digit back into the input stream
       double val;
       cin >> val;       // let C++ do the work of reading a floating-point num
-      return Token('8',val);	//kind (8) = numbers
+      return Token(val+'0','8');	//kind (8) = numbers
     }
 	case 'a': case 'b': case 'c': case 'd': case 'e': 
     case 'f': case 'g': case 'h': case 'i': case 'j':
