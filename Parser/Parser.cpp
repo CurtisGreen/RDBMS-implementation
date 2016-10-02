@@ -15,7 +15,9 @@ void Parser:: remove_spaces(){	//removes spaces following up to a character
 	while(t.value == ' '){
 		t = ts.get();
 	}
-	ts.putback(t);
+	if(t.value != '"'){
+		ts.putback(t);
+	}
 }
 bool Parser :: query(string rel_name)
 {
@@ -50,7 +52,7 @@ Table Parser :: execute_expression()
 				case '*': cout << "product"<< endl; break;
 				case '-': cout << "difference"<< endl; break;
 				case '+': cout << "union"<< endl; break;
-				case 'J': cout << "natural join"<< endl; break;//needs to iterate through the rest of the word
+				case 'J': cout << "natural join"<< endl; break;	//needs to iterate through the rest of the word
 				default: cout << "not product, diff, union, or join" << endl;
 
 			}
@@ -61,7 +63,88 @@ void Parser :: execute_insert()
 {
 	//TODO
 	//insert-cmd ::= INSERT INTO relation-name VALUES FROM ( literal { , literal } )
-    //| INSERT INTO relation-name VALUES FROM RELATION expr
+    //	| INSERT INTO relation-name VALUES FROM RELATION expr
+	vector<string> data;
+	string rel_name;
+	string input_str = "";
+	remove_spaces();
+	while (input_str != "INTO") {	//checks for TABLE
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not into
+	}
+	remove_spaces();
+	Token t = ('a');
+	while (t.value != ' ') {	//checks for relation-name
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name = input_str;
+		}
+	}
+	remove_spaces();
+	while (input_str != "VALUES") {	//checks for TABLE
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not VALUES
+	}
+	remove_spaces();
+	while (input_str != "FROM") {	//checks for TABLE
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//TODO: add error if not FROM
+	}
+	remove_spaces();
+	t = ts.get();
+	switch(t.kind){
+		case '0': input_str = ts.out_buff(); break;
+		default: ts.putback(t); break;
+	}
+	switch(t.kind){
+		case 'A': case '8': {	//TODO List of literals
+			ts.out_buff();	//remove parentheses
+			remove_spaces();
+			while (t.value != ')') {	//pass back data
+				input_str = "";
+				t = ts.get();
+				switch(t.kind){
+					case '0': input_str = ts.out_buff(); break;
+					default: {
+						if (t.value != '"'){
+							ts.putback(t); 
+						}
+						break;
+					}
+				}
+				if (t.value == ',' || t.value == ')'){	//Get attribute name
+					data.push_back(input_str); 
+					remove_spaces();
+				}
+			}
+			for (int i = 0; i < data.size(); i++){
+				//cout << data[i] << endl;
+			}
+			e.insert(rel_name, data);
+			e.show(rel_name);
+			break;
+		}	
+		default: {	//Expression
+			Table table = execute_expression();
+		}
+	}
 }
 void Parser :: execute_update()
 {
@@ -70,7 +153,6 @@ void Parser :: execute_update()
 }
 void Parser :: execute_create()
 {
-	//TODO
 	//create-cmd ::= CREATE TABLE relation-name ( typed-attribute-list ) PRIMARY KEY ( attribute-list )
 	vector<Attribute> type_att_list;
 	string rel_name;
@@ -131,7 +213,7 @@ void Parser :: execute_create()
 			type_att_list.push_back(att);
 			remove_spaces();
 		}
-		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type //TODO: will need to check if extra spaces are there anyways
+		else if(t.value == ',' || (t.value == ')' && paren_count == 0)){	//Get attribute type 
 			type_att_list[type_att_list.size()-1].type = input_str;
 			remove_spaces();
 		}
@@ -366,7 +448,7 @@ vector <string> Parser :: attribute_list()
 
 void Parser :: initial(){
 	Token t('a');
-	while (t.value != ';' && t.value != '`') {
+	while (t.value != ';' && t.value != '`' && t.value != '\n') {
 		//Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
 		//Make sure to check to make sure input_str != ""	
 		t = ts.get();
@@ -421,9 +503,9 @@ void Parser :: initial(){
 int Parser :: input(){
 	try {
 		Token t('a');
-		while (t.value != ';' && t.value != '`') {
+		while (t.value != '`') {
 			t = ts.get();
-			if (t.value == ';')
+			if (t.value == ';' || t.value == '\n')
 				cout << "Finished line" << endl;	
 			else
 				ts.putback(t);
