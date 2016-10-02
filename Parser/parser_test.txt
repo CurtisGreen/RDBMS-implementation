@@ -5,3 +5,4 @@ INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
 INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
 INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
 UPDATE animals SET "name"="Kim" WHERE "Joe";
+DELETE FROM animals WHERE 1;
