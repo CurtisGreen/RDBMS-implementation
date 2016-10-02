@@ -22,11 +22,11 @@ public:
 	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
+	Engine e;
 
 private:
 	vector<Token_Sym> tokens;
 	Token_Sym token;
-	Engine e;
 	Token_stream ts;
 	
 	bool query(string rel_name);
