@@ -18,7 +18,7 @@ class Parser{
 
 public: 
 	
-	Parser(){execute_product();} 
+	Parser(){} 
 	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
