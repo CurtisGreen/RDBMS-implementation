@@ -263,9 +263,11 @@ void Parser :: execute_create()
 	remove_spaces();
 	ts.out_buff();	//remove parentheses
 	remove_spaces();
+	t = ('a');
 	while (t.value != ')') {	//pass back keys
 		input_str = "";
 		t = ts.get();
+		cout << "t= " << t.value << endl;
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
