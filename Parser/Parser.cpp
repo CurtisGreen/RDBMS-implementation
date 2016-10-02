@@ -206,7 +206,7 @@ void Parser :: execute_update()
        
     }
    /*---------correct untill here--------*/
-  
+  	t = ts.get();
     switch(t.kind){
         case 'A': case '8':case'a':  {	//TODO List of literals
             remove_spaces();
@@ -260,7 +260,7 @@ void Parser :: execute_update()
             }
             
             remove_spaces();
-            while (t.value != ';') {
+            while (t.value != ';' && t.value != '`') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -632,14 +632,14 @@ Table Parser :: execute_product()
 		cross_product1.att = cross_att1;
 		Table cross_product2;
 		cross_product2.att = cross_att2;
-		Table cross_product_out = e.cross_product(cross_product1,cross_product2,cross_key);
+		Table cross_product_out = e.cross_product(cross_product1,cross_product2);
 		e.show(cross_product1.name + "*" + cross_product2.name);
 		cout<<e.all_tables.size()<<endl;
 		
 		vector<string> relations = {"", ""};
 		Table t1 = e.getTable(rel_name_1);
 		Table t2 = e.getTable(rel_name_2);
-		Table new_table = e.cross_product(t1,t2,relations);
+		Table new_table = e.cross_product(t1,t2);
 		return new_table;
 }
 Table Parser :: execute_join()
