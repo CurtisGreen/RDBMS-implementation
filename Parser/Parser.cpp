@@ -200,6 +200,7 @@ void Parser :: execute_create()
 		}
 		if (t.value == ' '){
 			rel_name = input_str;
+			cout<<"TESTING: "<<rel_name<<endl;
 		}
 	}
 	while (t.value != '('){		//go into parentheses
@@ -216,6 +217,7 @@ void Parser :: execute_create()
 		t = ts.get();
 		if (t.value == '('){
 			paren_count++;
+			cout<<"PA:"<<t.value<<endl;
 		}
 		else if(t.value == ')'){
 			paren_count--;
@@ -458,12 +460,191 @@ Table Parser :: execute_union()
 {
 	//TODO
 	// union ::= atomic-expr + atomic-expr
+	// difference ::= atomic-expr - atomic-expr
+
+	string rel_name_1;
+	string rel_name_2;
+	string input_str = "";
+	Token t  = ('a');
+
+	remove_spaces();
+	while (t.value != ' ') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name_1 = input_str;
+		}
+	}
+
+
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name_2 = input_str;
+	}
+
+
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+
+		vector<string> key_name = {"1","2","3","4"};
+
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
+
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+
+	    cout<<e.all_tables.size()<<endl;
+
+		Table t1 = e.getTable(rel_name_1);
+		Table t2 = e.getTable(rel_name_2);
+
+
+		Table newTable = e.set_union("",t1,t2);
+
+		e.set_union("",t1, t2);
+
+		e.show("Graduate + Manager");
+
+		return newTable;
 }
+
 Table  Parser:: execute_difference()
 {
-	//TODO
+	
 	// difference ::= atomic-expr - atomic-expr
+
+	string rel_name_1;
+	string rel_name_2;
+	string input_str = "";
+	Token t  = ('a');
+
+	remove_spaces();
+	while (t.value != ' ') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name_1 = input_str;
+		}
+	}
+
+
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name_2 = input_str;
+	}
+
+
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+	
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+
+		vector<string> key_name = {"1","2","3","4"};
+
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
+
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+
+	    cout<<e.all_tables.size()<<endl;
+
+		Table t1 = e.getTable(rel_name_1);
+		Table t2 = e.getTable(rel_name_2);
+
+
+		Table newTable = e.difference(t1,t2);
+
+		e.show("Graduate-Manager");
+
+		return newTable;
 }
+
+
+
+
+
+
+
+	/*
+	remove_spaces();
+	while (t.value != '-'){    //CHECK FO NAME
+		t = ts.get();
+		
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+	}
+	*/
+
+
+
+
 vector <string> Parser :: attribute_list()
 {
 	//TODO

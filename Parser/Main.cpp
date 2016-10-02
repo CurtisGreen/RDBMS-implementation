@@ -51,3 +51,4 @@ TEST_CASE("Insert_test", "[insert]") {
 	REQUIRE(new_table.att[1].data[3] == "bird");
 	REQUIRE(new_table.att[2].data[3] == "1");*/
 }
+
