@@ -217,7 +217,7 @@ void Parser :: execute_create()
 		t = ts.get();
 		if (t.value == '('){
 			paren_count++;
-			cout<<"PA:"<<t.value<<endl;
+			//cout<<"PA:"<<t.value<<endl;
 		}
 		else if(t.value == ')'){
 			paren_count--;
@@ -269,7 +269,7 @@ void Parser :: execute_create()
 	while (t.value != ')') {	//pass back keys
 		input_str = "";
 		t = ts.get();
-		cout << "t= " << t.value << endl;
+		//cout << "t= " << t.value << endl;
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
