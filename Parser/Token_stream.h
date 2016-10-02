@@ -33,7 +33,7 @@ Token get()
 	
     char ch;
     if (cin >> noskipws >> ch){
-      
+
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': case '\n':
@@ -44,10 +44,11 @@ Token get()
     case '0': case '1': case '2': case '3': case '4': 
     case '5': case '6': case '7': case '8': case '9': 
 	{
-      cin.putback(ch);  // put digit back into the input stream
+      /*cin.putback(ch);  // put digit back into the input stream
       double val;
-      cin >> val;       // let C++ do the work of reading a floating-point num
-      return Token('8',val+'0');	//kind (8) = numbers
+      cin >> val;       // let C++ do the work of reading a floating-point num*/
+      cout << ch<< endl;
+      return Token('8',ch);	//kind (8) = numbers
     }
 	case 'a': case 'b': case 'c': case 'd': case 'e': 
     case 'f': case 'g': case 'h': case 'i': case 'j':
@@ -79,10 +80,10 @@ Token get()
   }
   string out_buff()//returns buffer & clears it
   {	
-	  string temp = buffer;
-	  buffer = "";
-	  return temp;
-  }
+      string temp = buffer;
+      buffer = "";
+      return temp;
+    }
 };
 
 #endif
