@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "Catch.h"
 #include "Table.h"
 #include "Engine.h"
 #include "Token_stream.h"
