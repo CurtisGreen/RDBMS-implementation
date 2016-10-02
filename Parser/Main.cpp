@@ -17,6 +17,14 @@ TEST_CASE("Insert_test", "[insert]") {
 	Parser parser;
 	parser.input();
 
+	Table new_table = parser.e.findTable("animals");
+
+	cout<< "----------------Create function test-----------------------------------" <<endl;
+	REQUIRE(new_table.att[0].name == "name");
+	REQUIRE(new_table.att[1].name == "kind");
+	REQUIRE(new_table.att[2].name == "years");
+	REQUIRE(new_table.id[0] == "name");
+
 	cout<<endl;
 	cout<<endl;
 	cout<< "----------------Insert function test-----------------------------------" <<endl;
@@ -25,8 +33,6 @@ TEST_CASE("Insert_test", "[insert]") {
 	INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
 	INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
 	INSERT INTO animals VALUES FROM ("Joe", "bird", 2);*/
-
-	Table new_table = parser.e.findTable("animals");
 
 	REQUIRE(new_table.att[0].data[3] == "Tweety");
 	REQUIRE(new_table.att[1].data[3] == "bird");

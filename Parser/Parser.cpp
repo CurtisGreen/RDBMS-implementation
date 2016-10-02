@@ -81,17 +81,21 @@ void Parser :: execute_insert()
 	string rel_name;
 	string input_str = "";
 	remove_spaces();
+	bool correct = true;
 	while (input_str != "INTO") {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not into
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected INTO in Insert" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
 	Token t = ('a');
-	while (t.value != ' ') {	//checks for relation-name
+	while (t.value != ' ' && correct) {	//checks for relation-name
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -101,24 +105,34 @@ void Parser :: execute_insert()
 		if (t.value == ' '){
 			rel_name = input_str;
 		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected relation-name in Insert" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
-	while (input_str != "VALUES") {	//checks for TABLE
+	while (input_str != "VALUES" && correct) {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not VALUES
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected VALUES in Insert" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
-	while (input_str != "FROM") {	//checks for TABLE
+	while (input_str != "FROM" && correct) {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not FROM
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected FROM in Insert" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
 	t = ts.get();
@@ -127,10 +141,10 @@ void Parser :: execute_insert()
 		default: ts.putback(t); break;
 	}
 	switch(t.kind){
-		case 'A': case '8': {	//TODO List of literals
+		case 'A': case '8': {	//List of literals
 			ts.out_buff();	//remove parentheses
 			remove_spaces();
-			while (t.value != ')') {	//pass back data
+			while (t.value != ')' && correct) {	//pass back data
 				input_str = "";
 				t = ts.get();
 				switch(t.kind){
@@ -146,6 +160,10 @@ void Parser :: execute_insert()
 					data.push_back(input_str); 
 					remove_spaces();
 				}
+				if (t.value == ';' || t.value == '`'){
+					cout << "Error: [Parser]: Expected literals in Insert" << endl;
+					correct = false;
+				}
 			}
 			for (int i = 0; i < data.size(); i++){
 				//cout << data[i] << endl;
@@ -155,13 +173,16 @@ void Parser :: execute_insert()
 			break;
 		}	
 		default: {	//Expression
-			while (input_str != "RELATION") {	//checks for TABLE
+			while (input_str != "RELATION" && correct) {	//checks for TABLE
 			Token t = ts.get();
 			switch(t.kind){
 				case '0': input_str = ts.out_buff(); break;
 				default: ts.putback(t); break;
 			}
-			//TODO: add error if not RELATION
+			if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected RELATION in Insert" << endl;
+			correct = false;
+		}
 			}
 			remove_spaces();
 			Table table = execute_expression();
