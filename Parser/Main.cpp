@@ -9,7 +9,7 @@
 
 
 
-TEST_CASE("Insert_test", "[insert]") {
+TEST_CASE("Parser test", "[Parser]") {
 
 	cout << "================================================================"<< endl;
 	cout << "==================Parser Test==================================="<< endl;

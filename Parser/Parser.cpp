@@ -21,7 +21,6 @@ void Parser:: remove_spaces(){	//removes spaces following up to a character
 }
 bool Parser :: query(string rel_name)
 {
-	//TODO
 	//query ::= relation-name <- expr ;
 	string input_str = "";
 	Table table;
@@ -74,7 +73,6 @@ Table Parser :: execute_expression()
 }
 void Parser :: execute_insert()
 {
-	//TODO
 	//insert-cmd ::= INSERT INTO relation-name VALUES FROM ( literal { , literal } )
     //	| INSERT INTO relation-name VALUES FROM RELATION expr
 	vector<string> data;
@@ -172,7 +170,7 @@ void Parser :: execute_insert()
 			e.show(rel_name);
 			break;
 		}	
-		default: {	//Expression
+		default: {	//TODO: Expression
 			while (input_str != "RELATION" && correct) {	//checks for TABLE
 			Token t = ts.get();
 			switch(t.kind){
@@ -180,9 +178,9 @@ void Parser :: execute_insert()
 				default: ts.putback(t); break;
 			}
 			if (t.value == ';' || t.value == '`'){
-			cout << "Error: [Parser]: Expected RELATION in Insert" << endl;
-			correct = false;
-		}
+				cout << "Error: [Parser]: Expected RELATION in Insert" << endl;
+				correct = false;
+			}
 			}
 			remove_spaces();
 			Table table = execute_expression();
@@ -191,7 +189,6 @@ void Parser :: execute_insert()
 }
 void Parser :: execute_update()
 {
-	//TODO
 	//update-cmd ::= UPDATE relation-name SET attribute-name = literal { , attribute-name = literal } WHERE condition
     
     //this is not working after SET.
@@ -316,17 +313,21 @@ void Parser :: execute_create()
 	string input_str = "";
 	vector<string> keys;
 	remove_spaces();
-	while (input_str != "TABLE") {	//checks for TABLE
+	bool correct = true;
+	while (input_str != "TABLE" && correct) {	//checks for TABLE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not table
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected TABLE in Create" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
 	Token t = ('a');
-	while (t.value != ' ') {	//checks for relation-name
+	while (t.value != ' ' && correct) {	//checks for relation-name
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -337,17 +338,25 @@ void Parser :: execute_create()
 			rel_name = input_str;
 			cout<<"TESTING: "<<rel_name<<endl;
 		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected relation-name in Create" << endl;
+			correct = false;
+		}
 	}
-	while (t.value != '('){		//go into parentheses
+	while (t.value != '(' && correct){		//go into parentheses
 		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected open-parentheses in Create" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
 	int paren_count = 1;
-	while (paren_count != 0) {	//checks for attribute-list and types
+	while (paren_count != 0 && correct) {	//checks for attribute-list and types
 		input_str = "";
 		t = ts.get();
 		if (t.value == '('){
@@ -376,32 +385,42 @@ void Parser :: execute_create()
 			type_att_list[type_att_list.size()-1].type = input_str;
 			remove_spaces();
 		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected closing-parentheses in Create" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
 	input_str = "";
-	while (input_str != "PRIMARY") {	//check for PRIMARY
+	while (input_str != "PRIMARY" && correct) {	//check for PRIMARY
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not PRIMARY
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected PRIMARY in Create" << endl;
+			correct = false;
+		}
 	}
 	remove_spaces();
-	while (input_str != "KEY") {	//check for KEY
+	while (input_str != "KEY" && correct) {	//check for KEY
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		//TODO: add error if not KEY
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected KEY in Create" << endl;
+			correct = false;
+		}
 	}
 	//Call space removing functions
 	remove_spaces();
 	ts.out_buff();	//remove parentheses
 	remove_spaces();
 	t = ('a');
-	while (t.value != ')') {	//pass back keys
+	while (t.value != ')' && correct) {	//pass back keys
 		input_str = "";
 		t = ts.get();
 		//cout << "t= " << t.value << endl;
@@ -412,6 +431,10 @@ void Parser :: execute_create()
 		if (t.value == ','){	//Get attribute name
 			keys.push_back(input_str); 
 			remove_spaces();
+		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected closing-parentheses in Create" << endl;
+			correct = false;
 		}
 	}
 	for (int i = 0; i < type_att_list.size(); i++){
