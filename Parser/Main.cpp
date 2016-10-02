@@ -34,9 +34,9 @@ TEST_CASE("Parser test", "[Parser]") {
 	INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
 	INSERT INTO animals VALUES FROM ("Joe", "bird", 2);*/
 
-	REQUIRE(new_table.att[0].data[3] == "Tweety");
+	REQUIRE(new_table.att[0].data[3] == "Kim");
 	REQUIRE(new_table.att[1].data[3] == "bird");
-	REQUIRE(new_table.att[2].data[3] == "1");
+	REQUIRE(new_table.att[2].data[3] == "2");
 }
 
 
