@@ -1,1 +1,1 @@
-WRITE animals;
+OPEN animals;
