@@ -18,8 +18,7 @@ class Parser{
 
 public: 
 	
-	Parser(){
-	}; 
+	Parser(){} 
 	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
@@ -42,6 +41,9 @@ private:
 	Table execute_projection();
 	Table execute_renaming();
 	Table execute_union();
+	Table execute_product();
+	Table execute_join();
+	
 	
 	void execute_exit();
 	void execute_show();

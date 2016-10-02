@@ -52,7 +52,7 @@ Table Engine :: getTable(string table_name)
 		}
 		if(all_tables[i].getName() != table_name)
 		{
-			cout << "Error: [Engine]: table does not exit"<< endl;
+			cout << "Error: [Engine]: table does not exist"<< endl;
 		}
 	}
 	Table t;
@@ -447,7 +447,7 @@ bool Engine::verify_Tables(Table table1, Table table2){
 The function sets a union between two attributes that appear in either or both of the 
 two relations. For the set union to be valid they must have the same number of attributes 
 --------------------------------------------------------------------------------------------*/
-Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
+Table Engine::set_union(Table table1, Table table2 ){
 
 	bool execute = verify_Tables(table1,table2);
 
@@ -751,6 +751,7 @@ Table Engine::cross_product(Table table1, Table table2)
 		}
 	}
 	new_table.name = table1.name + "*" + table2.name;
+	cout << "New Table Name is: " << new_table.name << endl;
 	all_tables.push_back(new_table);
 	return new_table;
 

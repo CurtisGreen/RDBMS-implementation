@@ -37,7 +37,7 @@ class Engine{
 	// Atomic expressions
 	Table selection(string table_name, string att_name);
 	Table projection(vector<string> att_names, string table_name);
-	Table set_union(string attribute_name , Table table1, Table table2 );
+	Table set_union(Table table1, Table table2 );
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
 	Table cross_product(Table table1, Table table2);

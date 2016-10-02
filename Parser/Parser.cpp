@@ -50,23 +50,23 @@ Table Parser :: execute_expression()
 			default: ts.putback(t); break;
 		}
 		//cout << input_str << endl;
-		if (input_str == "select"){
+		if (input_str == "SELECT"){
 			execute_selection();
 		}
-		else if(input_str == "project"){
+		else if(input_str == "PROJECT"){
 			execute_projection();
 		}
-		else if(input_str == "rename"){
+		else if(input_str == "RENAME"){
 			execute_update();
 		}
 		else{	//Must be a relation name
 			remove_spaces();
 			switch(t.value){
-				case '*': cout << "product"<< endl; break;
-				case '-': cout << "difference"<< endl; break;
-				case '+': cout << "union"<< endl; break;
-				case 'J': cout << "natural join"<< endl; break;	//needs to iterate through the rest of the word
-				default: cout << "not product, diff, union, or join" << endl;
+				case '*': execute_product(); break;
+				case '-': execute_difference(); break;
+				case '+': execute_union(); break;
+				case 'J': execute_join(); break;	//needs to iterate through the rest of the word
+				default: cout << "Error: [Parser]::Not PRODUCT/UNION/JOIN" << endl;
 
 			}
 		}
@@ -172,6 +172,120 @@ void Parser :: execute_update()
 {
 	//TODO
 	//update-cmd ::= UPDATE relation-name SET attribute-name = literal { , attribute-name = literal } WHERE condition
+    
+    //this is not working after SET.
+    //and this is my test grammar --UPDATE animals SET “name”=“Kim” WHERE “Joe”;--
+    string att_name;
+    string rel_name;
+    string data;
+    string newVal;
+    string input_str = "";
+    remove_spaces();
+    Token t = ('a');
+    while (t.value != ' ') {	//checks for relation-name
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+        
+    }
+    
+    remove_spaces();
+    while (input_str != "SET") {	//checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        //TODO: add error if not VALUES
+       
+    }
+   /*---------correct untill here--------*/
+  
+    switch(t.kind){
+        case 'A': case '8':case'a':  {	//TODO List of literals
+            remove_spaces();
+            while (t.value != '=') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
+                }
+                if (t.value == '=' ){	//Get attribute name
+                    att_name=input_str;
+                    
+                    remove_spaces();
+                }
+                            }
+            
+            remove_spaces();
+            while (t.value != ' ') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ' '){	//Get new value.
+                    newVal=input_str;
+                    
+                }
+            }
+
+            remove_spaces();
+            while (input_str != "WHERE") {
+                Token t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                //TODO: add error check
+            }
+            
+            remove_spaces();
+            while (t.value != ';') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ';'){	//Get previous data
+                    data=input_str;
+                    
+                }
+            }
+           
+            e.update(rel_name,att_name,data,newVal);
+            e.show(rel_name);
+            break;
+       }
+        default: {	//Expression
+            Table table = execute_expression();
+        }
+    }
 }
 void Parser :: execute_create()
 {
@@ -456,6 +570,118 @@ Table Parser :: atomic_expression()
 	//TODO
 	//atomic-expr ::= relation-name | ( expr )
 }
+Table Parser :: execute_product()
+{
+	//TODO :: CROSS PRODUCT NEEDS WORK 
+	// product ::= atomic-expr * atomic-expr
+	string rel_name_1;
+	string rel_name_2;
+	string input_str = "";
+	Token t  = ('a');
+
+	remove_spaces();
+	while (t.value != ' ') {	//checks for relation name 
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name_1 = input_str;
+		}
+	}
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//check for relation name 
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name_2 = input_str;
+	}
+	//---------------testing----------------------------------------------//
+		vector<string> cross_id = {"1","2","3","4","5","6","7"};
+		vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
+		vector<string> cross_age = {"32", "25", "23", "25", "27", "22", "24"};
+		vector<string> address = {"Ahmedabad", "Delhi", "kota", "mumbai", "bhopal", "mp", "indore"};
+		vector<string> salary = {"2000", "1500", "2000", "6500", "8500", "4500", "10000"};
+		vector<string> oid = {"102", "100", "101", "103"};
+		vector<string> date = {"2009-10", "2009-10", "2009-11", "2008-05"};
+		vector<string> customer_id = {"3", "3", "2", "4"};
+		vector<string> amount = {"3000", "1500", "1560", "2060"};
+
+		Attribute CrossId("id", "int", cross_id);
+		Attribute CrossName("name", "string", cross_name);
+		Attribute CrossAge("age", "int", cross_age);
+		Attribute Address("address", "string", address);
+		Attribute Salary("salary", "int", salary);
+		Attribute Oid("oid", "int", oid);
+		Attribute Date("date", "int", date);
+		Attribute Customer_id("customer_id", "int", customer_id);
+		Attribute Amount("amount", "int", amount);
+
+		vector<Attribute> cross_att1= {CrossId, CrossName, CrossAge, Address, Salary};
+		vector<Attribute> cross_att2 = {Oid, Date, Customer_id, Amount};
+
+		vector<string> cross_key = {"id" ,"name", "amount", "date"};
+
+		Table cross_product1;
+		cross_product1.att = cross_att1;
+		Table cross_product2;
+		cross_product2.att = cross_att2;
+		Table cross_product_out = e.cross_product(cross_product1,cross_product2,cross_key);
+		e.show(cross_product1.name + "*" + cross_product2.name);
+		cout<<e.all_tables.size()<<endl;
+		
+		vector<string> relations = {"", ""};
+		Table t1 = e.getTable(rel_name_1);
+		Table t2 = e.getTable(rel_name_2);
+		Table new_table = e.cross_product(t1,t2,relations);
+		return new_table;
+}
+Table Parser :: execute_join()
+{
+	//TODO
+	// join ::= atomic-expr JOIN  atomic-expr
+	string rel_name_1;
+	string rel_name_2;
+	string input_str = "";
+	Token t  = ('a');
+
+	remove_spaces();
+	while (t.value != ' ') {	//checks for relation name 
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name_1 = input_str;
+		}
+	}
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//check for relation name 
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name_2 = input_str;
+	}
+	Table t1 = e.getTable(rel_name_1);
+	Table t2 = e.getTable(rel_name_2);
+	Table new_table = e.natural_join(t1,t2);
+	e.show(new_table.getName());
+	return new_table;
+	
+	
+}
 Table Parser :: execute_union()
 {
 	//TODO
@@ -468,7 +694,7 @@ Table Parser :: execute_union()
 	Token t  = ('a');
 
 	remove_spaces();
-	while (t.value != ' ') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ' ') {	//check for relation name 
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -479,10 +705,8 @@ Table Parser :: execute_union()
 			rel_name_1 = input_str;
 		}
 	}
-
-
 	remove_spaces();
-	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ';' && t.value != '`') {	//checks for relation name
 		input_str = "";
 		t = ts.get();
 
@@ -532,13 +756,13 @@ Table Parser :: execute_union()
 		Table t2 = e.getTable(rel_name_2);
 
 
-		Table newTable = e.set_union("",t1,t2);
+		Table new_table = e.set_union(t1,t2);
 
-		e.set_union("",t1, t2);
+		e.set_union(t1, t2);
 
 		e.show("Graduate + Manager");
 
-		return newTable;
+		return new_table;
 }
 
 Table  Parser:: execute_difference()
@@ -552,7 +776,7 @@ Table  Parser:: execute_difference()
 	Token t  = ('a');
 
 	remove_spaces();
-	while (t.value != ' ') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ' ') {	//Checks for relation name
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -563,10 +787,8 @@ Table  Parser:: execute_difference()
 			rel_name_1 = input_str;
 		}
 	}
-
-
 	remove_spaces();
-	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ';' && t.value != '`') {	//checks for relation name 
 		input_str = "";
 		t = ts.get();
 
