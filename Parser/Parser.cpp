@@ -314,35 +314,24 @@ void Parser :: execute_destroy()
 void Parser :: execute_open()
 {
 
-	//TODO : Not sure it works- need to be tested with file written 
+	//TODO : 
 	//open-cmd ::== OPEN relation-name
-	string file_name;
+	string table_name;
 	string input_str = "";
-	Token t = ts.get();
-	while (t.value != ';') { // check for relation name 
-        input_str = "";
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: ts.putback(t); break;
-        }
-        t = ts.get();
-        if (t.value == ' '){
-            file_name = input_str;
-        }
-    }
-	ifstream input_file;
-	input_file.open(file_name + ".db");
-	if(!input_file.is_open()) // checks if able to open file 
-	{
-		throw runtime_error("Error: [Parser]: Failed to Open File");
+	remove_spaces();
+	Token t = ('a');
+	while (t.value != ';') {	//checks for relation-name
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			table_name = input_str;
+		}
 	}
-	string new_line;
-	getline(input_file, new_line);
-	if(input_str == new_line)
-	{
-		throw runtime_error("Error :[Parser]: Table is already open");
-	}
-	
+	e.open(table_name);
 	
 	
 }
@@ -374,7 +363,6 @@ void Parser :: execute_show()
 {
 	//TODO: Finish it 
 	//show-cmd ::== SHOW atomic-expr
-	
 	Table t = atomic_expression();
 	string table_name = t.getName();
 	e.show(table_name);

@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
 INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
+=======
+OPEN animals;
+>>>>>>> 488b7827941fa269e720cbe0be988f391dea424f

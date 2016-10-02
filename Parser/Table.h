@@ -20,6 +20,7 @@ public:
   vector<string> id;
   vector<Attribute> att;
   vector<Attribute>tuple;
+
   
   string getName();
   void setName(string table_name );
@@ -32,6 +33,7 @@ public:
   Table(const Table& table);
   istream& Read(istream& input);
   ostream& Write(ostream& output);
+
  
 };
 

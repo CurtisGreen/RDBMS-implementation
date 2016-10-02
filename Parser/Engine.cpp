@@ -10,8 +10,37 @@
 #include "Table.h"
 
 using namespace std;
+//Just returns table reference if found
+Table& Engine :: findTable(string table_name)
+{
+	for (Table& t: all_tables)
+	{
+		if(t.getName() == table_name)
+		{
+			return t;
+		}
+		else
+		{
+			cout << "Error: [Engine]: Table not found" << endl;
+		}
+	}	
+}
+void Engine ::insertIntoTable(string table_name, vector<string> values)
+{
+	Table& t = findTable(table_name);
+	//t.insert(values); // Need an insert in table class 
+}
 
-
+void Engine:: insertIntoTable(string table_name, Table t)
+{
+	Table& table = findTable(table_name);
+	if(table.getAttributes().size() != t.getAttributes().size())
+	{
+		cout << "Error : [Engine] tables do not have the same number of columns" << endl;
+	}
+	// Need an insert fucntion in the Table class 
+	
+}
 
 Table Engine :: getTable(string table_name)
 {
