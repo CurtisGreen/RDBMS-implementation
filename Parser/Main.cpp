@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include "MainTest.cpp"
 #include "Catch.h"
 
@@ -32,3 +33,23 @@ TEST_CASE("Insert_test", "[insert]") {
 	REQUIRE(new_table.att[1].data[3] == "bird");
 	REQUIRE(new_table.att[2].data[3] == "1");
 }
+=======
+#include "Parser.h"
+#include "Table.h"
+#include "Engine.h"
+#include "Token_stream.h"
+#include "Token_Sym.h"
+
+
+int main(){
+
+
+		Engine e;
+
+		Parser parser;
+		
+		//parser.execute_union();
+		parser.input();
+	
+}
+>>>>>>> Stashed changes

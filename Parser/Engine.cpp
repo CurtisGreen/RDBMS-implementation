@@ -389,16 +389,21 @@ bool Engine::verify_Tables(Table table1, Table table2){
 	bool list_size = true;
 	bool same_attributes = false;
 
+
 	for(int i = 0; i < all_tables.size(); i++){////CHECKS IF TABLE EXIST
-		if (table1.name == all_tables[i].name){
+
+		
+
+		if (all_tables[i].name == table1.name){
 			first_table = true;
 		}
-		if (table2.name == all_tables[i].name){
+		if (all_tables[i].name == table2.name){
 			second_table = true;
 		}
 	}
 
 	if(first_table == false){//PRINTS OUT WHICH TABLE DOES NOT EXIST
+
 		cout << "Error:"<<table1.name<< " does not exist" << "\n";
 	}
 	if(second_table == false){//PRINTS OUT WHICH TABLE DOES NOT EXIST
@@ -475,7 +480,7 @@ Table Engine::set_union(string attribute_name , Table table1, Table table2 ){
         		second_pass = false;
              }
 	    }
- 		string table_name = table1.name + " U " + table2.name;
+ 		string table_name = table1.name + " + " + table2.name;
  		Table m = makeTable(table1,table_name,store_union);
  		all_tables.push_back(m);
 		return m;//RETURN UNION TABLE, 
@@ -641,6 +646,8 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
 This function should find the tuples in one relation but not in other
 -----------------------------------------------------------------------------------------*/
 Table Engine::difference(Table table1, Table table2){
+
+
 
 	bool execute = verify_Tables(table1,table2);
 
