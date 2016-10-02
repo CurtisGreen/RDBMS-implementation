@@ -15,6 +15,12 @@ class Engine{
  	vector <Table> all_tables; 
 	Table getTable(string table_name); // returns a table from the database vector 
 	
+	
+	//-----Insert Functions for Table-----//
+	void insertIntoTable(string table_name, vector<string> values);
+	void insertIntoTable(string table_name, Table t);
+	Table& findTable(string table_name);
+	
 	// Database Commands 
 	void open(string table_name);
 	void close(string table_name);

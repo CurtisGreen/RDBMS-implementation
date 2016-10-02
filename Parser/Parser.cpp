@@ -281,7 +281,6 @@ void Parser :: execute_show()
 {
 	//TODO: Finish it 
 	//show-cmd ::== SHOW atomic-expr
-	
 	Table t = atomic_expression();
 	string table_name = t.getName();
 	e.show(table_name);
