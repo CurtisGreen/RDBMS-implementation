@@ -17,12 +17,6 @@ void Parser:: remove_spaces(){	//removes spaces following up to a character
 	}
 	ts.putback(t);
 }
-/*void Parser:: setToken()
-{
-	token = tokens[current_token_index]; // set token to be current token in vector 
-}*/
-
-
 bool Parser :: query(string rel_name)
 {
 	//TODO
@@ -62,35 +56,12 @@ Table Parser :: execute_expression()
 			}
 		}
 	}
-	/*
-	switch (token.getSymbol())
-	{
-		case Token_Sym::LPAREN:
-			return execute_expression();	
-			break;
-
-		case Token_Sym::SELECT:
-			return execute_selection();
-			break;
-
-		case Token_Sym::PROJECT:
-			return execute_projection();
-			break;
-
-		case Token_Sym::IDENTIFIER:
-			return atomic_expression();
-			break;
-
-		case Token_Sym::RENAME:
-			return execute_renaming();
-			break;
-	}*/
 }
 void Parser :: execute_insert()
 {
 	//TODO
 	//insert-cmd ::= INSERT INTO relation-name VALUES FROM ( literal { , literal } )
-          //| INSERT INTO relation-name VALUES FROM RELATION expr
+    //| INSERT INTO relation-name VALUES FROM RELATION expr
 }
 void Parser :: execute_update()
 {
@@ -261,62 +232,59 @@ void Parser :: execute_destroy()
 void Parser :: execute_open()
 {
 
-	//TODO : Finish it
-	//TODO: check for semicolon
+	//TODO : Not sure it works- need to be tested with file written 
 	//open-cmd ::== OPEN relation-name
-	
-	remove_spaces();
 	string file_name;
-	string input_string = "";
+	string input_str = "";
 	Token t = ts.get();
-	while (t.value != ' ') {	
-		input_string = "";
-		switch(t.kind){
-			case '0': input_string = ts.out_buff(); 
-			break;
-			default: ts.putback(t); break;
-		}
-		t = ts.get();
-		if (t.value == ' '){
-			file_name = input_string;
-		}
-	}
+	while (t.value != ';') { // check for relation name 
+        input_str = "";
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        t = ts.get();
+        if (t.value == ' '){
+            file_name = input_str;
+        }
+    }
 	ifstream input_file;
 	input_file.open(file_name + ".db");
-	if(!input_file.is_open())
+	if(!input_file.is_open()) // checks if able to open file 
 	{
-		throw runtime_error("Error: Failed to Open File");
+		throw runtime_error("Error: [Parser]: Failed to Open File");
 	}
-	else
+	string new_line;
+	getline(input_file, new_line);
+	if(input_str == new_line)
 	{
-		cout << "Opening :" << file_name << endl;
+		throw runtime_error("Error :[Parser]: Table is already open");
 	}
+	
 	
 	
 }
 void Parser :: execute_close()
 {
-	//TODO: Did not check, but compiles
-	//TODO: check for semicolon
+	//TODO:
 	//close-cmd ::== CLOSE relation-name
-	
-	remove_spaces();
 	string table_name;
-	string input_string = "";
-	Token t = ts.get();
-	while (t.value != ' ') {	
-		input_string = "";
+	string input_str = "";
+	remove_spaces();
+	Token t = ('a');
+	while (t.value != ';') {	//checks for relation-name
+		input_str = "";
+		t = ts.get();
 		switch(t.kind){
-			case '0': input_string = ts.out_buff(); 
-			break;
+			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		t = ts.get();
 		if (t.value == ' '){
-			table_name = input_string;
+			table_name = input_str;
 		}
 	}
 	e.close(table_name);
+	
 	
 }
 
@@ -324,45 +292,41 @@ void Parser :: execute_show()
 {
 	//TODO: Finish it 
 	//show-cmd ::== SHOW atomic-expr
-	/*
+	
 	Table t = atomic_expression();
 	string table_name = t.getName();
 	e.show(table_name);
-	*/
+	
 }
 void Parser :: execute_exit()
 {
-	//TODO : Done
+	//TODO:
 	//exit-cmd ::== EXIT 
 	e.exit_();
 
 }
 void Parser :: execute_write()
 {
-	//TODO : Finish it 
-	//TODO: check for semicolon
+	//TODO : 
 	//write-cmd ::== WRITE relation-name
-	remove_spaces();
 	string table_name;
-	string input_string = "";
-	Token t = ts.get();
-	while (t.value != ' ') {	
-		input_string = "";
+	string input_str = "";
+	remove_spaces();
+	Token t = ('a');
+	while (t.value != ';') {	//checks for relation-name
+		input_str = "";
+		t = ts.get();
 		switch(t.kind){
-			case '0': input_string = ts.out_buff(); 
-			break;
+			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		t = ts.get();
 		if (t.value == ' '){
-			table_name = input_string;
+			table_name = input_str;
 		}
 	}
 	Table table = e.getTable(table_name);
 	e.write(table);
 	
-	
-
 }
 Table Parser :: execute_selection()
 {
@@ -414,31 +378,39 @@ void Parser :: initial(){
 		}
 		//cout << input_str << endl;
 		if (input_str == "CREATE"){
-			cout << "executing create" << endl;
+			cout << "Executing (CREATE)" << endl;
 			execute_create();
 		}
 		else if(input_str == "INSERT"){
+			cout << "Executing (INSERT)" << endl;
 			execute_insert();
 		}
 		else if(input_str == "UPDATE"){
+			cout << "Executing (UPDATE)" << endl;
 			execute_update();
 		}
 		else if(input_str == "OPEN"){
+			cout << "Executing (OPEN)" << endl;
 			execute_open();
 		}
 		else if(input_str == "CLOSE"){
+			cout << "Executing (CLOSE)" << endl;
 			execute_close();
 		}
 		else if(input_str == "WRITE"){
+			cout << "Executing (WRITE)" << endl;
 			execute_write();
 		}
 		else if(input_str == "EXIT"){
+			cout << "Executing (EXIT)" << endl;
 			execute_exit();
 		}
 		else if(input_str == "SHOW"){
+			cout << "Executing (SHOW)" << endl;
 			execute_show();
 		}
 		else if(input_str == "DELETE"){
+			cout << "Executing (DELETE/DESTROy) " << endl;
 			execute_destroy();
 		}
 		else{	//Must be a query

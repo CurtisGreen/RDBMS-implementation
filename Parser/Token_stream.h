@@ -67,7 +67,7 @@ Token get()
 	{
 		return Token('A',ch);	//kind (A) = uppercase letters
 	}
-    default : cout<<"Bad token: "<< ch <<endl;
+    default : cout<< "Bad token: "<< ch <<endl;
 
 
     } 

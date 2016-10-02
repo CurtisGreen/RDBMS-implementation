@@ -8,7 +8,9 @@
 int main()
 
 {
-	cout << "This is a Parser test" << endl;
+	cout << "================================================================"<< endl;
+	cout << "==================Parser Test==================================="<< endl;
+
 	Parser parser;
 	parser.input();
 

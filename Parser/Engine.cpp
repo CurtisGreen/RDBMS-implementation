@@ -21,6 +21,10 @@ Table Engine :: getTable(string table_name)
 		{
 			return all_tables[i];
 		}
+		if(all_tables[i].getName() != table_name)
+		{
+			cout << "Error: [Engine]: table does not exit"<< endl;
+		}
 	}
 	Table t;
 	t.setName(table_name);
@@ -35,10 +39,10 @@ void Engine::open(string table_name){
 	ifstream input_file(table_name + ".db");
 
 	if(!input_file.is_open()){
-		cout << "Error: Could not open file" << "\n";
+		cout << "Error: [Engine]: Could not open file" << "\n";
 	}
 	else{
-		cout << "Error: Table is already open" << endl;
+		cout << "Error: [Engine]: Table is already open" << endl;
 	}
 }
 /*----------------------------------------------------------------------------
@@ -49,10 +53,10 @@ void Engine::close(string table_name){
     ifstream close_file(table_name + ".db");
     
     if(!close_file.is_open()) {
-        cout << "Error: Could not open file" << "\n";
+        cout << "Error:[Engine]: Could not open file" << "\n";
     }
     else{
-        cout << "Error: Table is already open" << endl;
+        cout << "Error:[Engine]: Table is already open" << endl;
     }
     close_file.close();
 }
@@ -74,7 +78,7 @@ void Engine::read(string table_name){
 	ifstream input_file(table_name +".db");
 	
 	if(!input_file.is_open()){
-		cout << "Could not open file" << endl;
+		cout << "Error:[Engine]: Could not open file" << endl;
 	}
 	else{
 		Table new_table = Table();
@@ -83,7 +87,7 @@ void Engine::read(string table_name){
 			all_tables.push_back(new_table);
 		}
 		else{
-			cout << "Table already open" << endl;
+			cout << "Error: [Engine] : Table already open" << endl;
 		}
 	}
 }
@@ -103,6 +107,7 @@ void Engine::write(Table table){
 	}
 	
 	if (table_exists != true){ //if table doesn't exist , add table to datbase
+		cout << "Error:[Engine] : Adding table to database" << endl;
 		all_tables.push_back(table); 
 	}
 	
@@ -114,7 +119,7 @@ void Engine::write(Table table){
 This function exists the database after tables have been added 
 --------------------------------------------------------------------------------------*/
 void Engine::exit_(){
-	cerr << "Exiting RDBMS now" << endl;
+cerr << " [Engine] : Exiting RDBMS now" << endl;
 	exit(0);
 }
 
@@ -152,7 +157,7 @@ void Engine::show(string table_name){
 		cout<<endl;
 	    }
 	    else{
-	    	cout << "Table is empty" << endl;
+		cout << " Error: [Engine]: Table is empty" << endl;
 	    }
 	}
 	else{
@@ -202,9 +207,9 @@ Table Engine::update(string table_name, string att_name, string data, string new
             
         }
         if (status_att == false)
-        cout<<"Attribute not found!!"<<endl;
+	cout<<" Error: [Engine]: Attribute not found!!"<<endl;
     }else
-        cout<<"Table not found!! cannot update!!"<<endl;
+        cout<<"Error: [Engine]: Table not found!! cannot update!!"<<endl;
     return *table;
 }
 
@@ -227,7 +232,7 @@ Table Engine::insert(string table_name, vector<string> new_row){
 	     }
 	}
 	else{
-	    cout << "Table not found, cannot insert" << endl;
+	cout << "Error: [Engine]:Table not found, cannot insert" << endl;
 	}
 	return *table;
  }
@@ -250,7 +255,7 @@ Table Engine::destroy(string table_name,int row){
             table->att[i].data.erase((table->att[i].data.begin())+(row-1));     //accessing data each attribute and delete.
         }
     }else
-        cout<<"Table not found, cannot delete a row"<<endl;
+cout<<" Error: [Engine]: Table not found, cannot delete a row"<<endl;
     
     return *table;
 }
@@ -318,7 +323,7 @@ Table Engine :: projection(vector <string> att_names, string table_name){///UPDA
 	}
 
 	if (table_exists != true){
-		cout << "Error: Table does not exist" << endl;
+		cout << "Error:[Engine]: Table does not exist" << endl;
 	}
 
 	for (int i = 0; i < att_names.size(); i++){
@@ -374,7 +379,7 @@ bool Engine::verify_Tables(Table table1, Table table2){
 	if (table1.att.size() == table2.att.size()){///CHECKS IF BOTH TABLES HAVE THE SAME SIZE 
 		check_size = true;
 		if(check_size == false){
-			cout << "Error : The tables entered does not have the same number of attributes " << "\n";
+			cout << "Error :[Engine]: The tables entered does not have the same number of attributes " << "\n";
 		}
 	}
 
@@ -384,7 +389,7 @@ bool Engine::verify_Tables(Table table1, Table table2){
 		}
 	}
 	if(list_size == false){//PRINTS IF NUMBER OF ITEMS IN EACH ATTRIBUTE NOT THE SAME
-			cout<<"ERROR: number of items in attributes not the same"<<endl;
+			cout<<"Error: [Engine] : number of items in attributes not the same"<<endl;
 		}
 	
 	for(int i = 0; i < table1.att.size(); i++){//CHECKS IF ATTRIBUTES NAMES ARE THE SAME FOR BOTH TABLES
@@ -392,7 +397,7 @@ bool Engine::verify_Tables(Table table1, Table table2){
 			same_attributes = true;
 		}
 		if(same_attributes == false){
-			cout << "Error: The tables' attributes do not match " << "\n" ;
+		cout << "Error:[Engine] :The tables' attributes do not match " << "\n" ;
 		}
 	}
 	//RETURN TRUE IF TABLES ARE THE SAME IN EVERY ASPECT
@@ -544,7 +549,7 @@ void Engine::renaming( string old_attr, string new_attr, Table& table_name){
 		}
 	}
 	if (table_exists != true){
-		cout << " Error: Table does not exist" << "\n";
+		cout << " Error:[Engine]: Table does not exist" << "\n";
 	}
 	for (int i = 0; i < table_name.att.size(); i++){
 		if (table_name.att[i].getName() == old_attr){
