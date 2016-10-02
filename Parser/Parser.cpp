@@ -25,13 +25,14 @@ bool Parser :: query(string rel_name)
 	//query ::= relation-name <- expr ;
 	string input_str = "";
 	Table table;
+	Token t('a');
 	remove_spaces();
 	t = ts.get();
 	if(t.value != '-'){
 		cout << "Query missing <-" << endl;
 	}
 	else{
-		table = expression();
+		table = execute_expression();
 	}
 	table.name = rel_name;
 	e.all_tables.push_back(table);
@@ -135,10 +136,7 @@ void Parser :: execute_insert()
 				switch(t.kind){
 					case '0': input_str = ts.out_buff(); break;
 					default: {
-						if (t.kind = '8'){
-
-						}
-						else if (t.value != '"'){
+						if (t.value != '"'){
 							ts.putback(t); 
 						}
 						break;
@@ -519,7 +517,7 @@ void Parser :: initial(){
 			cout << "Executing (DELETE/DESTROy) " << endl;
 			execute_destroy();
 		}
-		else{	//Must be a query
+		else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){	//Must be a query
 			query(input_str);
 		}
 	}

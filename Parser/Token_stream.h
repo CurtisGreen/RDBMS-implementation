@@ -44,10 +44,6 @@ Token get()
     case '0': case '1': case '2': case '3': case '4': 
     case '5': case '6': case '7': case '8': case '9': 
 	{
-      /*cin.putback(ch);  // put digit back into the input stream
-      double val;
-      cin >> val;       // let C++ do the work of reading a floating-point num*/
-      cout << ch<< endl;
       return Token('8',ch);	//kind (8) = numbers
     }
 	case 'a': case 'b': case 'c': case 'd': case 'e': 
