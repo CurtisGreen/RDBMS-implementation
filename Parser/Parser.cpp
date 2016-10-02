@@ -446,31 +446,34 @@ void Parser :: execute_create()
 
 void Parser :: execute_destroy()
 {
-    //compiled but I did not check this.
+    //it is working and deleted by row but have to be deleted by some conditons.
     //delete-cmd ::= DELETE FROM relation-name WHERE condition
     string rel_name;
     int row;
     string input_str = "";
+    remove_spaces();
     while (input_str != "FROM") {
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        //TODO: add error if not table
+        //TODO: add error if not into
     }
-    Token t = ts.get();
-    while (t.value != ';') {
+    remove_spaces();
+    Token t = ('a');
+    while (t.value != ' ') {	//checks for relation-name
         input_str = "";
+        t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        t = ts.get();
         if (t.value == ' '){
             rel_name = input_str;
         }
     }
+    remove_spaces();
     while (input_str != "WHERE") {
         Token t = ts.get();
         switch(t.kind){
@@ -479,79 +482,28 @@ void Parser :: execute_destroy()
         }
         //TODO: add error if not table
     }
-    
-    while (t.value != ';') {
+    remove_spaces();
+    while (t.value != ';' && t.value != '`') {
         input_str = "";
+        t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
-            default: ts.putback(t); break;
+            default: {
+                if (t.value != '"'){
+                    ts.putback(t);
+                }
+                break;
+            }
         }
-        t = ts.get();
-        if (t.value == ' '){
+        if (t.value == ';'){	//Get previous data
             row = atoi(input_str.c_str());
+            
         }
     }
+    
     
     e.destroy(rel_name,row);
-    
-}
-void Parser :: execute_open()
-{
-
-	//TODO : Not sure it works- need to be tested with file written 
-	//open-cmd ::== OPEN relation-name
-	string file_name;
-	string input_str = "";
-	Token t = ts.get();
-	while (t.value != ';') { // check for relation name 
-        input_str = "";
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: ts.putback(t); break;
-        }
-        t = ts.get();
-        if (t.value == ' '){
-            file_name = input_str;
-        }
-    }
-	ifstream input_file;
-	input_file.open(file_name + ".db");
-	if(!input_file.is_open()) // checks if able to open file 
-	{
-		throw runtime_error("Error: [Parser]: Failed to Open File");
-	}
-	string new_line;
-	getline(input_file, new_line);
-	if(input_str == new_line)
-	{
-		throw runtime_error("Error :[Parser]: Table is already open");
-	}
-	
-	
-	
-}
-void Parser :: execute_close()
-{
-	//TODO:
-	//close-cmd ::== CLOSE relation-name
-	string table_name;
-	string input_str = "";
-	remove_spaces();
-	Token t = ('a');
-	while (t.value != ';') {	//checks for relation-name
-		input_str = "";
-		t = ts.get();
-		switch(t.kind){
-			case '0': input_str = ts.out_buff(); break;
-			default: ts.putback(t); break;
-		}
-		if (t.value == ' '){
-			table_name = input_str;
-		}
-	}
-	e.close(table_name);
-	
-	
+    e.show(rel_name);
 }
 
 void Parser :: execute_show()
