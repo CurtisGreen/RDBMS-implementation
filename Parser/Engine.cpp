@@ -495,77 +495,94 @@ It will then check if the equality of those attributes appear in both relations.
 Lastly, it removes duplicates attributes 
 ------------------------------------------------------------------------------------------*/
 Table Engine::natural_join(Table table1, Table table2){
+	//TODO: check if tables are empty first
 	Table new_table;
-	vector<string> com_att;	  //common attributes
-	vector< vector<string> > com_dat;	  //common data
-	//cout << table1.att.size() << " " << table2.att.size() << endl;
-	for(int i = 0; i < table1.att.size(); i++){	//Find common names
-		for (int k = 0; k < table2.att.size(); k++){
-			//cout << table1.att[i].name << " " <<  table2.att[k].name << endl;
-			if (table1.att[i].name == table2.att[k].name){
-				com_att.push_back(table1.att[i].name);
-				com_dat.push_back(table1.att[i].data);
-				Attribute new_att;
-				new_att.name = table1.att[i].name;
-				new_att.type = table1.att[i].type;
-				new_att.data = table1.att[i].data;
-				new_table.att.push_back(new_att);
+	vector<int> indices;	//stores places where table finds matching column
+	vector<int> new_table_indices;
+	vector<string> relations;
+	vector<pair<int,int>> related_columns;
+	vector<pair<int,int>> non_related_columns;
+
+	for (int i = 0; table1.att.size(); i++){
+		relations.push_back(table1.att[i].name);
+	}
+	for (int i = 0; table2.att.size(); i++){
+		for (int k = 0; k < table1.att.size(); k++){
+			if (table2.att[i].name == table1.att[k].name){
+				pair<int,int> a(i,k);
+				related_columns.push_back(a);
+			}
+			else{
+				pair<int,int> a(i,k);
+				non_related_columns.push_back(a);
 			}
 		}
 	}
-	int index = 0;
-	vector<string> check_passed;
-	for (int i = 0; i < table2.att.size(); i++){
-		for (int k = 0; k < new_table.att.size(); k++){
-			if (table2.att[i].name == new_table.att[k].name){
-				for (int z = 0; z < table2.att[i].data.size();z++){
-					for (int y = 0; y < new_table.att[k].data.size(); y++){
-						if (table2.att[i].data[z] == new_table.att[k].data[y]){
-							index = y;
-						}
+	for (int i = 0; non_related_columns.size(); i++){
+		relations.push_back(table2.att[non_related_columns[i].second].name);
+	}
+	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table1.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table1.att[i].name;
+				temp_att.type = table1.att[i].type;
+				new_table.att.push_back(temp_att);
+			}
+		}
+	}
+	for (int i = 0; i < table2.att.size(); i++){	//create columns matching table 2
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table2.att[i].name){
+				Attribute temp_att;
+				temp_att.name = table2.att[i].name;
+				temp_att.type = table2.att[i].type;
+				new_table.att.push_back(temp_att);
+				indices.push_back(i);
+				new_table_indices.push_back(k);
+			}
+		}
+	}
+	if (related_columns.size() == 0){	//no common attributes, do cartesian product
+		for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
+			if (i < new_table.att.size() && table1.att[i].name == new_table.att[i].name){
+				for (int z = 0; z < table1.att[i].data.size(); z++){
+					for (int q = 0; q < table2.att[0].data.size(); q++){
+						new_table.att[i].data.push_back(table1.att[i].data[z]);
 					}
 				}
 			}
-			if(new_table.att.size() < table2.att.size()){	//probably not right
-				if (table2.att[i].name != new_table.att[k].name){
-					bool passed = false;
-					for (int e = 0; e < check_passed.size(); e++){
-						if (table2.att[e].name == check_passed[e]){
-							passed = true;
-						}
-					}
-					if (!passed){
-						check_passed.push_back(table2.att[i].name);
-						Attribute new_att;
-						new_att.name = table2.att[i].name;
-						new_att.type = table2.att[i].type;
-						new_att.data.push_back(table2.att[i].data[index]);
-						new_table.att.push_back(new_att);
-					}
-					else{
-						for (int m = 0; m < table2.att.size(); m++){
-							if (table2.att[m].name != new_table.att[k].name){
-								new_table.att[k].data[index] = new_table.att[k].data[m];
-							}
-						}
+		}
+		for (int k = indices.size()-1; k >= 0; k--){	//Then table 2
+			for (int z = 0; z < table1.att[0].data.size(); z++){
+				for (int q = 0; q < table2.att[indices[k]].data.size(); q++){
+					new_table.att[new_table_indices[k]].data.push_back(table2.att[indices[k]].data[q]);
+				}
+			}
+		}
+	}
+	else{	//common attributes found, do natural join
+		for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
+			if (i < new_table.att.size() && table1.att[i].name == new_table.att[i].name){
+				for (int z = 0; z < table1.att[i].data.size(); z++){
+					new_table.att[i].data.push_back(table1.att[i].data[z]);
+				}
+			}
+		}
+		for (int k = indices.size()-1; k >= 0; k--){	//Then table 2
+			for (int z = 0; z < table1.att[0].data.size(); z++){
+				for (int q = 0; q < table2.att[indices[k]].data.size(); q++){
+					for (int j = 0; j < related_columns.size(); j++){
+						if (related_columns[j].first == k && related_columns[j].second == q && table1.att[k].data[z] == table2.att[indices[k]].data[q])
+							new_table.att[new_table_indices[k]].data.push_back(table2.att[indices[k]].data[q]);
 					}
 					
 				}
 			}
 		}
 	}
-	for(int i = 0; i < table1.att.size(); i++){	//Find names not in common
-		for (int k = 0; k < table2.att.size(); k++){
-			if (table1.att[i].name != table2.att[k].name){
-				Attribute new_att;
-				new_att.name = table1.att[i].name;
-				new_att.type = table1.att[i].type;
-				new_att.data = table1.att[i].data;
-				new_table.att.push_back(new_att);
-			}
-		}
-	}
-	new_table.name = "testerino3";
+	
+	new_table.name = table1.name + "JOIN" + table2.name;
 	all_tables.push_back(new_table);
 	return new_table;
 }
@@ -682,12 +699,19 @@ Table Engine::difference(Table table1, Table table2){
 /* ----------------------------------------------------------------------------------------------
 This function combines information from two relations by performing the cartesian product on them
 -------------------------------------------------------------------------------------------------*/
-Table Engine::cross_product(Table table1, Table table2, vector<string> relations)
+Table Engine::cross_product(Table table1, Table table2)
 {
 	//TODO: check if tables are empty first
 	Table new_table;
 	vector<int> indices;	//stores places where table finds matching column
 	vector<int> new_table_indices;
+	vector<string> relations;
+	for (int i = 0; table1.att.size(); i++){
+		relations.push_back(table1.att[i].name);
+	}
+	for (int i = 0; table2.att.size(); i++){
+		relations.push_back(table2.att[i].name);
+	}
 	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
 		for (int k = 0; k < relations.size(); k++){
 			if (relations[k] == table1.att[i].name){
