@@ -172,6 +172,120 @@ void Parser :: execute_update()
 {
 	//TODO
 	//update-cmd ::= UPDATE relation-name SET attribute-name = literal { , attribute-name = literal } WHERE condition
+    
+    //this is not working after SET.
+    //and this is my test grammar --UPDATE animals SET “name”=“Kim” WHERE “Joe”;--
+    string att_name;
+    string rel_name;
+    string data;
+    string newVal;
+    string input_str = "";
+    remove_spaces();
+    Token t = ('a');
+    while (t.value != ' ') {	//checks for relation-name
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+        
+    }
+    
+    remove_spaces();
+    while (input_str != "SET") {	//checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        //TODO: add error if not VALUES
+       
+    }
+   /*---------correct untill here--------*/
+  
+    switch(t.kind){
+        case 'A': case '8':case'a':  {	//TODO List of literals
+            remove_spaces();
+            while (t.value != '=') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
+                }
+                if (t.value == '=' ){	//Get attribute name
+                    att_name=input_str;
+                    
+                    remove_spaces();
+                }
+                            }
+            
+            remove_spaces();
+            while (t.value != ' ') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ' '){	//Get new value.
+                    newVal=input_str;
+                    
+                }
+            }
+
+            remove_spaces();
+            while (input_str != "WHERE") {
+                Token t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                //TODO: add error check
+            }
+            
+            remove_spaces();
+            while (t.value != ';') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ';'){	//Get previous data
+                    data=input_str;
+                    
+                }
+            }
+           
+            e.update(rel_name,att_name,data,newVal);
+            e.show(rel_name);
+            break;
+       }
+        default: {	//Expression
+            Table table = execute_expression();
+        }
+    }
 }
 void Parser :: execute_create()
 {
