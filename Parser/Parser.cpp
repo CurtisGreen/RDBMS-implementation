@@ -23,6 +23,18 @@ bool Parser :: query(string rel_name)
 {
 	//TODO
 	//query ::= relation-name <- expr ;
+	string input_str = "";
+	Table table;
+	remove_spaces();
+	t = ts.get();
+	if(t.value != '-'){
+		cout << "Query missing <-" << endl;
+	}
+	else{
+		table = expression();
+	}
+	table.name = rel_name;
+	e.all_tables.push_back(table);
 }
 
 Table Parser :: execute_expression()
@@ -124,7 +136,7 @@ void Parser :: execute_insert()
 					case '0': input_str = ts.out_buff(); break;
 					default: {
 						if (t.kind = '8'){
-							
+
 						}
 						else if (t.value != '"'){
 							ts.putback(t); 
