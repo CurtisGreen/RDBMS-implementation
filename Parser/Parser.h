@@ -19,16 +19,14 @@ class Parser{
 public: 
 	
 	Parser(){
-		execute_union();
 	}; 
 	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}
-<<<<<<< Updated upstream
 	Engine e;
-=======
+
 	Table execute_difference();
->>>>>>> Stashed changes
+
 
 private:
 	vector<Token_Sym> tokens;

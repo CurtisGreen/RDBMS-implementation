@@ -343,7 +343,6 @@ void Parser :: execute_open()
 	string file_name;
 	string input_str = "";
 	Token t = ts.get();
-<<<<<<< Updated upstream
 	while (t.value != ';') { // check for relation name 
         input_str = "";
         switch(t.kind){
@@ -355,21 +354,6 @@ void Parser :: execute_open()
             file_name = input_str;
         }
     }
-=======
-
-	while (t.value != ' ') {	
-		input_string = "";
-		switch(t.kind){
-			case '0': input_string = ts.out_buff(); 
-			break;
-			default: ts.putback(t); break;
-		}
-		t = ts.get();
-		if (t.value == ' '){
-			file_name = input_string;
-		}
-	}
->>>>>>> Stashed changes
 	ifstream input_file;
 	input_file.open(file_name + ".db");
 	if(!input_file.is_open()) // checks if able to open file 
