@@ -5,7 +5,6 @@
 #include "Table.h"
 #include "Engine.h"
 #include "Token_stream.h"
-#include "Token_Sym.h"
 
 
 TEST_CASE("Parser test", "[Parser]") {
