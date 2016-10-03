@@ -621,10 +621,134 @@ void Parser :: execute_write()
     e.write(table);
     
 }
+Table Parser ::selection_helper(string table_name){
+    bool first = true;
+    Token t = ts.get();
+    string att_name = "";
+    string input_str = "";
+    string op = "";
+    string condition = "";
+    Table table;
+    Table temp;
+    string conjunction = "";
+    if (t.value == '('){
+        return selection_helper(table_name);
+    }
+    else{
+    while (t.value != '\n'){
+        while(t.value != ' '){  //Get relation name
+            if(first){
+                first = false;
+            }
+            else{
+                t = ts.get();
+            }
+            switch(t.kind){
+                case '0': input_str = ts.out_buff(); break;
+                default: ts.putback(t); break;
+            }
+            att_name = input_str;
+        }
+        remove_spaces();
+        while(t.value != ' '){  //Get operator
+            t = ts.get();
+            switch(t.value){
+                case ' ': input_str = ts.out_buff(); break;
+                default: ts.putback(t); break;
+            }
+            op = input_str;
+        }
+        remove_spaces();
+        while(t.value != ' ' && t.value != ')'){  //Get condition
+            t = ts.get();
+            switch(t.value){
+                case ' ': input_str = ts.out_buff(); break;
+                default: ts.putback(t); break;
+            }
+            condition = input_str;
+        }
+        remove_spaces();
+        t = ts.get();
+        if (t.value == ')'){
+            return e.selection(table_name, att_name, op, condition);
+        }
+        else{   //Has conjunction
+            table = e.selection(table_name, att_name, op, condition);
+            while (t.value != ' '){
+                switch(t.value){
+                    case ' ': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                conjunction = input_str;
+            }
+            temp = selection_helper(table_name);
+            if (conjunction == "&&"){
+                return e.difference(table, temp);
+            }
+            else if (conjunction == "||"){
+                return e.set_union(table, temp);
+            }
+        }
+    }
+}
+}
 Table Parser :: execute_selection()
 {
-    //TODO
     //selection ::= select ( condition ) atomic-expr
+    remove_spaces();
+    int paren_count = 1;
+    string conditional = "";
+    string expression = "";
+    bool correct = true;
+    Token t = ('a');
+    while (paren_count != 0 && correct) {   //checks for attribute-list and types
+        t = ts.get();
+        if (t.value == '('){
+            paren_count++;
+            //cout<<"PA:"<<t.value<<endl;
+        }
+        else if(t.value == ')'){
+            paren_count--;
+        }
+        if (paren_count == 0){
+            conditional = ts.out_buff();
+        }
+        else{
+            ts.putback(t);
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected closing-parentheses in Select" << endl;
+            correct = false;
+        }
+    }
+    remove_spaces();
+    while (t.value != ';' && correct){
+        t = ts.get();
+        if(t.value == ';'){
+            expression = ts.out_buff();
+        }
+        else{
+            ts.putback(t);
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Select" << endl;
+            correct = false;
+        }
+    }
+    for (int i = expression.size()-1; i >= 0; i--){
+        cin.putback(expression[i]);
+    }
+    Table table = execute_expression();
+    for (int i = conditional.size()-1; i >= 0; i--){
+        cin.putback(conditional[i]);
+    }
+    remove_spaces();
+
+    Table testerino = selection_helper(table.name);
+    e.all_tables.push_back(testerino);
+    e.show (testerino.name);
+    return testerino;
+
 }
 Table Parser :: execute_projection()
 {
@@ -987,7 +1111,7 @@ void Parser :: initial(){
             execute_show();
         }
         else if(input_str == "DELETE"){
-            cout << "Executing (DELETE/DESTROy) " << endl;
+            cout << "Executing (DELETE/DESTROY) " << endl;
             execute_destroy();
         }
         else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){	//Must be a query

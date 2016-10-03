@@ -314,8 +314,15 @@ This function identifies a set of tuples which is part of relation and then extr
 The operation selects the tuples that satisfy a given predicate or condition. 
 It will involve logical conditions as defined in the grammar. 
 ----------------------------------------------------------------------------------------------------*/
-Table Engine :: selection(string table_name, string att_name)   {
+void select_helper(int col, int row, Table* table, Table* new_table){
+	for (int i = 0; i < table->att.size(); i++){
+		new_table->att[i].data.push_back(table->att[i].data[row]);
+	}
+}
+
+Table Engine :: selection(string table_name, string att_name, string op, string condition)   {
     Table* table;
+    Table new_table;
     bool found = false;
     for (int i = 0; i < all_tables.size(); i++){
         if (table_name == all_tables[i].getName()){
@@ -324,17 +331,54 @@ Table Engine :: selection(string table_name, string att_name)   {
         }
     }
     if (found){
-        for (int i = 0; i < table->att.size(); i++)
-            if( (table->att[i].getName()) == att_name)
-            {
+    	for (int i = 0; i < table->att.size(); i++){
+    		Attribute attr;
+    		attr.name = table->att[i].name;
+    		attr.type = table->att[i].type;
+    		new_table.att.push_back(attr);
+    	}
+        for (int i = 0; i < table->att.size(); i++){
+            if( (table->att[i].getName()) == att_name){
                 cout<<table->att[i].getName()<<endl<<endl;
                 for (int j = 0; j < table->att[i].data.size(); j++){
-             
-                    cout<<table->att[i].data[j] <<"\n";
+                	if (op == "=="){
+                		if (table->att[i].data[j] == condition){
+                			select_helper(i, j, table, &new_table);
+                		}
+                	}
+                	else if (op == "!="){
+						if (table->att[i].data[j] != condition){
+							select_helper(i, j, table, &new_table);
+						}
+                	}
+                	else if (op == ">"){
+						if (table->att[i].data[j] > condition){
+							select_helper(i, j, table, &new_table);
+						}
+                	}
+                	else if (op == ">="){
+						if (table->att[i].data[j] >= condition){
+							select_helper(i, j, table, &new_table);
+						}
+                	}
+               		else if (op == "<"){
+						if (table->att[i].data[j] < condition){
+							select_helper(i, j, table, &new_table);
+						}
+                	}
+                	else if (op == "<="){
+						if (table->att[i].data[j] <= condition){
+							select_helper(i, j, table, &new_table);
+						}
+                	}
+             		else{
+             			cout << "invalid conditional operator in selection:" << op << endl;
+             		}
                 }
             }
+        }
     }
-    return *table;
+    return new_table;
 }
 //searching column information.
 

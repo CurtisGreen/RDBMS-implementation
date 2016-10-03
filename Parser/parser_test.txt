@@ -9,3 +9,4 @@ DELETE FROM animals WHERE 1;
 CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
 INSERT INTO species VALUES FROM RELATION project (kind) animals;
 answer <- animals;
+dogs <- select (kind == "dog") animals;

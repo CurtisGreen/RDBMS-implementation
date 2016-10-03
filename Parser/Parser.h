@@ -37,6 +37,7 @@ private:
 	// All of the things that need to be executed in the Engine 
 	Table execute_expression();
 	Table atomic_expression();
+	Table selection_helper(string table_name);
 	Table execute_selection();
 	Table execute_projection();
 	Table execute_renaming();
