@@ -227,13 +227,13 @@ void Parser :: execute_update()
         }
         if (t.value == ' '){
             rel_name = input_str;
-            cout<<"rel_name= "<<input_str<<endl;
+           
         }
         
     }
     
     remove_spaces();
-    while (input_str != "SET") {	//checks for TABLE
+    while (input_str != "SET") {	//to set new value
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
@@ -255,9 +255,9 @@ void Parser :: execute_update()
                 break;
             }
         }
-        if (t.value == '='){	//Get new value.
-            att_name_1=input_str;
-            cout<<"att_name_1= "<<input_str<<endl;
+        if (t.value == '='){	
+            att_name_1=input_str;	//getting attribute for new value
+           
         }
     }
     t = ts.get();
@@ -277,9 +277,9 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ' ' ){	//Get attribute name for new setting
-                    newVal=input_str;
-                    cout<<"newVal= "<<input_str<<endl;
+                if (t.value == ' ' ){	
+                    newVal=input_str;	//setting data by new value
+                   
                     remove_spaces();
                 }
             }
@@ -309,9 +309,9 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name for new setting
-                    att_name_2=input_str;
-                    cout<<"att_name_2= "<<input_str<<endl;
+                if (t.value == '=' ){	
+                    att_name_2=input_str;	//searching attribute
+                   
                     remove_spaces();
                 }
             }
@@ -330,8 +330,8 @@ void Parser :: execute_update()
                     }
                 }
                 if (t.value == ';'){	//Get new value.
-                    data=input_str;
-                    cout<<"data= "<<input_str<<endl;
+                    data=input_str;	
+                    
                 }
             }
             
