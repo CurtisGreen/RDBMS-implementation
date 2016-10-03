@@ -524,11 +524,29 @@ void Parser :: execute_destroy()
         }
         //TODO: add error if not table
     }
+    remove_spaces();
+    while (t.value != '=') {
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: {
+                if (t.value != '"'){
+                    ts.putback(t);
+                }
+                break;
+            }
+        }
+        if (t.value == '='){	//Get new value.
+            att_name=input_str;
+            cout<<"att_name= "<<input_str<<endl;
+        }
+    }
     t = ts.get();
     switch(t.kind){
         case 'A': case '8':case'a':  {	//TODO List of literals
             remove_spaces();
-            while (t.value != '=') {
+            while (t.value != ';') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -541,30 +559,13 @@ void Parser :: execute_destroy()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name for new setting
-                    att_name=input_str;
+                if (t.value == ';' ){	//Get attribute name for new setting
+                    key=input_str;
+                    cout<<"key= "<<input_str<<endl;
                     remove_spaces();
                 }
             }
             
-            remove_spaces();
-            while (t.value != ';') {
-                input_str = "";
-                t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: {
-                        if (t.value != '"'){
-                            ts.putback(t);
-                        }
-                        break;
-                    }
-                }
-                if (t.value == ';'){	//Get new value.
-                    key=input_str;
-                    
-                }
-            }
             
             e.destroy(rel_name,att_name,key);
             e.show(rel_name);
@@ -575,7 +576,6 @@ void Parser :: execute_destroy()
         }
     }
 }
-
 void Parser :: execute_open()
 {
     
