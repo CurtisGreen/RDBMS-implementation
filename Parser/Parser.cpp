@@ -227,13 +227,13 @@ void Parser :: execute_update()
         }
         if (t.value == ' '){
             rel_name = input_str;
-            cout<<"rel_name= "<<input_str<<endl;
+           
         }
         
     }
     
     remove_spaces();
-    while (input_str != "SET") {	//checks for TABLE
+    while (input_str != "SET") {	//to set new value
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
@@ -255,9 +255,9 @@ void Parser :: execute_update()
                 break;
             }
         }
-        if (t.value == '='){	//Get new value.
-            att_name_1=input_str;
-            cout<<"att_name_1= "<<input_str<<endl;
+        if (t.value == '='){	
+            att_name_1=input_str;	//getting attribute for new value
+           
         }
     }
     t = ts.get();
@@ -277,9 +277,9 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ' ' ){	//Get attribute name for new setting
-                    newVal=input_str;
-                    cout<<"newVal= "<<input_str<<endl;
+                if (t.value == ' ' ){	
+                    newVal=input_str;	//setting data by new value
+                   
                     remove_spaces();
                 }
             }
@@ -309,9 +309,9 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name for new setting
-                    att_name_2=input_str;
-                    cout<<"att_name_2= "<<input_str<<endl;
+                if (t.value == '=' ){	
+                    att_name_2=input_str;	//searching attribute
+                   
                     remove_spaces();
                 }
             }
@@ -329,9 +329,9 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ';'){	//Get new value.
-                    data=input_str;
-                    cout<<"data= "<<input_str<<endl;
+                if (t.value == ';'){	//searching data to set new value
+                    data=input_str;	
+                    
                 }
             }
             
@@ -524,11 +524,29 @@ void Parser :: execute_destroy()
         }
         //TODO: add error if not table
     }
+    remove_spaces();
+    while (t.value != '=') {
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: {
+                if (t.value != '"'){
+                    ts.putback(t);
+                }
+                break;
+            }
+        }
+        if (t.value == '='){	//Get new value.
+            att_name=input_str;
+            cout<<"att_name= "<<input_str<<endl;
+        }
+    }
     t = ts.get();
     switch(t.kind){
         case 'A': case '8':case'a':  {	//TODO List of literals
             remove_spaces();
-            while (t.value != '=') {
+            while (t.value != ';') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -541,30 +559,13 @@ void Parser :: execute_destroy()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name for new setting
-                    att_name=input_str;
+                if (t.value == ';' ){	//Get attribute name for new setting
+                    key=input_str;
+                    cout<<"key= "<<input_str<<endl;
                     remove_spaces();
                 }
             }
             
-            remove_spaces();
-            while (t.value != ';') {
-                input_str = "";
-                t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: {
-                        if (t.value != '"'){
-                            ts.putback(t);
-                        }
-                        break;
-                    }
-                }
-                if (t.value == ';'){	//Get new value.
-                    key=input_str;
-                    
-                }
-            }
             
             e.destroy(rel_name,att_name,key);
             e.show(rel_name);
@@ -575,7 +576,6 @@ void Parser :: execute_destroy()
         }
     }
 }
-
 void Parser :: execute_open()
 {
     
