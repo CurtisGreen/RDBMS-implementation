@@ -170,7 +170,7 @@ void Parser :: execute_insert()
             e.show(rel_name);
             break;
         }
-        default: {	//TODO: Expression
+        default: {	//Expression
             while (input_str != "RELATION" && correct) {	//checks for TABLE
                 Token t = ts.get();
                 switch(t.kind){
@@ -184,6 +184,9 @@ void Parser :: execute_insert()
             }
             remove_spaces();
             Table table = execute_expression();
+            e.insertIntoTable(rel_name, table);
+            e.show(rel_name);
+            break;
         }
     }
 }
@@ -627,7 +630,6 @@ Table Parser :: atomic_expression()
 }
 Table Parser :: execute_product()
 {
-    //TODO :: CROSS PRODUCT NEEDS WORK
     // product ::= atomic-expr * atomic-expr
     string rel_name_1;
     string rel_name_2;
@@ -699,7 +701,6 @@ Table Parser :: execute_product()
 }
 Table Parser :: execute_join()
 {
-    //TODO
     // join ::= atomic-expr JOIN  atomic-expr
     string rel_name_1;
     string rel_name_2;
@@ -739,7 +740,6 @@ Table Parser :: execute_join()
 }
 Table Parser :: execute_union()
 {
-    //TODO
     // union ::= atomic-expr + atomic-expr
     // difference ::= atomic-expr - atomic-expr
     

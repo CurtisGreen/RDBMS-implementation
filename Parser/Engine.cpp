@@ -38,7 +38,16 @@ void Engine:: insertIntoTable(string table_name, Table t)
 	{
 		cout << "Error : [Engine] tables do not have the same number of columns" << endl;
 	}
-	// Need an insert fucntion in the Table class 
+	else{
+		for (int i = 0; i < t.att.size(); i++){
+			if (t.att[i].name == table.att[i].name){
+				for (int k = 0; k < t.att[i].data.size(); k++){
+					table.att[i].data.push_back(t.att[i].data[k]);
+				}
+			}
+		}
+	}
+	
 	
 }
 
