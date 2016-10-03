@@ -33,11 +33,11 @@ Token get()
 	
     char ch;
     if (cin >> noskipws >> ch){
-
+      //cout << "ch >>" << ch << "<<" << endl;
     switch(ch) 
 	{
-    case '(': case ')': case '+': case '-': case '\n':
-    case '*': case '/': case ';': case ' ': case '.': case ',':{
+    case '(': case ')': case '+': case '-': case '\n': case '=': case '<': case '!':
+    case '*': case '/': case ';': case ' ': case '.': case ',': case '>': {
 	//cout << ch << "text"<< endl;
     return Token(ch);	//look up previous item as a command/expression, kind (0) = symbols
 	}

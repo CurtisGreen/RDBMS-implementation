@@ -2,6 +2,7 @@
 Relational Database Management System
 
   * To compile "make clean" then type "make" then type "make run"
+  * Make run automatically executes: ./main < parser_test.txt
   * Run on compute.cs.tamu.edu
   * Using [Catch](https://github.com/philsquared/Catch) testing framework
   * All tests can be found under Main.cpp
