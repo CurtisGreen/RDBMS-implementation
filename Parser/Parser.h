@@ -17,7 +17,14 @@ class Parser{
 
 public: 
 	
+<<<<<<< Updated upstream
 	Parser(){} 
+=======
+	Parser(){
+
+
+	}; 
+>>>>>>> Stashed changes
 	int input();
 	void initial();
 	vector<Token_Sym> getTokens() {return tokens;}

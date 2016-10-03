@@ -40,6 +40,7 @@ bool Parser :: query(string rel_name)
 
 Table Parser :: execute_expression()
 {
+<<<<<<< Updated upstream
     Token t('a');
     while (t.value != ';' && t.value != '`') {
         t = ts.get();
@@ -78,6 +79,35 @@ Table Parser :: execute_expression()
                     }
                     return e.findTable(input_str);
                 } 
+=======
+	Token t('a');
+	while (t.value != ';' && t.value != '`') {
+		t = ts.get();
+		//cout << "value = " << t.value << endl;
+		string input_str = "";
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		//cout << input_str << endl;
+		if (input_str == "select"){
+			execute_selection();
+		}
+		else if(input_str == "project"){
+			execute_projection();
+		}
+		else if(input_str == "rename"){
+			execute_update();
+		}
+		else{	//Must be a relation name
+			remove_spaces();
+			switch(t.value){
+				case '*': cout << "product"<< endl; break;
+				case '-': execute_difference(); break;
+				case '+': execute_union(); break;
+				case 'J': cout << "natural join"<< endl; break;	//needs to iterate through the rest of the word
+				default: cout << "not product, diff, union, or join" << endl;
+>>>>>>> Stashed changes
 
                     
             }
@@ -557,6 +587,7 @@ void Parser :: execute_open()
 }
 void Parser :: execute_close()
 {
+<<<<<<< Updated upstream
     //TODO:
     //close-cmd ::== CLOSE relation-name
     string table_name;
@@ -577,6 +608,26 @@ void Parser :: execute_close()
     e.close(table_name);
     
     
+=======
+	//TODO:
+	//close-cmd ::== CLOSE relation-name
+	string table_name;
+	string input_str = "";
+	remove_spaces();
+	Token t = ('a');
+	while (t.value != ';') {	//checks for relation-name
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			table_name = input_str;
+		}
+	}
+	e.close(table_name);
+>>>>>>> Stashed changes
 }
 
 void Parser :: execute_show()
@@ -636,15 +687,284 @@ Table Parser :: execute_selection()
     //TODO
     //selection ::= select ( condition ) atomic-expr
 }
+
+
+
+
+
+
+
+
+
 Table Parser :: execute_projection()
 {
+<<<<<<< Updated upstream
     //TODO
     //projection ::= project ( attribute-list ) atomic-expr
+=======
+	//TODO
+	//projection ::= project ( attribute-list ) atomic-expr
+	//project (name,kind) animals
+
+	vector<string> data;
+	string rel_name;
+	string atomic_ex;
+	string input_str = "";
+	remove_spaces();
+	while (input_str != "project") {//CHECKS FOR THE EXPRESSION TYPE
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		
+	}
+	atomic_ex = input_str;///Expression type
+	//cout<<atomic_ex<<endl;
+
+	Token t('a');
+	while (t.value != '('){ //DOES NOT LOOK AT THE OPEN PARANTHIS
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+	}
+
+	switch(t.kind){
+		case '0':  {	
+			remove_spaces();
+			while (t.value != ')'){//DOES NOT LOOK AT the CLOSING PARENTHESIS
+				input_str = "";
+				t = ts.get();
+				switch(t.kind){
+					case '0': input_str = ts.out_buff(); break;
+					default: {
+						if (t.value != '"'){
+							ts.putback(t); 
+						}
+						break;
+					}
+				}
+				if (t.value == ',' || t.value == ')' ){	//Get attribute name
+					data.push_back(input_str); 
+					remove_spaces();
+				}
+			}
+			//for (int i = 0; i < data.size(); i++){
+				//cout << data[i] << endl;
+			//}
+			break;
+		}	
+	}
+
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name = input_str;
+	}
+
+
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+
+		vector<string> key_name = {"1","2","3","4"};
+
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
+
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+
+	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
+		Table newTable = e.projection(data,rel_name);
+
+		e.show("Graduate Projection");
+
+		return newTable;
+>>>>>>> Stashed changes
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Engine::renaming( string old_attr, string new_attr, Table& table_name)
+
+
+
 Table Parser :: execute_renaming()
 {
+<<<<<<< Updated upstream
     //TODO
     //renaming ::= rename ( attribute-list ) atomic-expr
+=======
+	//TODO
+	//renaming ::= rename ( attribute-list ) atomic-expr
+
+
+	vector<string> data;
+	string rel_name;
+	string atomic_ex;
+	string input_str = "";
+	remove_spaces();
+	while (input_str != "rename") {//CHECKS FOR THE EXPRESSION TYPE
+		Token t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		
+	}
+	atomic_ex = input_str;///Expression type
+	//cout<<atomic_ex<<endl;
+
+	Token t('a');
+	while (t.value != '('){ //DOES NOT LOOK AT THE OPEN PARANTHIS
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+	}
+
+	switch(t.kind){
+		case '0':  {	
+			remove_spaces();
+			while (t.value != ')'){//DOES NOT LOOK AT the CLOSING PARENTHESIS
+				input_str = "";
+				t = ts.get();
+				switch(t.kind){
+					case '0': input_str = ts.out_buff(); break;
+					default: {
+						if (t.value != '"'){
+							ts.putback(t); 
+						}
+						break;
+					}
+				}
+				if (t.value == ',' || t.value == ')' ){	//Get attribute name
+					data.push_back(input_str); 
+					remove_spaces();
+				}
+			}
+			//for (int i = 0; i < data.size(); i++){FOR TESTING PURPOSES
+				//cout << data[i] << endl;
+			//}
+			break;
+		}	
+	}
+
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name = input_str;
+	}
+
+
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+
+		vector<string> key_name = {"1","2","3","4"};
+
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
+
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+
+	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
+	    Table get_table = e.getTable(rel_name);
+
+	    cout<<"TESTING:" << get_table.getName()<<endl;
+	    e.renaming(data,get_table);
+
+	    e.all_tables.push_back(get_table);
+
+		
+
+	
+
+		e.show("Graduate");
+
+		return get_table;
+
+
+
+
+
+>>>>>>> Stashed changes
 }
 Table Parser :: atomic_expression()
 {
@@ -653,9 +973,15 @@ Table Parser :: atomic_expression()
 }
 Table Parser :: execute_product()
 {
+<<<<<<< Updated upstream
 
 	//TODO :: CROSS PRODUCT NEEDS WORK 
 	// product ::= atomic-expr * atomic-expr
+=======
+	//TODO
+	// union ::= atomic-expr + atomic-expr
+	// difference ::= atomic-expr - atomic-expr
+>>>>>>> Stashed changes
 	string rel_name_1;
 	string rel_name_2;
 	string input_str = "";
@@ -673,6 +999,10 @@ Table Parser :: execute_product()
 			rel_name_1 = input_str;
 		}
 	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 	remove_spaces();
 	while (t.value != ';' && t.value != '`') {	//check for relation name 
 		input_str = "";
@@ -684,6 +1014,10 @@ Table Parser :: execute_product()
 		}
 			rel_name_2 = input_str;
 	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 	//------------for testing purposes-----------------------------/
 	//I try testing from the main but did not work , No Idea why
 		vector<string> number = {"7274","7432","9894"};
@@ -720,6 +1054,7 @@ Table Parser :: execute_product()
 		
 		Table t1 = e.getTable(rel_name_1);
 		Table t2 = e.getTable(rel_name_2);
+<<<<<<< Updated upstream
 		
 		Table new_table = e.cross_product(t1,t2);
 		e.show(new_table.getName());
@@ -845,10 +1180,20 @@ Table Parser :: execute_union()
     e.show("Graduate + Manager");
     
     return new_table;
+=======
+
+		Table newTable = e.set_union("",t1,t2);
+
+		e.set_union("",t1, t2);
+		e.show("Graduate + Manager");
+
+		return newTable;
+>>>>>>> Stashed changes
 }
 
 Table  Parser:: execute_difference()
 {
+<<<<<<< Updated upstream
     
     // difference ::= atomic-expr - atomic-expr
     
@@ -930,6 +1275,88 @@ Table  Parser:: execute_difference()
 
 
 /*
+=======
+	
+	// difference ::= atomic-expr - atomic-expr
+
+	string rel_name_1;
+	string rel_name_2;
+	string input_str = "";
+	Token t  = ('a');
+
+	remove_spaces();
+	while (t.value != ' ') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+		if (t.value == ' '){
+			rel_name_1 = input_str;
+		}
+	}
+
+	remove_spaces();
+	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: ts.putback(t); break;
+		}
+			rel_name_2 = input_str;
+	}
+
+
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+	
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
+
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
+
+		vector<string> key_name = {"1","2","3","4"};
+
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
+
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+
+	    cout<<e.all_tables.size()<<endl;
+
+		Table t1 = e.getTable(rel_name_1);
+		Table t2 = e.getTable(rel_name_2);
+
+		Table newTable = e.difference(t1,t2);
+
+		e.show("Graduate-Manager");
+
+		return newTable;
+}
+
+	/*
+>>>>>>> Stashed changes
 	remove_spaces();
 	while (t.value != '-'){    //CHECK FO NAME
  t = ts.get();
@@ -941,6 +1368,10 @@ Table  Parser:: execute_difference()
 	}
 	*/
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 vector <string> Parser :: attribute_list()
 {
     //TODO

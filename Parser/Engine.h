@@ -40,8 +40,13 @@ class Engine{
 	Table set_union(Table table1, Table table2 );
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
+<<<<<<< Updated upstream
 	Table cross_product(Table table1, Table table2);
 	void renaming(string old_attr, string new_attr, Table& table_name);
+=======
+	Table cross_product(Table table1, Table table2, vector<string> relations);
+	void renaming(vector<string> att_name, Table& table_name);
+>>>>>>> Stashed changes
 
 	
 	// Helper functions

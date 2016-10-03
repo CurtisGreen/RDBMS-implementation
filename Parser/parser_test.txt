@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
 INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
 INSERT INTO animals VALUES FROM ("Spot", "dog", 10);
@@ -23,3 +24,6 @@ CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
 INSERT INTO species VALUES FROM RELATION project (kind) animals;
 answer <- animals;
 >>>>>>> f4e28f87820d58cb5d3dbefc28dbb0f6ca27e79f
+=======
+rename (AGe,Jose) Graduate;
+>>>>>>> Stashed changes
