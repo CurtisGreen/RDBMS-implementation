@@ -210,7 +210,7 @@ void Parser :: execute_update()
     
     //this is not working after SET.
     //and this is my test grammar --UPDATE animals SET “name”=“Kim” WHERE “Joe”;--
-    string att_name;
+    string att_name_1, att_name_2;
     string rel_name;
     string data;
     string newVal;
@@ -240,7 +240,7 @@ void Parser :: execute_update()
         //TODO: add error if not VALUES
         
     }
-    /*---------correct untill here--------*/
+    
     t = ts.get();
     switch(t.kind){
         case 'A': case '8':case'a':  {	//TODO List of literals
@@ -258,9 +258,8 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name
-                    att_name=input_str;
-                    
+                if (t.value == '=' ){	//Get attribute name for new setting
+                    att_name_1=input_str;
                     remove_spaces();
                 }
             }
@@ -292,10 +291,31 @@ void Parser :: execute_update()
                     default: ts.putback(t); break;
                 }
                 //TODO: add error check
+               
+            }
+            t=ts.get();
+            remove_spaces();
+            while (t.value != '=') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
+                }
+                if (t.value == '=' ){	//Get attribute name for new setting
+                    att_name_2=input_str;
+                    remove_spaces();
+                }
             }
             
             remove_spaces();
-            while (t.value != ';' && t.value != '`') {
+            while (t.value != ';') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -307,13 +327,12 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ';'){	//Get previous data
+                if (t.value == ';'){	//Get new value.
                     data=input_str;
-                    
                 }
             }
             
-            e.update(rel_name,att_name,data,newVal);
+            e.update(rel_name,att_name_1,newVal,att_name_2,data);
             e.show(rel_name);
             break;
         }
@@ -873,7 +892,13 @@ Table Parser :: atomic_expression()
     //atomic-expr ::= relation-name | ( expr )
 }
 Table Parser :: execute_product()
+<<<<<<< HEAD
 {
+=======
+{
+<<<<<<< Updated upstream
+
+>>>>>>> c50be4f8ea85742964494d2da450dfa7cc7e80de
 	//TODO :: CROSS PRODUCT NEEDS WORK 
 	// product ::= atomic-expr * atomic-expr
 	string rel_name_1;

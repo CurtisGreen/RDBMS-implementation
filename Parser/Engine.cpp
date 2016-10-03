@@ -217,8 +217,8 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
-Table Engine::update(string table_name, string att_name, string data, string newVal){
-
+Table Engine::update(string table_name, string att_name_1, string newVal,string att_name_2,string data){
+    
     Table* table;
     bool status_table = false;
     bool status_att=false;
@@ -230,22 +230,32 @@ Table Engine::update(string table_name, string att_name, string data, string new
     }
     if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
-            if ( (table->att[i].getName()) == att_name)
+            if ( (table->att[i].getName()) == att_name_2) //getting attribute name
             {
-               status_att=true;
+                status_att=true;
                 if (status_att == true)
                 {
                     for (int j = 0; j < table->att[i].data.size(); j++)
                     {
-                        if( (table->att[i].data[j]) == data)
-                            table->att[i].data.at(j)=newVal;
+                        if( (table->att[i].data[j]) == data)    //getting row by data name
+                        {
+                            for (int i = 0; i < table->att.size(); i++)
+                            {
+                                if ( (table->att[i].getName()) == att_name_1)	//searching attribute for new data by row.
+                                {
+                                    table->att[i].data[j]=newVal;		//set new data.
+                                    
+                                }
+                                
+                            }
+                        }
                     }
                 }
             }
             
         }
         if (status_att == false)
-	cout<<" Error: [Engine]: Attribute not found!!"<<endl;
+            cout<<" Error: [Engine]: Attribute not found!!"<<endl;
     }else
         cout<<"Error: [Engine]: Table not found!! cannot update!!"<<endl;
     return *table;

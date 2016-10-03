@@ -18,7 +18,7 @@ INSERT INTO Manager VALUES FROM (9894,Darkes,38);
 
 Graduate + Manager;  
 =======
-UPDATE animals SET "name"="Kim" WHERE "Joe";
+UPDATE animals SET "name"="Kim" WHERE "name"="Joe";
 DELETE FROM animals WHERE 1;
 CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
 INSERT INTO species VALUES FROM RELATION project (kind) animals;
