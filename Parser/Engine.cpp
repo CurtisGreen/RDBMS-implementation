@@ -21,7 +21,7 @@ Table& Engine :: findTable(string table_name)
 		}
 		else
 		{
-			cout << "Error: [Engine]: Table not found " << table_name << endl;
+			cout << "Error: [Engine]: Table not found !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << table_name << endl;
 		}
 	}	
 }
@@ -53,16 +53,17 @@ void Engine:: insertIntoTable(string table_name, Table t)
 
 Table Engine :: getTable(string table_name)
 {
+	bool found = false;
 	for( int i = 0; i < all_tables.size();i++)
 	{
 		if(all_tables[i].getName() == table_name)
 		{
+			found = true;
 			return all_tables[i];
 		}
-		if(all_tables[i].getName() != table_name)
-		{
-			cout << "Error: [Engine]: table does not exist"<< endl;
-		}
+	}
+	if (!found){
+		cout << "Error: [Engine]: table does not exist"<< endl;
 	}
 	Table t;
 	t.setName(table_name);
@@ -671,8 +672,10 @@ Table Engine::natural_join(Table table1, Table table2){
 void Engine::renaming(vector<string> att_name,  Table& table_name){
 	
 	bool table_exists = false;
-
+	
+	cout << "looking for: " << table_name.getName() << endl;
 	for (int i = 0; i < all_tables.size(); i++){
+		cout << "renaming out table " << all_tables[i].getName() << endl;
 		if (table_name.getName() == all_tables[i].name){
 			table_exists = true;
 		}

@@ -81,7 +81,7 @@ Table Parser :: execute_expression()
                         default: ts.putback(t); break;
                     }
                 }
-                return e.findTable(input_str);
+                return e.getTable(input_str);
             } 
 
                 
