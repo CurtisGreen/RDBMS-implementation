@@ -51,6 +51,8 @@ private:
     void execute_insert();
 	void execute_destroy();
 	void remove_spaces();
+	void execute_drop();
+
 	
 };
 #endif
