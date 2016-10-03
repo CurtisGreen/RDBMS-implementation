@@ -305,11 +305,11 @@ Table Engine::destroy(string table_name,string att, string key){
                 {
                     for(int j=0; j<table->att[i].data.size(); j++)
                     {
-                        if (table->att[i].data[j] == key)
+                        if (table->att[i].data[j] == key)	//checking key user provide
                         {
                             for (int k = 0; k < table->att.size(); k++)
                             {
-                                table->att[k].data.erase(table->att[k].data.begin()+j);
+                                table->att[k].data.erase(table->att[k].data.begin()+j);	//deleting by key
                             }
                         }
                     }
