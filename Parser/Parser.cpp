@@ -208,9 +208,7 @@ void Parser :: execute_update()
 {
     //update-cmd ::= UPDATE relation-name SET attribute-name = literal { , attribute-name = literal } WHERE condition
     
-    //this is not working after SET.
-    //and this is my test grammar --UPDATE animals SET “name”=“Kim” WHERE “Joe”;--
-    string att_name;
+    string att_name_1, att_name_2;
     string rel_name;
     string data;
     string newVal;
@@ -226,6 +224,7 @@ void Parser :: execute_update()
         }
         if (t.value == ' '){
             rel_name = input_str;
+            cout<<"rel_name= "<<input_str<<endl;
         }
         
     }
@@ -240,10 +239,59 @@ void Parser :: execute_update()
         //TODO: add error if not VALUES
         
     }
-    /*---------correct untill here--------*/
+    remove_spaces();
+    while (t.value != '=') {
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: {
+                if (t.value != '"'){
+                    ts.putback(t);
+                }
+                break;
+            }
+        }
+        if (t.value == '='){	//Get new value.
+            att_name_1=input_str;
+            cout<<"att_name_1= "<<input_str<<endl;
+        }
+    }
     t = ts.get();
     switch(t.kind){
         case 'A': case '8':case'a':  {	//TODO List of literals
+            remove_spaces();
+            while (t.value != ' ') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ' ' ){	//Get attribute name for new setting
+                    newVal=input_str;
+                    cout<<"newVal= "<<input_str<<endl;
+                    remove_spaces();
+                }
+            }
+            
+            remove_spaces();
+            while (input_str != "WHERE") {
+                Token t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                //TODO: add error check
+                
+            }
+          
             remove_spaces();
             while (t.value != '=') {
                 input_str = "";
@@ -258,15 +306,15 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == '=' ){	//Get attribute name
-                    att_name=input_str;
-                    
+                if (t.value == '=' ){	//Get attribute name for new setting
+                    att_name_2=input_str;
+                    cout<<"att_name_2= "<<input_str<<endl;
                     remove_spaces();
                 }
             }
             
             remove_spaces();
-            while (t.value != ' ') {
+            while (t.value != ';') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -278,42 +326,13 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ' '){	//Get new value.
-                    newVal=input_str;
-                    
-                }
-            }
-            
-            remove_spaces();
-            while (input_str != "WHERE") {
-                Token t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: ts.putback(t); break;
-                }
-                //TODO: add error check
-            }
-            
-            remove_spaces();
-            while (t.value != ';' && t.value != '`') {
-                input_str = "";
-                t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: {
-                        if (t.value != '"'){
-                            ts.putback(t);
-                        }
-                        break;
-                    }
-                }
-                if (t.value == ';'){	//Get previous data
+                if (t.value == ';'){	//Get new value.
                     data=input_str;
-                    
+                    cout<<"data= "<<input_str<<endl;
                 }
             }
             
-            //e.update(rel_name,att_name,data,newVal);
+            e.update(rel_name,att_name_1,newVal,att_name_2,data);
             e.show(rel_name);
             break;
         }
