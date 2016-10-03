@@ -33,7 +33,6 @@ TEST_CASE("Parser test", "[Parser]") {
 }
 
 
-<<<<<<< Updated upstream
 TEST_CASE("Create_test", "[create]") {
 
 	Parser parser;
@@ -243,8 +242,3 @@ TEST_CASE("Update_test", "[update]") {
 	cout<< "----------------Update function test-----------------------------------" <<endl;
 	
 }
-=======
-
-
-
->>>>>>> Stashed changes
