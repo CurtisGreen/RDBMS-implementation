@@ -21,7 +21,7 @@ Table& Engine :: findTable(string table_name)
 		}
 		else
 		{
-			cout << "Error: [Engine]: Table not found" << endl;
+			cout << "Error: [Engine]: Table not found " << table_name << endl;
 		}
 	}	
 }
@@ -280,7 +280,7 @@ Table Engine::insert(string table_name, vector<string> new_row){
 	     }
 	}
 	else{
-	cout << "Error: [Engine]:Table not found, cannot insert" << endl;
+	cout << "Error: [Engine]:Table not found, cannot insert " << table_name << endl;
 	}
 	return *table;
  }

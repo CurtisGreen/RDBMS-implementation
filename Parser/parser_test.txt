@@ -7,6 +7,7 @@ INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
 dogs <- select (kind == "dog") animals;
 
 CREATE TABLE Graduate (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
+CREATE TABLE Graduate (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
 CREATE TABLE Manager (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
 INSERT INTO Graduate VALUES FROM (74,Robinson,37);
 INSERT INTO Graduate VALUES FROM (7432,OMalley,39);
@@ -19,6 +20,3 @@ Graduate + Manager;
 UPDATE animals SET "name"="Kim" WHERE "name"="Joe";
 DELETE FROM animals WHERE 1;
 CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
-INSERT INTO species VALUES FROM RELATION project (kind) animals;
-answer <- animals;
-rename (AGe,Jose) Graduate;
