@@ -30,7 +30,7 @@ class Engine{
 	void show(string table_name);
 	Table create(string, vector<Attribute>, vector<string>);
 	Table insert(string name, vector<string> new_row);
-	Table update(string table_name, string att_name, string data, string newVal);
+	Table update(string table_name, string att_name_1, string newVal,string att_name_2,string data);
     Table destroy(string table_name,int row); //because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database
 
@@ -40,8 +40,11 @@ class Engine{
 	Table set_union(Table table1, Table table2 );
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
+
 	Table cross_product(Table table1, Table table2);
-	void renaming(string old_attr, string new_attr, Table& table_name);
+	
+	
+	void renaming(vector<string> att_name, Table& table_name);
 
 	
 	// Helper functions

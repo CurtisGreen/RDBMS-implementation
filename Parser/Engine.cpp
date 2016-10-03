@@ -91,10 +91,10 @@ void Engine::close(string table_name){
     ifstream close_file(table_name + ".db");
     
     if(!close_file.is_open()) {
-        cout << "Error:[Engine]: Could not open file" << "\n";
+        cout << "Error:[Engine]: Could not close file" << "\n";
     }
     else{
-        cout << "Error:[Engine]: Table is already open" << endl;
+        cout << "Error:[Engine]: Table is already closed" << endl;
     }
     close_file.close();
 }
@@ -217,8 +217,8 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
-Table Engine::update(string table_name, string att_name, string data, string newVal){
-
+Table Engine::update(string table_name, string att_name_1, string newVal,string att_name_2,string data){
+    
     Table* table;
     bool status_table = false;
     bool status_att=false;
@@ -230,22 +230,32 @@ Table Engine::update(string table_name, string att_name, string data, string new
     }
     if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
-            if ( (table->att[i].getName()) == att_name)
+            if ( (table->att[i].getName()) == att_name_2) //getting attribute name
             {
-               status_att=true;
+                status_att=true;
                 if (status_att == true)
                 {
                     for (int j = 0; j < table->att[i].data.size(); j++)
                     {
-                        if( (table->att[i].data[j]) == data)
-                            table->att[i].data.at(j)=newVal;
+                        if( (table->att[i].data[j]) == data)    //getting row by data name
+                        {
+                            for (int i = 0; i < table->att.size(); i++)
+                            {
+                                if ( (table->att[i].getName()) == att_name_1)	//searching attribute for new data by row.
+                                {
+                                    table->att[i].data[j]=newVal;		//set new data.
+                                    
+                                }
+                                
+                            }
+                        }
                     }
                 }
             }
             
         }
         if (status_att == false)
-	cout<<" Error: [Engine]: Attribute not found!!"<<endl;
+            cout<<" Error: [Engine]: Attribute not found!!"<<endl;
     }else
         cout<<"Error: [Engine]: Table not found!! cannot update!!"<<endl;
     return *table;
@@ -643,7 +653,7 @@ Table Engine::natural_join(Table table1, Table table2){
 /*-------------------------------------------------------------------------------------------
  This function renames the attributes in a relation  
 --------------------------------------------------------------------------------------------*/
-void Engine::renaming( string old_attr, string new_attr, Table& table_name){
+void Engine::renaming(vector<string> att_name,  Table& table_name){
 	
 	bool table_exists = false;
 
@@ -655,11 +665,11 @@ void Engine::renaming( string old_attr, string new_attr, Table& table_name){
 	if (table_exists != true){
 		cout << " Error:[Engine]: Table does not exist" << "\n";
 	}
-	for (int i = 0; i < table_name.att.size(); i++){
-		if (table_name.att[i].getName() == old_attr){
-			table_name.att[i].setName(new_attr);
-		}
+	for (int i = 0; i < att_name.size() ;i++){
+	
+			table_name.att[i].setName(att_name[i]);
 	}
+	
 }
 
 /*---------------------------------------------------------------------------------------
