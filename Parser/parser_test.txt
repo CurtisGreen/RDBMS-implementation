@@ -12,12 +12,9 @@ INSERT INTO Graduate VALUES FROM (9894,Darkes,38);
 INSERT INTO Manager VALUES FROM (9297,OMalley,56);
 INSERT INTO Manager VALUES FROM (7432,OMalley,39);
 INSERT INTO Manager VALUES FROM (9894,Darkes,38);
-<<<<<<< HEAD
+
 UPDATE animals SET name="Kim" WHERE name="Joe";
 
-=======
 Graduate + Manager;  
-UPDATE animals SET name="Kim" WHERE name="Joe";
 DELETE FROM animals WHERE kind="dog";
->>>>>>> 14cf691ba822440cb00ca1398862105f81c3867b
 CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);

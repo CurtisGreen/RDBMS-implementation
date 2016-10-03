@@ -31,7 +31,7 @@ TEST_CASE("Parser test", "[Parser]") {
 	
 	Table new_table = parser.e.getTable("Graduate");
 	
-	REQUIRE(new_table.att[0].data[2] == "894");
+	REQUIRE(new_table.att[0].data[2] == "9894");
 	REQUIRE(new_table.att[1].data[2] == "Darkes");
 	REQUIRE(new_table.att[2].data[2] == "38");    
 	

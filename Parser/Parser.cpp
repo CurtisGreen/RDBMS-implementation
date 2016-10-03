@@ -150,14 +150,15 @@ void Parser :: execute_insert()
         }
     }
     remove_spaces();
+    ts.out_buff();
     t = ts.get();
     switch(t.kind){
         case '0': input_str = ts.out_buff(); break;
         default: ts.putback(t); break;
     }
     switch(t.kind){
-        case 'A': case '8': {	//List of literals
-            ts.out_buff();	//remove parentheses
+        case 'A': ts.out_buff();    //remove quotes
+        case '8': {	//List of literals
             remove_spaces();
             while (t.value != ')' && correct) {	//pass back data
                 input_str = "";
