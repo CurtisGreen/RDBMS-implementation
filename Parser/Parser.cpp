@@ -329,7 +329,7 @@ void Parser :: execute_update()
                         break;
                     }
                 }
-                if (t.value == ';'){	//Get new value.
+                if (t.value == ';'){	//searching data to set new value
                     data=input_str;	
                     
                 }
