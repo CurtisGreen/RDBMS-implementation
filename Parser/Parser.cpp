@@ -466,7 +466,8 @@ void Parser :: execute_destroy()
     //it is working and deleted by row but have to be deleted by some conditons.
     //delete-cmd ::= DELETE FROM relation-name WHERE condition
     string rel_name;
-    int row;
+    string att_name;
+    string key;
     string input_str = "";
     remove_spaces();
     while (input_str != "FROM") {
@@ -499,28 +500,56 @@ void Parser :: execute_destroy()
         }
         //TODO: add error if not table
     }
-    remove_spaces();
-    while (t.value != ';' && t.value != '`') {
-        input_str = "";
-        t = ts.get();
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: {
-                if (t.value != '"'){
-                    ts.putback(t);
+    t = ts.get();
+    switch(t.kind){
+        case 'A': case '8':case'a':  {	//TODO List of literals
+            remove_spaces();
+            while (t.value != '=') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
                 }
-                break;
+                if (t.value == '=' ){	//Get attribute name for new setting
+                    att_name=input_str;
+                    remove_spaces();
+                }
             }
-        }
-        if (t.value == ';'){	//Get previous data
-            row = atoi(input_str.c_str());
             
+            remove_spaces();
+            while (t.value != ';') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+                if (t.value == ';'){	//Get new value.
+                    key=input_str;
+                    
+                }
+            }
+            
+            e.destroy(rel_name,att_name,key);
+            e.show(rel_name);
+            break;
+        }
+        default: {	//Expression
+            Table table = execute_expression();
         }
     }
-    
-    
-    e.destroy(rel_name,row);
-    e.show(rel_name);
 }
 
 void Parser :: execute_open()
