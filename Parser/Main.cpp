@@ -314,7 +314,7 @@ TEST_CASE("Renaming_test", "[renaming]") {
 	
 	cout << parser.e.all_tables.size() << endl;
 
-	parser.e.renaming(names, new_table1.getName());
+	//parser.e.renaming(names, new_table1.getName());
 	
 	REQUIRE(parser.e.all_tables[0].att[0].getName()== "aNumber");
 	REQUIRE(parser.e.all_tables[0].att[1].getName()== "aSurname");
