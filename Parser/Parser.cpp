@@ -476,13 +476,14 @@ void Parser :: execute_open()
 	{
 		throw runtime_error("Error: [Parser]: Failed to Open File");
 	}
-	string new_line;
-	getline(input_file, new_line);
-	if(input_str == new_line)
+	else 
 	{
-		throw runtime_error("Error :[Parser]: Table is already open");
+		cout << "Opening File..." << endl;
+		if(input_file.is_open())
+		{
+			cout << "Failed to open file" << endl;
+		}
 	}
-	
 	
 	
 }
@@ -602,44 +603,45 @@ Table Parser :: execute_product()
 		}
 			rel_name_2 = input_str;
 	}
-	//---------------testing----------------------------------------------//
-		vector<string> cross_id = {"1","2","3","4","5","6","7"};
-		vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
-		vector<string> cross_age = {"32", "25", "23", "25", "27", "22", "24"};
-		vector<string> address = {"Ahmedabad", "Delhi", "kota", "mumbai", "bhopal", "mp", "indore"};
-		vector<string> salary = {"2000", "1500", "2000", "6500", "8500", "4500", "10000"};
-		vector<string> oid = {"102", "100", "101", "103"};
-		vector<string> date = {"2009-10", "2009-10", "2009-11", "2008-05"};
-		vector<string> customer_id = {"3", "3", "2", "4"};
-		vector<string> amount = {"3000", "1500", "1560", "2060"};
+	//------------for testing purposes-----------------------------/
+	//I try testing from the main but did not work , No Idea why
+		vector<string> number = {"7274","7432","9894"};
+		vector<string> surname = {"Robinson","O'Malley","Darkes"};
+		vector<string> age = {"37","39","38"};
+		vector<string> number2 = {"9297","7432","9894",};
+		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
+		vector<string> age2 = {"56","39","38",};
 
-		Attribute CrossId("id", "int", cross_id);
-		Attribute CrossName("name", "string", cross_name);
-		Attribute CrossAge("age", "int", cross_age);
-		Attribute Address("address", "string", address);
-		Attribute Salary("salary", "int", salary);
-		Attribute Oid("oid", "int", oid);
-		Attribute Date("date", "int", date);
-		Attribute Customer_id("customer_id", "int", customer_id);
-		Attribute Amount("amount", "int", amount);
+		Attribute g_number("Number","Integer",number);
+		Attribute g_surname("Surname","string",surname);
+		Attribute g_age("Age","Integer",age);
+		Attribute m_number("Number","Integer",number2);
+		Attribute m_surname("Surname","string",surname2 );
+		Attribute m_age("Age","Integer",age2);
 
-		vector<Attribute> cross_att1= {CrossId, CrossName, CrossAge, Address, Salary};
-		vector<Attribute> cross_att2 = {Oid, Date, Customer_id, Amount};
+		vector<string> key_name = {"1","2","3","4"};
 
-		vector<string> cross_key = {"id" ,"name", "amount", "date"};
+		vector<Attribute> graduate_att;
+		vector<Attribute> manager_att;
 
-		Table cross_product1;
-		cross_product1.att = cross_att1;
-		Table cross_product2;
-		cross_product2.att = cross_att2;
-		Table cross_product_out = e.cross_product(cross_product1,cross_product2,cross_key);
-		e.show(cross_product1.name + "*" + cross_product2.name);
+		graduate_att.push_back(g_number);
+		graduate_att.push_back(g_surname);
+		graduate_att.push_back(g_age);
+		manager_att.push_back(m_number);
+		manager_att.push_back(m_surname);
+		manager_att.push_back(m_age);
+		
+		//Tables
+		e.create("Graduate", graduate_att, key_name);
+	    e.create("Manager", manager_att, key_name);
+		
 		cout<<e.all_tables.size()<<endl;
 		
-		vector<string> relations = {"", ""};
 		Table t1 = e.getTable(rel_name_1);
 		Table t2 = e.getTable(rel_name_2);
-		Table new_table = e.cross_product(t1,t2,relations);
+		
+		Table new_table = e.cross_product(t1,t2);
+		e.show(new_table.getName());
 		return new_table;
 }
 Table Parser :: execute_join()

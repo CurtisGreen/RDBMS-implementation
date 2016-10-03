@@ -82,10 +82,10 @@ void Engine::close(string table_name){
     ifstream close_file(table_name + ".db");
     
     if(!close_file.is_open()) {
-        cout << "Error:[Engine]: Could not open file" << "\n";
+        cout << "Error:[Engine]: Could not close file" << "\n";
     }
     else{
-        cout << "Error:[Engine]: Table is already open" << endl;
+        cout << "Error:[Engine]: Table is already closed" << endl;
     }
     close_file.close();
 }
