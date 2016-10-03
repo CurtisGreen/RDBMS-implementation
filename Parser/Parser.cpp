@@ -35,6 +35,7 @@ bool Parser :: query(string rel_name)
     }
     table.name = rel_name;
     e.all_tables.push_back(table);
+    e.show(rel_name);
 }
 
 Table Parser :: execute_expression()
@@ -65,7 +66,19 @@ Table Parser :: execute_expression()
                 case '-': execute_difference(); break;
                 case '+': execute_union(); break;
                 case 'J': execute_join(); break;	//needs to iterate through the rest of the word
-                default: cout << "Error: [Parser]::Not PRODUCT/UNION/JOIN" << endl;
+                default: {  //Relation name
+                    while (t.value != ';' && t.value != '`') {
+                        t = ts.get();
+                        //cout << "value = " << t.value << endl;
+                        input_str = "";
+                        switch(t.kind){
+                            case '0': input_str = ts.out_buff(); break;
+                            default: ts.putback(t); break;
+                        }
+                    }
+                    return e.findTable(input_str);
+                } 
+
                     
             }
         }
