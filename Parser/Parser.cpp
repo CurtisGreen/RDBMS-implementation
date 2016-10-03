@@ -610,6 +610,44 @@ void Parser :: execute_exit()
     e.exit_();
     
 }
+void Parser :: execute_drop()
+{
+
+    string rel_name;
+    string input_str = "";
+  
+    remove_spaces();
+    Token t('a');
+    while (input_str != "TABLE") {   //checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected TABLE in DROP" << endl;
+            
+        }
+    }
+
+    remove_spaces();
+    while (t.value != ' ') {    //check for relation name
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+    }
+
+    e.drop(rel_name);
+
+
+}
+
 void Parser :: execute_write()
 {
     //TODO :
@@ -765,7 +803,6 @@ Table Parser :: execute_selection()
 
 Table Parser :: execute_projection()
 {
-
     //TODO
     //projection ::= project ( attribute-list ) atomic-expr
 	vector<string> data;
@@ -833,42 +870,8 @@ Table Parser :: execute_projection()
 	}
 
 
-	//------------for testing purposes-----------------------------/
-	//I try testing from the main but did not work , No Idea why
-		vector<string> number = {"7274","7432","9894"};
-		vector<string> surname = {"Robinson","O'Malley","Darkes"};
-		vector<string> age = {"37","39","38"};
-		vector<string> number2 = {"9297","7432","9894",};
-		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-		vector<string> age2 = {"56","39","38",};
-
-		Attribute g_number("Number","Integer",number);
-		Attribute g_surname("Surname","string",surname);
-		Attribute g_age("Age","Integer",age);
-		Attribute m_number("Number","Integer",number2);
-		Attribute m_surname("Surname","string",surname2 );
-		Attribute m_age("Age","Integer",age2);
-
-		vector<string> key_name = {"1","2","3","4"};
-
-		vector<Attribute> graduate_att;
-		vector<Attribute> manager_att;
-
-		graduate_att.push_back(g_number);
-		graduate_att.push_back(g_surname);
-		graduate_att.push_back(g_age);
-		manager_att.push_back(m_number);
-		manager_att.push_back(m_surname);
-		manager_att.push_back(m_age);
-		
-		//Tables
-		e.create("Graduate", graduate_att, key_name);
-	    e.create("Manager", manager_att, key_name);
-
 	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
 		Table newTable = e.projection(data,rel_name);
-
-		e.show("Graduate Projection");
 
 		return newTable;
 
@@ -877,7 +880,6 @@ Table Parser :: execute_projection()
 
 Table Parser :: execute_renaming()
 {
-
     //TODO
     //renaming ::= rename ( attribute-list ) atomic-expr
 	vector<string> data;
@@ -936,7 +938,6 @@ Table Parser :: execute_renaming()
 	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
 		input_str = "";
 		t = ts.get();
-
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
@@ -944,51 +945,13 @@ Table Parser :: execute_renaming()
 			rel_name = input_str;
 	}
 
+    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
+	Table get_table = e.getTable(rel_name);
+    e.renaming(data,get_table);
+    e.all_tables.push_back(get_table);
+	//e.show(get_table.getName());
 
-	//------------for testing purposes-----------------------------/
-	//I try testing from the main but did not work , No Idea why
-		vector<string> number = {"7274","7432","9894"};
-		vector<string> surname = {"Robinson","O'Malley","Darkes"};
-		vector<string> age = {"37","39","38"};
-		vector<string> number2 = {"9297","7432","9894",};
-		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-		vector<string> age2 = {"56","39","38",};
-
-		Attribute g_number("Number","Integer",number);
-		Attribute g_surname("Surname","string",surname);
-		Attribute g_age("Age","Integer",age);
-		Attribute m_number("Number","Integer",number2);
-		Attribute m_surname("Surname","string",surname2 );
-		Attribute m_age("Age","Integer",age2);
-
-		vector<string> key_name = {"1","2","3","4"};
-
-		vector<Attribute> graduate_att;
-		vector<Attribute> manager_att;
-
-		graduate_att.push_back(g_number);
-		graduate_att.push_back(g_surname);
-		graduate_att.push_back(g_age);
-		manager_att.push_back(m_number);
-		manager_att.push_back(m_surname);
-		manager_att.push_back(m_age);
-		
-		//Tables
-		e.create("Graduate", graduate_att, key_name);
-	    e.create("Manager", manager_att, key_name);
-
-	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
-	    Table get_table = e.getTable(rel_name);
-
-	    cout<<"TESTING:" << get_table.getName()<<endl;
-	    e.renaming(data,get_table);
-
-	    e.all_tables.push_back(get_table);
-
-
-		e.show("Graduate");
-
-		return get_table;
+	return get_table;
 
 }
 Table Parser :: atomic_expression()
@@ -1028,47 +991,12 @@ Table Parser :: execute_product()
 		}
 			rel_name_2 = input_str;
 	}
-
-	//------------for testing purposes-----------------------------/
-	//I try testing from the main but did not work , No Idea why
-		vector<string> number = {"7274","7432","9894"};
-		vector<string> surname = {"Robinson","O'Malley","Darkes"};
-		vector<string> age = {"37","39","38"};
-		vector<string> number2 = {"9297","7432","9894",};
-		vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-		vector<string> age2 = {"56","39","38",};
-
-		Attribute g_number("Number","Integer",number);
-		Attribute g_surname("Surname","string",surname);
-		Attribute g_age("Age","Integer",age);
-		Attribute m_number("Number","Integer",number2);
-		Attribute m_surname("Surname","string",surname2 );
-		Attribute m_age("Age","Integer",age2);
-
-		vector<string> key_name = {"1","2","3","4"};
-
-		vector<Attribute> graduate_att;
-		vector<Attribute> manager_att;
-
-		graduate_att.push_back(g_number);
-		graduate_att.push_back(g_surname);
-		graduate_att.push_back(g_age);
-		manager_att.push_back(m_number);
-		manager_att.push_back(m_surname);
-		manager_att.push_back(m_age);
-		
-		//Tables
-		e.create("Graduate", graduate_att, key_name);
-	    e.create("Manager", manager_att, key_name);
-		
-		cout<<e.all_tables.size()<<endl;
 		
 		Table t1 = e.getTable(rel_name_1);
 		Table t2 = e.getTable(rel_name_2);
-
 		
 		Table new_table = e.cross_product(t1,t2);
-		e.show(new_table.getName());
+		//e.show(new_table.getName());
 		return new_table;
 	
 }
@@ -1145,50 +1073,10 @@ Table Parser :: execute_union()
         rel_name_2 = input_str;
     }
     
-    
-    //------------for testing purposes-----------------------------/
-    //I try testing from the main but did not work , No Idea why
-    vector<string> number = {"7274","7432","9894"};
-    vector<string> surname = {"Robinson","O'Malley","Darkes"};
-    vector<string> age = {"37","39","38"};
-    vector<string> number2 = {"9297","7432","9894",};
-    vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-    vector<string> age2 = {"56","39","38",};
-    
-    Attribute g_number("Number","Integer",number);
-    Attribute g_surname("Surname","string",surname);
-    Attribute g_age("Age","Integer",age);
-    Attribute m_number("Number","Integer",number2);
-    Attribute m_surname("Surname","string",surname2 );
-    Attribute m_age("Age","Integer",age2);
-    
-    vector<string> key_name = {"1","2","3","4"};
-    
-    vector<Attribute> graduate_att;
-    vector<Attribute> manager_att;
-    
-    graduate_att.push_back(g_number);
-    graduate_att.push_back(g_surname);
-    graduate_att.push_back(g_age);
-    manager_att.push_back(m_number);
-    manager_att.push_back(m_surname);
-    manager_att.push_back(m_age);
-    
-    //Tables
-    e.create("Graduate", graduate_att, key_name);
-    e.create("Manager", manager_att, key_name);
-    
-    cout<<e.all_tables.size()<<endl;
-    
     Table t1 = e.getTable(rel_name_1);
     Table t2 = e.getTable(rel_name_2);
-    
-    
     Table new_table = e.set_union(t1,t2);
-    
-    e.set_union(t1, t2);
-    
-    e.show("Graduate + Manager");
+    //e.show(new_table.getName());
     
     return new_table;
 
@@ -1196,7 +1084,6 @@ Table Parser :: execute_union()
 
 Table  Parser:: execute_difference()
 {
-
     // difference ::= atomic-expr - atomic-expr
     string rel_name_1;
     string rel_name_2;
@@ -1227,49 +1114,10 @@ Table  Parser:: execute_difference()
         rel_name_2 = input_str;
     }
     
-    
-    //------------for testing purposes-----------------------------/
-    //I try testing from the main but did not work , No Idea why
-    
-    vector<string> number = {"7274","7432","9894"};
-    vector<string> surname = {"Robinson","O'Malley","Darkes"};
-    vector<string> age = {"37","39","38"};
-    vector<string> number2 = {"9297","7432","9894",};
-    vector<string> surname2 = {"O'Malley","O'Malley","Darkes"};
-    vector<string> age2 = {"56","39","38",};
-    
-    Attribute g_number("Number","Integer",number);
-    Attribute g_surname("Surname","string",surname);
-    Attribute g_age("Age","Integer",age);
-    Attribute m_number("Number","Integer",number2);
-    Attribute m_surname("Surname","string",surname2 );
-    Attribute m_age("Age","Integer",age2);
-    
-    vector<string> key_name = {"1","2","3","4"};
-    
-    vector<Attribute> graduate_att;
-    vector<Attribute> manager_att;
-    
-    graduate_att.push_back(g_number);
-    graduate_att.push_back(g_surname);
-    graduate_att.push_back(g_age);
-    manager_att.push_back(m_number);
-    manager_att.push_back(m_surname);
-    manager_att.push_back(m_age);
-    
-    //Tables
-    e.create("Graduate", graduate_att, key_name);
-    e.create("Manager", manager_att, key_name);
-    
-    cout<<e.all_tables.size()<<endl;
-    
-    Table t1 = e.getTable(rel_name_1);
-    Table t2 = e.getTable(rel_name_2);
-    
-    
+    Table t1 = e.getTable(rel_name_1);//GETS THE FIRST TABLE
+    Table t2 = e.getTable(rel_name_2);//GETS THE SECOND TABLE
     Table newTable = e.difference(t1,t2);
-    
-    e.show("Graduate-Manager");
+    //e.show(newTable.getName());//FOR TESTING PURPOSES
     
     return newTable;
 }
@@ -1322,6 +1170,10 @@ void Parser :: initial(){
         else if(input_str == "DELETE"){
             cout << "Executing (DELETE/DESTROY) " << endl;
             execute_destroy();
+        }
+         else if(input_str == "DROP"){
+            cout << "Executing (DROP) " << endl;
+            execute_drop();
         }
         else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){	//Must be a query
             query(input_str);
