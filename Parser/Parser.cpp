@@ -583,9 +583,21 @@ void Parser :: execute_show()
 {
     //TODO: Finish it
     //show-cmd ::== SHOW atomic-expr
-    
-    Table t = atomic_expression();
-    string table_name = t.getName();
+    string table_name;
+    string input_str = "";
+    Token t  = ('a');
+    remove_spaces();
+    while (t.value != ' ') {	//checks atomic expression
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            table_name = input_str;
+        }
+    }
     e.show(table_name);
     
 }

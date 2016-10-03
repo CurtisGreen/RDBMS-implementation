@@ -221,28 +221,7 @@ TEST_CASE("Renaming_test", "[renaming]") {
 	*/
 	
 }
-TEST_CASE("Show_test", "[show]") {
 
-	Parser parser;
-	parser.input();
-
-	cout<<endl;
-	cout<<endl;
-	cout<< "----------------Show function test-----------------------------------" <<endl;
-	/*
-	CREATE TABLE Graduate (Number INTEGER  Surname VARCHAR(8), Age INTEGER) PRIMARY KEY (Number, Surname);
-	CREATE TABLE  Manager (Number INTEGER, Surname VARCHAR(8), Age INTEGER) PRIMARY KEY (Number, Surname);
-	INSERT INTO Graduate VALUES FROM (7274,"Robinson",37);
-	INSERT INTO Graduate VALUES FROM (7432,"O'Malley",39);
-	INSERT INTO Graduate VALUES FROM (9894,"Darkes",38);
-	INSERT INTO Manager VALUES FROM (9297,"O'Malley",56);
-	INSERT INTO Manager VALUES FROM (7432,"O'Malley",39);
-	INSERT INTO Manager VALUES FROM (9894,"Darkes",38);
-	show 
-	*/
-	
-	
-}
 TEST_CASE("Selection_test", "[selection]") {
 
 	Parser parser;
