@@ -335,13 +335,10 @@ void Parser :: execute_update()
                 }
             }
             
-<<<<<<< HEAD
             //e.update(rel_name,att_name,data,newVal);
             //e.show(rel_name);
-=======
             e.update(rel_name,att_name_1,newVal,att_name_2,data);
             e.show(rel_name);
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
             break;
         }
         default: {	//Expression
@@ -611,11 +608,6 @@ void Parser :: execute_open()
         throw runtime_error("Error :[Parser]: Table is already open");
     }
     
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
 }
 void Parser :: execute_close()
 {
@@ -863,8 +855,6 @@ Table Parser :: execute_projection()
 {
     //TODO
     //projection ::= project ( attribute-list ) atomic-expr
-<<<<<<< HEAD
-=======
 	vector<string> data;
 	string rel_name;
 	string atomic_ex;
@@ -935,14 +925,10 @@ Table Parser :: execute_projection()
 
 		return newTable;
 
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
 }
 Table Parser :: execute_renaming()
 {
-    //TODO
     //renaming ::= rename ( attribute-list ) atomic-expr
-<<<<<<< HEAD
-=======
 	vector<string> data;
 	string rel_name;
 	string atomic_ex;
@@ -1014,7 +1000,6 @@ Table Parser :: execute_renaming()
 
 	return get_table;
 
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
 }
 Table Parser :: atomic_expression()
 {
@@ -1023,7 +1008,6 @@ Table Parser :: atomic_expression()
 }
 Table Parser :: execute_product()
 {
-<<<<<<< HEAD
     // product ::= atomic-expr * atomic-expr
     string rel_name_1;
     string rel_name_2;
@@ -1092,12 +1076,11 @@ Table Parser :: execute_product()
     Table t2 = e.getTable(rel_name_2);
     Table new_table = e.cross_product(t1,t2);
     return new_table;
-=======
+
 	//TODO :: CROSS PRODUCT NEEDS WORK 
 	// product ::= atomic-expr * atomic-expr
-	string rel_name_1;
-	string rel_name_2;
-	string input_str = "";
+
+    /*input_str = "";
 	Token t  = ('a');
 
 	remove_spaces();
@@ -1130,8 +1113,7 @@ Table Parser :: execute_product()
 		Table new_table = e.cross_product(t1,t2);
 		//e.show(new_table.getName());
 		return new_table;
-	
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
+	*/
 }
 Table Parser :: execute_join()
 {
@@ -1216,10 +1198,6 @@ Table Parser :: execute_union()
 
 Table  Parser:: execute_difference()
 {
-<<<<<<< HEAD
-    
-=======
->>>>>>> e12faf88737405e1dca8e0c010b0b65346788612
     // difference ::= atomic-expr - atomic-expr
     
     string rel_name_1;
