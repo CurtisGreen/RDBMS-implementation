@@ -26,6 +26,7 @@ public:
 
 private:
 	Token_stream ts;
+	bool reset;
 	
 	bool query(string rel_name);
 	

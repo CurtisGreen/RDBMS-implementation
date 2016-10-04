@@ -18,6 +18,9 @@ void Parser:: remove_spaces(){	//removes spaces following up to a character
     if(t.value != '"'){
         ts.putback(t);
     }
+    if (t.value != '"' && t.kind == 'A' && reset){
+        cin.putback(t.value);
+    }
 }
 bool Parser :: query(string rel_name)
 {
@@ -44,7 +47,7 @@ Table Parser :: execute_expression()
 {
     Token t('a');
     string input_str = "";
-    while (t.value != ' ' && t.value != '`') {
+    while (t.value != ' ' && t.value != '`' && t.value != '\n') {
         t = ts.get();
         //cout << "value = " << t.value << endl;
         
@@ -52,11 +55,12 @@ Table Parser :: execute_expression()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
+       // cout << "input str = " << input_str << endl;
     }
     //cout << " input string = " << input_str << endl;
     if (input_str == "select"){
+        reset = true;
         return execute_selection();
-        cout << "has been executed" << endl;
     }
     else if(input_str == "project"){
         return execute_projection();
@@ -65,6 +69,7 @@ Table Parser :: execute_expression()
         execute_update();
     }
     else{	//Must be a relation name
+        //cout<< input_str << "input str<<" << endl;
         remove_spaces();
         switch(t.value){
             case '*': return execute_product(); break;
@@ -72,7 +77,7 @@ Table Parser :: execute_expression()
             case '+': return execute_union(); break;
             case 'J': return execute_join(); break;	//needs to iterate through the rest of the word
             default: {  //Relation name
-                while (t.value != ';' && t.value != '`') {
+                while (t.value != ';' && t.value != '`' && t.value != '\n') {
                     t = ts.get();
                     //cout << "value = " << t.value << endl;
                     input_str = "";
@@ -81,6 +86,7 @@ Table Parser :: execute_expression()
                         default: ts.putback(t); break;
                     }
                 }
+                cout << "returning table " << input_str << endl;
                 return e.getTable(input_str);
             } 
 
@@ -753,19 +759,20 @@ Table Parser ::selection_helper(string table_name){
         }
         remove_spaces();
         t = ('a');
-        while(t.value != ' ' && t.value != ')' && t.value != '\n'){  //Get condition
+        while(t.value != ' ' && t.value != ')' && t.value != '\n' && t.value != '"'){  //Get condition
             t = ts.get();
             switch(t.value){
-                case ' ': case '\n': input_str = ts.out_buff(); break;
+                case ' ': case '\n': case'"': case')': input_str = ts.out_buff(); break;
                 default: ts.putback(t); break;
             }
         }
-        condition = input_str.substr(0, input_str.size()-1);
+        condition = input_str;
         remove_spaces();
         //t = ts.get();
         //cout << "t = " << t.value << endl;
         if (t.value != '&' && t.value != '|'){
-            cout << "about to return " << endl;
+            //cout << "about to return " << endl;
+            //cout << table_name << " " << att_name << " " << op << " " << condition << endl;
             return e.selection(table_name, att_name, op, condition);
         }
         else{   //Has conjunction
@@ -808,6 +815,7 @@ Table Parser :: execute_selection()
             paren_count--;
         }
         if (paren_count == 0){
+            ts.putback(t);
             conditional = ts.out_buff();
         }
         else{
@@ -819,7 +827,7 @@ Table Parser :: execute_selection()
         }
     }
     remove_spaces();
-    while (t.value != ';' && correct){
+    while (t.value != ';' && correct){  // Retrieve expression
         t = ts.get();
         if(t.value == ';'){
             expression = ts.out_buff();
@@ -837,18 +845,20 @@ Table Parser :: execute_selection()
         cin.putback(expression[i]);
     }
     Table table = execute_expression();
+    //cout<< "table name " << table.name << endl;
     for (int i = conditional.size()-1; i >= 0; i--){
-        //cout << conditional[i] << " . ";
+        //cout << conditional[i] << " ";
         cin.putback(conditional[i]);
     }
     remove_spaces();
     Table testerino = selection_helper(table.name);
     //cout << "after selection helper" << endl;
-    e.all_tables.push_back(testerino);
+   // e.all_tables.push_back(testerino);
 
     //cout << "conditional = " << conditional << " expression = " << expression << endl;
-    e.show (testerino.name);
+    //e.show (testerino.name);
     //cin.putback(expression[expression.size()-1]);
+    ts.out_buff();
     return testerino;
 
 }
@@ -1267,7 +1277,7 @@ Table  Parser:: execute_difference()
 
 void Parser :: initial(){
     Token t('a');
-    while (t.value != ';' && t.value != '`' && t.value != '\n') {
+    while (t.value != ';' && t.value != '`' && t.value != '\n' && !reset) {
         //Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
         //Make sure to check to make sure input_str != ""	
         t = ts.get();
@@ -1327,6 +1337,7 @@ int Parser :: input(){
     try {
         Token t('a');
         while (t.value != '`') {
+            reset = false;
             t = ts.get();
             if (t.value == ';' || t.value == '\n')
                 cout << "Finished line" << endl;	

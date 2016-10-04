@@ -11,7 +11,7 @@
 
 using namespace std;
 //Just returns table reference if found
-Table& Engine :: findTable(string table_name)
+/*Table& Engine :: findTable(string table_name)
 {
 	for (Table& t: all_tables)
 	{
@@ -21,19 +21,19 @@ Table& Engine :: findTable(string table_name)
 		}
 		else
 		{
-			cout << "Error: [Engine]: Table not found !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << table_name << endl;
+			cout << "Error: [Engine]: Table not found " << table_name << endl;
 		}
 	}	
-}
-void Engine ::insertIntoTable(string table_name, vector<string> values)
+}*/
+/*void Engine ::insertIntoTable(string table_name, vector<string> values)
 {
 	Table& t = findTable(table_name);
 	//t.insert(values); // Need an insert in table class 
-}
+}*/
 
 void Engine:: insertIntoTable(string table_name, Table t)
 {
-	Table& table = findTable(table_name);
+	Table table = getTable(table_name);
 	if(table.getAttributes().size() != t.getAttributes().size())
 	{
 		cout << "Error : [Engine] tables do not have the same number of columns" << endl;
@@ -54,6 +54,7 @@ void Engine:: insertIntoTable(string table_name, Table t)
 Table Engine :: getTable(string table_name)
 {
 	bool found = false;
+	cout << "getTable() = " << table_name << endl;
 	for( int i = 0; i < all_tables.size();i++)
 	{
 		if(all_tables[i].getName() == table_name)
@@ -63,7 +64,7 @@ Table Engine :: getTable(string table_name)
 		}
 	}
 	if (!found){
-		cout << "Error: [Engine]: table does not exist"<< endl;
+		cout << "Error: [Engine]: table does not exist in getTable()"<< endl;
 	}
 	Table t;
 	t.setName(table_name);
@@ -166,7 +167,7 @@ void Engine::show(string table_name){
 	//TODO: formatting
 	Table table;
 	bool found = false;
-	
+	//cout << "table_name in show = " << table_name << endl;
 	for (int i = 0; i < all_tables.size(); i++){
 		//cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
 	    if (table_name == all_tables[i].getName()){
@@ -196,7 +197,7 @@ void Engine::show(string table_name){
 		cout<<endl;
 	    }
 	    else{
-		cout << " Error: [Engine]: Table is empty" << endl;
+		cout << " Error: [Engine]: Table is empty in Show()" << endl;
 	    }
 	}
 	else{
@@ -346,7 +347,7 @@ void select_helper(int col, int row, Table* table, Table* new_table){
 	}
 }
 
-Table Engine :: selection(string table_name, string att_name, string op, string condition)   {
+Table Engine :: selection(string table_name, string att_name, string op, string condition) {
     Table* table;
     Table new_table;
     bool found = false;
@@ -431,7 +432,7 @@ Table Engine :: projection(vector <string> att_names, string table_name){///UPDA
 	}
 
 	if (table_exists != true){
-		cout << "Error:[Engine]: Table does not exist" << endl;
+		cout << "Error:[Engine]: Table does not exist in Projection()" << endl;
 	}
 
 	for (int i = 0; i < att_names.size(); i++){
@@ -681,7 +682,7 @@ void Engine::renaming(vector<string> att_name,  Table& table_name){
 		}
 	}
 	if (table_exists != true){
-		cout << " Error:[Engine]: Table does not exist" << "\n";
+		cout << " Error:[Engine]: Table does not exist in Renaming()" << "\n";
 	}
 	for (int i = 0; i < att_name.size() ;i++){
 	

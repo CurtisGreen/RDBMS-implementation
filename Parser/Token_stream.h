@@ -33,7 +33,7 @@ Token get()
 	
     char ch;
     if (cin >> noskipws >> ch){
-      //cout << "ch >>" << ch << "<<" << endl;
+        //cout << "HERE" << endl;;
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': case '\n': case '=': case '<': case '!':
