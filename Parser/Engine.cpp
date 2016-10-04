@@ -768,11 +768,21 @@ Table Engine::cross_product(Table table1, Table table2)
 	vector<int> indices;	//stores places where table finds matching column
 	vector<int> new_table_indices;
 	vector<string> relations;
-	for (int i = 0; table1.att.size(); i++){
+	bool same = true;
+	for (int i = 0; i < table1.att.size(); i++){
+		cout << "pushing back: " << table1.att[i].name << endl;
 		relations.push_back(table1.att[i].name);
 	}
-	for (int i = 0; table2.att.size(); i++){
-		relations.push_back(table2.att[i].name);
+	for (int i = 0; i < table2.att.size(); i++){ 
+		for (int k = 0; k < relations.size(); k++){
+			if (relations[k] == table2.att[i].name){
+				same = false;
+			}
+		}
+		if (same){
+			relations.push_back(table2.att[i].name);
+		}
+		same = true;
 	}
 	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
 		for (int k = 0; k < relations.size(); k++){
@@ -813,7 +823,6 @@ Table Engine::cross_product(Table table1, Table table2)
 		}
 	}
 	new_table.name = table1.name + "*" + table2.name;
-	cout << "New Table Name is: " << new_table.name << endl;
 	all_tables.push_back(new_table);
 	return new_table;
 
