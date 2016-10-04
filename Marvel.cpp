@@ -24,7 +24,8 @@ void  Marvel :: marvel_menu()
 	cout << "2.) Find Marvel Characters" << endl;
 	cout << "3.) Create Marvel Characters" << endl;
 	cout << "4.) Delete Marvel Characters" << endl;
-	cout << "5.) Exit Database" << endl;
+	cout << "5.) Update Marvel Characters" << endl;
+	cout << "6.) Exit Database" << endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
 	cin >> request;
@@ -38,7 +39,10 @@ void  Marvel :: marvel_menu()
 	else if(request==4) 
 		delete_character();
 	else if (request==5) 
+		update_info();
+	else if (request==6) 
 		quit_app();	
+	
 	
 }
 void Marvel :: update_info()
