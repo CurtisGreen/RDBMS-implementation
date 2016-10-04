@@ -14,9 +14,7 @@ INSERT INTO Graduate VALUES FROM (9894,Darkes,38);
 INSERT INTO Manager VALUES FROM (9297,OMalley,56);
 INSERT INTO Manager VALUES FROM (7432,OMalley,39);
 INSERT INTO Manager VALUES FROM (9894,Darkes,38);
-SHOW Graduate;
 UPDATE animals SET name="Kim" WHERE name="Joe";
-
 Graduate_Manager <- Graduate + Manager;  
 DELETE FROM animals WHERE kind="dog";
 CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);

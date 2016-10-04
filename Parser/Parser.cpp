@@ -659,6 +659,7 @@ void Parser :: execute_show()
             table_name = input_str;
         }
     }
+	cout << table_name << endl;
     e.show(table_name);
     
 }
