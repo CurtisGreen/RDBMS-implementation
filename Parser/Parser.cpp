@@ -642,11 +642,23 @@ void Parser :: execute_close()
 
 void Parser :: execute_show()
 {
-    //TODO: Finish it
+    //TODO:
     //show-cmd ::== SHOW atomic-expr
-    
-    Table t = atomic_expression();
-    string table_name = t.getName();
+	string table_name;
+    string input_str = "";
+    remove_spaces();
+    Token t = ('a');
+    while (t.value != ';') {	//checks for relation-name
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            table_name = input_str;
+        }
+    }
     e.show(table_name);
     
 }
