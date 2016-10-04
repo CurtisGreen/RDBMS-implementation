@@ -13,11 +13,8 @@ public:
 	Marvel(){};
 	Marvel(Parser p_ ){p = p_;}
 	Parser p;
-	void marvel_menu();
-	
 
-	
-	void initialize_tables();
+	void initialize_tables(); // may use this or may just create all of the tables in the input file
 	void update_info();
 	void find_character();
 	void create_character();
