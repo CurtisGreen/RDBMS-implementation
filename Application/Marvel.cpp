@@ -1,18 +1,17 @@
 #include "Marvel.h"
 
 
-//#inlcude "Parser.h"
-
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-void  Marvel :: marvel_menu()
-{
+ int main()
+ {
 	//TODO:
 	//Tells the user all of the statements that the user can request 
-	int request =0;
+	
+	Marvel db;
 	
 	cout << "<<<<<<<< Marvel Main Menu >>>>>>>>>>" << endl;
 	
@@ -23,21 +22,41 @@ void  Marvel :: marvel_menu()
 	cout << "4.) Delete Marvel Characters" << endl;
 	cout << "5.) Update Marvel Characters" << endl;
 	cout << "6.) Exit Database" << endl;
-	cin >> request;
+	string request;
+	getline(cin, request);
 	
-	if(request==1) 
-		show_characters();
-	else if(request==2) 
-		find_character();
-	else if(request==3) 
-		create_character();
-	else if(request==4) 
-		delete_character();
-	else if (request==5) 
-		update_info();
-	else if (request==6) 
-		quit_app();	
+	switch(request[0])
+	
+	{
+		case '1':
+			db.show_characters();
+			break;
+		case '2':
+			db.find_character();
+			break;
+		case '3':
+			db.create_character();
+			break;
+		case '4':
+			db.delete_character();
+			break;
+		case '5':
+			db.update_info();
+			break;
+		case '6':
+			db.quit_app();	
+			break;	
+		default:
+			cout << "[Error] :Invalid Request... Please try again." << endl;
+			break;
+	}
+	
+ 
+ }
 
+void Marvel :: initialize_tables()
+{
+	//TODO:
 }
 void Marvel :: update_info()
 {
@@ -72,7 +91,7 @@ void Marvel :: update_info()
 	}
 	
 	cout << "Exiting Update Menu" << endl;
-	marvel_menu();
+	
 	
 }
 void Marvel :: find_character()
@@ -107,7 +126,7 @@ void Marvel :: find_character()
 		cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
 	}
 	cout << "Exiting Find Menu" << endl;
-	marvel_menu();
+	
 
 }
 	
@@ -150,8 +169,6 @@ void Marvel :: create_character()
 	//TODO  convert to create characters and insert them  command
 	
 	
-	cout << "Exiting Create Menu" << endl;
-	marvel_menu();
 	
 }
 void Marvel :: delete_character()
@@ -166,8 +183,7 @@ void Marvel :: delete_character()
 	
 	//TODO: Write delete sql grammar 
 	
-	cout << "Exiting Delete Menu" << endl;
-	marvel_menu();
+	
 }
 void Marvel :: show_characters()
 {
@@ -202,7 +218,7 @@ void Marvel :: show_characters()
 	}
 	
 	cout << "Exiting Show Menu" << endl;
-	marvel_menu();
+	
 	
 }
 void Marvel :: quit_app()
@@ -210,5 +226,5 @@ void Marvel :: quit_app()
 	//TODO:
 	//Quits the database 
 }
-	
+
 	
