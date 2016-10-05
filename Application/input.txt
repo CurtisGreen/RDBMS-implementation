@@ -3,16 +3,26 @@ CREATE TABLE Heros (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilit
 CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);
 
 
-INSERT INTO Humans VALUES FROM ("Peter Benjamin Parker", "5'10", 167,"Peter is an accomplished scientist, inventor, and photographer");
+INSERT INTO Humans VALUES FROM ("Peter Benjamin Parker", "5'10", 167,"Peter is an accomplished scientist, inventor,photographer");
 INSERT INTO Humans VALUES FROM ("Carol Danvers", "5'11", 165, "Ms. Marvel is a skilled pilot and hand to hand combat");
 INSERT INTO Humans VALUES FROM ("Robert Bruce Banner", "7'6", 1150, "Teenager");
 INSERT INTO Humans VALUES FROM ("Thor Ordinson", "6'6", 640, "Arts of War");
-
+INSERT INTO Humans VALUES FROM ("Anthony Edward 'Tony' Stark", "6'1", 225, "Business Man");
+INSERT INTO Humans VALUES FROM ("Steven Rogers", "6'2", 220, "Martial Arts");
+INSERT INTO Humans VALUES FROM ("James Howlett", "5'3", 300, "Spy, CIA, Soldier");
+INSERT INTO Humans VALUES FROM ("Unrevealed", "5'10", 120, "Actress");
+INSERT INTO Humans VALUES FROM ("Johann Schmidt", "6'1", 195, "Ex military");
+INSERT INTO Humans VALUES FROM ("Felicia Hardy", "5'10", 120, "Gymnast, Acrobat");
 
 INSERT INTO Heros VALUES FROM ("Spider-Man", "5'10", 167,);
 INSERT INTO Heros VALUES FROM ("Captain Marvel", "5'11", 165,"Flight, Strength, Durability, and shoot energy burst");
 INSERT INTO Heros VALUES FROM ("Hulk", "7'6 when green", 1150, "Super Human Ability");
 INSERT INTO Heros VALUES FROM ("Thor", "6'6", 640, "Skilled Warrior");
+INSERT INTO Heros VALUES FROM ("Iron Man", "6'1", 225, "Genius that invents sophisticated devices");
+INSERT INTO Heros VALUES FROM ("Wolverine", "5'3", 300, "Mastered Combat");
+INSERT INTO Heros VALUES FROM ("Mystique", "5'10", 120, "Skilled Combat, Actress, Marksman");
+INSERT INTO Heros VALUES FROM ("Red Skull", "6'1", 195, "Master of Disguise");
+INSERT INTO Heros VALUES FROM ("Black Cat", "5'10", 120, "Gymnast like Combat");
 
 
 
