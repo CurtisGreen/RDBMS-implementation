@@ -271,7 +271,7 @@ void Marvel :: show_characters()
 		cin>>request;
 	}
 
-db.quit_app()
+db.quit_app();
 }
 void Marvel :: quit_app()
 {
