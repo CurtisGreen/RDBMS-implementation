@@ -120,7 +120,7 @@ void Parser :: execute_insert()
     string input_str = "";
     remove_spaces();
     bool correct = true;
-    while (input_str != "INTO") {	//checks for TABLE
+    while (input_str != "INTO" && correct) {	//checks for TABLE
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
@@ -241,8 +241,9 @@ void Parser :: execute_update()
     string newVal;
     string input_str = "";
     remove_spaces();
+    bool correct = true;
     Token t = ('a');
-    while (t.value != ' ') {	//checks for relation-name
+    while (t.value != ' ' && correct) {	//checks for relation-name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -251,23 +252,29 @@ void Parser :: execute_update()
         }
         if (t.value == ' '){
             rel_name = input_str;
-           
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected relation-name in Update" << endl;
+            correct = false;
         }
         
     }
     
     remove_spaces();
-    while (input_str != "SET") {	//to set new value
+    while (input_str != "SET" && correct) {	//to set new value
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        //TODO: add error if not VALUES
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected SET in Update" << endl;
+            correct = false;
+        }
         
     }
     remove_spaces();
-    while (t.value != '=') {
+    while (t.value != '=' && correct) { //Attribute
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -283,44 +290,52 @@ void Parser :: execute_update()
             att_name_1=input_str;	//getting attribute for new value
            
         }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected attribute in Update" << endl;
+            correct = false;
+        }
     }
     t = ts.get();
     switch(t.kind){
-        case 'A': case '8':case'a':  {	//TODO List of literals
+        case 'A': case '8':case'a':  {	//List of literals
             remove_spaces();
-            while (t.value != ' ') {
+            while (t.value != ' ' && correct) {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
                     case '0': input_str = ts.out_buff(); break;
                     default: {
                         if (t.value != '"'){
-                            ts.putback(t);
-                            
+                            ts.putback(t); 
                         }
                         break;
                     }
                 }
                 if (t.value == ' ' ){	
                     newVal=input_str;	//setting data by new value
-                   
                     remove_spaces();
+                }
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected literal in Update" << endl;
+                    correct = false;
                 }
             }
             
             remove_spaces();
-            while (input_str != "WHERE") {
+            while (input_str != "WHERE" && correct) {
                 Token t = ts.get();
                 switch(t.kind){
                     case '0': input_str = ts.out_buff(); break;
                     default: ts.putback(t); break;
                 }
-                //TODO: add error check
-                
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected WHERE in Update" << endl;
+                    correct = false;
+                }
             }
           
             remove_spaces();
-            while (t.value != '=') {
+            while (t.value != '=' && correct) { //Attribute
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -328,20 +343,22 @@ void Parser :: execute_update()
                     default: {
                         if (t.value != '"'){
                             ts.putback(t);
-                            
                         }
                         break;
                     }
                 }
                 if (t.value == '=' ){	
                     att_name_2=input_str;	//searching attribute
-                   
                     remove_spaces();
+                }
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected attribute in Update" << endl;
+                    correct = false;
                 }
             }
             
             remove_spaces();
-            while (t.value != ';') {
+            while (t.value != ';' && correct) {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -355,7 +372,10 @@ void Parser :: execute_update()
                 }
                 if (t.value == ';'){	//searching data to set new value
                     data=input_str;	
-                    
+                }
+                if (t.value == '`'){
+                    cout << "Error: [Parser]: Expected semicolon in Update" << endl;
+                    correct = false;
                 }
             }
             
@@ -517,18 +537,22 @@ void Parser :: execute_destroy()
     string att_name;
     string key;
     string input_str = "";
+    bool correct = true;
     remove_spaces();
-    while (input_str != "FROM") {
+    while (input_str != "FROM" && correct) {    //Check for FROM 
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        //TODO: add error if not into
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected FROM in Delete" << endl;
+            correct = false;
+        }
     }
     remove_spaces();
     Token t = ('a');
-    while (t.value != ' ') {	//checks for relation-name
+    while (t.value != ' ' && correct) {	//Checks for relation-name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -538,18 +562,25 @@ void Parser :: execute_destroy()
         if (t.value == ' '){
             rel_name = input_str;
         }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected relation-name in Delete" << endl;
+            correct = false;
+        }
     }
     remove_spaces();
-    while (input_str != "WHERE") {
+    while (input_str != "WHERE" && correct) {
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        //TODO: add error if not table
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected WHERE in Delete" << endl;
+            correct = false;
+        }
     }
     remove_spaces();
-    while (t.value != '=') {
+    while (t.value != '=' && correct) { //Get attribute
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -564,12 +595,16 @@ void Parser :: execute_destroy()
         if (t.value == '='){	//Get new value.
             att_name=input_str;
         }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected attribute in Delete" << endl;
+            correct = false;
+        }
     }
     t = ts.get();
     switch(t.kind){
-        case 'A': case '8':case'a':  {	//TODO List of literals
+        case 'A': case '8':case'a':  {	//List of literals
             remove_spaces();
-            while (t.value != ';') {
+            while (t.value != ';' && correct) {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -586,8 +621,11 @@ void Parser :: execute_destroy()
                     key=input_str;
                     remove_spaces();
                 }
+                if (t.value == '`'){
+                    cout << "Error: [Parser]: Expected semicolon in Delete" << endl;
+                    correct = false;
+                }
             }
-            
             
             e.destroy(rel_name,att_name,key);
             e.show(rel_name);
@@ -606,8 +644,9 @@ void Parser :: execute_open()
     //open-cmd ::== OPEN relation-name
     string file_name;
     string input_str = "";
+    bool correct = true;
     Token t = ts.get();
-    while (t.value != ';') { // check for relation name
+    while (t.value != ';' && correct) { // check for relation name
         input_str = "";
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
@@ -616,6 +655,10 @@ void Parser :: execute_open()
         t = ts.get();
         if (t.value == ' '){
             file_name = input_str;
+        }
+        if (t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Open" << endl;
+            correct = false;
         }
     }
     ifstream input_file;
@@ -634,13 +677,13 @@ void Parser :: execute_open()
 }
 void Parser :: execute_close()
 {
-    //TODO:
     //close-cmd ::== CLOSE relation-name
     string table_name;
     string input_str = "";
+    bool correct = true;
     remove_spaces();
     Token t = ('a');
-    while (t.value != ';') {	//checks for relation-name
+    while (t.value != ';' && correct) {	//checks for relation-name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -649,6 +692,10 @@ void Parser :: execute_close()
         }
         if (t.value == ' '){
             table_name = input_str;
+        }
+        if (t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Close" << endl;
+            correct = false;
         }
     }
     e.close(table_name);
@@ -661,9 +708,10 @@ void Parser :: execute_show()
     //show-cmd ::== SHOW atomic-expr
 	string table_name;
     string input_str = "";
+    bool correct = true;
     remove_spaces();
     Token t = ('a');
-    while (t.value != ';') {	//checks for relation-name
+    while (t.value != ';' && correct) {	//checks for relation-name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -671,6 +719,10 @@ void Parser :: execute_show()
             default: ts.putback(t); break;
         }
         table_name = input_str;
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Show" << endl;
+            correct = false;
+        }
     }
     e.show(table_name);
     
@@ -682,13 +734,13 @@ void Parser :: execute_exit()
 }
 void Parser :: execute_drop()
 {
-
     string rel_name;
     string input_str = "";
-  
+    bool correct = true;
+
     remove_spaces();
     Token t('a');
-    while (input_str != "TABLE") {   //checks for TABLE
+    while (input_str != "TABLE" && correct) {   //checks for TABLE
         Token t = ts.get();
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;
@@ -696,12 +748,12 @@ void Parser :: execute_drop()
         }
         if (t.value == ';' || t.value == '`'){
             cout << "Error: [Parser]: Expected TABLE in DROP" << endl;
-            
+            correct = false;
         }
     }
 
     remove_spaces();
-    while (t.value != ' ') {    //check for relation name
+    while (t.value != ' ' && correct) {    //check for relation name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -711,22 +763,24 @@ void Parser :: execute_drop()
         if (t.value == ' '){
             rel_name = input_str;
         }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected relation-name in DROP" << endl;
+            correct = false;
+        }
     }
 
     e.drop(rel_name);
-
-
 }
 
 void Parser :: execute_write()
 {
-    //TODO :
     //write-cmd ::== WRITE relation-name
     string table_name;
     string input_str = "";
     remove_spaces();
+    bool correct = true;
     Token t = ('a');
-    while (t.value != ';') {	//checks for relation-name
+    while (t.value != ';' && correct) {	//checks for relation-name
         input_str = "";
         t = ts.get();
         switch(t.kind){
@@ -736,6 +790,10 @@ void Parser :: execute_write()
         if (t.value == ' '){
             table_name = input_str;
         }
+        if (t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Write" << endl;
+            correct = false;
+        }
     }
     Table table = e.get_table(table_name);
     e.write(table);
@@ -743,6 +801,7 @@ void Parser :: execute_write()
 }
 Table Parser ::selection_helper(string table_name){
     bool first = true;
+    bool correct = true;
     Token t = ts.get();
     string att_name = "";
     string input_str = "";
@@ -757,7 +816,7 @@ Table Parser ::selection_helper(string table_name){
     else{
     while (t.value != '\n'){
         ts.out_buff();
-        while(t.value != ' '){  //Get relation name
+        while(t.value != ' ' && correct){  //Get relation name
             if(first){
                 first = false;
             }
@@ -768,25 +827,37 @@ Table Parser ::selection_helper(string table_name){
                 case '0': input_str = ts.out_buff(); break;
                 default: ts.putback(t); break;
             }
+            if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected relation-name in Selection helper" << endl;
+                correct = false;
+            }
         }
         att_name = input_str;
         remove_spaces();
         t = ('a');
-        while(t.value != ' '){  //Get operator
+        while(t.value != ' ' && correct){  //Get operator
             t = ts.get();
             switch(t.value){
                 case ' ': input_str = ts.out_buff(); break;
                 default: ts.putback(t); break;
             }
             op = input_str;
+            if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected operator in Selection helper" << endl;
+                correct = false;
+            }
         }
         remove_spaces();
         t = ('a');
-        while(t.value != ' ' && t.value != ')' && t.value != '\n' && t.value != '"'){  //Get condition
+        while(t.value != ' ' && t.value != ')' && t.value != '\n' && t.value != '"' && correct){  //Get condition
             t = ts.get();
             switch(t.value){
                 case ' ': case '\n': case'"': case')': input_str = ts.out_buff(); break;
                 default: ts.putback(t); break;
+            }
+            if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected condition in Selection helper" << endl;
+                correct = false;
             }
         }
         condition = input_str;
@@ -800,12 +871,16 @@ Table Parser ::selection_helper(string table_name){
         }
         else{   //Has conjunction
             table = e.selection(table_name, att_name, op, condition);
-            while (t.value != ' '){
+            while (t.value != ' ' && correct){
                 switch(t.value){
                     case ' ': input_str = ts.out_buff(); break;
                     default: ts.putback(t); break;
                 }
                 conjunction = input_str;
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected conjunction in Selection helper" << endl;
+                    correct = false;
+                }
             }
             temp = selection_helper(table_name);
             if (conjunction == "&&"){
@@ -887,37 +962,44 @@ Table Parser :: execute_selection()
 }
 Table Parser :: execute_projection()
 {
-    //TODO
     //projection ::= project ( attribute-list ) atomic-expr
 	vector<string> data;
 	string rel_name;
 	string atomic_ex;
 	string input_str = "";
+    bool correct = true;
 	remove_spaces();
-	while (input_str != "project") {//CHECKS FOR THE EXPRESSION TYPE
+	while (input_str != "project" && correct) {//CHECKS FOR THE EXPRESSION TYPE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		
+		if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected project in Projection" << endl;
+                correct = false;
+        }
 	}
 	atomic_ex = input_str;///Expression type
 	//cout<<atomic_ex<<endl;
 
 	Token t('a');
-	while (t.value != '('){ //DOES NOT LOOK AT THE OPEN PARANTHIS
+	while (t.value != '(' && correct){ //DOES NOT LOOK AT THE OPEN PARANTHIS
 		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
+        if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected opening parentheses in Projection" << endl;
+                correct = false;
+        }
 	}
 
 	switch(t.kind){
 		case '0':  {	
 			remove_spaces();
-			while (t.value != ')'){//DOES NOT LOOK AT the CLOSING PARENTHESIS
+			while (t.value != ')' && correct){ //DOES NOT LOOK AT the CLOSING PARENTHESIS
 				input_str = "";
 				t = ts.get();
 				switch(t.kind){
@@ -933,6 +1015,10 @@ Table Parser :: execute_projection()
 					data.push_back(input_str); 
 					remove_spaces();
 				}
+                if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected closeing parentheses in Projection" << endl;
+                correct = false;
+        }
 			}
 			//for (int i = 0; i < data.size(); i++){
 				//cout << data[i] << endl;
@@ -942,7 +1028,7 @@ Table Parser :: execute_projection()
 	}
 
 	remove_spaces();
-	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ';' && t.value != '`' && correct) {	//CHECKS FOR RELATION-NAME
 		input_str = "";
 		t = ts.get();
 
@@ -967,31 +1053,39 @@ Table Parser :: execute_renaming()
 	string rel_name;
 	string atomic_ex;
 	string input_str = "";
+    bool correct = true;
 	remove_spaces();
-	while (input_str != "rename") {//CHECKS FOR THE EXPRESSION TYPE
+	while (input_str != "rename" && correct) {//CHECKS FOR THE EXPRESSION TYPE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-		
+		if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected rename in Renaming" << endl;
+                correct = false;
+        }
 	}
 	atomic_ex = input_str;///Expression type
 	//cout<<atomic_ex<<endl;
 
 	Token t('a');
-	while (t.value != '('){ //DOES NOT LOOK AT THE OPEN PARANTHIS
+	while (t.value != '(' && correct){ //DOES NOT LOOK AT THE OPEN PARANTHIS
 		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
+        if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected opening parentheses in Renaming" << endl;
+                correct = false;
+        }
 	}
 
 	switch(t.kind){
 		case '0':  {	
 			remove_spaces();
-			while (t.value != ')'){//DOES NOT LOOK AT the CLOSING PARENTHESIS
+			while (t.value != ')' && correct){   //DOES NOT LOOK AT the CLOSING PARENTHESIS
 				input_str = "";
 				t = ts.get();
 				switch(t.kind){
@@ -1007,6 +1101,10 @@ Table Parser :: execute_renaming()
 					data.push_back(input_str); 
 					remove_spaces();
 				}
+                if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected closing parentheses in Renaming" << endl;
+                correct = false;
+        }
 			}
 			//for (int i = 0; i < data.size(); i++){FOR TESTING PURPOSES
 				//cout << data[i] << endl;
@@ -1016,7 +1114,7 @@ Table Parser :: execute_renaming()
 	}
 
 	remove_spaces();
-	while (t.value != ';' && t.value != '`') {	//CHECKS FOR RELATION-NAME
+	while (t.value != ';' && t.value != '`' && correct) {	//CHECKS FOR RELATION-NAME
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -1181,7 +1279,6 @@ Table Parser :: execute_join(string rel_name_1)
     Table t2 = e.get_table(rel_name_2);
     Table new_table = e.natural_join(t1,t2);
     e.show(new_table.getName());
-    cout << "Executing nat join!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     return new_table;
     
     
@@ -1234,6 +1331,7 @@ Table  Parser:: execute_difference()
     string rel_name_1;
     string rel_name_2;
     string input_str = "";
+    bool correct = true;
     Token t  = ('a');
     
     remove_spaces();
@@ -1247,9 +1345,13 @@ Table  Parser:: execute_difference()
         if (t.value == ' '){
             rel_name_1 = input_str;
         }
+        if (t.value == ';' || t.value == '`'){
+                cout << "Error: [Parser]: Expected relation-name in Difference" << endl;
+                correct = false;
+        }
     }
     remove_spaces();
-    while (t.value != ';' && t.value != '`') {	//checks for relation name
+    while (t.value != ';' && t.value != '`' && correct) {	//checks for relation name
         input_str = "";
         t = ts.get();
         
