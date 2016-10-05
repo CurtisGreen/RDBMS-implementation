@@ -202,7 +202,7 @@ This function changes data to new value in Attribute
 Table Engine::update(string table_name, vector<string> att_name_1, vector<string> newVal,string att_name_2,string key){
     
     Table* table;
-    int n;              //this is index for new data.
+    int  n = 0;              //this is index for new data.
     bool status_table = false;
     bool status_att=false;
     for (int i = 0; i < all_tables.size(); i++){        //searching table name
@@ -211,7 +211,6 @@ Table Engine::update(string table_name, vector<string> att_name_1, vector<string
             table = &(all_tables[i]);
         }
     }
-  
     if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
             if ( (table->att[i].getName()) == att_name_2) //getting attribute name for key
@@ -228,7 +227,6 @@ Table Engine::update(string table_name, vector<string> att_name_1, vector<string
                                 for (int k=0; k<att_name_1.size(); k++){
                                 if ( (table->att[i].getName()) == att_name_1[k])	//comparing attributes for new data
                                 {
-                                   
                                     table->att[i].data[j]=newVal[n];		//setting new values
                                     n++;
                                 }
@@ -244,6 +242,7 @@ Table Engine::update(string table_name, vector<string> att_name_1, vector<string
             cout<<" Error: [Engine]: Attribute not found!!"<<endl;
     }else
         cout<<"Error: [Engine]: Table not found!! cannot update!!"<<endl;
+    cout << "returning table " << endl;
     return *table;
 }
 
