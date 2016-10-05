@@ -1,20 +1,20 @@
-CREATE TABLE animals (name VARCHAR(20), kind VARCHAR(8), years INTEGER) PRIMARY KEY (name, kind);
-INSERT INTO animals VALUES FROM ("Joe", "cat", 4);
-INSERT INTO animals VALUES FROM ("Spot", "dog", 10);
-INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
-INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
-INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
-SHOW animals;
-dogs <- select (kind == "dog") animals;
-CREATE TABLE Graduate (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
-CREATE TABLE Manager (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
-INSERT INTO Graduate VALUES FROM (74,Robinson,37);
-INSERT INTO Graduate VALUES FROM (7432,OMalley,39);
-INSERT INTO Graduate VALUES FROM (9894,Darkes,38);
-INSERT INTO Manager VALUES FROM (9297,OMalley,56);
-INSERT INTO Manager VALUES FROM (7432,OMalley,39);
-INSERT INTO Manager VALUES FROM (9894,Darkes,38);
-UPDATE animals SET name="Kim" WHERE name="Joe";
-Graduate_Manager <- Graduate + Manager;  
-DELETE FROM animals WHERE kind="dog";
-CREATE TABLE species (kind VARCHAR(10)) PRIMARY KEY (kind);
+CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);
+CREATE TABLE Heros (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);
+CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);
+
+
+INSERT INTO Humans VALUES FROM ("Peter Benjamin Parker", "5'10", 167,"Peter is an accomplished scientist, inventor, and photographer");
+INSERT INTO Humans VALUES FROM ("Carol Danvers", "5'11", 165, "Ms. Marvel is a skilled pilot and hand to hand combat");
+INSERT INTO Humans VALUES FROM ("Robert Bruce Banner", "7'6", 1150, "Teenager");
+INSERT INTO Humans VALUES FROM ("Thor Ordinson", "6'6", 640, "Arts of War");
+
+
+INSERT INTO Heros VALUES FROM ("Spider-Man", "5'10", 167,);
+INSERT INTO Heros VALUES FROM ("Captain Marvel", "5'11", 165,"Flight, Strength, Durability, and shoot energy burst");
+INSERT INTO Heros VALUES FROM ("Hulk", "7'6 when green", 1150, "Super Human Ability");
+INSERT INTO Heros VALUES FROM ("Thor", "6'6", 640, "Skilled Warrior");
+
+
+
+INSERT INTO Groups VALUES FROM ("Avengers", "Save Lives");
+INSERT INTO Groups VALUES FROM ("X-men", "Save Lives");
