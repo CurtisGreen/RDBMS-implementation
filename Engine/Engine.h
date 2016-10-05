@@ -13,6 +13,13 @@ class Engine{
 
 	// Holds all tables in the database
  	vector <Table> all_tables; 
+	Table getTable(string table_name); // returns a table from the database vector 
+	
+	
+	//-----Insert Functions for Table-----//
+	void insertIntoTable(string table_name, vector<string> values);
+	void insertIntoTable(string table_name, Table t);
+	Table& findTable(string table_name);
 	
 	// Database Commands 
 	void open(string table_name);
@@ -23,18 +30,21 @@ class Engine{
 	void show(string table_name);
 	Table create(string, vector<Attribute>, vector<string>);
 	Table insert(string name, vector<string> new_row);
-	Table update(string table_name, vector<string> att_name_1, vector<string> newVal,string att_name_2,string key);
-	Table destroy(string table_name,string att, string key); //because delete is a keyword
+	Table update(string table_name, string att_name_1, string newVal,string att_name_2,string data);
+    	Table destroy(string table_name,string att, string key); //because delete is a keyword
 	void drop(string table_name); // deletes table from "all tables" vector in database
 
 	// Atomic expressions
-	Table selection(string table_name, string att_name);
+	Table selection(string table_name, string att_name, string op, string condition);
 	Table projection(vector<string> att_names, string table_name);
-	Table set_union(string attribute_name , Table table1, Table table2 );
+	Table set_union(Table table1, Table table2 );
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
-	Table cross_product(Table table1, Table table2, vector<string> relations);
-	void renaming(string old_attr,string new_attr, Table& table_name);
+
+	Table cross_product(Table table1, Table table2);
+	
+	
+	void renaming(vector<string> att_name, Table& table_name);
 
 	
 	// Helper functions
