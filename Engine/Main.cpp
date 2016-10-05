@@ -313,40 +313,6 @@ using namespace std;
 	//-----------------------------------------------------------------------
 	// Not testing I/O functions
     
-	/*
-	TEST_CASE("Write") 
-	
-	{
-	    cout << "\n Write function Test:" << "\n";
-        cout<<endl;
-        cout<<endl;
-        cout<< "----------------Write function test-----------------------------------" <<endl;
-		Engine e;
-		
-		vector<string> new_names = {"love","happiness"};
-	
-		vector<string> weight_ = {"150","160","250"};
-		vector<string> height_ = {"5","10","8"};
-	
-		Attribute human_weight("Weight","string",weight_);
-		Attribute human_height("Height","string",height_);
-	
-		vector<Attribute> human_atts;
-	
-		human_atts.push_back(human_weight);
-		human_atts.push_back(human_height);
-		
-		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	
-		Table human("human table", human_atts, key_name);
-		
-		e.all_tables.push_back(human);
-		e.write(human);
-		
-	
-		REQUIRE();
-	}
-	*/
 	
     //------------------------------------------------------------------------
 	//----------------------------Selection function test --------------------
@@ -512,83 +478,8 @@ using namespace std;
 		REQUIRE( test_values[8]  ==  "38");
 	}
 	
-	//-------------------------------------------------------------------------
-	//----------------------------Open function test -------------------------
-	//-------------------------------------------------------------------------
-	// Not testing I/O functions
-	/*
-	TEST_CASE("Open") 
-	{
-		
-		cout<<endl;
-	   	cout<<endl;
-	   	cout<< "----------------Open function test-----------------------------------" <<endl;
-		Engine e;
-		
-		vector<string> new_names = {"love","happiness"};
-	
-		vector<string> weight_ = {"150","160","250"};
-		vector<string> height_ = {"5","10","8"};
-	
-		Attribute human_weight("Weight","string",weight_);
-		Attribute human_height("Height","string",height_);
-	
-		vector<Attribute> human_atts;
-	
-		human_atts.push_back(human_weight);
-		human_atts.push_back(human_height);
-		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	
-		Table human("human table", human_atts, key_name);
 	
 	
-		e.all_tables.push_back(human);
-		
-		e.write(human);
-		
-	
-		REQUIRE(e.open("human table") == "Error: Table is already open");	
-		REQUIRE(e.open("human table") == "Error: Could not open file");	
-	}
-	
-	*/
-	//-------------------------------------------------------------------------
-	//----------------------------Read function test --------------------------
-	//-------------------------------------------------------------------------
-	// Not testing I/O functions
-	/*TEST_CASE("Read") 
-	
-	{
-	    cout << "\n Read function Test:" << "\n";
-        cout<<endl;
-        cout<<endl;
-        cout<< "----------------Read function test-----------------------------------" <<endl;
-		Engine e;
-		
-		vector<string> new_names = {"love","happiness"};
-	
-		vector<string> weight_ = {"150","160","250"};
-		vector<string> height_ = {"5","10","8"};
-	
-		Attribute human_weight("Weight","string",weight_);
-		Attribute human_height("Height","string",height_);
-	
-		vector<Attribute> human_atts;
-	
-		human_atts.push_back(human_weight);
-		human_atts.push_back(human_height);
-		
-		vector<string> key_name = {"Peter Parker","Andrew Wills","Antonio Ramos"};
-	
-		Table human("human table", human_atts, key_name);
-		
-		e.all_tables.push_back(human);
-		e.write(human);
-		e.read("human table");
-		
-	
-		REQUIRE();
-	}
    	
    	/*-------------------------------------------------------------------------
 	----------------------------Difference function test ----------------------
