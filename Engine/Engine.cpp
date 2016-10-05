@@ -346,7 +346,7 @@ Table Engine :: selection(string table_name, string att_name, string op, string 
     	}
         for (int i = 0; i < table->att.size(); i++){
             if( (table->att[i].getName()) == att_name){
-                cout<<table->att[i].getName()<<endl<<endl; ,, 
+                cout<<table->att[i].getName()<<endl<<endl; 
                 for (int j = 0; j < table->att[i].data.size(); j++){
                 	if (op == "=="){
                 		if (table->att[i].data[j] == condition){
