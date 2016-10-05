@@ -30,7 +30,7 @@ TEST_CASE("Parser test", "[Parser]") {
 	Graduate + Manager;  
 	*/
 	
-	Table new_table = parser.e.getTable("Graduate");
+	Table new_table = parser.e.get_table("Graduate");
 	
 	REQUIRE(new_table.att[0].data[2] == "9894");
 	REQUIRE(new_table.att[1].data[2] == "Darkes");
@@ -53,8 +53,8 @@ TEST_CASE("Parser test", "[Parser]") {
 	*/
 
 	
-	Table new_table1 = parser.e.getTable("Graduate");
-	Table new_table2 = parser.e.getTable("Manager");
+	Table new_table1 = parser.e.get_table("Graduate");
+	Table new_table2 = parser.e.get_table("Manager");
 	
 	
 	REQUIRE(new_table1.getName() == "Graduate");
@@ -78,15 +78,15 @@ TEST_CASE("Parser test", "[Parser]") {
 	*/
 	
 	
-	new_table1 = parser.e.getTable("Graduate");
+	new_table1 = parser.e.get_table("Graduate");
 
 	parser.e.show(new_table1.getName());
-	new_table2 = parser.e.getTable("Manager");
+	new_table2 = parser.e.get_table("Manager");
 	
 	Table union_table = parser.e.set_union(new_table1,new_table2);
 	parser.e.all_tables.push_back(union_table);
 	
-	Table u_table = parser.e.getTable(union_table.getName());
+	Table u_table = parser.e.get_table(union_table.getName());
 	parser.e.show(u_table.getName());
 
 	
@@ -109,9 +109,9 @@ TEST_CASE("Parser test", "[Parser]") {
 	INSERT INTO Manager VALUES FROM (9894,"Darkes",38);
 	Graduate - Manager;  
 	*/
-	new_table1 = parser.e.getTable("Graduate");
+	new_table1 = parser.e.get_table("Graduate");
 
-	new_table2 = parser.e.getTable("Manager");
+	new_table2 = parser.e.get_table("Manager");
 	
 	Table difference_table = parser.e.difference(new_table1,new_table2);
 	parser.e.all_tables.push_back(difference_table);
@@ -137,9 +137,9 @@ TEST_CASE("Parser test", "[Parser]") {
 	Graduate - Manager;  
 	*/
 	
-	//new_table1 = parser.e.getTable("Graduate");
+	//new_table1 = parser.e.get_table("Graduate");
 
-	//new_table2 = parser.e.getTable("Manager");
+	//new_table2 = parser.e.get_table("Manager");
 	
 	//Table p_table = parser.e.cross_product(new_table1,new_table2);
 	//parser.e.all_tables.push_back(p_table);
@@ -157,10 +157,10 @@ TEST_CASE("Parser test", "[Parser]") {
 	cout<<endl;
 	cout<< "----------------Natural join function test-----------------------------------" <<endl;
 	
-	/*new_table1 = parser.e.getTable("Graduate");
+	/*new_table1 = parser.e.get_table("Graduate");
 
 	
-	new_table2 = parser.e.getTable("Manager");
+	new_table2 = parser.e.get_table("Manager");
 	
 	Table n_table = parser.e.natural_join(new_table1,new_table2);
 	parser.e.all_tables.push_back(n_table);
@@ -178,7 +178,7 @@ TEST_CASE("Parser test", "[Parser]") {
 	cout<<endl;
 	cout<< "----------------Projection_test function test-----------------------------------" <<endl;
 	
-	new_table1 = parser.e.getTable("Graduate");
+	new_table1 = parser.e.get_table("Graduate");
 	
 	vector<string> names = {"Number", "Surname", "Age"};
 	
@@ -199,7 +199,7 @@ TEST_CASE("Parser test", "[Parser]") {
 	rename (aNumber, aSurname, aAge);  
 	*/
 	
-	new_table1 = parser.e.getTable("Graduate");
+	new_table1 = parser.e.get_table("Graduate");
 	
 	names = {"aNumber", "aSurname", "aAge"};
 
@@ -221,7 +221,7 @@ TEST_CASE("Parser test", "[Parser]") {
 	cout<< "----------------Update function test-----------------------------------" <<endl;
 	/*UPDATE animals SET name="Kim" WHERE name="Joe";*/
 	
-	new_table = parser.e.getTable("animals");
+	new_table = parser.e.get_table("animals");
 	
 	REQUIRE(new_table.att[0].data[0]== "Kim");
 	

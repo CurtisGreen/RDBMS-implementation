@@ -104,7 +104,7 @@ Table Parser :: execute_expression()
                     }
                 }
                 //cout << "returning table " << input_str << endl;
-                return e.getTable(input_str);
+                return e.get_table(input_str);
             } 
 
                 
@@ -225,7 +225,7 @@ void Parser :: execute_insert()
             }
             remove_spaces();
             Table table = execute_expression();
-            e.insertIntoTable(rel_name, table);
+            e.insert_into_table(rel_name, table);
             e.show(rel_name);
             break;
         }
@@ -361,8 +361,8 @@ void Parser :: execute_update()
             
             //e.update(rel_name,att_name,data,newVal);
             //e.show(rel_name);
-            e.update(rel_name,att_name_1,newVal,att_name_2,data);
-            e.show(rel_name);
+            //e.update(rel_name,att_name_1,newVal,att_name_2,data);
+            //e.show(rel_name);
             break;
         }
         default: {	//Expression
@@ -736,7 +736,7 @@ void Parser :: execute_write()
             table_name = input_str;
         }
     }
-    Table table = e.getTable(table_name);
+    Table table = e.get_table(table_name);
     e.write(table);
     
 }
@@ -1026,7 +1026,7 @@ Table Parser :: execute_renaming()
 	}
 
     ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
-	Table get_table = e.getTable(rel_name);
+	Table get_table = e.get_table(rel_name);
     e.renaming(data,get_table);
     e.all_tables.push_back(get_table);
 	//e.show(get_table.getName());
@@ -1103,8 +1103,8 @@ Table Parser :: execute_product(string rel_name_1)
     e.show(cross_product1.name + "*" + cross_product2.name);
     cout<<e.all_tables.size()<<endl;*/
     
-    Table t1 = e.getTable(rel_name_1);
-    Table t2 = e.getTable(rel_name_2);
+    Table t1 = e.get_table(rel_name_1);
+    Table t2 = e.get_table(rel_name_2);
     Table new_table = e.cross_product(t1,t2);
     return new_table;
 
@@ -1138,8 +1138,8 @@ Table Parser :: execute_product(string rel_name_1)
 			rel_name_2 = input_str;
 	}
 		
-		Table t1 = e.getTable(rel_name_1);
-		Table t2 = e.getTable(rel_name_2);
+		Table t1 = e.get_table(rel_name_1);
+		Table t2 = e.get_table(rel_name_2);
 		
 		Table new_table = e.cross_product(t1,t2);
 		//e.show(new_table.getName());
@@ -1176,8 +1176,8 @@ Table Parser :: execute_join(string rel_name_1)
         }
         rel_name_2 = input_str;
     }
-    Table t1 = e.getTable(rel_name_1);
-    Table t2 = e.getTable(rel_name_2);
+    Table t1 = e.get_table(rel_name_1);
+    Table t2 = e.get_table(rel_name_2);
     Table new_table = e.natural_join(t1,t2);
     e.show(new_table.getName());
     cout << "Executing nat join!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
@@ -1218,8 +1218,8 @@ Table Parser :: execute_union(string rel_name_1)
         rel_name_2 = input_str;
     }
     
-    Table t1 = e.getTable(rel_name_1);
-    Table t2 = e.getTable(rel_name_2);
+    Table t1 = e.get_table(rel_name_1);
+    Table t2 = e.get_table(rel_name_2);
     Table new_table = e.set_union(t1,t2);
     //e.show(new_table.getName());
     
@@ -1259,8 +1259,8 @@ Table  Parser:: execute_difference()
         rel_name_2 = input_str;
     }
     
-    Table t1 = e.getTable(rel_name_1);//GETS THE FIRST TABLE
-    Table t2 = e.getTable(rel_name_2);//GETS THE SECOND TABLE
+    Table t1 = e.get_table(rel_name_1);//GETS THE FIRST TABLE
+    Table t2 = e.get_table(rel_name_2);//GETS THE SECOND TABLE
     Table newTable = e.difference(t1,t2);
     //e.show(newTable.getName());//FOR TESTING PURPOSES
     

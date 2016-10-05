@@ -11,18 +11,18 @@
 
 using namespace std;
 
-void Engine:: insertIntoTable(string table_name, Table t)
+void Engine::insert_into_table(string table_name, Table t)
 {
-	Table table = getTable(table_name);
-	if(table.getAttributes().size() != t.getAttributes().size())
+	Table table = get_table(table_name);
+	if(table.getAttributes().size() != t.getAttributes().size()) // checks to see if tables have the same columns
 	{
 		cout << "Error : [Engine] tables do not have the same number of columns" << endl;
 	}
 	else{
 		for (int i = 0; i < t.att.size(); i++){
-			if (t.att[i].name == table.att[i].name){
+			if (t.att[i].name == table.att[i].name){ // checks if attributes are the same name in both tables
 				for (int k = 0; k < t.att[i].data.size(); k++){
-					table.att[i].data.push_back(t.att[i].data[k]);
+					table.att[i].data.push_back(t.att[i].data[k]);// inserts table information into table passed into function
 				}
 			}
 		}
@@ -31,23 +31,23 @@ void Engine:: insertIntoTable(string table_name, Table t)
 	
 }
 
-Table Engine :: getTable(string table_name)
+Table Engine::get_table(string table_name)
 {
 	bool found = false;
-	cout << "getTable() = " << table_name << endl;
+	cout << "get_table() = " << table_name << endl;
 	for( int i = 0; i < all_tables.size();i++)
 	{
-		if(all_tables[i].getName() == table_name)
+		if(all_tables[i].getName() == table_name) // finds table in table database vector
 		{
 			found = true;
-			return all_tables[i];
+			return all_tables[i]; // returns the table found in the database
 		}
 	}
-	if (!found){
-		cout << "Error: [Engine]: table does not exist in getTable()"<< endl;
+	if (!found){ // error checking for tables that are not found in the database 
+		cout << "Error: [Engine]: table does not exist in get_table()"<< endl;
 	}
 	Table t;
-	t.setName(table_name);
+	t.setName(table_name); // sets the table name and returns it
 	return t;
 }
 /*-------------------------------------------------------------------------------
@@ -56,13 +56,13 @@ message if the table does not exist
 ---------------------------------------------------------------------------------*/
 void Engine::open(string table_name){
 	
-	ifstream input_file(table_name + ".db");
+	ifstream input_file(table_name + ".db"); // attachec ".db" tag to the table name
 
 	if(!input_file.is_open()){
-		cout << "Error: [Engine]: Could not open file" << "\n";
+		cout << "Error: [Engine]: Could not open file" << "\n"; // error if the file could not be opened
 	}
 	else{
-		cout << "Error: [Engine]: Table is already open" << endl;
+		cout << "Error: [Engine]: Table is already open" << endl; // error checking for open files
 	}
 }
 /*----------------------------------------------------------------------------
@@ -70,13 +70,13 @@ This function closes a file that was open
 ------------------------------------------------------------------------------*/
 void Engine::close(string table_name){
    
-    ifstream close_file(table_name + ".db");
+    ifstream close_file(table_name + ".db"); // attached ".db" tag to the table name of the file
     
     if(!close_file.is_open()) {
-        cout << "Error:[Engine]: Could not close file" << "\n";
+        cout << "Error:[Engine]: Could not close file" << "\n"; // error checking if the file is not found 
     }
     else{
-        cout << "Error:[Engine]: Table is already closed" << endl;
+        cout << "Error:[Engine]: Table is already closed" << endl; // error checking if the table is already closed
     }
     close_file.close();
 }
@@ -95,19 +95,19 @@ void Engine::read(string table_name){
 	    }
 	}
 	
-	ifstream input_file(table_name +".db");
+	ifstream input_file(table_name +".db"); // attached ".db" tag to table name
 	
 	if(!input_file.is_open()){
 		cout << "Error:[Engine]: Could not open file" << endl;
 	}
 	else{
-		Table new_table = Table();
+		Table new_table = Table(); // reads the table into the input file
 		new_table.Read(input_file);
 		if(true){
 			all_tables.push_back(new_table);
 		}
 		else{
-			cout << "Error: [Engine] : Table already open" << endl;
+			cout << "Error: [Engine] : Table already open" << endl; // error checking if the table is open
 		}
 	}
 }
@@ -121,7 +121,7 @@ void Engine::write(Table table){
 	bool table_exists;  
 	
 	for (int i =0; i < all_tables.size(); i++){
-		if (all_tables[i].getName() == table.getName()){
+		if (all_tables[i].getName() == table.getName()){ // checks if the table exists
 			table_exists = true;
 		}
 	}
@@ -131,9 +131,9 @@ void Engine::write(Table table){
 		all_tables.push_back(table); 
 	}
 	
-	ofstream output_file(table.getName()+ ".db");
-	output_file << table; // write table to txt file 
-	output_file.close();
+	ofstream output_file(table.getName()+ ".db"); // attach ".db" tag to the table name 
+	output_file << table; // write table to output txt file 
+	output_file.close(); 
 }
 /*-----------------------------------------------------------------------------------
 This function exists the database after tables have been added 
@@ -158,17 +158,17 @@ void Engine::show(string table_name){
 	if (found){
 	    if (table.att.size() != 0){
 		cout << '\n' << table.getName() <<endl;
-		cout << table.att[0].data.size() << "x" << table.att.size() << endl;
+		cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
 		cout << "\n";
 		for (int i = 0; i < table.att.size(); i ++){
             cout<<left;
             cout.width(20);
-			cout << table.att[i].getName();
+			cout << table.att[i].getName(); // formats the name of the attributes(columns)
 		}
 		cout << "\n";
 		for (int k = 0; k < table.att[0].data.size(); k++){
 		    cout << '\n';
-		    for (int i = 0; i < table.att.size(); i++){
+		    for (int i = 0; i < table.att.size(); i++){ // output formatted data 
                 cout<<left;
                 cout.width(20);
 				cout << table.att[i].data[k];
@@ -176,11 +176,11 @@ void Engine::show(string table_name){
 		}
 		cout<<endl;
 	    }
-	    else{
+	    else{ // error checking for table data 
 		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
 	    }
 	}
-	else{
+	else{ // error checking for tables that cannot be found in engine database vector
 	    cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
 	}
 }
@@ -191,7 +191,7 @@ This function creates a table and adds it to the database
 Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 
 	Table table(name,att,key);
-	all_tables.push_back(table); 
+	all_tables.push_back(table); // adds table to engine vector of tables
 
 	return table; 
 }
@@ -199,12 +199,13 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
-Table Engine::update(string table_name, string att_name_1, string newVal,string att_name_2,string data){
+Table Engine::update(string table_name, vector<string> att_name_1, vector<string> newVal,string att_name_2,string key){
     
     Table* table;
+    int  n = 0;              //this is index for new data.
     bool status_table = false;
     bool status_att=false;
-    for (int i = 0; i < all_tables.size(); i++){
+    for (int i = 0; i < all_tables.size(); i++){        //searching table name
         if (table_name == all_tables[i].getName()){
             status_table = true;
             table = &(all_tables[i]);
@@ -212,23 +213,24 @@ Table Engine::update(string table_name, string att_name_1, string newVal,string 
     }
     if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
-            if ( (table->att[i].getName()) == att_name_2) //getting attribute name
+            if ( (table->att[i].getName()) == att_name_2) //getting attribute name for key
             {
                 status_att=true;
                 if (status_att == true)
                 {
                     for (int j = 0; j < table->att[i].data.size(); j++)
                     {
-                        if( (table->att[i].data[j]) == data)    //getting row by data name
+                        if( (table->att[i].data[j]) == key)    //getting row by key
                         {
                             for (int i = 0; i < table->att.size(); i++)
                             {
-                                if ( (table->att[i].getName()) == att_name_1)	//searching attribute for new data by row.
+                                for (int k=0; k<att_name_1.size(); k++){
+                                if ( (table->att[i].getName()) == att_name_1[k])	//comparing attributes for new data
                                 {
-                                    table->att[i].data[j]=newVal;		//set new data.
-                                    
+                                    table->att[i].data[j]=newVal[n];		//setting new values
+                                    n++;
                                 }
-                                
+                                }
                             }
                         }
                     }
@@ -240,8 +242,10 @@ Table Engine::update(string table_name, string att_name_1, string newVal,string 
             cout<<" Error: [Engine]: Attribute not found!!"<<endl;
     }else
         cout<<"Error: [Engine]: Table not found!! cannot update!!"<<endl;
+    cout << "returning table " << endl;
     return *table;
 }
+
 
 
 /*----------------------------------------------------------------------------------
@@ -251,17 +255,17 @@ Table Engine::insert(string table_name, vector<string> new_row){
 	Table* table;
 	bool found = false;
 	for (int i = 0; i < all_tables.size(); i++){
-	    if (table_name == all_tables[i].getName()){
+	    if (table_name == all_tables[i].getName()){ // checks if the table exists 
 	    	found = true;
 		table = &(all_tables[i]);
 	    }
 	}
 	if (found){
 	    for (int i = 0; i < table->att.size(); i++){	//Assume data is passed in correct order
-	        table->att[i].data.push_back(new_row[i]); 
+	        table->att[i].data.push_back(new_row[i]); 	// inserts data into the table 
 	     }
 	}
-	else{
+	else{ // error  checking for non existent table 
 	cout << "Error: [Engine]:Table not found, cannot insert " << table_name << endl;
 	}
 	return *table;
@@ -270,7 +274,7 @@ Table Engine::insert(string table_name, vector<string> new_row){
 /*------------------------------------------------------------------------------------
 This function deletes record (rows) from a table 
 --------------------------------------------------------------------------------------*/
-Table Engine::destroy(string table_name,string att, string key){
+Table Engine::destroy(string table_name,string att, string key){	//AKA delete
     Table* table;
     bool status_table = false;
     
@@ -287,7 +291,7 @@ Table Engine::destroy(string table_name,string att, string key){
                 {
                     for(int j=0; j<table->att[i].data.size(); j++)
                     {
-                        if (table->att[i].data[j] == key)	//checking key user provide
+                        if (table->att[i].data[j] == key)	//checking key user provided
                         {
                             for (int k = 0; k < table->att.size(); k++)
                             {
@@ -312,7 +316,7 @@ void Engine::drop(string table_name){
 	
 	for(int i = 0; i < all_tables.size(); i++){
 		if (all_tables[i].getName() == table_name){
-		all_tables.erase(all_tables.begin()+i); 
+		all_tables.erase(all_tables.begin()+i); // erases table given to the function
 		}
 	}
 }
@@ -323,31 +327,31 @@ It will involve logical conditions as defined in the grammar.
 ----------------------------------------------------------------------------------------------------*/
 void select_helper(int col, int row, Table* table, Table* new_table){
 	for (int i = 0; i < table->att.size(); i++){
-		new_table->att[i].data.push_back(table->att[i].data[row]);
+		new_table->att[i].data.push_back(table->att[i].data[row]); // adds attributes of table passed to the new table
 	}
 }
 
-Table Engine :: selection(string table_name, string att_name, string op, string condition) {
-    Table* table;
+Table Engine::selection(string table_name, string att_name, string op, string condition) {	//Takes in only 1 conditional ata time
+    Table* table;																				//Parser recursively calls it for nested conditionals
     Table new_table;
     bool found = false;
     for (int i = 0; i < all_tables.size(); i++){
         if (table_name == all_tables[i].getName()){
             found = true;
-            table = &(all_tables[i]);
+            table = &(all_tables[i]); // checks if tables exists
         }
     }
     if (found){
     	for (int i = 0; i < table->att.size(); i++){
     		Attribute attr;
-    		attr.name = table->att[i].name;
+    		attr.name = table->att[i].name; // gets the attribute name and type 
     		attr.type = table->att[i].type;
     		new_table.att.push_back(attr);
     	}
         for (int i = 0; i < table->att.size(); i++){
             if( (table->att[i].getName()) == att_name){
-                cout<<table->att[i].getName()<<endl<<endl;
-                for (int j = 0; j < table->att[i].data.size(); j++){
+                cout<<table->att[i].getName()<<endl<<endl; 
+                for (int j = 0; j < table->att[i].data.size(); j++){	//Select the operation based on op
                 	if (op == "=="){
                 		if (table->att[i].data[j] == condition){
                 			select_helper(i, j, table, &new_table);
@@ -392,20 +396,20 @@ Table Engine :: selection(string table_name, string att_name, string op, string 
 /*-----------------------------------------------------------------------------------------
 This function selects a subset of the attributes in a relation. 
 ------------------------------------------------------------------------------------------*/
-Table Engine :: projection(vector <string> att_names, string table_name){///UPDATE BY JOSE R.
+Table Engine::projection(vector <string> att_names, string table_name){///UPDATE BY JOSE R.
 
 	Table table;
 
 	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
 	
-	bool table_exists = false; // checks if table exists
+	bool table_exists = false; 
 	vector<string> v;
 	vector<Attribute> attributes;
 	string att_name;
 	string att_type;
 
 	for (int i = 0; i < all_tables.size(); i++){
-		if (table_name == all_tables[i].name){
+		if (table_name == all_tables[i].name){ // checks if table exists
 			table_exists = true;
 			table = all_tables[i];
 		}
@@ -418,11 +422,11 @@ Table Engine :: projection(vector <string> att_names, string table_name){///UPDA
 	for (int i = 0; i < att_names.size(); i++){
 		for(int k = 0;k < table.att.size();k++ ){
 			if(att_names[i] == table.att[k].getName()){
-				for(int j = 0; j < table.att[0].data.size(); j++){
+				for(int j = 0; j < table.att[0].data.size(); j++){ // pushes back data in the attribute selected
 					v.push_back(table.att[k].data[j]);
 				}
 				att_name = table.att[k].getName();
-    			att_type = table.att[k].getType();
+    			att_type = table.att[k].getType(); // gets the type and name of projected attributes of table
       			Attribute att(att_name,att_type,v);
       			attributes.push_back(att);
       			v.clear();
@@ -430,8 +434,8 @@ Table Engine :: projection(vector <string> att_names, string table_name){///UPDA
 		}
 	}
 
-	string name = table_name + " Projection";
-	Table new_Table = create(name,attributes, key_name);
+	string name = table_name + " Projection"; // returns table with new name 
+	Table new_Table = create(name,attributes, key_name); // creates a new table with projected attributes
 
 	return new_Table;
 }
@@ -541,7 +545,7 @@ Table Engine::set_union(Table table1, Table table2 ){
              }
 	    }
  		string table_name = table1.name + " + " + table2.name;
- 		Table m = makeTable(table1,table_name,store_union);
+ 		Table m = make_table(table1,table_name,store_union);
  		all_tables.push_back(m);
 		return m;//RETURN UNION TABLE, 
 	}
@@ -657,11 +661,11 @@ void Engine::renaming(vector<string> att_name,  Table& table_name){
 	cout << "looking for: " << table_name.getName() << endl;
 	for (int i = 0; i < all_tables.size(); i++){
 		cout << "renaming out table " << all_tables[i].getName() << endl;
-		if (table_name.getName() == all_tables[i].name){
+		if (table_name.getName() == all_tables[i].name){ // checks if table exists
 			table_exists = true;
 		}
 	}
-	if (table_exists != true){
+	if (table_exists != true){ // error checking for existing table 
 		cout << " Error:[Engine]: Table does not exist in Renaming()" << "\n";
 	}
 	for (int i = 0; i < att_name.size() ;i++){
@@ -684,7 +688,7 @@ vector<string> Engine::rtn_Row(Table t, int index){
 	vector<string> rtn_row;
 
 	for(int i = 0; i < size; i++){
-		for(int j = 0; j < t.att.size(); j++){
+		for(int j = 0; j < t.att.size(); j++){ // returns row- attribute data at the same index
 			row.push_back(t.att[j].data[i]);
 		}
 		rows.push_back(row);
@@ -699,7 +703,7 @@ vector<string> Engine::rtn_Row(Table t, int index){
 /*-----------------------------------------------------------------------------------------
 This helper function  is for difference and union,  and creates a table 
 -------------------------------------------------------------------------------------------*/
-Table Engine::makeTable(Table table,string name, vector<vector<string>> difference){
+Table Engine::make_table(Table table,string name, vector<vector<string>> difference){
 
 	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
 	vector<Attribute> attributes;
@@ -711,7 +715,7 @@ Table Engine::makeTable(Table table,string name, vector<vector<string>> differen
     	for (int j = 0; j < difference.size(); j++) {
 		  v.push_back( difference[j][i]); 
     	}
-    	att_name = table.att[i].getName();
+    	att_name = table.att[i].getName(); // get name and type of attributes for new table 
     	att_type = table.att[i].getType();
       	Attribute att(att_name,att_type,v);
       	attributes.push_back(att);
@@ -728,7 +732,7 @@ Table Engine::difference(Table table1, Table table2){
 
 
 
-	bool execute = verify_Tables(table1,table2);
+	bool execute = verify_Tables(table1,table2); // verify if both tables have the same size, columns, rows, atts
 
 	if(execute == true){
 
@@ -736,19 +740,19 @@ Table Engine::difference(Table table1, Table table2){
 		bool exist = false;
 		int size = table1.att[0].data.size();
 
-		for(int i = 0; i<size; i++){
-			for(int j = 0; j < size; j++){
-				if(rtn_Row(table1,i) == rtn_Row(table2,j)){
+		for(int i = 0; i<size; i++){ // taking the first table row 
+			for(int j = 0; j < size; j++){ // taking the second table row 
+				if(rtn_Row(table1,i) == rtn_Row(table2,j)){  // comparing both rows 
 					exist = true;
 				}
 			}
 			if(exist == false){
-				diff.push_back(rtn_Row(table1,i));
+				diff.push_back(rtn_Row(table1,i)); // pushes differences back into difference vector
 			}
 			exist = false;
 		}
-		string table_name = table1.name + "-" + table2.name;
-		Table d = makeTable(table1,table_name,diff);
+		string table_name = table1.name + "-" + table2.name; // create a new table of the differences 
+		Table d = make_table(table1,table_name,diff);
 		all_tables.push_back(d);
 		return 	d;
 	}
@@ -809,6 +813,4 @@ Table Engine::cross_product(Table table1, Table table2)
 
 
 }
-
-
 
