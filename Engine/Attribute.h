@@ -18,7 +18,7 @@ class Attribute
 
 	//Constructors
 	Attribute();
-    Attribute(vector<string> data);
+    	Attribute(vector<string> data);
 	Attribute(string name_ , string type_ , vector <string> data_);
 	
 	//Getters & Setters
