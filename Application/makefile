@@ -24,4 +24,4 @@ clean:
 	rm -f *.o
 
 run:
-	./marvel < input.txt
+	./marvel

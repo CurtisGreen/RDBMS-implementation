@@ -8,8 +8,6 @@ using namespace std;
 
  int main()
  {
-//TODO:
-	//Tells the user all of the statements that the user can request 
 	Marvel db;
 
 	db.Menu();
@@ -17,12 +15,10 @@ using namespace std;
  
  }
  
- void Marvel :: Menu(){//MENU
-
-
+ void Marvel :: Menu(){
 	Marvel db;
 
-	cout << "<<<<<<<< Marvel Main Menu >>>>>>>>>>" << endl;
+	cout << "--------------------Marvel Main Menu --------------------------" << endl;
 	
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
@@ -64,7 +60,7 @@ using namespace std;
 		}
 
 		cout<<endl;
-		cout << "<<<<<<<< Marvel Main Menu >>>>>>>>>>" << endl;
+		cout <<"--------------------Marvel Main Menu --------------------------" << endl;
 	
 		cout << "User Options :" << endl;
 		cout << "1.) View Marvel Characters" << endl;
@@ -79,7 +75,7 @@ using namespace std;
 
 	}
 
-	cout<<"----------------GOOD BYE----------------------------------"<<endl;
+	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 
 
 }
@@ -90,11 +86,9 @@ void Marvel :: initialize_tables()
 }
 void Marvel :: update_info()
 {
-	//TODO:
-	//Updates information in the database 
-
+	
 	Marvel db;
-	cout << "<<<<<<<< Update Info Menu >>>>>>>>>>" << endl;
+	cout << "--------------------Update Info Menu --------------------------" << endl;
 	
 	cout << "1.) Update Marvel Human Characters" << endl;
 	cout << "2.) Update Marvel Hero Characters" << endl;
@@ -131,7 +125,7 @@ void Marvel :: update_info()
 			db.Menu();
 		}
 
-		cout << "<<<<<<<< Update Info Menu >>>>>>>>>>" << endl;
+		cout << "--------------------Update Info Menu --------------------------"  << endl;
 	
 		cout << "1.) Update Marvel Human Characters" << endl;
 		cout << "2.) Update Marvel Hero Characters" << endl;
@@ -154,9 +148,8 @@ void Marvel :: update_info()
 void Marvel :: find_character()
 {
 	Marvel db;
-	//TODO:
-	//Performs searches on the database 
-	cout << "<<<<<<<< Find Character Menu >>>>>>>>>>" << endl;
+
+	cout << "--------------------Find Character Menu --------------------------"  << endl;
 
 	cout << "1.) Find Marvel Human Characters" << endl;
 	cout << "2.) Find Marvel Hero Characters" << endl;
@@ -174,18 +167,27 @@ void Marvel :: find_character()
 		{
 			//TODO: Find Human Characters 
 			cout << "Enter the Name of the Human character you would like to find" <<endl;
+			string human;
+			getline(cin, human);
+			
 		}
 
 		else if(request=='2') 
 		{
 			//TODO: Find Hero Characters 	
 			cout << "Enter the Name of the Hero character you would like to find" <<endl;
+			string hero;
+			getline(cin, hero);
+			
 		}
 
 		else if(request=='3') 
 		{
 			// TODOD Find Group Affiliation 
 			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+			string group;
+			getline(cin, group);
+			
 		}
 		
 		else if(request=='4'){
@@ -210,8 +212,11 @@ void Marvel :: find_character()
 
 void Marvel :: helper_create_character(){
 
-	string human_age;
-	string hero_age;
+	string id;
+	string human_height;
+	string hero_height;
+	string human_weight;
+	string hero_weight;
 	string human_name;
 	string human_occ;
 	string hero_name;
@@ -219,21 +224,27 @@ void Marvel :: helper_create_character(){
 	string group_aff;
 	string group_aff_purp;
 	
-	cout << "<<<<<<<< Character Creation Menu >>>>>>>>>>" << endl;
+	cout << "--------------------Character Creation Menu --------------------------" << endl;
 	cout << "To create a character you must create 3 parts"<< endl;
 	cout << "Your character must have a human and hero identity, and a group" << endl;
-	cout << "<<<<<<<<< Let's get started >>>>>>>" << endl;
+
 	
+	cout << "Enter a number after 25, for your character's ID"<< endl;
+	getline(cin, id);
 	cout << "Enter your character's Human Name" << endl;
 	getline(cin, human_name);
-	cout << "Enter your character's Human Age" << endl;
-	getline(cin, human_age);
+	cout << "Enter your character's Human Height" << endl;
+	getline(cin, human_height);
+	cout << "Enter your character's Human Weight" << endl;
+	getline(cin, human_weight);
 	cout << "Enter your character's Human Occupation" << endl;
 	getline(cin, human_name);
 	cout << "Enter your character's Hero Name" << endl;
 	getline(cin, hero_name);
-	cout << "Enter your character's Hero Age" << endl;
-	getline(cin, hero_age);
+	cout << "Enter your character's Hero Height" << endl;
+	getline(cin, hero_height);
+	cout << "Enter your character's Hero Weight" << endl;
+	getline(cin, hero_weight);
 	cout << "Enter your character's Hero Abilities" << endl;
 	getline(cin, hero_ab);
 	cout << "Enter your character's Group Affiliation" << endl;
@@ -241,14 +252,18 @@ void Marvel :: helper_create_character(){
 	cout << "Enter your character's Group Affiliation Purpose" << endl;
 	getline(cin, group_aff_purp);
 	
-	//TODO  convert to create characters and insert them  command
+	
+	//-------------------------------------SQL CODE HERE -----------------------------------
+	//might need to add quote around them
+	//INSERT INTO Humans VALUES FROM (id, human_name, human_height,human_weight, human_occ);
+	//INSERT INTO Heros VALUES FROM (id,hero_name, hero_hight, hero_weight, hero_ab);
+	//INSERT INTO Groups VALUES FROM (id,group_aff,group_aff_purp);
+	//-------------------------------------SQL CODE HERE -----------------------------------
 
 }
 
 void Marvel :: create_character()
 {
-	//TODO:
-	//Receive the Information to allow  a creation of a character
 
 	Marvel db;
 
@@ -256,7 +271,7 @@ void Marvel :: create_character()
 	
 	cout << "Character was created"<<endl;
 
-	cout<<"--------Creted Character Options ------------";
+	cout<<"--------Created Character Options ------------";
 	cout << "1.) I want to create another character" << endl;
 	cout << "2.) I want to go to  Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
@@ -293,15 +308,36 @@ void Marvel :: create_character()
 void Marvel :: delete_character()
 {
 	Marvel db;
-	//TODO:
-	//Allows the user to delete characters that they have created 
-	cout << "<<<<<<<<<<< Character Deletion Menu >>>>>>>>>>" << endl;
+
+	cout << "--------------------Character Deletion Menu --------------------------"  << endl;
 	
 	cout << " Please enter the Human name of the character that you want to delete"<< endl;
 	string human_name;
 	getline(cin, human_name);
-	//TODO: Write delete sql grammar 
+	
+	cout << " Please enter the Hero name of the character that you want to delete"<< endl;
+	string hero_name;
+	getline(cin, hero_name);
+	
+	cout << " Please enter the Human name of the Group that you want to delete"<< endl;
+	string group_name;
+	getline(cin, group_name);
+	
+	
+	//-------------------------------------SQL CODE HERE ----------------------
+	// might need to add quotes around statement 
+	// DELETE FROM Humans WHERE (name == human_name)
+	
 	cout<< human_name << "was deleted" <<endl;
+	// DELETE FROM Heros WHERE (name == hero_name)
+	
+	cout<< hero_name << "was deleted" <<endl;
+	// DELETE FROM Groups WHERE (name == group_name)
+	
+	cout<< group_name << "was deleted" <<endl;
+	//-------------------------------------SQL CODE HERE ----------------------
+	
+	
 
 	cout<<"--------Delete Character Options ------------";
 	cout << "1.) I want to Delete another character" << endl;
@@ -318,7 +354,7 @@ void Marvel :: delete_character()
 		
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
 			getline(cin, human_name);
-			//TODO: Write delete sql grammar 
+			
 		}
 		else if(request=='2'){
 			cout << "Exiting Delete Character" << endl;
@@ -340,14 +376,12 @@ void Marvel :: delete_character()
 
 void Marvel :: show_characters()
 {
-	//TODO:
-	//Shows all of the character information in the database
-
+	
 	string table_name;
 	Marvel db;
 	
 	cout<<endl;
-	cout << "<<<<<<<< Character Show Menu >>>>>>>>>>" << endl;
+	cout << "--------------------Show Character Menu --------------------------"  << endl;
 	cout << "1.) Show Marvel Human Characters" << endl;
 	cout << "2.) Show Marvel Hero Characters" << endl;
 	cout << "3.) Show Group Affiliation" << endl;
@@ -361,21 +395,25 @@ void Marvel :: show_characters()
 	while(request != 'q'){
 
 		if(request=='1') {
-			//TODO: Show Human Characters : SQL grammar 
+		 
 			string str = "SHOW human;";
-			cout<<"PRINTING TABLE human"<<endl;//TESTING PURPOSES
+			cout<<"PRINTING TABLE human"<<endl;
+			//"Show Humans;"
+			
 		
 		}
 		else if(request=='2'){
-			//TODO: Show Hero Characters  : SQL grammar 
+			
 			string str = "SHOW hero;";
-			cout<<"PRINTING TABLE hero"<<endl;//TESTING PURPOSES
+			cout<<"PRINTING TABLE hero"<<endl;
+			//"Show Heros;"
 			
 		}
 		else if(request=='3'){
-			// TODOD Show Group Affiliation	: SQL grammar	
+			
 			string str = "SHOW affiliation;";
-			cout<<"PRINTING TABLE affiliation"<<endl;//TESTING PURPOSES
+			cout<<"PRINTING TABLE affiliation"<<endl;
+			//"Show Groups;"
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -383,7 +421,7 @@ void Marvel :: show_characters()
 		}
 
 		cout<<endl;
-		cout << "<<<<<<<< Character Show Menu >>>>>>>>>>" << endl;
+		cout << "--------------------Show Character Menu --------------------------"  << endl;
 		cout << "1.) Show Marvel Human Characters" << endl;
 		cout << "2.) Show Marvel Hero Characters" << endl;
 		cout << "3.) Show Group Affiliation" << endl;
@@ -397,9 +435,7 @@ void Marvel :: show_characters()
 db.quit_app();
 }
 void Marvel :: quit_app()
-{
-	//TODO:
-	//Quits the database 
+{ 
 	exit(0);
 }
 
