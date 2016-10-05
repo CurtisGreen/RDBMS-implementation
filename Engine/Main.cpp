@@ -715,7 +715,7 @@ using namespace std;
 	----------------------------natural Union function test -------------------
 	---------------------------------------------------------------------------*/
 	
-	/*
+	
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
 		Engine e;
 		vector<string> employee = {"smith", "black", "white"};
@@ -739,17 +739,15 @@ using namespace std;
 		Table nat_table1 = e.create("test1", cross_att1, key_name);
 		Table nat_table2 = e.create("test2", cross_att1, key_name);
 
-		Table nat_out_table = e.natural_join(nat_table1, nat_table2);
-		//f.show("testerino3");
+		Table nat_out_table = e.set_union(nat_table1, nat_table2);
+		//e.show(nat_out_table.name);
 		
 		vector<string> test_values;
-		for(int i = 0; i < 3; i++){
-			test_values.push_back(nat_out_table.att[i].data[0]);
+		for(int i = 0; i < nat_out_table.att[0].data.size(); i++){
+			test_values.push_back(nat_out_table.att[0].data[i]);
 		}
-
-		REQUIRE( test_values[0] == "sales" );
-		REQUIRE( test_values[1] == "brown" );
-		REQUIRE( test_values[3] == "smith" );
+		REQUIRE( test_values[0] == "smith" );
+		REQUIRE( test_values[1] == "black" );
+		REQUIRE( test_values[2] == "white" );
 	}
-
-	*/
+ 
