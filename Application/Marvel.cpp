@@ -92,79 +92,124 @@ void Marvel :: update_info()
 {
 	//TODO:
 	//Updates information in the database 
+
+	Marvel db;
 	cout << "<<<<<<<< Update Info Menu >>>>>>>>>>" << endl;
 	
 	cout << "1.) Update Marvel Human Characters" << endl;
 	cout << "2.) Update Marvel Hero Characters" << endl;
 	cout << "3.) Update Group Affiliation" << endl;
+	cout << "4.) GO to Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
-	int request =0;
+	char request;
 	cin >> request;
 	
-	if(request==1) 
-	
+	while(request != 'q')
 	{
+
+		if(request=='1') 
+		{
 		//TODO: Update Human Characters 
-		cout << "Enter the Name of the Human character you would like to update" <<endl;
-	}
-	else if(request==2) 
-		
-	{
+			cout << "Enter the Name of the Human character you would like to update" <<endl;
+		}
+
+		else if(request=='2') 
+		{
 		//TODO: Update Hero Characters 	
-		cout << "Enter the Name of the Hero character you would like to update" <<endl;
-	}
-	else if(request==3) 
-	{
+			cout << "Enter the Name of the Hero character you would like to update" <<endl;
+		}
+
+		else if(request=='3') 
+		{
 		// TODOD Update Group Affiliation 
 		cout << "Enter the Name of the Group Affiliation you would like to update" <<endl;
-	}
+		}
+		else if(request=='4'){
+			cout << "Exiting find character Menu" << endl;
+			db.Menu();
+		}
+
+		cout << "<<<<<<<< Update Info Menu >>>>>>>>>>" << endl;
 	
+		cout << "1.) Update Marvel Human Characters" << endl;
+		cout << "2.) Update Marvel Hero Characters" << endl;
+		cout << "3.) Update Group Affiliation" << endl;
+		cout << "4.) GO to Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+		cout << "Please enter the number of your desired request" << endl;
+
+		cin>>request;
+
+	}
+
+
 	cout << "Exiting Update Menu" << endl;
 	
+	db.quit_app();
 	
 }
+
 void Marvel :: find_character()
 {
+	Marvel db;
 	//TODO:
 	//Performs searches on the database 
 	cout << "<<<<<<<< Find Character Menu >>>>>>>>>>" << endl;
-	
+
 	cout << "1.) Find Marvel Human Characters" << endl;
 	cout << "2.) Find Marvel Hero Characters" << endl;
 	cout << "3.) Find Group Affiliation" << endl;
+	cout << "4.) GO to Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
-	int request =0;
+	char request;
 	cin >> request;
+
+	while(request != 'q'){
 	
-	if(request==1) 
-	
-	{
-		//TODO: Find Human Characters 
-		cout << "Enter the Name of the Human character you would like to find" <<endl;
-	}
-	else if(request==2) 
+		if(request=='1') 
+		{
+			//TODO: Find Human Characters 
+			cout << "Enter the Name of the Human character you would like to find" <<endl;
+		}
+
+		else if(request=='2') 
+		{
+			//TODO: Find Hero Characters 	
+			cout << "Enter the Name of the Hero character you would like to find" <<endl;
+		}
+
+		else if(request=='3') 
+		{
+			// TODOD Find Group Affiliation 
+			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+		}
 		
-	{
-		//TODO: Find Hero Characters 	
-		cout << "Enter the Name of the Hero character you would like to find" <<endl;
-	}
-	else if(request==3) 
-	{
-		// TODOD Find Group Affiliation 
-		cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+		else if(request=='4'){
+			cout << "Exiting find character Menu" << endl;
+			db.Menu();
+		}
+
+		cout << "1.) Find Marvel Human Characters" << endl;
+		cout << "2.) Find Marvel Hero Characters" << endl;
+		cout << "3.) Find Group Affiliation" << endl;
+		cout << "4.) GO to Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+		cout << "Please enter the number of your desired request" << endl;
+	
+		cin>>request;
 	}
 	cout << "Exiting Find Menu" << endl;
-	
 
+	db.quit_app();
 }
-	
-void Marvel :: create_character()
-{
-	//TODO:
-	//Receive the Information to allow  a creation of a character
-	
+
+
+void Marvel :: helper_create_character(){
+
 	string human_age;
 	string hero_age;
 	string human_name;
@@ -197,12 +242,57 @@ void Marvel :: create_character()
 	getline(cin, group_aff_purp);
 	
 	//TODO  convert to create characters and insert them  command
+
+}
+
+void Marvel :: create_character()
+{
+	//TODO:
+	//Receive the Information to allow  a creation of a character
+
+	Marvel db;
+
+	helper_create_character();
 	
-	
+	cout << "Character was created"<<endl;
+
+	cout<<"--------Creted Character Options ------------";
+	cout << "1.) I want to create another character" << endl;
+	cout << "2.) I want to go to  Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
+
+	char request;
+	cin >> request;
+
+	while(request != 'q'){
+
+		if(request=='1') {
+		
+			helper_create_character();
+		
+		}
+		else if(request=='2'){
+			cout << "Exiting Created Character" << endl;
+			db.Menu();
+		}
+
+		cout << "Character was created"<<endl;
+
+		cout<<"--------Creted Character Options ------------";
+		cout << "1.) I want to create another character" << endl;
+		cout << "2.) I want to go to  Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+
+		cin>>request;
+	}
+
+	db.quit_app();
 	
 }
+
 void Marvel :: delete_character()
 {
+	Marvel db;
 	//TODO:
 	//Allows the user to delete characters that they have created 
 	cout << "<<<<<<<<<<< Character Deletion Menu >>>>>>>>>>" << endl;
@@ -210,11 +300,44 @@ void Marvel :: delete_character()
 	cout << " Please enter the Human name of the character that you want to delete"<< endl;
 	string human_name;
 	getline(cin, human_name);
-	
 	//TODO: Write delete sql grammar 
-	
-	
+	cout<< human_name << "was deleted" <<endl;
+
+	cout<<"--------Delete Character Options ------------";
+	cout << "1.) I want to Delete another character" << endl;
+	cout << "2.) I want to go to  Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
+
+
+	char request;
+	cin >> request;
+
+	while(request != 'q'){
+
+		if(request=='1') {
+		
+			cout << " Please enter the Human name of the character that you want to delete"<< endl;
+			getline(cin, human_name);
+			//TODO: Write delete sql grammar 
+		}
+		else if(request=='2'){
+			cout << "Exiting Delete Character" << endl;
+			db.Menu();
+		}
+
+		cout << "Character was created"<<endl;
+
+		cout<<"--------Delete Character Options ------------";
+		cout << "1.) I want to Delete another character" << endl;
+		cout << "2.) I want to go to  Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+
+		cin>>request;
+	}
+
+	db.quit_app();
 }
+
 void Marvel :: show_characters()
 {
 	//TODO:
