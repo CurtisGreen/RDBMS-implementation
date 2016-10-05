@@ -244,7 +244,7 @@ using namespace std;
        e.show("Human");
   
  
-       Table new_table = e.destroy ("Human", 1 );
+        Table new_table = e.destroy ("Human", "Name", "Peter Parker");
        
        cout<<endl;
        cout<<"After calling destroy funciton, on Human table"<<endl;
@@ -295,7 +295,7 @@ using namespace std;
     	vector<string> newVal={"Scientist", "185cm","60kg"};
     	
         
-        Table new_table2 = e.update("Human",att_name,newVal,"Weight","150");
+        Table new_table1 = e.update("Human",att_name,newVal,"Weight","150");
         
         
         cout<<endl;
@@ -304,8 +304,8 @@ using namespace std;
     
     
         REQUIRE(new_table1.att[1].data[0] == "Scientist");
-        REQUIRE(new_table2.att[2].data[0] == "185cm");
-        REQUIRE(new_table3.att[3].data[0] == "60kg");
+        REQUIRE(new_table1.att[2].data[0] == "185cm");
+        REQUIRE(new_table1.att[3].data[0] == "60kg");
 
         
 	}
