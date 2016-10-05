@@ -144,7 +144,7 @@ cerr << " [Engine] : Exiting RDBMS now" << endl;
 }
 
 void Engine::show(string table_name){
-	//TODO: formatting
+
 	Table table;
 	bool found = false;
 	//cout << "table_name in show = " << table_name << endl;
@@ -177,11 +177,11 @@ void Engine::show(string table_name){
 		cout<<endl;
 	    }
 	    else{
-		cout << " Error: [Engine]: Table is empty in Show()" << endl;
+		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
 	    }
 	}
 	else{
-	    cout << "Table "<< table_name<< " not found, cannot show" << endl;
+	    cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
 	}
 }
 
@@ -563,10 +563,10 @@ Table Engine::natural_join(Table table1, Table table2){
 	vector<pair<int,int>> related_columns;
 	vector<pair<int,int>> non_related_columns;
 
-	for (int i = 0; table1.att.size(); i++){
+	for (int i = 0; i < table1.att.size(); i++){
 		relations.push_back(table1.att[i].name);
 	}
-	for (int i = 0; table2.att.size(); i++){
+	for (int i = 0; i < table2.att.size(); i++){
 		for (int k = 0; k < table1.att.size(); k++){
 			if (table2.att[i].name == table1.att[k].name){
 				pair<int,int> a(i,k);
@@ -767,47 +767,26 @@ Table Engine::cross_product(Table table1, Table table2)
 	Table new_table;
 	vector<int> indices;	//stores places where table finds matching column
 	vector<int> new_table_indices;
-	vector<string> relations;
-	bool same = true;
-	for (int i = 0; i < table1.att.size(); i++){
-		cout << "pushing back: " << table1.att[i].name << endl;
-		relations.push_back(table1.att[i].name);
-	}
-	for (int i = 0; i < table2.att.size(); i++){ 
-		for (int k = 0; k < relations.size(); k++){
-			if (relations[k] == table2.att[i].name){
-				same = false;
-			}
-		}
-		if (same){
-			relations.push_back(table2.att[i].name);
-		}
-		same = true;
-	}
+
+	//cout << "Pushed backe columns " << endl;
 	for (int i = 0; i < table1.att.size(); i++){	//Create columns matching table 1
-		for (int k = 0; k < relations.size(); k++){
-			if (relations[k] == table1.att[i].name){
-				Attribute temp_att;
-				temp_att.name = table1.att[i].name;
-				temp_att.type = table1.att[i].type;
-				new_table.att.push_back(temp_att);
-			}
-		}
+		Attribute temp_att;
+		temp_att.name = table1.att[i].name;
+		temp_att.type = table1.att[i].type;
+		new_table.att.push_back(temp_att);
 	}
+	//cout << "Pushed backe columns " << endl;
 	for (int i = 0; i < table2.att.size(); i++){	//create columns matching table 2
-		for (int k = 0; k < relations.size(); k++){
-			if (relations[k] == table2.att[i].name){
-				Attribute temp_att;
-				temp_att.name = table2.att[i].name;
-				temp_att.type = table2.att[i].type;
-				new_table.att.push_back(temp_att);
-				indices.push_back(i);
-				new_table_indices.push_back(k);
-			}
-		}
+		Attribute temp_att;
+		temp_att.name = table2.att[i].name;
+		temp_att.type = table2.att[i].type;
+		new_table.att.push_back(temp_att);
+		indices.push_back(i);
+		new_table_indices.push_back(i);
 	}
+	//cout << "Pushed backe columns " << endl;
 	for (int i = 0; i < table1.att.size(); i++){	//Populate table from cartesian product starting with table 1
-		if (i < new_table.att.size() && table1.att[i].name == new_table.att[i].name){
+		if (table1.att[i].name == new_table.att[i].name){
 			for (int z = 0; z < table1.att[i].data.size(); z++){
 				for (int q = 0; q < table2.att[0].data.size(); q++){
 					new_table.att[i].data.push_back(table1.att[i].data[z]);
@@ -815,13 +794,15 @@ Table Engine::cross_product(Table table1, Table table2)
 			}
 		}
 	}
-	for (int k = indices.size()-1; k >= 0; k--){	//Then table 2
+	for (int k = table1.att.size(); k < new_table.att.size(); k++){	//Then table 2
 		for (int z = 0; z < table1.att[0].data.size(); z++){
-			for (int q = 0; q < table2.att[indices[k]].data.size(); q++){
-				new_table.att[new_table_indices[k]].data.push_back(table2.att[indices[k]].data[q]);
+			for (int q = 0; q < table2.att[0].data.size(); q++){
+				new_table.att[k].data.push_back(table2.att[k-table1.att.size()].data[q]);
 			}
 		}
 	}
+	
+	//cout << "Pushed backe columns " << endl;
 	new_table.name = table1.name + "*" + table2.name;
 	all_tables.push_back(new_table);
 	return new_table;

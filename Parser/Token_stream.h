@@ -17,9 +17,10 @@ struct Token
 
 class Token_stream 
 {
-  string buffer;
   
 public:
+  
+  string buffer;
 
   Token_stream() : buffer("") {}
   

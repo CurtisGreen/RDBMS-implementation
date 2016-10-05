@@ -71,11 +71,28 @@ Table Parser :: execute_expression()
     else{	//Must be a relation name
         //cout<< input_str << "input str<<" << endl;
         remove_spaces();
+        string test_exp = ts.out_buff();
+        //cout << "test_exp = " << test_exp << endl;
+        if (test_exp == "*"){
+            t.value = '*';
+        }
+        else if(test_exp == "-"){
+            t.value = '-';
+        }
+        else if(test_exp == "+"){
+            t.value = '+';
+        }
+        else if(test_exp == "J"){
+            t.value = 'J';
+        }
+        else{
+            ts.buffer = test_exp;
+        }
         switch(t.value){
-            case '*': return execute_product(); break;
+            case '*': return execute_product(input_str); break;
             case '-': return execute_difference(); break;
-            case '+': return execute_union(); break;
-            case 'J': return execute_join(); break;	//needs to iterate through the rest of the word
+            case '+': return execute_union(input_str); break;
+            case 'J': return execute_join(input_str); break;	//needs to iterate through the rest of the word
             default: {  //Relation name
                 while (t.value != ';' && t.value != '`' && t.value != '\n') {
                     t = ts.get();
@@ -86,7 +103,7 @@ Table Parser :: execute_expression()
                         default: ts.putback(t); break;
                     }
                 }
-                cout << "returning table " << input_str << endl;
+                //cout << "returning table " << input_str << endl;
                 return e.getTable(input_str);
             } 
 
@@ -384,7 +401,7 @@ void Parser :: execute_create()
         }
         if (t.value == ' '){
             rel_name = input_str;
-            cout<<"TESTING: "<<rel_name<<endl;
+            //cout<<"TESTING: "<<rel_name<<endl;
         }
         if (t.value == ';' || t.value == '`'){
             cout << "Error: [Parser]: Expected relation-name in Create" << endl;
@@ -546,7 +563,6 @@ void Parser :: execute_destroy()
         }
         if (t.value == '='){	//Get new value.
             att_name=input_str;
-            cout<<"att_name= "<<input_str<<endl;
         }
     }
     t = ts.get();
@@ -568,7 +584,6 @@ void Parser :: execute_destroy()
                 }
                 if (t.value == ';' ){	//Get attribute name for new setting
                     key=input_str;
-                    cout<<"key= "<<input_str<<endl;
                     remove_spaces();
                 }
             }
@@ -642,7 +657,6 @@ void Parser :: execute_close()
 
 void Parser :: execute_show()
 {
-    //TODO:
     //show-cmd ::== SHOW atomic-expr
 	string table_name;
     string input_str = "";
@@ -655,20 +669,15 @@ void Parser :: execute_show()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        if (t.value == ' '){
-            table_name = input_str;
-        }
+        table_name = input_str;
     }
-	cout << table_name << endl;
     e.show(table_name);
     
 }
 void Parser :: execute_exit()
 {
-    //TODO:
     //exit-cmd ::== EXIT
     e.exit_();
-    
 }
 void Parser :: execute_drop()
 {
@@ -1030,15 +1039,14 @@ Table Parser :: atomic_expression()
     //TODO
     //atomic-expr ::= relation-name | ( expr )
 }
-Table Parser :: execute_product()
+Table Parser :: execute_product(string rel_name_1)
 {
     // product ::= atomic-expr * atomic-expr
-    string rel_name_1;
     string rel_name_2;
     string input_str = "";
     Token t  = ('a');
     
-    remove_spaces();
+    /*remove_spaces();
     while (t.value != ' ') {	//checks for relation name
         input_str = "";
         t = ts.get();
@@ -1049,7 +1057,7 @@ Table Parser :: execute_product()
         if (t.value == ' '){
             rel_name_1 = input_str;
         }
-    }
+    }*/
     remove_spaces();
     while (t.value != ';' && t.value != '`') {	//check for relation name
         input_str = "";
@@ -1062,7 +1070,7 @@ Table Parser :: execute_product()
         rel_name_2 = input_str;
     }
     //---------------testing----------------------------------------------//
-    vector<string> cross_id = {"1","2","3","4","5","6","7"};
+    /*vector<string> cross_id = {"1","2","3","4","5","6","7"};
     vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
     vector<string> cross_age = {"32", "25", "23", "25", "27", "22", "24"};
     vector<string> address = {"Ahmedabad", "Delhi", "kota", "mumbai", "bhopal", "mp", "indore"};
@@ -1093,9 +1101,8 @@ Table Parser :: execute_product()
     cross_product2.att = cross_att2;
     Table cross_product_out = e.cross_product(cross_product1,cross_product2);
     e.show(cross_product1.name + "*" + cross_product2.name);
-    cout<<e.all_tables.size()<<endl;
+    cout<<e.all_tables.size()<<endl;*/
     
-    vector<string> relations = {"", ""};
     Table t1 = e.getTable(rel_name_1);
     Table t2 = e.getTable(rel_name_2);
     Table new_table = e.cross_product(t1,t2);
@@ -1139,15 +1146,14 @@ Table Parser :: execute_product()
 		return new_table;
 	*/
 }
-Table Parser :: execute_join()
+Table Parser :: execute_join(string rel_name_1)
 {
     // join ::= atomic-expr JOIN  atomic-expr
-    string rel_name_1;
     string rel_name_2;
     string input_str = "";
     Token t  = ('a');
     
-    remove_spaces();
+    /*remove_spaces();
     while (t.value != ' ') {	//checks for relation name
         input_str = "";
         t = ts.get();
@@ -1158,7 +1164,7 @@ Table Parser :: execute_join()
         if (t.value == ' '){
             rel_name_1 = input_str;
         }
-    }
+    }*/
     remove_spaces();
     while (t.value != ';' && t.value != '`') {	//check for relation name
         input_str = "";
@@ -1174,21 +1180,21 @@ Table Parser :: execute_join()
     Table t2 = e.getTable(rel_name_2);
     Table new_table = e.natural_join(t1,t2);
     e.show(new_table.getName());
+    cout << "Executing nat join!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     return new_table;
     
     
 }
-Table Parser :: execute_union()
+Table Parser :: execute_union(string rel_name_1)
 {
     // union ::= atomic-expr + atomic-expr
     // difference ::= atomic-expr - atomic-expr
     
-    string rel_name_1;
     string rel_name_2;
     string input_str = "";
     Token t  = ('a');
     
-    remove_spaces();
+    /*remove_spaces();
     while (t.value != ' ') {	//check for relation name
         input_str = "";
         t = ts.get();
@@ -1199,7 +1205,7 @@ Table Parser :: execute_union()
         if (t.value == ' '){
             rel_name_1 = input_str;
         }
-    }
+    }*/
     remove_spaces();
     while (t.value != ';' && t.value != '`') {	//checks for relation name
         input_str = "";
@@ -1223,7 +1229,7 @@ Table Parser :: execute_union()
 Table  Parser:: execute_difference()
 {
     // difference ::= atomic-expr - atomic-expr
-    
+    //TODO: pass in string for rel 1
     string rel_name_1;
     string rel_name_2;
     string input_str = "";
