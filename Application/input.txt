@@ -1,30 +1,46 @@
-CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);
-CREATE TABLE Heros (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);
-CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);
+CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);
+CREATE TABLE Heros (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);
+CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);
 
 
-INSERT INTO Humans VALUES FROM ("Peter Benjamin Parker", "5'10", 167,"Peter is an accomplished scientist, inventor,photographer");
-INSERT INTO Humans VALUES FROM ("Carol Danvers", "5'11", 165, "Ms. Marvel is a skilled pilot and hand to hand combat");
-INSERT INTO Humans VALUES FROM ("Robert Bruce Banner", "7'6", 1150, "Teenager");
-INSERT INTO Humans VALUES FROM ("Thor Ordinson", "6'6", 640, "Arts of War");
-INSERT INTO Humans VALUES FROM ("Anthony Edward 'Tony' Stark", "6'1", 225, "Business Man");
-INSERT INTO Humans VALUES FROM ("Steven Rogers", "6'2", 220, "Martial Arts");
-INSERT INTO Humans VALUES FROM ("James Howlett", "5'3", 300, "Spy, CIA, Soldier");
-INSERT INTO Humans VALUES FROM ("Unrevealed", "5'10", 120, "Actress");
-INSERT INTO Humans VALUES FROM ("Johann Schmidt", "6'1", 195, "Ex military");
-INSERT INTO Humans VALUES FROM ("Felicia Hardy", "5'10", 120, "Gymnast, Acrobat");
-
-INSERT INTO Heros VALUES FROM ("Spider-Man", "5'10", 167,);
-INSERT INTO Heros VALUES FROM ("Captain Marvel", "5'11", 165,"Flight, Strength, Durability, and shoot energy burst");
-INSERT INTO Heros VALUES FROM ("Hulk", "7'6 when green", 1150, "Super Human Ability");
-INSERT INTO Heros VALUES FROM ("Thor", "6'6", 640, "Skilled Warrior");
-INSERT INTO Heros VALUES FROM ("Iron Man", "6'1", 225, "Genius that invents sophisticated devices");
-INSERT INTO Heros VALUES FROM ("Wolverine", "5'3", 300, "Mastered Combat");
-INSERT INTO Heros VALUES FROM ("Mystique", "5'10", 120, "Skilled Combat, Actress, Marksman");
-INSERT INTO Heros VALUES FROM ("Red Skull", "6'1", 195, "Master of Disguise");
-INSERT INTO Heros VALUES FROM ("Black Cat", "5'10", 120, "Gymnast like Combat");
+INSERT INTO Humans VALUES FROM (1,"Peter Benjamin Parker","5'10",167,"Peter is an accomplished scientist, inventor, and photographer");
+INSERT INTO Humans VALUES FROM (2,"Carol Danvers","5'11",165,"Ms.Marvel is a skilled pilot and hand to hand combat");
+INSERT INTO Humans VALUES FROM (3,"Robert Bruce Banner","7'6",1150,"Teenager");
+INSERT INTO Humans VALUES FROM (4,"Thor Ordinson","6'6",640,"Arts of War");
+INSERT INTO Humans VALUES FROM (5,"Anthony Edward Stark","6'1",225,"Business Man");
+INSERT INTO Humans VALUES FROM (6,"Steven Rogers","6'2",220,"Martial Arts");
+INSERT INTO Humans VALUES FROM (7,"James Howlett","5'3",300,"Spy,CIA,Soldier");
+INSERT INTO Humans VALUES FROM (8,"Unrevealed","5'10",120,"Actress");
+INSERT INTO Humans VALUES FROM (9,"Johann Schmidt","6'1",195,"Ex military");
+INSERT INTO Humans VALUES FROM (10,"Felicia Hardy","5'10",120,"Gymnast, Acrobat");
+INSERT INTO Humans VALUES FROM (11,"Victor von doom","6'2",225,"Robotics genius");
+INSERT INTO Humans VALUES FROM (12,"Medusalish Amaquelin Boltagon","5'11", 130,"None");
+INSERT INTO Humans VALUES FROM (13,"Jeniffer Walters","5'10",140,"Lawyer");
+INSERT INTO Humans VALUES FROM (14,"Dr.Stephen Vincent Strange","6'2",180,"MD");
+INSERT INTO Humans VALUES FROM (15,"T'Challa","6'0",200,"Scientist");
+INSERT INTO Humans VALUES FROM (16,"Mathew Murdock","6'0",200,"Studies law");
+INSERT INTO Humans VALUES FROM (17,"Wade Wilson","6'2",210,"Assasination");
+INSERT INTO Humans VALUES FROM (18,"Thanos,"6'7",985,"Scientist");
 
 
+INSERT INTO Heros VALUES FROM (1,"Spider-Man","5'10",167,"Radio active spider senses");
+INSERT INTO Heros VALUES FROM (2,"Captain Marvel","5'11",165,"Flight,Strength,Durability, and shoot energy burst");
+INSERT INTO Heros VALUES FROM (3,"Hulk","7'6",1150,"Super Human Ability");
+INSERT INTO Heros VALUES FROM (4,"Thor","6'6",640,"Skilled Warrior");
+INSERT INTO Heros VALUES FROM (5,"Iron Man""6'1",225,"Genius that invents sophisticated devices");
+INSERT INTO HEROS VALUES FROM (6,"Captain America","6'2",220,"Martial arts");
+INSERT INTO Heros VALUES FROM (7,"Wolverine","5'3",300,"Mastered Combat");
+INSERT INTO Heros VALUES FROM (8,"Mystique","5'10",120,"Skilled Combat, Actress, Marksman");
+INSERT INTO Heros VALUES FROM (9,"Red Skull","6'1",195,"Master of Disguise");
+INSERT INTO Heros VALUES FROM (10,"Black Cat","5'10",120,"Gymnast like Combat");
+INSERT INTO Heros VALUES FROM (11,"Victor von doom","6'2",225,"Robotics genius, time travel");
+INSERT INTO Heros VALUES FROM (12,"Medusa","5'11",130,"Control the rate of growth and movement of each strand of hair");
+INSERT INTO Heros VALUES FROM (13,"She-Hulk","5'10",140,"Great strength, healing factor");
+INSERT INTO Heros VALUES FROM (14,"Dr.Strange","6'2",180,"Mastery of magic, and trained medicine");
+INSERT INTO Heros VALUES FROM (15,"Black Panther","6'0",200,"Scientist");
+INSERT INTO Heros VALUES FROM (16,"Daredevil","6'0",200,"Strength, Speed, Agility, Gymnastic");
+INSERT INTO Heros VALUES FROM (17,"Deadpool","6'2",210,"Combat, assasination technique");
+INSERT INTO Heros VALUES FROM (18,"Thanos,"6'7",985,"Invunerable to electricity, radiation, toxins, aging, and disease");
 
 INSERT INTO Groups VALUES FROM ("Avengers", "Save Lives");
 INSERT INTO Groups VALUES FROM ("X-men", "Save Lives");
