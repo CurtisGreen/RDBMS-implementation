@@ -37,9 +37,9 @@ private:
 	Table execute_selection();
 	Table execute_projection();
 	Table execute_renaming();
-	Table execute_union();
-	Table execute_product();
-	Table execute_join();
+	Table execute_union(string);
+	Table execute_product(string);
+	Table execute_join(string);
 	
 	
 	void execute_exit();
