@@ -271,12 +271,13 @@ void Marvel :: show_characters()
 		cin>>request;
 	}
 
-	exit(0);
+db.quit_app()
 }
 void Marvel :: quit_app()
 {
 	//TODO:
 	//Quits the database 
+	exit(0);
 }
 
 	
