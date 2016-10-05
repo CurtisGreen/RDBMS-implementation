@@ -1,8 +1,10 @@
 #ifndef TABLE_H
 #define TABLE_H
+
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 
 
@@ -18,8 +20,10 @@ public:
   vector<string> id;
   vector<Attribute> att;
   vector<Attribute>tuple;
+
   
   string getName();
+  void setName(string table_name );
   vector<Attribute> getAttributes() const {return att;}
 
   Table(string new_name, vector<Attribute> new_att, vector<string> new_id);
@@ -29,6 +33,7 @@ public:
   Table(const Table& table);
   istream& Read(istream& input);
   ostream& Write(ostream& output);
+
  
 };
 
