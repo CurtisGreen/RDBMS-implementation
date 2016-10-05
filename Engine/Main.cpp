@@ -587,7 +587,7 @@ using namespace std;
 		Table m = e.create("Manager", manager_att, key_name);
 
 		Table union_table = e.set_union(g,m);
-		e.show("Graduate U Manager");
+		e.show("Graduate + Manager");
 
 		int i_size = union_table.att.size();
 		int j_size = union_table.att[0].data.size();
