@@ -8,11 +8,20 @@ using namespace std;
 
  int main()
  {
-	//TODO:
+//TODO:
 	//Tells the user all of the statements that the user can request 
-	
 	Marvel db;
+
+	db.Menu();
 	
+ 
+ }
+ 
+ void Marvel :: Menu(){//MENU
+
+
+	Marvel db;
+
 	cout << "<<<<<<<< Marvel Main Menu >>>>>>>>>>" << endl;
 	
 	cout << "User Options :" << endl;
@@ -22,37 +31,58 @@ using namespace std;
 	cout << "4.) Delete Marvel Characters" << endl;
 	cout << "5.) Update Marvel Characters" << endl;
 	cout << "6.) Exit Database" << endl;
-	string request;
-	getline(cin, request);
+	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
+
+	char request;
+	cin>>request;
+
+	while(request != 'q'){
+
+		switch(request)
+		{
+			case '1':
+				db.show_characters();
+				break;
+			case '2':
+				db.find_character();
+				break;
+			case '3':
+				db.create_character();
+				break;
+			case '4':
+				db.delete_character();
+				break;
+			case '5':
+				db.update_info();
+				break;
+			case '6':
+				db.quit_app();	
+				break;	
+			default:
+				cout << "[Error] :Invalid Request... Please try again." << endl;
+				break;
+		}
+
+		cout<<endl;
+		cout << "<<<<<<<< Marvel Main Menu >>>>>>>>>>" << endl;
 	
-	switch(request[0])
-	
-	{
-		case '1':
-			db.show_characters();
-			break;
-		case '2':
-			db.find_character();
-			break;
-		case '3':
-			db.create_character();
-			break;
-		case '4':
-			db.delete_character();
-			break;
-		case '5':
-			db.update_info();
-			break;
-		case '6':
-			db.quit_app();	
-			break;	
-		default:
-			cout << "[Error] :Invalid Request... Please try again." << endl;
-			break;
+		cout << "User Options :" << endl;
+		cout << "1.) View Marvel Characters" << endl;
+		cout << "2.) Find Marvel Characters" << endl;
+		cout << "3.) Create Marvel Characters" << endl;
+		cout << "4.) Delete Marvel Characters" << endl;
+		cout << "5.) Update Marvel Characters" << endl;
+		cout << "6.) Exit Database" << endl;
+		cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
+
+		cin>>request;
+
 	}
-	
- 
- }
+
+	cout<<"----------------GOOD BYE----------------------------------"<<endl;
+
+
+}
 
 void Marvel :: initialize_tables()
 {
@@ -189,42 +219,65 @@ void Marvel :: show_characters()
 {
 	//TODO:
 	//Shows all of the character information in the database
+
+	string table_name;
+	Marvel db;
 	
+	cout<<endl;
 	cout << "<<<<<<<< Character Show Menu >>>>>>>>>>" << endl;
-	
 	cout << "1.) Show Marvel Human Characters" << endl;
 	cout << "2.) Show Marvel Hero Characters" << endl;
 	cout << "3.) Show Group Affiliation" << endl;
+	cout << "4.) GO to Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
-	int request;
+	char request;
 	cin >> request;
-	
-	if(request==1) 
-	
-	{
-		//TODO: Show Human Characters : SQL grammar 
+
+	while(request != 'q'){
+
+		if(request=='1') {
+			//TODO: Show Human Characters : SQL grammar 
+			string str = "SHOW human;";
+			cout<<"PRINTING TABLE human"<<endl;//TESTING PURPOSES
 		
-	}
-	else if(request==2) 
-		
-	{
-		//TODO: Show Hero Characters  : SQL grammar 
+		}
+		else if(request=='2'){
+			//TODO: Show Hero Characters  : SQL grammar 
+			string str = "SHOW hero;";
+			cout<<"PRINTING TABLE hero"<<endl;//TESTING PURPOSES
 			
+		}
+		else if(request=='3'){
+			// TODOD Show Group Affiliation	: SQL grammar	
+			string str = "SHOW affiliation;";
+			cout<<"PRINTING TABLE affiliation"<<endl;//TESTING PURPOSES
+		}
+		else if(request=='4'){
+			cout << "Exiting Show Menu" << endl;
+			db.Menu();
+		}
+
+		cout<<endl;
+		cout << "<<<<<<<< Character Show Menu >>>>>>>>>>" << endl;
+		cout << "1.) Show Marvel Human Characters" << endl;
+		cout << "2.) Show Marvel Hero Characters" << endl;
+		cout << "3.) Show Group Affiliation" << endl;
+		cout << "4.) GO to Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+		cout << "Please enter the number of your desired request" << endl;
+
+		cin>>request;
 	}
-	else if(request==3) 
-	{
-		// TODOD Show Group Affiliation	: SQL grammar	
-	}
-	
-	cout << "Exiting Show Menu" << endl;
-	
-	
+
+db.quit_app();
 }
 void Marvel :: quit_app()
 {
 	//TODO:
 	//Quits the database 
+	exit(0);
 }
 
 	

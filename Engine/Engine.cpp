@@ -159,12 +159,12 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 /*--------------------------------------------------------------------------------------
 This function changes data to new value in Attribute
 ---------------------------------------------------------------------------------------*/
-Table Engine::update(string table_name, string att_name, string data, string newVal){
-
+Table Engine::update(string table_name, vector<string> att_name_1, vector<string> newVal, string att_name_2,string key){
     Table* table;
+    int n;
     bool status_table = false;
     bool status_att=false;
-    for (int i = 0; i < all_tables.size(); i++){
+    for (int i = 0; i < all_tables.size(); i++){		//searching table name
         if (table_name == all_tables[i].getName()){
             status_table = true;
             table = &(all_tables[i]);
@@ -172,15 +172,27 @@ Table Engine::update(string table_name, string att_name, string data, string new
     }
     if (status_table == true){
         for (int i = 0; i < table->att.size(); i++){
-            if ( (table->att[i].getName()) == att_name)
+            if ( (table->att[i].getName()) == att_name_2)	//getting attribute name for key
             {
                status_att=true;
                 if (status_att == true)
                 {
                     for (int j = 0; j < table->att[i].data.size(); j++)
                     {
-                        if( (table->att[i].data[j]) == data)
-                            table->att[i].data.at(j)=newVal;
+                        if( (table->att[i].data[j]) == key)    //getting row by key
+                        {
+                            for (int i = 0; i < table->att.size(); i++)
+                            {
+                                for (int k=0; k<att_name_1.size(); k++){
+                                if ( (table->att[i].getName()) == att_name_1[k])	//comparing attributes for new data
+                                {
+                                   
+                                    table->att[i].data[j]=newVal[n];		//setting new value
+                                    n++;
+                                }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -220,22 +232,36 @@ Table Engine::insert(string table_name, vector<string> new_row){
 /*------------------------------------------------------------------------------------
 This function deletes record (rows) from a table 
 --------------------------------------------------------------------------------------*/
-Table Engine::destroy(string table_name,int row){
+Table Engine::destroy(string table_name,string att, string key){
     Table* table;
     bool status_table = false;
     
     for (int i = 0; i < all_tables.size(); i++){
-        if (table_name == all_tables[i].getName()){
+        if (table_name == all_tables[i].getName()){ //getting table name to delete some rows.
             status_table = true;
             table = &(all_tables[i]);
         }
     }
     if (status_table == true){
-        for (int i = 0; i < table->att.size(); i++){
-            table->att[i].data.erase((table->att[i].data.begin())+(row-1));     //accessing data each attribute and delete.
+        for (  int w = 0; w < table->att[0].data.size(); w++ ){
+            for (int i = 0; i < table->att.size(); i++){
+                if (table->att[i].getName() == att)     //checking attribute name
+                {
+                    for(int j=0; j<table->att[i].data.size(); j++)
+                    {
+                        if (table->att[i].data[j] == key)	//checking key user provide
+                        {
+                            for (int k = 0; k < table->att.size(); k++)
+                            {
+                                table->att[k].data.erase(table->att[k].data.begin()+j);	//deleting by key
+                            }
+                        }
+                    }
+                }
+            }
         }
     }else
-        cout<<"Table not found, cannot delete a row"<<endl;
+        cout<<" Error: [Engine]: Table not found, cannot delete a row"<<endl;
     
     return *table;
 }
