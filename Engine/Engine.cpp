@@ -275,7 +275,7 @@ Table Engine::insert(string table_name, vector<string> new_row){
 /*------------------------------------------------------------------------------------
 This function deletes record (rows) from a table 
 --------------------------------------------------------------------------------------*/
-Table Engine::destroy(string table_name,string att, string key){
+Table Engine::destroy(string table_name,string att, string key){	//AKA delete
     Table* table;
     bool status_table = false;
     
