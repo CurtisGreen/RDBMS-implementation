@@ -34,7 +34,7 @@ class Engine{
 	Table difference(Table table1, Table table2);
 	Table natural_join(Table table1, Table table2);
 	Table cross_product(Table table1, Table table2, vector<string> relations);
-	void renaming(string old_attr, Table& table_name);
+	void renaming(string old_attr,string new_attr, Table& table_name);
 
 	
 	// Helper functions
