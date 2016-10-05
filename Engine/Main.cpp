@@ -289,21 +289,23 @@ using namespace std;
         Table human_table("Human",human_attributes,key_name);//crates table
     
         e.all_tables.push_back(human_table);
-    
         e.show("Human");
-    
-        Table new_table1 = e.update("Human","Name","Peter Parker","Eunsu Kim");
-        Table new_table2 = e.update("Human","Name","Andrew Wills","Iron Man");
-        Table new_table3 = e.update("Human","Occupation","Boxer","Doctor");
+        
+	vector<string> att_name={"Occupation","Height","Weight"};
+    	vector<string> newVal={"Scientist", "185cm","60kg"};
+    	
+        
+        Table new_table2 = e.update("Human",att_name,newVal,"Weight","150");
+        
         
         cout<<endl;
         cout<<"After calling update funciton, on Human table"<<endl;
         e.show("Human");
     
     
-        REQUIRE(new_table1.att[0].data[0] == "Eunsu Kim");
-        REQUIRE(new_table2.att[0].data[1] == "Iron Man");
-        REQUIRE(new_table3.att[1].data[2] == "Doctor");
+        REQUIRE(new_table1.att[1].data[0] == "Scientist");
+        REQUIRE(new_table2.att[2].data[0] == "185cm");
+        REQUIRE(new_table3.att[3].data[0] == "60kg");
 
         
 	}
