@@ -11,9 +11,9 @@
 
 using namespace std;
 
-void Engine:: insertIntoTable(string table_name, Table t)
+void Engine::insert_into_table(string table_name, Table t)
 {
-	Table table = getTable(table_name);
+	Table table = get_table(table_name);
 	if(table.getAttributes().size() != t.getAttributes().size()) // checks to see if tables have the same columns
 	{
 		cout << "Error : [Engine] tables do not have the same number of columns" << endl;
@@ -31,10 +31,10 @@ void Engine:: insertIntoTable(string table_name, Table t)
 	
 }
 
-Table Engine :: getTable(string table_name)
+Table Engine::get_table(string table_name)
 {
 	bool found = false;
-	cout << "getTable() = " << table_name << endl;
+	cout << "get_table() = " << table_name << endl;
 	for( int i = 0; i < all_tables.size();i++)
 	{
 		if(all_tables[i].getName() == table_name) // finds table in table database vector
@@ -44,7 +44,7 @@ Table Engine :: getTable(string table_name)
 		}
 	}
 	if (!found){ // error checking for tables that are not found in the database 
-		cout << "Error: [Engine]: table does not exist in getTable()"<< endl;
+		cout << "Error: [Engine]: table does not exist in get_table()"<< endl;
 	}
 	Table t;
 	t.setName(table_name); // sets the table name and returns it
@@ -331,8 +331,8 @@ void select_helper(int col, int row, Table* table, Table* new_table){
 	}
 }
 
-Table Engine :: selection(string table_name, string att_name, string op, string condition) {
-    Table* table;
+Table Engine::selection(string table_name, string att_name, string op, string condition) {	//Takes in only 1 conditional ata time
+    Table* table;																				//Parser recursively calls it for nested conditionals
     Table new_table;
     bool found = false;
     for (int i = 0; i < all_tables.size(); i++){
@@ -351,7 +351,7 @@ Table Engine :: selection(string table_name, string att_name, string op, string 
         for (int i = 0; i < table->att.size(); i++){
             if( (table->att[i].getName()) == att_name){
                 cout<<table->att[i].getName()<<endl<<endl; 
-                for (int j = 0; j < table->att[i].data.size(); j++){
+                for (int j = 0; j < table->att[i].data.size(); j++){	//Select the operation based on op
                 	if (op == "=="){
                 		if (table->att[i].data[j] == condition){
                 			select_helper(i, j, table, &new_table);
@@ -396,7 +396,7 @@ Table Engine :: selection(string table_name, string att_name, string op, string 
 /*-----------------------------------------------------------------------------------------
 This function selects a subset of the attributes in a relation. 
 ------------------------------------------------------------------------------------------*/
-Table Engine :: projection(vector <string> att_names, string table_name){///UPDATE BY JOSE R.
+Table Engine::projection(vector <string> att_names, string table_name){///UPDATE BY JOSE R.
 
 	Table table;
 
@@ -545,7 +545,7 @@ Table Engine::set_union(Table table1, Table table2 ){
              }
 	    }
  		string table_name = table1.name + " + " + table2.name;
- 		Table m = makeTable(table1,table_name,store_union);
+ 		Table m = make_table(table1,table_name,store_union);
  		all_tables.push_back(m);
 		return m;//RETURN UNION TABLE, 
 	}
@@ -703,7 +703,7 @@ vector<string> Engine::rtn_Row(Table t, int index){
 /*-----------------------------------------------------------------------------------------
 This helper function  is for difference and union,  and creates a table 
 -------------------------------------------------------------------------------------------*/
-Table Engine::makeTable(Table table,string name, vector<vector<string>> difference){
+Table Engine::make_table(Table table,string name, vector<vector<string>> difference){
 
 	vector<string> key_name = {"1","2","3"};//TODO: not use yet 
 	vector<Attribute> attributes;
@@ -752,7 +752,7 @@ Table Engine::difference(Table table1, Table table2){
 			exist = false;
 		}
 		string table_name = table1.name + "-" + table2.name; // create a new table of the differences 
-		Table d = makeTable(table1,table_name,diff);
+		Table d = make_table(table1,table_name,diff);
 		all_tables.push_back(d);
 		return 	d;
 	}

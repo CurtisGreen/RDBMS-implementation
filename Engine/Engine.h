@@ -13,13 +13,11 @@ class Engine{
 
 	// Holds all tables in the database
  	vector <Table> all_tables; 
-	Table getTable(string table_name); // returns a table from the database vector 
+	Table get_table(string table_name); // returns a table from the database vector 
 	
 	
 	//-----Insert Functions for Table-----//
-	void insertIntoTable(string table_name, vector<string> values);
-	void insertIntoTable(string table_name, Table t);
-	Table& findTable(string table_name);
+	void insert_into_table(string table_name, Table t);
 	
 	// Database Commands 
 	void open(string table_name);
@@ -50,7 +48,7 @@ class Engine{
 	// Helper functions
 	vector<string> createTuples(Table t);
 	vector<string> rtn_Row(Table t,int index);
-	Table makeTable(Table table,string name, vector<vector<string>> difference);
+	Table make_table(Table table,string name, vector<vector<string>> difference);
 	bool verify_Tables(Table table1, Table table2);
 };
 
