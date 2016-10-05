@@ -354,7 +354,7 @@ using namespace std;
      cout<<"After calling selection funciton, selected (Occupation) on Human table"<<endl;
      cout<<endl;
         
-	  e.selection( "Human", "Occupation");
+	 // e.selection( "Human", "Occupation");
     }
     
 
@@ -370,7 +370,7 @@ using namespace std;
 
 		Engine e;
 		
-		vector<string> new_names = {"love","happiness"};
+	
 		vector<string> weight_ = {"150","160","250"};
 		vector<string> height_ = {"5","10","8"};
 	
@@ -386,15 +386,16 @@ using namespace std;
 		Table human = e.create("human table", human_atts, key_name);
 
 		e.show("human table");
-		
-		e.renaming("Weight", "Love",human);
-		e.renaming("Height", "Peace",human);
 
+		vector<string> new_names = {"Munchis","CHETOS"};
+
+		e.renaming(new_names,human);
+		
 		e.all_tables.push_back(human);
 		e.show("human table");
 		
-		REQUIRE(human.att[0].getName() == "Love");
-		REQUIRE(human.att[1].getName() == "Peace");
+		REQUIRE(human.att[0].getName() == "Munchis");
+		REQUIRE(human.att[1].getName() == "CHETOS");
 	}
 
 	
@@ -585,7 +586,7 @@ using namespace std;
 		Table g = e.create("Graduate", graduate_att, key_name);
 		Table m = e.create("Manager", manager_att, key_name);
 
-		Table union_table = e.set_union("none",g,m);
+		Table union_table = e.set_union(g,m);
 		e.show("Graduate U Manager");
 
 		int i_size = union_table.att.size();
@@ -652,53 +653,94 @@ using namespace std;
 		cross_product1.att = cross_att1;
 		Table cross_product2;
 		cross_product2.att = cross_att2;
-		Table cross_product_out = e.cross_product(cross_product1,cross_product2,cross_key);
+		Table cross_product_out = e.cross_product(cross_product1,cross_product2);
 		e.show(cross_product1.name + "*" + cross_product2.name);
 
 
-		vector<string> test_values;
+		vector<string> test_column_name;
+		vector<string> testing_first_row;
+		vector<string> testing_second_row;
+		vector<string> testing_third_row;
+		vector<string> testing_fourth_row;
+
+
+		for(int i = 0; i < cross_product_out.att.size(); i++){//Stores all columns names in test_column_name
+			test_column_name.push_back(cross_product_out.att[i].getName());
+		}
+
+
+		///This test is to show that both rows are different
+		///
 		for(int i = 0; i < cross_product_out.att.size(); i++){
-			test_values.push_back(cross_product_out.att[i].data[0]);
+			testing_first_row.push_back(cross_product_out.att[i].data[0]);//stores data from first row
+			testing_second_row.push_back(cross_product_out.att[i].data[1]);//stores data from second row
+			testing_third_row.push_back(cross_product_out.att[i].data[2]);//stores data from third row
+			testing_fourth_row.push_back(cross_product_out.att[i].data[3]);//stores data from fourth row
+
 		}
 		
+
+		
 		//////////----------Require outputs to be correct------------/////////
-		REQUIRE( test_values[0] == "1" );
-		REQUIRE( test_values[1] == "Ramesh" );
-		REQUIRE( test_values[2] == "3000" );
-		REQUIRE( test_values[3] == "2009-10" );
+		REQUIRE( test_column_name[0] == "id");
+		REQUIRE( test_column_name[1] == "name");
+		REQUIRE( test_column_name[2] == "age");
+		REQUIRE( test_column_name[3] == "address");
+		REQUIRE( test_column_name[4] == "salary");
+		REQUIRE( test_column_name[5] == "oid");
+		REQUIRE( test_column_name[6] == "date");
+		REQUIRE( test_column_name[7] == "customer_id");
+		REQUIRE( test_column_name[8] == "amount");
+
+		//Testing rows to show that the same person has different oid
+		REQUIRE( testing_first_row[1] == "Ramesh");
+		REQUIRE( testing_first_row[5] == "102");
+
+		REQUIRE( testing_second_row[1] == "Ramesh");
+		REQUIRE( testing_second_row[5] == "100");
+
+		REQUIRE( testing_third_row[1] == "Ramesh");
+		REQUIRE( testing_third_row[5] == "101");
+
+		REQUIRE( testing_fourth_row[1] == "Ramesh");
+		REQUIRE( testing_fourth_row[5] == "103");
+
 	}
 	
 	
 
+
 	/*-------------------------------------------------------------------------
 	----------------------------natural Union function test -------------------
 	---------------------------------------------------------------------------*/
+	
 	/*
 	TEST_CASE( "natural join between 2 tables", "[natural_product]" ) {
-		Engine f;
+		Engine e;
 		vector<string> employee = {"smith", "black", "white"};
 		vector<string> department = {"sales", "production", "production"};
+
 		vector<string> department2 = {"production", "sales", "notproduction"};
 		vector<string> head = {"mori", "brown", "frank"};
 
 		Attribute emp("employee", "string", employee);
 		Attribute dep("department", "string", department);
+
 		Attribute dep2("department", "string", department2);
 		Attribute hed("head", "string", head);
 
 
 		vector<Attribute> cross_att1= {emp, dep};
 		vector<Attribute> cross_att2 = {dep2, hed};
-		Table nat_table1;
-		nat_table1.name = "test1";
-		nat_table1.att = cross_att1;
-		Table nat_table2;
-		nat_table2.name = "test2";
-		nat_table2.att = cross_att2;
 
-		Table nat_out_table = f.natural_join(nat_table1, nat_table2);
+		vector<string> key_name={"1","2","3"};
+
+		Table nat_table1 = e.create("test1", cross_att1, key_name);
+		Table nat_table2 = e.create("test2", cross_att1, key_name);
+
+		Table nat_out_table = e.natural_join(nat_table1, nat_table2);
 		//f.show("testerino3");
-
+		
 		vector<string> test_values;
 		for(int i = 0; i < 3; i++){
 			test_values.push_back(nat_out_table.att[i].data[0]);
@@ -708,4 +750,5 @@ using namespace std;
 		REQUIRE( test_values[1] == "brown" );
 		REQUIRE( test_values[3] == "smith" );
 	}
-*/
+
+	*/
