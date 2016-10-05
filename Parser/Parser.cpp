@@ -591,6 +591,7 @@ void Parser :: execute_destroy()
             
             e.destroy(rel_name,att_name,key);
             e.show(rel_name);
+            ts.out_buff();  //Remove '\n' from buffer
             break;
         }
         default: {	//Expression
@@ -1342,6 +1343,7 @@ void Parser :: initial(){
         else if(input_str == "DELETE"){
             cout << "Executing (DELETE/DESTROY) " << endl;
             execute_destroy();
+            cout << "executed destroy" << endl;
         }
          else if(input_str == "DROP"){
             cout << "Executing (DROP) " << endl;
