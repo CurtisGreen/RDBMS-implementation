@@ -707,8 +707,42 @@ using namespace std;
 		REQUIRE( testing_fourth_row[5] == "103");
 
 	}
+
+	/*-------------------------------------------------------------------------
+	----------------------------Nested queries------------- -------------------
+	---------------------------------------------------------------------------*/
 	
-	
+	TEST_CASE( "Nested queries", "[nest]" ) {
+
+		cout<< "----------------Nested queries function test-----------------------------------" <<endl;
+		Engine e;
+		vector<string> employee = {"smith", "black", "white"};
+		vector<string> department = {"sales", "production", "production"};
+
+		vector<string> department2 = {"production", "sales", "notproduction"};
+		vector<string> head = {"mori", "brown", "frank"};
+
+		Attribute emp("employee", "string", employee);
+		Attribute dep("department", "string", department);
+
+		Attribute dep2("department", "string", department2);
+		Attribute hed("head", "string", head);
+
+
+		vector<Attribute> cross_att1= {emp, dep};
+		vector<Attribute> cross_att2 = {dep2, hed};
+
+		vector<string> key_name={"1","2","3"};
+
+		Table table1 = e.create("test1", cross_att1, key_name);
+		Table table2 = e.create("test2", cross_att1, key_name);
+
+		Table out_table = e.selection(table2.name, "department", "==", "sales");
+		out_table = e.cross_product(out_table, table1);
+		out_table.name = "select(department == sales)(table2) * table1";
+		e.all_tables[0] = out_table;
+		e.show(out_table.name);
+	}
 
 
 	/*-------------------------------------------------------------------------
