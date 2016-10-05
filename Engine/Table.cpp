@@ -18,16 +18,7 @@ string Table:: getName(){
 	return name;
 }
 
-/*
- void addAttribute(Attribute t)
- {
- 	tuple.push_back(t);
- }
-*/
-// vector <Attribute> Table :: getAttributes();
-// {
-	// return att;
-// }
+
 Table::Table (const Table& table){
 	name = table.name;
 	att = table.att;
@@ -39,9 +30,9 @@ ostream& Table :: Write(ostream& output){
 	output << name << endl;
 
 	for (int i =0; i < att.size(); i++){
-		att[i].Write(output);	
+		att[i].Write(output);	 // writes the output of each attribute 
 	}
-	output << "END-OF-TABLE" ;
+	output << "END-OF-TABLE" ; // tag to let user know it is the end of the table 
 	output << "END" << endl;
 	return output;
  }
@@ -50,19 +41,19 @@ istream& Table :: Read(istream& input){
 
 	string temp_string;
 	Attribute temp_attribute;
-	getline (input, name, '\n');
+	getline (input, name, '\n'); // reads the attributes and their names
 	att = vector<Attribute>();
 	
 	while(1){
 		temp_attribute.Read(input);
 		att.push_back(temp_attribute);
 		input >> temp_string;
-		if(temp_string == "END-OF-TABLE"){
+		if(temp_string == "END-OF-TABLE"){ // stops reading when reaches the end of table tag 
 			break;
 		}
 		else{
 			for (int i = 0; i < temp_string.size(); i++){
-				input.putback(temp_string.c_str()[temp_string.size()-i-1]);
+				input.putback(temp_string.c_str()[temp_string.size()-i-1]); 
 			}
 		}
 	}
@@ -70,12 +61,12 @@ istream& Table :: Read(istream& input){
 }
 
 
-istream& operator >> (istream& input, Table& table){
+istream& operator >> (istream& input, Table& table){ // defined operator that reads input
 	table.Read(input);
 	return input;
 }
 
-ostream& operator << (ostream& output, Table& table){
+ostream& operator << (ostream& output, Table& table){ // defined operator that write output
 	table.Write(output);
 	return output;
 }
