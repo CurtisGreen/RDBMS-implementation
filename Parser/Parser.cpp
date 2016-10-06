@@ -777,8 +777,8 @@ void Parser :: execute_write()
     //write-cmd ::== WRITE relation-name
     string table_name;
     string input_str = "";
-    remove_spaces();
     bool correct = true;
+    remove_spaces();
     Token t = ('a');
     while (t.value != ';' && correct) {	//checks for relation-name
         input_str = "";
@@ -787,17 +787,14 @@ void Parser :: execute_write()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        if (t.value == ' '){
-            table_name = input_str;
-        }
-        if (t.value == '`'){
-            cout << "Error: [Parser]: Expected semicolon in Write" << endl;
+        table_name = input_str;
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected semicolon in Show" << endl;
             correct = false;
         }
     }
     Table table = e.get_table(table_name);
     e.write(table);
-    
 }
 Table Parser ::selection_helper(string table_name){
     bool first = true;
