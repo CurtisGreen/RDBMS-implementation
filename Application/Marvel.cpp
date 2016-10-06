@@ -538,7 +538,7 @@ void Marvel :: delete_character() //(Needs to be done )
 		if(request=='1') {
 		
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
-			cin.igrnore();
+			cin.ignore();
 			getline(cin, human_name);
 			
 		}
