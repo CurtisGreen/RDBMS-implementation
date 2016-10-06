@@ -267,7 +267,7 @@ void Marvel :: update_info()
 			
 			cout << temp2 << endl; // testing purposes
 			
-			// TODO :Call parser 3 times with input temp1, temp2, temp3
+			
 			
 			
 		}
@@ -364,14 +364,21 @@ void Marvel :: find_character()
 void Marvel :: helper_create_character(){
 
 	string id;
+	
+	string temp1;
+	string temp2;
+	string temp3;
+	
 	string human_height;
-	string hero_height;
-	string human_weight;
-	string hero_weight;
 	string human_name;
 	string human_occ;
+	string human_weight;
+	
+	string hero_weight;
+	string hero_height;
 	string hero_name;
 	string hero_ab;
+	
 	string group_aff;
 	string group_aff_purp;
 	
@@ -381,6 +388,7 @@ void Marvel :: helper_create_character(){
 
 	
 	cout << "Enter a number after 25, for your character's ID"<< endl;
+	cin.ignore();
 	getline(cin, id);
 	cout << "Enter your character's Human Name" << endl;
 	getline(cin, human_name);
@@ -389,7 +397,7 @@ void Marvel :: helper_create_character(){
 	cout << "Enter your character's Human Weight" << endl;
 	getline(cin, human_weight);
 	cout << "Enter your character's Human Occupation" << endl;
-	getline(cin, human_name);
+	getline(cin, human_occ);
 	cout << "Enter your character's Hero Name" << endl;
 	getline(cin, hero_name);
 	cout << "Enter your character's Hero Height" << endl;
@@ -402,15 +410,35 @@ void Marvel :: helper_create_character(){
 	getline(cin, group_aff);
 	cout << "Enter your character's Group Affiliation Purpose" << endl;
 	getline(cin, group_aff_purp);
+	string temp;
 	
 	
-	//-------------------------------------SQL CODE HERE -----------------------------------
-	//might need to add quote around them
-	//INSERT INTO Humans VALUES FROM (id, human_name, human_height,human_weight, human_occ);
-	//INSERT INTO Heros VALUES FROM (id,hero_name, hero_hight, hero_weight, hero_ab);
-	//INSERT INTO Groups VALUES FROM (id,group_aff,group_aff_purp);
-	//-------------------------------------SQL CODE HERE -----------------------------------
+	temp1 += "INSERT INTO Humans VALUES FROM (";
+	temp1 += "\"" + id + "\"" + ", ";
+	temp1 += "\"" + human_name + "\"" + ", ";
+	temp1 += "\"" + human_height + "\"" + ", ";
+	temp1 += "\"" + human_weight + "\"" + ", ";
+	temp1 += "\"" + human_occ + "\"" + ") ";
 
+	
+	temp2 += "INSERT INTO Heros VALUES FROM (";
+	temp2 += "\"" + id + "\"" + ", ";
+	temp2 += "\"" + hero_name + "\"" + ", ";
+	temp2 += "\"" + hero_height + "\"" + ", ";
+	temp2 += "\"" + hero_weight + "\"" + ", ";
+	temp2 += "\"" + hero_ab + "\"" + ") ";
+	
+	temp3 += "INSERT INTO Groups VALUES FROM (";
+	temp3 += "\"" + id + "\"" + ", ";
+	temp3 += "\"" + group_aff + "\"" + ", ";
+	temp3 += "\"" + group_aff_purp + "\"" + ") ";
+	
+	cout << temp1 << endl;// testing purposes
+	cout << temp2 << endl;
+	cout << temp3 << endl;
+
+	
+	// Call parser using temp1 temp2 temp3 
 }
 
 void Marvel :: create_character()
