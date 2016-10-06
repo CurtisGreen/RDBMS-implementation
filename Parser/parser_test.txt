@@ -5,6 +5,7 @@ INSERT INTO animals VALUES FROM ("Snoopy", "dog", 3);
 INSERT INTO animals VALUES FROM ("Tweety", "bird", 1);
 INSERT INTO animals VALUES FROM ("Joe", "bird", 2);
 SHOW animals;
+WRITE animals;
 dogs <- select (kind == "dog") animals;
 CREATE TABLE Graduate (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
 CREATE TABLE Manager (Number INTEGER, Surname VARCHAR(20), Age INTEGER) PRIMARY KEY (Number, Surname);
