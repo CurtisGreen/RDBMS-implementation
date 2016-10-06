@@ -76,9 +76,9 @@ void Engine::close(string table_name){
         cout << "Error:[Engine]: Could not close file" << "\n"; // error checking if the file is not found 
     }
     else{
-        cout << "Error:[Engine]: Table is already closed" << endl; // error checking if the table is already closed
+        close_file.close();
     }
-    close_file.close();
+    
 }
 /*-----------------------------------------------------------------------------------
 This function reads a table into the database.

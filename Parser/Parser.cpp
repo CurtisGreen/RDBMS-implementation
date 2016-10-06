@@ -690,9 +690,7 @@ void Parser :: execute_close()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        if (t.value == ' '){
-            table_name = input_str;
-        }
+        table_name = input_str;
         if (t.value == '`'){
             cout << "Error: [Parser]: Expected semicolon in Close" << endl;
             correct = false;
@@ -787,9 +785,7 @@ void Parser :: execute_write()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        if (t.value == ' '){
-            table_name = input_str;
-        }
+        table_name = input_str;
         if (t.value == '`'){
             cout << "Error: [Parser]: Expected semicolon in Write" << endl;
             correct = false;
