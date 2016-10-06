@@ -85,7 +85,7 @@ void Marvel :: initialize_tables()
 {
 	//TODO:
 }
-void Marvel :: update_info()
+void Marvel :: update_info() // Done, just need fucntion call to Parser 
 {
 	
 	Marvel db;
@@ -296,7 +296,7 @@ void Marvel :: update_info()
 	
 }
 
-void Marvel :: find_character()
+void Marvel :: find_character() // (Needs to be done )
 {
 	Marvel db;
 
@@ -334,7 +334,7 @@ void Marvel :: find_character()
 
 		else if(request=='3') 
 		{
-			// TODOD Find Group Affiliation 
+			// TODO Find Group Affiliation 
 			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
 			string group;
 			getline(cin, group);
@@ -361,7 +361,7 @@ void Marvel :: find_character()
 }
 
 
-void Marvel :: helper_create_character(){
+void Marvel :: helper_create_character(){ // Done but need Parser Call 
 
 	string id;
 	
@@ -484,13 +484,14 @@ void Marvel :: create_character()
 	
 }
 
-void Marvel :: delete_character()
+void Marvel :: delete_character() //(Needs to be done )
 {
 	Marvel db;
 
 	cout << "--------------------Character Deletion Menu --------------------------"  << endl;
 	
 	cout << " Please enter the Human name of the character that you want to delete"<< endl;
+	cin.ignore();
 	string human_name;
 	getline(cin, human_name);
 	
@@ -503,9 +504,7 @@ void Marvel :: delete_character()
 	getline(cin, group_name);
 	
 	
-	//-------------------------------------SQL CODE HERE ----------------------
-	
-	//-------------------------------------SQL CODE HERE ----------------------
+
 	
 	
 
@@ -544,7 +543,7 @@ void Marvel :: delete_character()
 	db.quit_app();
 }
 
-void Marvel :: show_characters()
+void Marvel :: show_characters() // Done but need Parser call 
 {
 	
 	string table_name;
@@ -566,24 +565,26 @@ void Marvel :: show_characters()
 
 		if(request=='1') {
 		 
-			string str = "SHOW human;";
+			string str = "SHOW Humans;";
 			cout<<"PRINTING TABLE human"<<endl;
-			
+			// Call paser to show 
 			
 		
 		}
 		else if(request=='2'){
 			
-			string str = "SHOW hero;";
+			string str = "SHOW Heros;";
 			cout<<"PRINTING TABLE hero"<<endl;
-			//"Show Heros;"
+			//Call parser to show
+		
 			
 		}
 		else if(request=='3'){
 			
-			string str = "SHOW affiliation;";
+			string str = "SHOW Groups;";
 			cout<<"PRINTING TABLE affiliation"<<endl;
-			//"Show Groups;"
+			//Call parser to show 
+			
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
