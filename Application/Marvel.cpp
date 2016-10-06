@@ -320,9 +320,9 @@ void Marvel :: find_character() // (Needs Help fixing  )
 			
 			string temp1;
 			string human;
+			string table = "Humans";
 			cout << "Enter the Name of the Human character you would like to find" <<endl;
 			cin.ignore();
-			string table = "Humans";
 			getline(cin, human);
 			temp1 = human + " <- " + "select ";
 			temp1 += "(name == ";
@@ -335,9 +335,9 @@ void Marvel :: find_character() // (Needs Help fixing  )
 			//TODO: Find Hero Characters 
 			string temp2;
 			string hero;
+			string table = "Heros";
 			cout << "Enter the Name of the Hero character you would like to find" <<endl;
 			cin.ignore();
-			string table = "Heros";
 			getline(cin, hero);
 			temp2 = hero + " <- " + "select ";
 			temp2 += "(name == ";
@@ -351,9 +351,9 @@ void Marvel :: find_character() // (Needs Help fixing  )
 			// TODO Find Group Affiliation 
 			string temp3;
 			string group;
+			string table = "Groups";
 			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
 			cin.ignore();
-			string table = "Groups";
 			getline(cin, group);
 			temp3 = group + " <- " + "select ";
 			temp3 += "(name == ";
@@ -389,14 +389,14 @@ void Marvel :: helper_create_character(){ // Done but need Parser Call
 	string temp2;
 	string temp3;
 	
-	string human_height;
 	string human_name;
-	string human_occ;
+	string human_height;
 	string human_weight;
-	
-	string hero_weight;
-	string hero_height;
+	string human_occ;
+
 	string hero_name;
+	string hero_height;
+	string hero_weight;
 	string hero_ab;
 	
 	string group_aff;
@@ -492,7 +492,7 @@ void Marvel :: create_character()
 
 		cout << "Character was created"<<endl;
 
-		cout<<"--------Creted Character Options ------------";
+		cout<<"--------Created Character Options ------------";
 		cout << "1.) I want to create another character" << endl;
 		cout << "2.) I want to go to  Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
@@ -538,6 +538,7 @@ void Marvel :: delete_character() //(Needs to be done )
 		if(request=='1') {
 		
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
+			cin.igrnore();
 			getline(cin, human_name);
 			
 		}
