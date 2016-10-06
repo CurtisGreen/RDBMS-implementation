@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <istream>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ using namespace std;
  void Marvel :: Menu(){
 	Marvel db;
 
-	cout << "--------------------Marvel Main Menu --------------------------" << endl;
+	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
@@ -105,20 +106,170 @@ void Marvel :: update_info()
 
 		if(request=='1') 
 		{
-		//TODO: Update Human Characters 
+			
+			string temp1;
+			string temp2;
+			string temp3;
+			string temp4;
+			string table = "Humans";
 			cout << "Enter the Name of the Human character you would like to update" <<endl;
+			cin.ignore();
+			string human_name;
+			getline(cin, human_name);
+			
+			
+			cout << "Enter new value for Name: ";
+			string new_name;
+			getline(cin, new_name);
+			temp1 = "UPDATE ";
+			temp1 += table + " " + "SET name = ";
+			temp1 += "\"" + new_name + "\"" + " ";
+			temp1 += "WHERE(name == ";
+			temp1 += "\"" + human_name + "\"" + ");";
+			
+			cout << temp1 << endl; // testing purposes
+			
+			
+			cout << "Enter the new value for Height" <<endl;
+			string new_height;
+			getline(cin, new_height);
+			temp2 = "UPDATE ";
+			temp2 += table + " " + "SET height = ";
+			temp2 += "\"" + new_height + "\"" + " ";
+			temp2 += "WHERE(name == ";
+			temp2 += "\"" + human_name + "\"" + ");";
+			
+			cout << temp2 << endl; // testing purposes
+			
+			cout << "Enter the new value for Weight" <<endl;
+			string new_weight;
+			getline(cin, new_weight);
+			temp3 = "UPDATE ";
+			temp3 += table + " " + "SET weight = ";
+			temp3 += "\"" + new_weight + "\"" + " ";
+			temp3 += "WHERE(name == ";
+			temp3 += "\"" + human_name + "\"" + ");";
+			
+			cout << temp3 << endl; // testing purposes
+			
+			cout << "Enter the new value for Occupation" <<endl;
+			string new_occ;
+			getline(cin, new_occ);
+			temp4 = "UPDATE ";
+			temp4 += table + " " + "SET occupation = ";
+			temp4 += "\"" + new_occ + "\"" + " ";
+			temp4 += "WHERE(name == ";
+			temp4 += "\"" + human_name + "\"" + ");";
+			
+			cout << temp4<< endl; // testing purposes
+			
+			
+
+			// TODO :Call parser 3 times with input temp1, temp2, temp3
+			
 		}
 
 		else if(request=='2') 
 		{
-		//TODO: Update Hero Characters 	
+			string temp1;
+			string temp2;
+			string temp3;
+			string temp4;
+			string table = "Heros";
 			cout << "Enter the Name of the Hero character you would like to update" <<endl;
+			cin.ignore();
+			string hero_name;
+			getline(cin, hero_name);
+			
+			
+			cout << "Enter new value for Name: ";
+			string new_name;
+			getline(cin, new_name);
+			temp1 = "UPDATE ";
+			temp1 += table + " " + "SET name = ";
+			temp1 += "\"" + new_name + "\"" + " ";
+			temp1 += "WHERE(name == ";
+			temp1 += "\"" + hero_name + "\"" + ");";
+			
+			cout << temp1 << endl; // testing purposes
+			
+			
+			cout << "Enter the new value for Height" <<endl;
+			string new_height;
+			getline(cin, new_height);
+			temp2 = "UPDATE ";
+			temp2 += table + " " + "SET height = ";
+			temp2 += "\"" + new_height + "\"" + " ";
+			temp2 += "WHERE(name == ";
+			temp2 += "\"" + hero_name + "\"" + ");";
+			
+			cout << temp2 << endl; // testing purposes
+			
+			cout << "Enter the new value for Weight" <<endl;
+			string new_weight;
+			getline(cin, new_weight);
+			temp3 = "UPDATE ";
+			temp3 += table + " " + "SET weight = ";
+			temp3 += "\"" + new_weight + "\"" + " ";
+			temp3 += "WHERE(name == ";
+			temp3 += "\"" + hero_name + "\"" + ");";
+			
+			cout << temp3 << endl; // testing purposes
+			
+			cout << "Enter the new value for Abilities" <<endl;
+			string new_ab;
+			getline(cin, new_ab);
+			temp4 = "UPDATE ";
+			temp4 += table + " " + "SET abilities = ";
+			temp4 += "\"" + new_ab+ "\"" + " ";
+			temp4 += "WHERE(name == ";
+			temp4 += "\"" + hero_name + "\"" + ");";
+			
+			cout << temp4<< endl; // testing purposes
+			
+			
+
+			// TODO :Call parser 3 times with input temp1, temp2, temp3
 		}
 
 		else if(request=='3') 
 		{
-		// TODOD Update Group Affiliation 
-		cout << "Enter the Name of the Group Affiliation you would like to update" <<endl;
+			string temp1;
+			string temp2;
+			
+			string table = "Groups";
+			cout << "Enter the Name of the Human character you would like to update" <<endl;
+			cin.ignore();
+			string group_name;
+			getline(cin, group_name);
+			
+			
+			cout << "Enter new value for Name of the Group: ";
+			string new_name;
+			getline(cin, new_name);
+			temp1 = "UPDATE ";
+			temp1 += table + " " + "SET name = ";
+			temp1 += "\"" + new_name + "\"" + " ";
+			temp1 += "WHERE(name == ";
+			temp1 += "\"" + group_name + "\"" + ");";
+			
+			cout << temp1 << endl; // testing purposes
+			
+			
+			cout << "Enter the new value for Group's Purpose" <<endl;
+			string new_purp;
+			getline(cin, new_purp);
+			temp2 = "UPDATE ";
+			temp2 += table + " " + "SET purpose = ";
+			temp2 += "\"" + new_purp + "\"" + " ";
+			temp2 += "WHERE(name == ";
+			temp2 += "\"" + group_name + "\"" + ");";
+			
+			cout << temp2 << endl; // testing purposes
+			
+			// TODO :Call parser 3 times with input temp1, temp2, temp3
+			
+			
 		}
 		else if(request=='4'){
 			cout << "Exiting find character Menu" << endl;
@@ -325,16 +476,7 @@ void Marvel :: delete_character()
 	
 	
 	//-------------------------------------SQL CODE HERE ----------------------
-	// might need to add quotes around statement 
-	// DELETE FROM Humans WHERE (name == human_name)
 	
-	cout<< human_name << "was deleted" <<endl;
-	// DELETE FROM Heros WHERE (name == hero_name)
-	
-	cout<< hero_name << "was deleted" <<endl;
-	// DELETE FROM Groups WHERE (name == group_name)
-	
-	cout<< group_name << "was deleted" <<endl;
 	//-------------------------------------SQL CODE HERE ----------------------
 	
 	
@@ -398,7 +540,7 @@ void Marvel :: show_characters()
 		 
 			string str = "SHOW human;";
 			cout<<"PRINTING TABLE human"<<endl;
-			//"Show Humans;"
+			
 			
 		
 		}
