@@ -26,7 +26,23 @@ INSERT INTO Humans VALUES FROM (20,"Charles Francis Xavier","6'0",190,"School Fo
 INSERT INTO Humans VALUES FROM (21,"Jean Grey Summers","5'6",115,"Telekinetic");
 INSERT INTO Humans VALUES FROM (22,"Henry McCoy","5'11",402,"Professor X assistant");
 INSERT INTO Humans VALUES FROM (23,"Kurt Wagner","5'9",195,"Adventurer");
-
+INSERT INTO Humans VALUES FROM (24,"Warren Kenneth Worthington","6'0",150,"Adventurer");
+INSERT INTO Humans VALUES FROM (25,"Piotr Nikolaievitch Rasputin","6'6",250,"Adventurer");
+INSERT INTO Humans VALUES FROM (26,"Scott Summers","6'3",195,"Martial Arts");
+INSERT INTO Humans VALUES FROM (27,"Emma Grace Frost","5'10",144,"Student");
+INSERT INTO Humans VALUES FROM (28,"Robert Louis Drake","5'8",145,"Accountant");
+INSERT INTO Humans VALUES FROM (29,"Jubilation Lee","5'5",115,"Highly skilled gymnast");
+INSERT INTO Humans VALUES FROM (30,"Katherine","5'6",110,"Martial Arts");
+INSERT INTO Humans VALUES FROM (31,"Jean Paul Beaubier","5'11",185,"Artist");
+INSERT INTO Humans VALUES FROM (32,"Samuel Wilson","6'2",240,"Bird Trainer");
+INSERT INTO Humans VALUES FROM (33,"Dr. Henry Pym","6'2",185,"Scientist");
+INSERT INTO Humans VALUES FROM (34,"Clinton Barton","6'3",230,"Marksman");
+INSERT INTO Humans VALUES FROM (35,"Pietro Django Maximoff","6'0",175,"Adventurer");
+INSERT INTO Humans VALUES FROM (36,"Wanda Maximoff","5'7",132,"Adventurer");
+INSERT INTO Humans VALUES FROM (37,"Jessica Drew","5'10",130,"Agent");
+INSERT INTO Humans VALUES FROM (38,"Janet Van Dyne","5'4",110,"Adventurer");
+INSERT INTO Humans VALUES FROM (39,"Simon Williams","6'2",380,"Owner of Industrial Plant");
+INSERT INTO Humans VALUES FROM (40,"Scott Lang","6'0",190,"Electronic Engineer");
 
 INSERT INTO Heros VALUES FROM (1,"Spider-Man","5'10",167,"Radio active spider senses");
 INSERT INTO Heros VALUES FROM (2,"Captain Marvel","5'11",165,"Flight,Strength,Durability, and shoot energy burst");
@@ -51,9 +67,27 @@ INSERT INTO Heros VALUES FROM (20,"Professor X","6'0",190,"Psionic Founder");
 INSERT INTO Heros VALUES FROM (21,"Jean Grey","5'6",115,"Telepathic Powers");
 INSERT INTO Heros VALUES FROM (22,"Beast","5'11",402,"Super human Strength");
 INSERT INTO Heros VALUES FROM (23,"Night Crawler","5'9",195,"Teleportation");
+INSERT INTO Heros VALUES FROM (24,"Angel","6'0",150,"Switch between human and Arch Angel");
+INSERT INTO Heros VALUES FROM (25,"Colossus","6'6",250,"Transform human tissue into steel");
+INSERT INTO Heros VALUES FROM (26,"Cyclops","6'3",195,"Telepathic Resistance");
+INSERT INTO Heros VALUES FROM (27,"Emma Frost","5'10",144,"Telepathic powers, can read minds");
+INSERT INTO Heros VALUES FROM (28,"Iceman","5'8",145,"Radiates intense cold from his body");
+INSERT INTO Heros VALUES FROM (29,"Jubilee","5'5",115,"Highly skilled gymnast");
+INSERT INTO Heros VALUES FROM (30,"Kitty Pryde","5'6",110,"Ninja Samuri");
+INSERT INTO Heros VALUES FROM (31,"Northstar","5'11",185,"Fly at superhuman speed");
+INSERT INTO Heros VALUES FROM (32,"Falcon","6'2",240,"Telepathic communication with his pet falcon Redwing");
+INSERT INTO Heros VALUES FROM (33,"Hank Pym","6'0",185,"Brilliant in robotics,biochemistry");
+INSERT INTO Heros VALUES FROM (34,"Hawkeye","6'3",230,"Can shrink and grow muscle size");
+INSERT INTO Heros VALUES FROM (35,"Quicksilver","6'0",175,"Super Human Speed");
+INSERT INTO Heros VALUES FROM (36,"Scarlet Witch","5'7",132,"Mystic Energy");
+INSERT INTO Heros VALUES FROM (37,"Spider-Woman","5'10",130,"Superhuman strength and radioactive spider powers");
+INSERT INTO Heros VALUES FROM (38,"Wasp","5'4",110,"Flight and size reduction");
+INSERT INTO Heros VALUES FROM (39,"Wonder Man ","6'2",380,"Invulnerable");
+INSERT INTO Heros VALUES FROM (40,"Ant Man","6'0",190,"Shrink and Grow size");
+
 
 INSERT INTO Groups VALUES FROM (1,"Avengers", "Earth's mightest Heros");
-INSERT INTO Groups VALUES FROM (2,"Avengers", "Earth's mightest Heros);
+INSERT INTO Groups VALUES FROM (2,"Avengers", "Earth's mightest Heros");
 INSERT INTO Groups VALUES FROM (3,"Avengers", "Earth's mightest Heros");
 INSERT INTO Groups VALUES FROM (4,"Avengers", "Earth's mightest Heros");
 INSERT INTO Groups VALUES FROM (5,"Avengers", "Earth's mightest Heros");
@@ -75,5 +109,20 @@ INSERT INTO Groups VALUES FROM (20,"X-men","Saves lives");
 INSERT INTO Groups VALUES FROM (21,"X-men","Saves lives");
 INSERT INTO Groups VALUES FROM (22,"X-men","Saves lives");
 INSERT INTO Groups VALUES FROM (23,"X-men","Saves lives");
-
-
+INSERT INTO Groups VALUES FROM (24,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (25,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (26,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (27,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (28,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (29,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (30,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (31,"X-men","Saves lives");
+INSERT INTO Groups VALUES FROM (32,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (33,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (34,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (35,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (36,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (37,"Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (38,"Formerly Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM (39,"Lethal Legion", "Evil");
+INSERT INTO Groups VALUES FROM (40,"Formerly Avengers", "Earth's mightest Heros");
