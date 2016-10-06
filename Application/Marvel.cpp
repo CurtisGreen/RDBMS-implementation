@@ -296,7 +296,7 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 	
 }
 
-void Marvel :: find_character() // (Needs to be done )
+void Marvel :: find_character() // (Needs Help fixing  )
 {
 	Marvel db;
 
@@ -317,28 +317,48 @@ void Marvel :: find_character() // (Needs to be done )
 		if(request=='1') 
 		{
 			//TODO: Find Human Characters 
-			cout << "Enter the Name of the Human character you would like to find" <<endl;
-			string human;
-			getline(cin, human);
 			
+			string temp1;
+			string human;
+			cout << "Enter the Name of the Human character you would like to find" <<endl;
+			cin.ignore();
+			string table = "Humans";
+			getline(cin, human);
+			temp1 = human + " <- " + "select ";
+			temp1 += "(name == ";
+			temp1 += "\"" + human + "\"" + ") " + table + ";";
+			cout << temp1 << endl;
 		}
 
 		else if(request=='2') 
 		{
-			//TODO: Find Hero Characters 	
-			cout << "Enter the Name of the Hero character you would like to find" <<endl;
+			//TODO: Find Hero Characters 
+			string temp2;
 			string hero;
+			cout << "Enter the Name of the Hero character you would like to find" <<endl;
+			cin.ignore();
+			string table = "Heros";
 			getline(cin, hero);
+			temp2 = hero + " <- " + "select ";
+			temp2 += "(name == ";
+			temp2 += "\"" + hero + "\"" + ") " + table + ";";
+			cout << temp2 << endl;
 			
 		}
 
 		else if(request=='3') 
 		{
 			// TODO Find Group Affiliation 
-			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+			string temp3;
 			string group;
+			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+			cin.ignore();
+			string table = "Groups";
 			getline(cin, group);
-			
+			temp3 = group + " <- " + "select ";
+			temp3 += "(name == ";
+			temp3 += "\"" + group + "\"" + ") " + table + ";";
+			cout << temp3 << endl;
 		}
 		
 		else if(request=='4'){
@@ -503,10 +523,6 @@ void Marvel :: delete_character() //(Needs to be done )
 	string group_name;
 	getline(cin, group_name);
 	
-	
-
-	
-	
 
 	cout<<"--------Delete Character Options ------------";
 	cout << "1.) I want to Delete another character" << endl;
@@ -565,7 +581,7 @@ void Marvel :: show_characters() // Done but need Parser call
 
 		if(request=='1') {
 		 
-			string str = "SHOW Humans;";
+			string temp1 = "SHOW Humans;";
 			cout<<"PRINTING TABLE human"<<endl;
 			// Call paser to show 
 			
@@ -573,7 +589,7 @@ void Marvel :: show_characters() // Done but need Parser call
 		}
 		else if(request=='2'){
 			
-			string str = "SHOW Heros;";
+			string temp2 = "SHOW Heros;";
 			cout<<"PRINTING TABLE hero"<<endl;
 			//Call parser to show
 		
@@ -581,7 +597,7 @@ void Marvel :: show_characters() // Done but need Parser call
 		}
 		else if(request=='3'){
 			
-			string str = "SHOW Groups;";
+			string temp3 = "SHOW Groups;";
 			cout<<"PRINTING TABLE affiliation"<<endl;
 			//Call parser to show 
 			
