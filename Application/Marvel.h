@@ -16,6 +16,7 @@ public:
 	void Menu();
 	void initialize_tables(); // may use this or may just create all of the tables in the input file
 	void update_info();
+	void rename();
 	void find_character();
 	void create_character();
 	void delete_character();
@@ -25,5 +26,6 @@ public:
 	
 	//helper funcitons
 	void helper_create_character();
+	string projection_rename_helper(string table_name, string function_name,string list);
 };
 #endif

@@ -24,11 +24,12 @@ using namespace std;
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
 	cout << "2.) View Characters attributes" << endl;
-	cout << "3.) Find Marvel Characters" << endl;
-	cout << "4.) Create Marvel Characters" << endl;
-	cout << "5.) Delete Marvel Characters" << endl;
-	cout << "6.) Update Marvel Characters" << endl;
-	cout << "7.) Exit Database" << endl;
+	cout << "3.) Rename character attribute name"<<endl;
+	cout << "4.) Find Marvel Characters" << endl;
+	cout << "5.) Create Marvel Characters" << endl;
+	cout << "6.) Delete Marvel Characters" << endl;
+	cout << "7.) Update Marvel Characters" << endl;
+	cout << "8.) Exit Database" << endl;
 	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
 
 	char request;
@@ -45,18 +46,21 @@ using namespace std;
 				db.show_attribute();
 				break;
 			case '3':
-				db.find_character();
+				db.rename();
 				break;
 			case '4':
-				db.create_character();
+				db.find_character();
 				break;
 			case '5':
-				db.delete_character();
+				db.create_character();
 				break;
 			case '6':
-				db.update_info();
+				db.delete_character();
 				break;
 			case '7':
+				db.update_info();
+				break;
+			case '8':
 				db.quit_app();	
 				break;	
 			default:
@@ -89,6 +93,90 @@ void Marvel :: initialize_tables()
 {
 	//TODO:
 }
+
+string Marvel :: projection_rename_helper(string table_name, string function_name,string list){
+
+	string att;
+	string store_att;
+	string quary;
+	cout<< "List of Attributes that we can " + function_name + " for the Humans character table"<<endl;
+	cout<< list <<endl;
+	cout<<"Choose one or as many as you want follow by enter"<<endl;
+	cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+	cout<<endl;
+
+	cin>>att;
+
+	while(att != "f"){
+		store_att+=att + ",";
+		cin>>att;
+	}
+
+	string new_att = store_att.substr(0, store_att.size()-1);
+	quary = function_name+ " (" + new_att +") " + table_name +";";
+	cout<<quary<<endl;//testing puposes
+	return quary;
+
+}
+
+void Marvel :: rename(){
+
+	//projection ::= project ( attribute-list ) atomic-expr
+	string table_name;
+	string quary;
+	string list;
+	Marvel db;
+	
+	cout<<endl;
+	cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
+	cout << "1.) Raname Marvel Human Characters Attributes" << endl;
+	cout << "2.) Raname Marvel Hero Characters Attributes" << endl;
+	cout << "3.) Raname Group Affiliation Attributes" << endl;
+	cout << "4.) GO to Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
+	cout << "Please enter the number of your desired request" << endl;
+	
+	char request;
+	cin >> request;
+
+	while(request != 'q'){
+
+		if(request=='1'){
+			list = "id,name,height,weight,occupation";
+			string quary = db.projection_rename_helper("Humans", "rename",list);
+		}
+		else if(request=='2'){
+			list = "id,name,height,weight,abilities";
+			string quary = db.projection_rename_helper("Heros", "rename",list);
+			
+		}
+		else if(request=='3'){
+			list = "id,name,purposes";
+			string quary = db.projection_rename_helper("Groups", "rename",list);	
+		}
+		else if(request=='4'){
+			cout << "Exiting Show Menu" << endl;
+			db.Menu();
+		}
+		
+		cout<<endl;
+		cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
+		cout << "1.) Rename Marvel Human Characters Attributes" << endl;
+		cout << "2.) Rename Marvel Hero Characters Attributes" << endl;
+		cout << "3.) Rename Group Affiliation Attributes" << endl;
+		cout << "4.) GO to Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+		cout << "Please enter the number of your desired request" << endl;
+
+		cin>>request;
+	}
+
+	db.quit_app();
+
+}
+
+
+
 void Marvel :: update_info() // Done, just need fucntion call to Parser 
 {
 	
@@ -639,6 +727,7 @@ void Marvel :: show_attribute(){//Projection
 
 	string table_name;
 	string quary;
+	string list;
 	Marvel db;
 	
 	cout<<endl;
@@ -656,72 +745,17 @@ void Marvel :: show_attribute(){//Projection
 	while(request != 'q'){
 
 		if(request=='1'){
-
-			string att;
-			string store_att;
-			table_name = "Humans";
-			cout<< "List of Attributes that we can show for the Humans character table"<<endl;
-			cout<<"id,name,height,weight,occupation"<<endl;
-			cout<<"Choose one or as many as you want follow by enter"<<endl;
-			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
-			cout<<endl;
-
-			cin>>att;
-
-			while(att != "f"){
-				store_att+=att + ",";
-				cin>>att;
-			}
-
-			string new_att = store_att.substr(0, store_att.size()-1);
-			quary = "project (" + new_att +") " + table_name+";";
-			cout<<quary<<endl;//testing puposes
+			list = "id,name,height,weight,occupation";
+			string quary = db.projection_rename_helper("Humans", "project",list);
 		}
-
 		else if(request=='2'){
-
-			string att;
-			string store_att;
-			table_name = "Heros";
-			cout<< "List of Attributes that we can show for the Heros character table"<<endl;
-			cout<<"id,name,height,weight,abilities"<<endl;
-			cout<<"Choose one or as many as you want follow by enter"<<endl;
-			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
-			cout<<endl;
-
-			cin>>att;
-
-			while(att != "f"){
-				store_att+=att + ",";
-				cin>>att;
-			}
-
-			string new_att = store_att.substr(0, store_att.size()-1);
-			quary = "project (" + new_att +") " + table_name+";";
-			cout<<quary<<endl;//testing puposes
+			list = "id,name,height,weight,abilities";
+			string quary = db.projection_rename_helper("Heros", "project",list);
+			
 		}
-
 		else if(request=='3'){
-
-			string att;
-			string store_att;
-			table_name = "Heros";
-			cout<< "List of Attributes that we can show for the Group Affiliation table"<<endl;
-			cout<<"name,purposes"<<endl;
-			cout<<"Choose one or as many as you want follow by enter"<<endl;
-			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
-			cout<<endl;
-
-			cin>>att;
-
-			while(att != "f"){
-				store_att+=att + ",";
-				cin>>att;
-			}
-
-			string new_att = store_att.substr(0, store_att.size()-1);
-			quary = "project (" + new_att +") " + table_name+";";
-			cout<<quary<<endl;//testing puposes
+			list = "id,name,purposes";
+			string quary = db.projection_rename_helper("Groups", "project",list);	
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
