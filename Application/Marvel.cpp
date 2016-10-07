@@ -23,11 +23,12 @@ using namespace std;
 	
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
-	cout << "2.) Find Marvel Characters" << endl;
-	cout << "3.) Create Marvel Characters" << endl;
-	cout << "4.) Delete Marvel Characters" << endl;
-	cout << "5.) Update Marvel Characters" << endl;
-	cout << "6.) Exit Database" << endl;
+	cout << "2.) View Characters attributes" << endl;
+	cout << "3.) Find Marvel Characters" << endl;
+	cout << "4.) Create Marvel Characters" << endl;
+	cout << "5.) Delete Marvel Characters" << endl;
+	cout << "6.) Update Marvel Characters" << endl;
+	cout << "7.) Exit Database" << endl;
 	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
 
 	char request;
@@ -41,18 +42,21 @@ using namespace std;
 				db.show_characters();
 				break;
 			case '2':
-				db.find_character();
+				db.show_attribute();
 				break;
 			case '3':
-				db.create_character();
+				db.find_character();
 				break;
 			case '4':
-				db.delete_character();
+				db.create_character();
 				break;
 			case '5':
-				db.update_info();
+				db.delete_character();
 				break;
 			case '6':
+				db.update_info();
+				break;
+			case '7':
 				db.quit_app();	
 				break;	
 			default:
@@ -507,28 +511,16 @@ void Marvel :: create_character()
 void Marvel :: delete_character() //(Needs to be done )
 {
 	Marvel db;
+	string quary;
+	string character;
+	string table;
 
-	cout << "--------------------Character Deletion Menu --------------------------"  << endl;
-	
-	cout << " Please enter the Human name of the character that you want to delete"<< endl;
-	cin.ignore();
-	string human_name;
-	getline(cin, human_name);
-	
-	cout << " Please enter the Hero name of the character that you want to delete"<< endl;
-	string hero_name;
-	getline(cin, hero_name);
-	
-	cout << " Please enter the Human name of the Group that you want to delete"<< endl;
-	string group_name;
-	getline(cin, group_name);
-	
-
-	cout<<"--------Delete Character Options ------------";
-	cout << "1.) I want to Delete another character" << endl;
-	cout << "2.) I want to go to  Main Menu"<<endl;
+	cout<<"<<<<<<<<<<<<<<<<<<< Delete Character Options >>>>>>>>>>>>>>>>>>"<<endl;
+	cout << "1.) I want to Delete a Human character" << endl;
+	cout << "2.) I want to Delete a Super Hero character" << endl;
+	cout << "3.) I want to Delete a Group Affiliation" << endl;
+	cout << "4.) I want to go to  Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-
 
 	char request;
 	cin >> request;
@@ -536,22 +528,47 @@ void Marvel :: delete_character() //(Needs to be done )
 	while(request != 'q'){
 
 		if(request=='1') {
-		
+			
+			string table = "Humans";
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
 			cin.ignore();
-			getline(cin, human_name);
+			getline(cin, character);
+			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<quary<<endl; //"TESTING PURPOSES"
 			
 		}
-		else if(request=='2'){
+		if(request=='2') {
+		
+			table = "Heros";
+			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
+			cin.ignore();
+			getline(cin, character);
+			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<quary<<endl; //"TESTING PURPOSES"
+		}
+		if(request=='3') {
+		
+			table = "Groups";
+			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
+			cin.ignore();
+			getline(cin, character);
+			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<quary<<endl; //"TESTING PURPOSES"
+		}
+		else if(request=='4'){
 			cout << "Exiting Delete Character" << endl;
 			db.Menu();
 		}
 
-		cout << "Character was created"<<endl;
+		cout << "Character was deleted"<<endl;
+		cout<<endl;
 
-		cout<<"--------Delete Character Options ------------";
-		cout << "1.) I want to Delete another character" << endl;
-		cout << "2.) I want to go to  Main Menu"<<endl;
+		
+		cout<<"<<<<<<<<<<<<<<<<<<< Delete Character Options >>>>>>>>>>>>>>>>>>"<<endl;
+		cout << "1.) I want to Delete a Human character" << endl;
+		cout << "2.) I want to Delete a Super Hero character" << endl;
+		cout << "3.) I want to Delete a Group Affiliation" << endl;
+		cout << "4.) I want to go to  Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
 
 		cin>>request;
@@ -564,10 +581,11 @@ void Marvel :: show_characters() // Done but need Parser call
 {
 	
 	string table_name;
+	string quary;
 	Marvel db;
 	
 	cout<<endl;
-	cout << "--------------------Show Character Menu --------------------------"  << endl;
+	cout << "<<<<<<<<<<<<<<<<<<< Show Character Menu >>>>>>>>>>>>>>>>>>"  << endl;
 	cout << "1.) Show Marvel Human Characters" << endl;
 	cout << "2.) Show Marvel Hero Characters" << endl;
 	cout << "3.) Show Group Affiliation" << endl;
@@ -582,26 +600,18 @@ void Marvel :: show_characters() // Done but need Parser call
 
 		if(request=='1') {
 		 
-			string temp1 = "SHOW Humans;";
-			cout<<"PRINTING TABLE human"<<endl;
-			// Call paser to show 
-			
-		
+			quary = "SHOW Humans;";
+			cout<<quary<<endl;
 		}
 		else if(request=='2'){
 			
-			string temp2 = "SHOW Heros;";
-			cout<<"PRINTING TABLE hero"<<endl;
-			//Call parser to show
-		
-			
+			quary = "SHOW Heros;";
+			cout<<quary<<endl;
 		}
 		else if(request=='3'){
 			
-			string temp3 = "SHOW Groups;";
-			cout<<"PRINTING TABLE affiliation"<<endl;
-			//Call parser to show 
-			
+			quary = "SHOW Groups;";
+			cout<<quary<<endl;			
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -622,6 +632,120 @@ void Marvel :: show_characters() // Done but need Parser call
 
 db.quit_app();
 }
+
+void Marvel :: show_attribute(){//Projection
+
+	//projection ::= project ( attribute-list ) atomic-expr
+
+	string table_name;
+	string quary;
+	Marvel db;
+	
+	cout<<endl;
+	cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
+	cout << "1.) Show Marvel Human Characters Attributes" << endl;
+	cout << "2.) Show Marvel Hero Characters Attributes" << endl;
+	cout << "3.) Show Group Affiliation Attributes" << endl;
+	cout << "4.) GO to Main Menu"<<endl;
+	cout << "q.) Quit Application"<<endl;
+	cout << "Please enter the number of your desired request" << endl;
+	
+	char request;
+	cin >> request;
+
+	while(request != 'q'){
+
+		if(request=='1'){
+
+			string att;
+			string store_att;
+			table_name = "Humans";
+			cout<< "List of Attributes that we can show for the Humans character table"<<endl;
+			cout<<"id,name,height,weight,occupation"<<endl;
+			cout<<"Choose one or as many as you want follow by enter"<<endl;
+			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+			cout<<endl;
+
+			cin>>att;
+
+			while(att != "f"){
+				store_att+=att + ",";
+				cin>>att;
+			}
+
+			string new_att = store_att.substr(0, store_att.size()-1);
+			quary = "project (" + new_att +") " + table_name+";";
+			cout<<quary<<endl;//testing puposes
+		}
+
+		else if(request=='2'){
+
+			string att;
+			string store_att;
+			table_name = "Heros";
+			cout<< "List of Attributes that we can show for the Heros character table"<<endl;
+			cout<<"id,name,height,weight,abilities"<<endl;
+			cout<<"Choose one or as many as you want follow by enter"<<endl;
+			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+			cout<<endl;
+
+			cin>>att;
+
+			while(att != "f"){
+				store_att+=att + ",";
+				cin>>att;
+			}
+
+			string new_att = store_att.substr(0, store_att.size()-1);
+			quary = "project (" + new_att +") " + table_name+";";
+			cout<<quary<<endl;//testing puposes
+		}
+
+		else if(request=='3'){
+
+			string att;
+			string store_att;
+			table_name = "Heros";
+			cout<< "List of Attributes that we can show for the Group Affiliation table"<<endl;
+			cout<<"name,purposes"<<endl;
+			cout<<"Choose one or as many as you want follow by enter"<<endl;
+			cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+			cout<<endl;
+
+			cin>>att;
+
+			while(att != "f"){
+				store_att+=att + ",";
+				cin>>att;
+			}
+
+			string new_att = store_att.substr(0, store_att.size()-1);
+			quary = "project (" + new_att +") " + table_name+";";
+			cout<<quary<<endl;//testing puposes
+		}
+		else if(request=='4'){
+			cout << "Exiting Show Menu" << endl;
+			db.Menu();
+		}
+		
+		cout<<endl;
+		cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
+		cout << "1.) Show Marvel Human Characters Attributes" << endl;
+		cout << "2.) Show Marvel Hero Characters Attributes" << endl;
+		cout << "3.) Show Group Affiliation Attributes" << endl;
+		cout << "4.) GO to Main Menu"<<endl;
+		cout << "q.) Quit Application"<<endl;
+		cout << "Please enter the number of your desired request" << endl;
+
+		cin>>request;
+	}
+
+	db.quit_app();
+
+}
+
+
+
 void Marvel :: quit_app()
 { 
 	exit(0);

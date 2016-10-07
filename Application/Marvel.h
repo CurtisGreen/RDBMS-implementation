@@ -20,6 +20,7 @@ public:
 	void create_character();
 	void delete_character();
 	void show_characters();
+	void show_attribute();
 	void quit_app();
 	
 	//helper funcitons
