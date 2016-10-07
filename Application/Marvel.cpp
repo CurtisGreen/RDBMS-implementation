@@ -226,13 +226,13 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 			string table = "Humans";
 			cout << "Enter the Name of the Human you would like to update" <<endl;
 			cin.ignore();
-			string type_name;
+			string human_name;
 			getline(cin, type_name);
 
-			temp1 = update_info_helper(table,type_name,"name");
-			temp2 = update_info_helper(table,type_name,"height");
-			temp3 = update_info_helper(table,type_name,"weight");
-			temp4 = update_info_helper(table,type_name,"occupation");
+			temp1 = update_info_helper(table,human_name,"name");
+			temp2 = update_info_helper(table,human_name,"height");
+			temp3 = update_info_helper(table,human_name,"weight");
+			temp4 = update_info_helper(table,human_name,"occupation");
 			
 			// TODO :Call parser 3 times with input temp1, temp2, temp3
 			
@@ -253,7 +253,7 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 			temp1 = update_info_helper(table,hero_name,"name");
 			temp2 = update_info_helper(table,hero_name,"height");
 			temp3 = update_info_helper(table,hero_name,"weight");
-			temp4 = update_info_helper(table,hero_name,"occupation");
+			temp4 = update_info_helper(table,hero_name,"abilities");
 			
 			// TODO :Call parser 3 times with input temp1, temp2, temp3
 		}
