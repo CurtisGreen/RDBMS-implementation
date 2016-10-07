@@ -57,7 +57,7 @@ Table Parser :: execute_expression()
         }
        // cout << "input str = " << input_str << endl;
     }
-    //cout << " input string = " << input_str << endl;
+    cout << " input string = " << input_str << endl;
     if (input_str == "select"){
         reset = true;
         return execute_selection();
@@ -66,7 +66,7 @@ Table Parser :: execute_expression()
         return execute_projection();
     }
     else if(input_str == "rename"){
-        execute_update();
+        return execute_renaming();
     }
     else{	//Must be a relation name
         //cout<< input_str << "input str<<" << endl;
@@ -964,8 +964,8 @@ Table Parser :: execute_projection()
 	string atomic_ex;
 	string input_str = "";
     bool correct = true;
-	remove_spaces();
-	while (input_str != "project" && correct) {//CHECKS FOR THE EXPRESSION TYPE
+	//remove_spaces();
+	/*while (input_str != "project" && correct) {//CHECKS FOR THE EXPRESSION TYPE
 		Token t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
@@ -977,7 +977,7 @@ Table Parser :: execute_projection()
         }
 	}
 	atomic_ex = input_str;///Expression type
-	//cout<<atomic_ex<<endl;
+	//cout<< "atomic ex  = " << atomic_ex<<endl;*/
 
 	Token t('a');
 	while (t.value != '(' && correct){ //DOES NOT LOOK AT THE OPEN PARANTHIS
@@ -991,54 +991,48 @@ Table Parser :: execute_projection()
                 correct = false;
         }
 	}
-
-	switch(t.kind){
-		case '0':  {	
-			remove_spaces();
-			while (t.value != ')' && correct){ //DOES NOT LOOK AT the CLOSING PARENTHESIS
-				input_str = "";
-				t = ts.get();
-				switch(t.kind){
-					case '0': input_str = ts.out_buff(); break;
-					default: {
-						if (t.value != '"'){
-							ts.putback(t); 
-						}
-						break;
-					}
-				}
-				if (t.value == ',' || t.value == ')' ){	//Get attribute name
-					data.push_back(input_str); 
-					remove_spaces();
-				}
-                if (t.value == ';' || t.value == '`'){
-                cout << "Error: [Parser]: Expected closeing parentheses in Projection" << endl;
-                correct = false;
-        }
-			}
-			//for (int i = 0; i < data.size(); i++){
-				//cout << data[i] << endl;
-			//}
-			break;
-		}	
-	}
-
+	
 	remove_spaces();
-	while (t.value != ';' && t.value != '`' && correct) {	//CHECKS FOR RELATION-NAME
+	while (t.value != ')' && correct){ //DOES NOT LOOK AT the CLOSING PARENTHESIS
 		input_str = "";
 		t = ts.get();
-
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: {
+				if (t.value != '"'){
+					ts.putback(t); 
+				}
+				break;
+			}
+		}
+		if (t.value == ',' || t.value == ')' ){	//Get attribute name
+			data.push_back(input_str); 
+			remove_spaces();
+		}
+		if (t.value == ';' || t.value == '`'){
+    		cout << "Error: [Parser]: Expected closing parentheses in Projection" << endl;
+    		correct = false;
+        }
+	}
+	//for (int i = 0; i < data.size(); i++){
+		//cout << data[i] << endl;
+	//}
+	remove_spaces();
+    t.value = ' ';
+	while (t.value != ';' && t.value != '`' && t.value != ')' && correct) {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
-			rel_name = input_str;
+		rel_name = input_str;
 	}
 
 
 	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
 		Table newTable = e.projection(data,rel_name);
-
+        //cout << " about to return " << endl;
 		return newTable;
 
 }
@@ -1050,9 +1044,10 @@ Table Parser :: execute_renaming()
 	string atomic_ex;
 	string input_str = "";
     bool correct = true;
-	remove_spaces();
-	while (input_str != "rename" && correct) {//CHECKS FOR THE EXPRESSION TYPE
+	//remove_spaces();
+	/*while (input_str != "rename" && correct) {//CHECKS FOR THE EXPRESSION TYPE
 		Token t = ts.get();
+		cout << "t = " << t.value << endl;
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
@@ -1063,7 +1058,7 @@ Table Parser :: execute_renaming()
         }
 	}
 	atomic_ex = input_str;///Expression type
-	//cout<<atomic_ex<<endl;
+	cout<< "expression" << atomic_ex<<endl;*/
 
 	Token t('a');
 	while (t.value != '(' && correct){ //DOES NOT LOOK AT THE OPEN PARANTHIS
@@ -1076,56 +1071,52 @@ Table Parser :: execute_renaming()
                 cout << "Error: [Parser]: Expected opening parentheses in Renaming" << endl;
                 correct = false;
         }
-	}
-
-	switch(t.kind){
-		case '0':  {	
-			remove_spaces();
-			while (t.value != ')' && correct){   //DOES NOT LOOK AT the CLOSING PARENTHESIS
-				input_str = "";
-				t = ts.get();
-				switch(t.kind){
-					case '0': input_str = ts.out_buff(); break;
-					default: {
-						if (t.value != '"'){
-							ts.putback(t); 
-						}
-						break;
-					}
-				}
-				if (t.value == ',' || t.value == ')' ){	//Get attribute name
-					data.push_back(input_str); 
-					remove_spaces();
-				}
-                if (t.value == ';' || t.value == '`'){
-                cout << "Error: [Parser]: Expected closing parentheses in Renaming" << endl;
-                correct = false;
-        }
-			}
-			//for (int i = 0; i < data.size(); i++){FOR TESTING PURPOSES
-				//cout << data[i] << endl;
-			//}
-			break;
-		}	
-	}
-
+	}	
 	remove_spaces();
-	while (t.value != ';' && t.value != '`' && correct) {	//CHECKS FOR RELATION-NAME
+	while (t.value != ')' && correct){   //DOES NOT LOOK AT the CLOSING PARENTHESIS
 		input_str = "";
 		t = ts.get();
+		switch(t.kind){
+			case '0': input_str = ts.out_buff(); break;
+			default: {
+				if (t.value != '"'){
+					ts.putback(t); 
+				}
+				break;
+			}
+		}
+		if (t.value == ',' || t.value == ')' ){	//Get attribute name
+			data.push_back(input_str);
+			remove_spaces();
+		}
+		if (t.value == ';' || t.value == '`'){
+			cout << "Error: [Parser]: Expected closing parentheses in Renaming" << endl;
+			correct = false;
+		}
+	}
+	//for (int i = 0; i < data.size(); i++){FOR TESTING PURPOSES
+		//cout << data[i] << endl;
+	//}
+
+	ts.out_buff();
+	remove_spaces();
+	
+	/*while (t.value != ';' && t.value != '`' && correct) {	//CHECKS FOR RELATION-NAME
+		input_str = "";
+		t = ts.get();
+		cout << " t = " << t.value << endl;
 		switch(t.kind){
 			case '0': input_str = ts.out_buff(); break;
 			default: ts.putback(t); break;
 		}
 			rel_name = input_str;
-	}
-
+	}*/
+	Table get_table = execute_expression();
+	e.all_tables.push_back(get_table);
     ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
-	Table get_table = e.get_table(rel_name);
+	//Table get_table = e.get_table(rel_name);
     e.renaming(data,get_table);
-    e.all_tables.push_back(get_table);
 	//e.show(get_table.getName());
-
 	return get_table;
 
 }

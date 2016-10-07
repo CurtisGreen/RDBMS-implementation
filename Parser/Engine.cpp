@@ -660,7 +660,7 @@ void Engine::renaming(vector<string> att_name,  Table& table_name){
 	
 	cout << "looking for: " << table_name.getName() << endl;
 	for (int i = 0; i < all_tables.size(); i++){
-		cout << "renaming out table " << all_tables[i].getName() << endl;
+		//cout << "renaming out table " << all_tables[i].getName() << endl;
 		if (table_name.getName() == all_tables[i].name){ // checks if table exists
 			table_exists = true;
 		}
@@ -669,7 +669,7 @@ void Engine::renaming(vector<string> att_name,  Table& table_name){
 		cout << " Error:[Engine]: Table does not exist in Renaming()" << "\n";
 	}
 	for (int i = 0; i < att_name.size() ;i++){
-	
+			//cout << "changing " << table_name.att[i].name << " to " << att_name[i] << endl;
 			table_name.att[i].setName(att_name[i]);
 	}
 	
