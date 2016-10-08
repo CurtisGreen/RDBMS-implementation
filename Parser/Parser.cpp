@@ -235,13 +235,14 @@ void Parser :: execute_update()
 {
     //update-cmd ::= UPDATE relation-name SET attribute-name = literal { , attribute-name = literal } WHERE condition
     
-    string att_name_1, att_name_2;
     string rel_name;
+    vector<string> att_name_1;
+    vector<string> newVal;
+    string att_name_2;
     string data;
-    string newVal;
     string input_str = "";
-    remove_spaces();
     bool correct = true;
+    remove_spaces();
     Token t = ('a');
     while (t.value != ' ' && correct) {	//checks for relation-name
         input_str = "";
@@ -252,9 +253,10 @@ void Parser :: execute_update()
         }
         if (t.value == ' '){
             rel_name = input_str;
+         
         }
         if (t.value == ';' || t.value == '`'){
-            cout << "Error: [Parser]: Expected relation-name in Update" << endl;
+            cout << "Error: [Parser]: Expected relation-name in Insert" << endl;
             correct = false;
         }
         
@@ -267,75 +269,27 @@ void Parser :: execute_update()
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
+        
         if (t.value == ';' || t.value == '`'){
-            cout << "Error: [Parser]: Expected SET in Update" << endl;
+            cout << "Error: [Parser]: Expected INTO in Insert" << endl;
             correct = false;
         }
         
     }
+
     remove_spaces();
-    while (t.value != '=' && correct) { //Attribute
-        input_str = "";
-        t = ts.get();
-        switch(t.kind){
-            case '0': input_str = ts.out_buff(); break;
-            default: {
-                if (t.value != '"'){
-                    ts.putback(t);
-                }
-                break;
-            }
-        }
-        if (t.value == '='){	
-            att_name_1=input_str;	//getting attribute for new value
-           
-        }
-        if (t.value == ';' || t.value == '`'){
-            cout << "Error: [Parser]: Expected attribute in Update" << endl;
-            correct = false;
-        }
-    }
+    
     t = ts.get();
     switch(t.kind){
-        case 'A': case '8':case'a':  {	//List of literals
+        case '0': input_str = ts.out_buff(); break;
+        default: ts.putback(t); break;
+    }
+    
+    //t = ts.get();
+    switch(t.kind){
+        case 'A': case '8':case'a':  {	//TODO List of literals
             remove_spaces();
-            while (t.value != ' ' && correct) {
-                input_str = "";
-                t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: {
-                        if (t.value != '"'){
-                            ts.putback(t); 
-                        }
-                        break;
-                    }
-                }
-                if (t.value == ' ' ){	
-                    newVal=input_str;	//setting data by new value
-                    remove_spaces();
-                }
-                if (t.value == ';' || t.value == '`'){
-                    cout << "Error: [Parser]: Expected literal in Update" << endl;
-                    correct = false;
-                }
-            }
-            
-            remove_spaces();
-            while (input_str != "WHERE" && correct) {
-                Token t = ts.get();
-                switch(t.kind){
-                    case '0': input_str = ts.out_buff(); break;
-                    default: ts.putback(t); break;
-                }
-                if (t.value == ';' || t.value == '`'){
-                    cout << "Error: [Parser]: Expected WHERE in Update" << endl;
-                    correct = false;
-                }
-            }
-          
-            remove_spaces();
-            while (t.value != '=' && correct) { //Attribute
+            while (ts.buffer != "WHERE" && correct) {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -347,18 +301,70 @@ void Parser :: execute_update()
                         break;
                     }
                 }
+                if (t.value == '='){
+                    
+                    att_name_1.push_back(input_str);    //getting attributes for new value
+                    remove_spaces();
+                 
+                }
+                else if (input_str != ts.buffer)
+                {
+                    //cout<<"Attribute not found for new value!!"<<endl;
+                }
+                else if (t.value == ',' || t.value ==' ')
+                {
+                    newVal.push_back(input_str);
+                    remove_spaces();                   
+                }
+                else if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected literals in Insert" << endl;
+                    correct = false;
+                }
+                
+            }
+            
+          
+            //remove_spaces();
+            while (input_str != "WHERE" && correct) {
+                Token t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected literals in Insert" << endl;
+                    correct = false;
+                }
+                
+            }
+          
+            remove_spaces();
+            while (t.value != '=') {
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                            
+                        }
+                        break;
+                    }
+                }
                 if (t.value == '=' ){	
                     att_name_2=input_str;	//searching attribute
+                   
                     remove_spaces();
                 }
                 if (t.value == ';' || t.value == '`'){
-                    cout << "Error: [Parser]: Expected attribute in Update" << endl;
+                    cout << "Error: [Parser]: Expected literals in Insert" << endl;
                     correct = false;
                 }
             }
             
             remove_spaces();
-            while (t.value != ';' && correct) {
+            while (t.value != ';') {
                 input_str = "";
                 t = ts.get();
                 switch(t.kind){
@@ -371,24 +377,24 @@ void Parser :: execute_update()
                     }
                 }
                 if (t.value == ';'){	//searching data to set new value
-                    data=input_str;	
-                }
-                if (t.value == '`'){
-                    cout << "Error: [Parser]: Expected semicolon in Update" << endl;
-                    correct = false;
+                    data=input_str;
+           
+                    
                 }
             }
             
-            //e.update(rel_name,att_name,data,newVal);
-            //e.show(rel_name);
-            //e.update(rel_name,att_name_1,newVal,att_name_2,data);
-            //e.show(rel_name);
             break;
         }
         default: {	//Expression
             Table table = execute_expression();
         }
     }
+   // cout<<"att[0]?=="<<att_name_1[0]<<endl;
+    //cout<<"att[1]?=="<<att_name_1[1]<<endl;
+    //cout<<"newVal[0]?=="<<newVal[0]<<endl;
+   // cout<<"newVal[1]=="<<newVal[1]<<endl;
+    e.update(rel_name,att_name_1,newVal,att_name_2,data);
+    e.show(rel_name);
 }
 void Parser :: execute_create()
 {
