@@ -16,21 +16,21 @@ using namespace std;
  
  }
  
- void Marvel :: Menu(){
+ void Marvel :: Menu(){ // Marvel Main Menu that displays user options 
 	Marvel db;
 
-	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
+	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu >>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
 	cout << "2.) View Characters attributes" << endl;
-	cout << "3.) Rename character attribute name"<<endl;
+	cout << "3.) Rename character attributes"<<endl;
 	cout << "4.) Find Marvel Characters" << endl;
 	cout << "5.) Create Marvel Characters" << endl;
 	cout << "6.) Delete Marvel Characters" << endl;
 	cout << "7.) Update Marvel Characters" << endl;
 	cout << "8.) Exit Database" << endl;
-	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
+	cout << "q.) Quit Application" << endl;// for testing purposes 
 
 	char request;
 	cin>>request;
@@ -69,7 +69,7 @@ using namespace std;
 		}
 
 		cout<<endl;
-		cout <<"--------------------Marvel Main Menu --------------------------" << endl;
+		cout <<"<<<<<<<<<<<<<<<<<<<<< Marvel Main Menu >>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 		cout << "User Options :" << endl;
 		cout << "1.) View Marvel Characters" << endl;
@@ -78,8 +78,7 @@ using namespace std;
 		cout << "4.) Delete Marvel Characters" << endl;
 		cout << "5.) Update Marvel Characters" << endl;
 		cout << "6.) Exit Database" << endl;
-		cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
-
+		cout << "q.) Quit Application" << endl;// for testing purposes
 		cin>>request;
 
 	}
@@ -88,21 +87,16 @@ using namespace std;
 
 
 }
-
-void Marvel :: initialize_tables()
-{
-	//TODO:
-}
-
-string Marvel :: projection_rename_helper(string table_name, string function_name,string list){
+string Marvel :: projection_rename_helper(string table_name, string function_name,string list){ // projection/rename helper functions that manipulates attributes
 
 	string att;
 	string store_att;
-	string quary;
+	string query;
 	cout<< "List of Attributes that we can " + function_name + " for the Humans character table"<<endl;
 	cout<< list <<endl;
-	cout<<"Choose one or as many as you want follow by enter"<<endl;
-	cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+	cout<<"Choose one or as many as you want and press ENTER"<<endl;
+	cout<<"To rename , enter the new names in the same order" << endl;
+	cout<<"Type f after you finish typing the attributes and press ENTER"<<endl;
 	cout<<endl;
 
 	cin>>att;
@@ -113,28 +107,28 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 	}
 
 	string new_att = store_att.substr(0, store_att.size()-1);
-	quary = function_name+ " (" + new_att +") " + table_name +";";
-	cout<<quary<<endl;//testing puposes
-	return quary;
+	query = function_name+ " (" + new_att +") " + table_name +";";
+	cout<<query<<endl;//testing puposes
+	return query;
 
 }
 
-void Marvel :: rename(){
+void Marvel :: rename(){ // Rename Menu allows user to rename attributes 
 
 	//projection ::= project ( attribute-list ) atomic-expr
 	string table_name;
-	string quary;
+	string query;
 	string list;
 	Marvel db;
 	
 	cout<<endl;
 	cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
-	cout << "1.) Raname Marvel Human Characters Attributes" << endl;
-	cout << "2.) Raname Marvel Hero Characters Attributes" << endl;
-	cout << "3.) Raname Group Affiliation Attributes" << endl;
-	cout << "4.) GO to Main Menu"<<endl;
+	cout << "1.) Rename Marvel Human Characters Attributes" << endl;
+	cout << "2.) Rename Marvel Hero Characters Attributes" << endl;
+	cout << "3.) Rename Group Affiliation Attributes" << endl;
+	cout << "4.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
+	cout << "Enter the number of your request" << endl;
 	
 	char request;
 	cin >> request;
@@ -143,16 +137,16 @@ void Marvel :: rename(){
 
 		if(request=='1'){
 			list = "id,name,height,weight,occupation";
-			string quary = db.projection_rename_helper("Humans", "rename",list);
+			string query = db.projection_rename_helper("Humans", "rename",list);
 		}
 		else if(request=='2'){
 			list = "id,name,height,weight,abilities";
-			string quary = db.projection_rename_helper("Heros", "rename",list);
+			string query = db.projection_rename_helper("Heros", "rename",list);
 			
 		}
 		else if(request=='3'){
 			list = "id,name,purposes";
-			string quary = db.projection_rename_helper("Groups", "rename",list);	
+			string query = db.projection_rename_helper("Groups", "rename",list);	
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -164,9 +158,9 @@ void Marvel :: rename(){
 		cout << "1.) Rename Marvel Human Characters Attributes" << endl;
 		cout << "2.) Rename Marvel Hero Characters Attributes" << endl;
 		cout << "3.) Rename Group Affiliation Attributes" << endl;
-		cout << "4.) GO to Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 	}
@@ -176,7 +170,7 @@ void Marvel :: rename(){
 }
 
 
-string  update_info_helper(string table,string type_name,string thing_to_update){
+string  update_info_helper(string table,string type_name,string thing_to_update){ // helper function to update characters for user 
 
 
 	string temp;
@@ -197,19 +191,17 @@ return temp;
 }
 
 
-void Marvel :: update_info() // Done, just need fucntion call to Parser 
+void Marvel :: update_info() // update Menu. allows users to update info in the database 
 {
-	
 	Marvel db;
 	cout << "--------------------Update Info Menu --------------------------" << endl;
 	
 	cout << "1.) Update Marvel Human Characters" << endl;
 	cout << "2.) Update Marvel Hero Characters" << endl;
 	cout << "3.) Update Group Affiliation" << endl;
-	cout << "4.) GO to Main Menu"<<endl;
+	cout << "4.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
-	
+	cout << "Enter the number of your request" << endl;
 	char request;
 	cin >> request;
 	
@@ -227,7 +219,7 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 			cout << "Enter the Name of the Human you would like to update" <<endl;
 			cin.ignore();
 			string human_name;
-			getline(cin, type_name);
+			getline(cin, human_name);
 
 			temp1 = update_info_helper(table,human_name,"name");
 			temp2 = update_info_helper(table,human_name,"height");
@@ -273,7 +265,7 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 			temp2 = update_info_helper(table,group_name,"purpose");
 		}
 		else if(request=='4'){
-			cout << "Exiting find character Menu" << endl;
+			cout << "Exiting Find character Menu" << endl;
 			db.Menu();
 		}
 
@@ -282,9 +274,9 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 		cout << "1.) Update Marvel Human Characters" << endl;
 		cout << "2.) Update Marvel Hero Characters" << endl;
 		cout << "3.) Update Group Affiliation" << endl;
-		cout << "4.) GO to Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 
@@ -297,7 +289,7 @@ void Marvel :: update_info() // Done, just need fucntion call to Parser
 	
 }
 
-void Marvel :: find_character() // (Needs Help fixing  )
+void Marvel :: find_character() // Find menu supports the select function in SQL 
 {
 	Marvel db;
 
@@ -306,9 +298,9 @@ void Marvel :: find_character() // (Needs Help fixing  )
 	cout << "1.) Find Marvel Human Characters" << endl;
 	cout << "2.) Find Marvel Hero Characters" << endl;
 	cout << "3.) Find Group Affiliation" << endl;
-	cout << "4.) GO to Main Menu"<<endl;
+	cout << "4.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
+	cout << "Enter the number of your request" << endl;
 	
 	char request;
 	cin >> request;
@@ -317,8 +309,8 @@ void Marvel :: find_character() // (Needs Help fixing  )
 	
 		if(request=='1') 
 		{
-			//TODO: Find Human Characters 
-			
+			cout << "Need some suggestions??" << endl;
+			cout << "Try: Peter Benjamin Parker or Carol Danvers !" << endl << endl ;
 			string temp1;
 			string human;
 			string table = "Humans";
@@ -333,7 +325,8 @@ void Marvel :: find_character() // (Needs Help fixing  )
 
 		else if(request=='2') 
 		{
-			//TODO: Find Hero Characters 
+			cout << "Need some suggestions??" << endl;
+			cout << "Try: Spider-Man or Thor!" << endl << endl ;
 			string temp2;
 			string hero;
 			string table = "Heros";
@@ -349,7 +342,8 @@ void Marvel :: find_character() // (Needs Help fixing  )
 
 		else if(request=='3') 
 		{
-			// TODO Find Group Affiliation 
+			cout << "Need some suggestions??" << endl;
+			cout << "Try: Avengers or X-men !" << endl << endl ;
 			string temp3;
 			string group;
 			string table = "Groups";
@@ -363,16 +357,16 @@ void Marvel :: find_character() // (Needs Help fixing  )
 		}
 		
 		else if(request=='4'){
-			cout << "Exiting find character Menu" << endl;
+			cout << "Exiting Find character Menu" << endl;
 			db.Menu();
 		}
 
 		cout << "1.) Find Marvel Human Characters" << endl;
 		cout << "2.) Find Marvel Hero Characters" << endl;
 		cout << "3.) Find Group Affiliation" << endl;
-		cout << "4.) GO to Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
+		cout << "Enter the number of your request" << endl;
 	
 		cin>>request;
 	}
@@ -382,7 +376,7 @@ void Marvel :: find_character() // (Needs Help fixing  )
 }
 
 
-void Marvel :: helper_create_character(){ // Done but need Parser Call 
+void Marvel :: helper_create_character(){ // Helper function to allow user to create a character in the database 
 
 	string id;
 	
@@ -408,7 +402,7 @@ void Marvel :: helper_create_character(){ // Done but need Parser Call
 	cout << "Your character must have a human and hero identity, and a group" << endl;
 
 	
-	cout << "Enter a number after 25, for your character's ID"<< endl;
+	cout << "Enter a number after 40, for your character's ID"<< endl;
 	cin.ignore();
 	getline(cin, id);
 	cout << "Enter your character's Human Name" << endl;
@@ -439,7 +433,7 @@ void Marvel :: helper_create_character(){ // Done but need Parser Call
 	temp1 += "\"" + human_name + "\"" + ", ";
 	temp1 += "\"" + human_height + "\"" + ", ";
 	temp1 += "\"" + human_weight + "\"" + ", ";
-	temp1 += "\"" + human_occ + "\"" + ") ";
+	temp1 += "\"" + human_occ + "\"" + ");";
 
 	
 	temp2 += "INSERT INTO Heros VALUES FROM (";
@@ -447,12 +441,12 @@ void Marvel :: helper_create_character(){ // Done but need Parser Call
 	temp2 += "\"" + hero_name + "\"" + ", ";
 	temp2 += "\"" + hero_height + "\"" + ", ";
 	temp2 += "\"" + hero_weight + "\"" + ", ";
-	temp2 += "\"" + hero_ab + "\"" + ") ";
+	temp2 += "\"" + hero_ab + "\"" + "); ";
 	
 	temp3 += "INSERT INTO Groups VALUES FROM (";
 	temp3 += "\"" + id + "\"" + ", ";
 	temp3 += "\"" + group_aff + "\"" + ", ";
-	temp3 += "\"" + group_aff_purp + "\"" + ") ";
+	temp3 += "\"" + group_aff_purp + "\"" + "); ";
 	
 	cout << temp1 << endl;// testing purposes
 	cout << temp2 << endl;
@@ -462,19 +456,20 @@ void Marvel :: helper_create_character(){ // Done but need Parser Call
 	// Call parser using temp1 temp2 temp3 
 }
 
-void Marvel :: create_character()
+void Marvel :: create_character() // Creater Character menu supports insert into/ create functions in SQL 
 {
 
 	Marvel db;
 
 	helper_create_character();
 	
-	cout << "Character was created"<<endl;
+	cout << "Awesome, Your character was created !"<<endl;
 
 	cout<<"--------Created Character Options ------------";
 	cout << "1.) I want to create another character" << endl;
-	cout << "2.) I want to go to  Main Menu"<<endl;
+	cout << "2.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
+	cout << "Enter the number of your request" << endl;
 
 	char request;
 	cin >> request;
@@ -495,8 +490,9 @@ void Marvel :: create_character()
 
 		cout<<"--------Created Character Options ------------";
 		cout << "1.) I want to create another character" << endl;
-		cout << "2.) I want to go to  Main Menu"<<endl;
+		cout << "2.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 	}
@@ -505,10 +501,10 @@ void Marvel :: create_character()
 	
 }
 
-void Marvel :: delete_character() //(Needs to be done )
+void Marvel :: delete_character() //Delete Menu allows user to delete characters from the database 
 {
 	Marvel db;
-	string quary;
+	string query;
 	string character;
 	string table;
 
@@ -516,8 +512,9 @@ void Marvel :: delete_character() //(Needs to be done )
 	cout << "1.) I want to Delete a Human character" << endl;
 	cout << "2.) I want to Delete a Super Hero character" << endl;
 	cout << "3.) I want to Delete a Group Affiliation" << endl;
-	cout << "4.) I want to go to  Main Menu"<<endl;
+	cout << "4.) Go toMain Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
+	cout << "Enter the number of your request" << endl;
 
 	char request;
 	cin >> request;
@@ -527,37 +524,37 @@ void Marvel :: delete_character() //(Needs to be done )
 		if(request=='1') {
 			
 			string table = "Humans";
-			cout << " Please enter the Human name of the character that you want to delete"<< endl;
+			cout << " Enter the Human name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
-			cout<<quary<<endl; //"TESTING PURPOSES"
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<query<<endl; //testing purposes
 			
 		}
 		if(request=='2') {
 		
 			table = "Heros";
-			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
+			cout << " Enter the Super Hero name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
-			cout<<quary<<endl; //"TESTING PURPOSES"
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<query<<endl; //testing purposes
 		}
 		if(request=='3') {
 		
 			table = "Groups";
-			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
+			cout << " Enter the Group name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
-			cout<<quary<<endl; //"TESTING PURPOSES"
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			cout<<query<<endl; //testing purposes
 		}
 		else if(request=='4'){
-			cout << "Exiting Delete Character" << endl;
+			cout << "Exiting Delete Character Menu" << endl;
 			db.Menu();
 		}
 
-		cout << "Character was deleted"<<endl;
+		cout << "Awesome, Your character was deleted !"<<endl;
 		cout<<endl;
 
 		
@@ -565,8 +562,9 @@ void Marvel :: delete_character() //(Needs to be done )
 		cout << "1.) I want to Delete a Human character" << endl;
 		cout << "2.) I want to Delete a Super Hero character" << endl;
 		cout << "3.) I want to Delete a Group Affiliation" << endl;
-		cout << "4.) I want to go to  Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 	}
@@ -574,11 +572,11 @@ void Marvel :: delete_character() //(Needs to be done )
 	db.quit_app();
 }
 
-void Marvel :: show_characters() // Done but need Parser call 
-{
+void Marvel :: show_characters() // Show Menu allows user to see all of the characters in the database
 	
 	string table_name;
-	string quary;
+	string query1;
+	string query2;
 	Marvel db;
 	
 	cout<<endl;
@@ -586,9 +584,9 @@ void Marvel :: show_characters() // Done but need Parser call
 	cout << "1.) Show Marvel Human Characters" << endl;
 	cout << "2.) Show Marvel Hero Characters" << endl;
 	cout << "3.) Show Group Affiliation" << endl;
-	cout << "4.) GO to Main Menu"<<endl;
+	cout << "4.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
+	cout << "Enter the number of your request" << endl;
 	
 	char request;
 	cin >> request;
@@ -597,18 +595,22 @@ void Marvel :: show_characters() // Done but need Parser call
 
 		if(request=='1') {
 		 
-			quary = "SHOW Humans;";
-			cout<<quary<<endl;
+			query1 = "SHOW Humans;";
+			query2 = "SHOW Hero-Humans;";
+			cout<<query1<<endl;
+			cout<<query2<<endl;	
 		}
 		else if(request=='2'){
 			
-			quary = "SHOW Heros;";
-			cout<<quary<<endl;
+			query1 = "SHOW Heros;";
+			cout<<query1<<endl;
 		}
 		else if(request=='3'){
 			
-			quary = "SHOW Groups;";
-			cout<<quary<<endl;			
+			query1 = "SHOW Groups;";
+			query2 = "SHOW Hero-Groups;";
+			cout<<query1<<endl;	
+			cout<<query2<<endl;	
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -616,13 +618,13 @@ void Marvel :: show_characters() // Done but need Parser call
 		}
 
 		cout<<endl;
-		cout << "--------------------Show Character Menu --------------------------"  << endl;
+		cout << "<<<<<<<<<<<<<<<<<<< Show Character Menu >>>>>>>>>>>>>>>>>>"   << endl;
 		cout << "1.) Show Marvel Human Characters" << endl;
 		cout << "2.) Show Marvel Hero Characters" << endl;
 		cout << "3.) Show Group Affiliation" << endl;
-		cout << "4.) GO to Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 	}
@@ -630,12 +632,11 @@ void Marvel :: show_characters() // Done but need Parser call
 db.quit_app();
 }
 
-void Marvel :: show_attribute(){//Projection
+void Marvel :: show_attribute(){//Projection SQL function Support 
 
-	//projection ::= project ( attribute-list ) atomic-expr
 
 	string table_name;
-	string quary;
+	string query;
 	string list;
 	Marvel db;
 	
@@ -644,9 +645,9 @@ void Marvel :: show_attribute(){//Projection
 	cout << "1.) Show Marvel Human Characters Attributes" << endl;
 	cout << "2.) Show Marvel Hero Characters Attributes" << endl;
 	cout << "3.) Show Group Affiliation Attributes" << endl;
-	cout << "4.) GO to Main Menu"<<endl;
+	cout << "4.) Go to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
+	cout << "Enter the number of your request" << endl;
 	
 	char request;
 	cin >> request;
@@ -655,16 +656,16 @@ void Marvel :: show_attribute(){//Projection
 
 		if(request=='1'){
 			list = "id,name,height,weight,occupation";
-			string quary = db.projection_rename_helper("Humans", "project",list);
+			string query = db.projection_rename_helper("Humans", "project",list);
 		}
 		else if(request=='2'){
 			list = "id,name,height,weight,abilities";
-			string quary = db.projection_rename_helper("Heros", "project",list);
+			string query = db.projection_rename_helper("Heros", "project",list);
 			
 		}
 		else if(request=='3'){
-			list = "id,name,purposes";
-			string quary = db.projection_rename_helper("Groups", "project",list);	
+			list = "id,name,purpose";
+			string query = db.projection_rename_helper("Groups", "project",list);	
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -676,9 +677,9 @@ void Marvel :: show_attribute(){//Projection
 		cout << "1.) Show Marvel Human Characters Attributes" << endl;
 		cout << "2.) Show Marvel Hero Characters Attributes" << endl;
 		cout << "3.) Show Group Affiliation Attributes" << endl;
-		cout << "4.) GO to Main Menu"<<endl;
+		cout << "4.) Go to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
+		cout << "Enter the number of your request" << endl;
 
 		cin>>request;
 	}
