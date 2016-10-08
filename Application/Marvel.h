@@ -14,7 +14,6 @@ public:
 	Marvel(Parser p_ ){p = p_;}
 	Parser p;
 	void Menu();
-	void initialize_tables(); // may use this or may just create all of the tables in the input file
 	void update_info();
 	void rename();
 	void find_character();
