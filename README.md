@@ -1,5 +1,9 @@
 # RDBMS
 Relational Database Management System
+Inga Irving
+Curtis Green
+Jose Ramos
+Eunsu Kim
 
   * Note to grader: For engine resubmission use "Engine" folder and follow the same instructions
   * To compile "make clean" then type "make" then type "make run"
@@ -9,3 +13,4 @@ Relational Database Management System
   * All tests can be found under Main.cpp
   * Show(string table_name) can be used to print out the table to the console if it is in memory (Engine::all_tables)
   * [Log](https://github.tamu.edu/greencur000/RDBMS/wiki/Development-Log)
+  * [Final Report]
