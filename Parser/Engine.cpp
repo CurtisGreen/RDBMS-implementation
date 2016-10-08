@@ -222,14 +222,15 @@ Table Engine::update(string table_name, vector<string> att_name_1, vector<string
                     {
                         if( (table->att[i].data[j]) == key)    //getting row by key
                         {
-                            for (int i = 0; i < table->att.size(); i++)
+                            for (int i = 0; i < att_name_1.size(); i++)
                             {
-                                for (int k=0; k<att_name_1.size(); k++){
-                                if ( (table->att[i].getName()) == att_name_1[k])	//comparing attributes for new data
-                                {
-                                    table->att[i].data[j]=newVal[n];		//setting new values
-                                    n++;
-                                }
+                                for (int k=0; k< table->att.size(); k++){
+                                    if ( att_name_1[i] ==(table->att[k].getName()))	//comparing attributes for new data
+                                    {
+                                        table->att[k].data[j]=newVal[n];		//setting new values
+                                        n++;
+                                    }
+                                    
                                 }
                             }
                         }
