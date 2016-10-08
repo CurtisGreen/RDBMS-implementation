@@ -573,7 +573,7 @@ void Marvel :: delete_character() //Delete Menu allows user to delete characters
 }
 
 void Marvel :: show_characters() // Show Menu allows user to see all of the characters in the database
-	
+{	
 	string table_name;
 	string query1;
 	string query2;
@@ -628,9 +628,11 @@ void Marvel :: show_characters() // Show Menu allows user to see all of the char
 
 		cin>>request;
 	}
-
-db.quit_app();
+	
+	db.quit_app();
 }
+
+
 
 void Marvel :: show_attribute(){//Projection SQL function Support 
 
