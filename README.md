@@ -13,4 +13,4 @@ Eunsu Kim
   * All tests can be found under Main.cpp
   * Show(string table_name) can be used to print out the table to the console if it is in memory (Engine::all_tables)
   * [Log](https://github.tamu.edu/greencur000/RDBMS/wiki/Development-Log)
-  * [Final Report](https://github.tamu.edu/greencur000/RDBMS/wiki/Final-Report)
+  * [Final Report](https://docs.google.com/a/tamu.edu/document/d/1VrtjGm660s0OG223xInd9UsObt6WJsMkDhY4RTFzqSo/edit?usp=sharing)
