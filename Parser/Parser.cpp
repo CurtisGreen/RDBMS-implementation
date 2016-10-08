@@ -307,10 +307,6 @@ void Parser :: execute_update()
                     remove_spaces();
                  
                 }
-                else if (input_str != ts.buffer)
-                {
-                    //cout<<"Attribute not found for new value!!"<<endl;
-                }
                 else if (t.value == ',' || t.value ==' ')
                 {
                     newVal.push_back(input_str);
