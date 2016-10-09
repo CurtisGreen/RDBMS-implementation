@@ -1,5 +1,6 @@
 
 
+#include <cstring>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -40,12 +41,9 @@ int main()
 
     cout << "\n=> Socket server has been created..." << endl;
 
-
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htons(INADDR_ANY);
     server_addr.sin_port = htons(portNum);
-
-    
 
     
     if ((bind(client, (struct sockaddr*)&server_addr,sizeof(server_addr))) < 0) 
@@ -74,46 +72,10 @@ int main()
         cout << "\n=> Enter # to end the connection\n" << endl;
 
 
-        cout << "Client: ";
-        do {
-            recv(server, buffer, bufsize, 0);
-            cout << buffer << " ";
-            if (*buffer == '#') {
-                *buffer = '*';
-                isExit = true;
-            }
-        } while (*buffer != '*');
-
-        do {
-            cout << "\nServer: ";
-            do {
-                cin >> buffer;
-                send(server, buffer, bufsize, 0);
-                if (*buffer == '#') {
-                    send(server, buffer, bufsize, 0);
-                    *buffer = '*';
-                    isExit = true;
-                }
-            } while (*buffer != '*');
-
-            cout << "Client: ";
-            do {
-                recv(server, buffer, bufsize, 0);
-                cout << buffer << " ";
-                if (*buffer == '#') {
-                    *buffer == '*';
-                    isExit = true;
-                }
-            } while (*buffer != '*');
-        } while (!isExit);
+        recv(server, buffer, bufsize, 0);
+             cout << buffer << " ";
 
   
-        // inet_ntoa converts packet data to IP, which was taken from client
-        cout << "\n\n=> Connection terminated with IP " << inet_ntoa(server_addr.sin_addr);
-        close(server);
-        cout << "\nGoodbye..." << endl;
-        isExit = false;
-        exit(1);
     }
 
     close(client);
