@@ -1,12 +1,10 @@
-# makefile
+all: main
 
-all: marvel
+main: Main.o Engine.o Table.o Parser.o Attribute.o 
+	g++ -std=c++11 Attribute.o Main.o Table.o Engine.o Parser.o -o main
 
-marvel: Marvel.o Engine.o Table.o Parser.o Attribute.o 
-	g++ -std=c++11 Attribute.o Marvel.o Table.o Engine.o Parser.o -o marvel
-
-Marvel.o: Marvel.cpp Parser.h Engine.h Table.h Marvel.h
-	g++ -std=c++11 -c Marvel.cpp  
+Main.o: Main.cpp Parser.h Engine.h Table.h
+	g++ -std=c++11 -c Main.cpp 
 	
 Attribute.o: Attribute.cpp Attribute.h
 	g++ -std=c++11 -c Attribute.cpp 
@@ -24,4 +22,4 @@ clean:
 	rm -f *.o
 
 run:
-	./marvel
+	./main 
