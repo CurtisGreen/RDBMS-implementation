@@ -16,7 +16,7 @@ int main()
 {
 
     int client;
-    int portNum = 5006; // NOTE that the port number is same for both client and server
+    int portNum = 5007; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -71,17 +71,7 @@ int main()
 	
 	char request;
 	cin>>request;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
-	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
-	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	send(client, s1.c_str(), bufsize, 0);
-	send(client, s2.c_str(), bufsize, 0);
-	send(client, s3.c_str(), bufsize, 0);
 	
-
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	while(request != 'q'){
 		
 			
@@ -147,9 +137,9 @@ int main()
 				break;
 		}
 
-	
+		//--------------------------------------
 		recv(client,buffer, bufsize,0);
-		
+		//---------------------------------------
 		
 	
 	
@@ -639,7 +629,8 @@ string Marvel :: helper_create_character(){
 	
 
 
-	string all = temp1 + "\n" + temp2 + "\n" + temp1;
+	string all = temp1 + "\n" + temp2 + "\n" + temp3;
+	
 
 	return all;
 

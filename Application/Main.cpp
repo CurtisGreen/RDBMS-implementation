@@ -24,10 +24,9 @@ using namespace std;
 int main()
 {
    
-	//Parser parser; // reads everything in the txt file 
-	//parser.input();
+	
     int client, server;
-    int portNum = 5006;
+    int portNum = 5007;
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -67,6 +66,13 @@ int main()
   
     if (server < 0) 
         cout << "=> Error on accepting..." << endl;
+	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
+	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
+	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
+	string all = s1+s2+s3;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 
     while (server > 0) 
     {
@@ -76,8 +82,7 @@ int main()
         cout << "\n=> Enter # to end the connection\n" << endl;
 
         recv(server, buffer, bufsize, 0);
-		cout << buffer << endl;
-		Parser p(buffer);
+		Parser p(all+ buffer);
 		p.input();
 		
 		
