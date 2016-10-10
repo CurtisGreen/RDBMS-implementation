@@ -16,7 +16,12 @@ class Parser{
 
 public: 
 
-	Parser(){}; 
+
+	Token_stream ts;
+	
+	Parser(string b){
+		ts = Token_stream(b);
+	}
 	int input();
 	void initial();
 	Engine e;
@@ -24,8 +29,7 @@ public:
 	Table execute_difference();
 
 
-private:
-	Token_stream ts;
+
 	bool reset;
 	
 	bool query(string rel_name);
