@@ -141,15 +141,13 @@ int main()
 				break;
 		}
 
-<<<<<<< HEAD
-	
 		//recv(client,buffer, bufsize,0);
 		
-=======
+
 		//--------------------------------------
 		recv(client,buffer, bufsize,0);
 		//---------------------------------------
->>>>>>> 9ccdf93d3cd40ad5341caaef96673c470be9639f
+
 		
 	
 	
@@ -625,10 +623,7 @@ string Marvel :: helper_create_character(){
 	temp1 += "\"" + human_weight + "\"" + ", ";
 	temp1 += "\"" + human_occ + "\"" + ");";
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 9ccdf93d3cd40ad5341caaef96673c470be9639f
+
 	temp2 += "INSERT INTO Heroes VALUES FROM (";
 	temp2 += "\"" + id + "\"" + ", ";
 	temp2 += "\"" + hero_name + "\"" + ", ";
@@ -647,11 +642,9 @@ string Marvel :: helper_create_character(){
 
 	cout<<"A:"<<all<<"A"<<endl;
 
-<<<<<<< HEAD
-=======
+
 	string all = temp1 + "\n" + temp2 + "\n" + temp3;
 	
->>>>>>> 9ccdf93d3cd40ad5341caaef96673c470be9639f
 
 	return all;
 
