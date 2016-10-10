@@ -75,7 +75,6 @@ int main()
         cout << "=> Connected with the client #" << clientCount << ", you are good to go..." << endl;
         cout << "\n=> Enter # to end the connection\n" << endl;
 
-		
         recv(server, buffer, bufsize, 0);
 		cout << buffer << endl;
 		Parser p(buffer);
@@ -83,6 +82,7 @@ int main()
 		
 		
 	}
+	
 	
 	
 	close(client);

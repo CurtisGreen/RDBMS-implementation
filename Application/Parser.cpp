@@ -533,6 +533,7 @@ void Parser :: execute_create()
         //cout << type_att_list[i].name << type_att_list[i].type << endl;
     }
     e.create(rel_name, type_att_list, keys);
+	cout << e.all_tables.size() << endl; 
     e.show(rel_name);
 }
 
@@ -1416,13 +1417,13 @@ Table  Parser:: execute_difference()
 }*/
 
 void Parser :: initial(){
-	cout << "in parser!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	//cout << "in parser!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
     Token t('a');
     while (t.value != ';' && t.value != '`' && t.value != '\n' && !reset) {
         //Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
         //Make sure to check to make sure input_str != ""   
         t = ts.get();
-        cout << "value = " << t.value << endl;
+       // cout << "value = " << t.value << endl;
         string input_str = "";
         switch(t.kind){
             case '0': input_str = ts.out_buff(); break;

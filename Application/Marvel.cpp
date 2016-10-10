@@ -50,6 +50,7 @@ int main()
 
     // Once it reaches here, the client can send a message first.
 
+	
 
 
     Marvel db;
@@ -67,10 +68,23 @@ int main()
 	cout << "8.) Exit Database" << endl;
 	cout << "q.) Quit Application" << endl;
 
+	
 	char request;
 	cin>>request;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
+	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
+	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
+	send(client, s1.c_str(), bufsize, 0);
+	send(client, s2.c_str(), bufsize, 0);
+	send(client, s3.c_str(), bufsize, 0);
+	
 
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	while(request != 'q'){
+		
+			
 
 		switch(request)
 		{
@@ -160,8 +174,8 @@ int main()
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 
-	// recv(client, buffer, bufsize, 0);
-	// cout << buffer << endl;
+	recv(client, buffer, bufsize, 0);
+	cout << buffer << endl;
 
     close(client);
     return 0;
@@ -876,6 +890,82 @@ string Marvel :: show_attribute(){
 
 	db.quit_app();
 
+}
+void  Marvel :: initialize_tables()
+{
+	
+	
+
+
+/*
+INSERT INTO Humans VALUES FROM ("1","Peter Benjamin Parker","510",167,"Peter is an accomplished scientist, inventor, and photographer");
+INSERT INTO Humans VALUES FROM ("2","Carol Danvers","511",165,"Ms.Marvel is a skilled pilot and hand to hand combat");
+INSERT INTO Humans VALUES FROM ("3","Robert Bruce Banner","76",1150,"Teenager");
+INSERT INTO Humans VALUES FROM ("4","Thor Ordinson","66",640,"Arts of War");
+INSERT INTO Humans VALUES FROM ("5","Anthony Edward Stark","61",225,"Business Man");
+INSERT INTO Humans VALUES FROM ("6","Steven Rogers","62",220,"Martial Arts");
+INSERT INTO Humans VALUES FROM ("7","James Howlett","53",300,"Spy,CIA,Soldier");
+INSERT INTO Humans VALUES FROM ("8","Unrevealed","510",120,"Actress");
+INSERT INTO Humans VALUES FROM ("9","Johann Schmidt","61",195,"Ex military");
+INSERT INTO Humans VALUES FROM ("10","Felicia Hardy","510",120,"Gymnast, Acrobat");
+INSERT INTO Humans VALUES FROM ("1","Victor von doom","52",225,"Robotics genius");
+INSERT INTO Humans VALUES FROM ("12","Medusalish Amaquelin Boltagon","511", 130,"None");
+INSERT INTO Humans VALUES FROM ("13","Jeniffer Walters","510",140,"Lawyer");
+INSERT INTO Humans VALUES FROM ("14","Dr.Stephen Vincent Strange","62",180,"MD");
+INSERT INTO Humans VALUES FROM ("15","T'Challa","60",200,"Scientist");
+INSERT INTO Humans VALUES FROM ("16","Mathew Murdock","60",200,"Studies law");
+INSERT INTO Humans VALUES FROM ("17","Wade Wilson","62",210,"Assasination");
+INSERT INTO Humans VALUES FROM ("18","Thanos","67",985,"Scientist");
+INSERT INTO Humans VALUES FROM ("19","Ororo Monroe","511",127,"African priestess");
+INSERT INTO Humans VALUES FROM ("20","Charles Francis Xavier","60",190,"School Founder");
+
+
+INSERT INTO Heros VALUES FROM ("1","SpiderMan","510",167,"Radio active spider senses");
+INSERT INTO Heros VALUES FROM ("2","Captain Marvel","511",165,"Flight,Strength,Durability, and shoot energy burst");
+INSERT INTO Heros VALUES FROM ("3","Hulk","76",1150,"Super Human Ability");
+INSERT INTO Heros VALUES FROM ("4","Thor","66",640,"Skilled Warrior");
+INSERT INTO Heros VALUES FROM ("5","Iron Man","61",225,"Genius that invents sophisticated devices");
+INSERT INTO HEROS VALUES FROM ("6","Captain America","62",220,"Martial arts");
+INSERT INTO Heros VALUES FROM ("7","Wolverine","53",300,"Mastered Combat");
+INSERT INTO Heros VALUES FROM ("8","Mystique","510",120,"Skilled Combat, Actress, Marksman");
+INSERT INTO Heros VALUES FROM ("9","Red Skull","61",195,"Master of Disguise");
+INSERT INTO Heros VALUES FROM ("10","Black Cat","510",120,"Gymnast like Combat");
+INSERT INTO Heros VALUES FROM ("11","Dr. Doom","62",225,"Robotics genius, time travel");
+INSERT INTO Heros VALUES FROM ("12","Medusa","511",130,"Control the rate of growth and movement of each strand of hair");
+INSERT INTO Heros VALUES FROM ("13","She-Hulk","510",140,"Great strength, healing factor");
+INSERT INTO Heros VALUES FROM ("14","Dr.Strange","62",180,"Mastery of magic, and trained medicine");
+INSERT INTO Heros VALUES FROM ("15","Black Panther","60",200,"Scientist");
+INSERT INTO Heros VALUES FROM ("16","Daredevil","60",200,"Strength, Speed, Agility, Gymnastic");
+INSERT INTO Heros VALUES FROM ("17","Deadpool","62",210,"Combat, assasination technique");
+INSERT INTO Heros VALUES FROM ("18","Thanos","67",985,"Invunerable to electricity, radiation, toxins, aging, and disease");
+INSERT INTO Heros VALUES FROM ("19","Storm","511",127,"Control the weather");
+INSERT INTO Heros VALUES FROM ("20","Professor X","60",190,"Psionic Founder");
+
+
+
+INSERT INTO Groups VALUES FROM ("1","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("2","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("3","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("4","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("5","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("6","Avengers", "Earths mightest Heros");
+INSERT INTO Groups VALUES FROM ("7","Xmen", "Save Lives");
+INSERT INTO Groups VALUES FROM ("8","Xmen", "Save Lives");
+INSERT INTO Groups VALUES FROM ("9","Scourge of the Underworld", "Evil");
+INSERT INTO Groups VALUES FROM ("10","Heros for Hire", "Investigation");
+INSERT INTO Groups VALUES FROM ("11","Knights of the Atomic Table", "Evil");
+INSERT INTO Groups VALUES FROM ("12","Illuminati", "Evil");
+INSERT INTO Groups VALUES FROM ("13","Lady Liberators", "Heros");
+INSERT INTO Groups VALUES FROM ("14","Formerly Avengers", "Earth's mightest Heros");
+INSERT INTO Groups VALUES FROM ("15","Formerly Fantastic Four", "Heros");
+INSERT INTO Groups VALUES FROM ("16","Formerly Defenders", "Marvel Knights");
+INSERT INTO Groups VALUES FROM ("17","XForce", "Heros");
+INSERT INTO Groups VALUES FROM ("18","Eternals", "Heros");
+INSERT INTO Groups VALUES FROM ("19","Xmen","Saves lives");
+INSERT INTO Groups VALUES FROM ("20","Xmen","Saves lives");
+*/
+	
+	
 }
 
 void Marvel :: quit_app()
