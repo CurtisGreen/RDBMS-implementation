@@ -1,14 +1,16 @@
-
-
 #include <cstring>
 #include <vector>
 #include <string>
 #include <iostream>
+#include <sstream>
+#include <fstream>
+
 
 #include "Table.h"
 #include "Attribute.h"
 #include "Engine.h"
 #include "Parser.h"
+#include "Token_stream.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -21,7 +23,9 @@ using namespace std;
 
 int main()
 {
-    
+   
+	Parser parser; // reads everything in the txt file 
+	parser.input();
     int client, server;
     int portNum = 5006;
     bool isExit = false;
@@ -60,7 +64,7 @@ int main()
     int clientCount = 1;
     server = accept(client,(struct sockaddr *)&server_addr,&size);
 
-    // first check if it is valid or not
+  
     if (server < 0) 
         cout << "=> Error on accepting..." << endl;
 
@@ -71,13 +75,19 @@ int main()
         cout << "=> Connected with the client #" << clientCount << ", you are good to go..." << endl;
         cout << "\n=> Enter # to end the connection\n" << endl;
 
-
+		
         recv(server, buffer, bufsize, 0);
-             cout << buffer << " ";
-
-  
-    }
-
-    close(client);
+		cout << buffer << endl;
+		Parser p;
+		p.input();
+		
+		
+	}
+	
+	
+	close(client);
     return 0;
+ 
 }
+
+   

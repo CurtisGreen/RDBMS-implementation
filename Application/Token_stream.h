@@ -38,7 +38,7 @@ Token get()
     switch(ch) 
 	{
     case '(': case ')': case '+': case '-': case '\n': case '=': case '<': case '!':
-    case '*': case '/': case ';': case ' ': case '.': case ',': case '>': {
+    case '*': case '/': case ';': case ' ': case '.': case ',': case '>':{
 	//cout << ch << "text"<< endl;
     return Token(ch);	//look up previous item as a command/expression, kind (0) = symbols
 	}
@@ -52,7 +52,7 @@ Token get()
 	case 'k': case 'l': case 'm': case 'n': case 'o': 
     case 'p': case 'q': case 'r': case 's': case 't':
 	case 'u': case 'v': case 'w': case 'x': case 'y': 
-    case 'z': case '_': 
+    case 'z': case '_':
 	{
 	   return Token('a',ch);	//kind (a) = lowercase letters
 	}
@@ -61,7 +61,7 @@ Token get()
 	case 'K': case 'L': case 'M': case 'N': case 'O': 
     case 'P': case 'Q': case 'R': case 'S': case 'T':
 	case 'U': case 'V': case 'W': case 'X': case 'Y': 
-    case 'Z': case '"':
+    case 'Z': case '"': 
 	{
 		return Token('A',ch);	//kind (A) = uppercase letters
 	}

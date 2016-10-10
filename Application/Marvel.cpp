@@ -26,9 +26,6 @@ int main()
 
     client = socket(AF_INET, SOCK_STREAM, 0);
 
-    /* ---------- ESTABLISHING SOCKET CONNECTION ----------*/
-    /* --------------- socket() function ------------------*/
-
     if (client < 0) 
     {
         cout << "\nError establishing socket..." << endl;
@@ -68,7 +65,7 @@ int main()
 	cout << "6.) Delete Marvel Characters" << endl;
 	cout << "7.) Update Marvel Characters" << endl;
 	cout << "8.) Exit Database" << endl;
-	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
+	cout << "q.) Quit Application" << endl;
 
 	char request;
 	cin>>request;
@@ -136,6 +133,13 @@ int main()
 				break;
 		}
 
+	
+		recv(client,buffer, bufsize,0);
+		
+		
+	
+	
+		
 		cout<<endl;
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
@@ -148,7 +152,7 @@ int main()
 	cout << "6.) Delete Marvel Characters" << endl;
 	cout << "7.) Update Marvel Characters" << endl;
 	cout << "8.) Exit Database" << endl;
-	cout << "q.) Quit Application" << endl;//FOR TESTING PURPOSES
+	cout << "q.) Quit Application" << endl;
 
 		cin>>request;
 
@@ -156,12 +160,13 @@ int main()
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 
- 
+	// recv(client, buffer, bufsize, 0);
+	// cout << buffer << endl;
 
     close(client);
     return 0;
 }
- 
+ /*
  void Marvel :: Menu(){
  Marvel db;
 
@@ -235,6 +240,7 @@ int main()
 
 
 }
+*/
 
 
 
@@ -242,7 +248,7 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 
 	string att;
 	string store_att;
-	string quary;
+	string query;
 	cout<< "List of Attributes that we can " + function_name + " for the Humans character table"<<endl;
 	cout<< list <<endl;
 	cout<<"Choose one or as many as you want follow by enter"<<endl;
@@ -257,17 +263,16 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 	}
 
 	string new_att = store_att.substr(0, store_att.size()-1);
-	quary = function_name+ " (" + new_att +") " + table_name +";";
-	cout<<quary<<endl;//testing puposes
-	return quary;
+	query = function_name+ " (" + new_att +") " + table_name +";";
+
+	return query;
 
 }
 
 string Marvel :: rename(){
 
-	//projection ::= project ( attribute-list ) atomic-expr
 	string table_name;
-	string quary;
+	string query;
 	string list;
 	Marvel db;
 	
@@ -287,24 +292,24 @@ string Marvel :: rename(){
 
 		if(request=='1'){
 			list = "id,name,height,weight,occupation";
-			string quary = db.projection_rename_helper("Humans", "rename",list);
-			return quary;
+			string query = db.projection_rename_helper("Humans", "rename",list);
+			return query;
 		}
 		else if(request=='2'){
 			list = "id,name,height,weight,abilities";
-			string quary = db.projection_rename_helper("Heros", "rename",list);
-			return quary;
+			string query = db.projection_rename_helper("Heros", "rename",list);
+			return query;
 		
 		}
 		else if(request=='3'){
 			list = "id,name,purposes";
-			string quary = db.projection_rename_helper("Groups", "rename",list);
-			return quary;
+			string query = db.projection_rename_helper("Groups", "rename",list);
+			return query;
 		
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 		
 		cout<<endl;
@@ -344,7 +349,7 @@ string  update_info_helper(string table,string type_name,string thing_to_update)
 }
 
 
-string Marvel :: update_info() // Done, just need fucntion call to Parser 
+string Marvel :: update_info() 
 {
 	
 	Marvel db;
@@ -385,7 +390,7 @@ string Marvel :: update_info() // Done, just need fucntion call to Parser
 
 			return all;
 			
-			// TODO :Call parser 3 times with input temp1, temp2, temp3
+			
 			
 		}
 
@@ -410,7 +415,7 @@ string Marvel :: update_info() // Done, just need fucntion call to Parser
 
 			return all;
 			
-			// TODO :Call parser 3 times with input temp1, temp2, temp3
+			
 		}
 
 		else if(request=='3') 
@@ -433,7 +438,7 @@ string Marvel :: update_info() // Done, just need fucntion call to Parser
 		}
 		else if(request=='4'){
 			cout << "Exiting find character Menu" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 
 		cout << "--------------------Update Info Menu --------------------------"  << endl;
@@ -458,7 +463,7 @@ string Marvel :: update_info() // Done, just need fucntion call to Parser
 	
 }
 
-string Marvel :: find_character() // (Needs Help fixing  )
+string Marvel :: find_character() 
 {
 	Marvel db;
 
@@ -478,7 +483,7 @@ string Marvel :: find_character() // (Needs Help fixing  )
 	
 		if(request=='1') 
 		{
-			//TODO: Find Human Characters 
+			 
 			
 			string temp1;
 			string human;
@@ -494,7 +499,7 @@ string Marvel :: find_character() // (Needs Help fixing  )
 
 		else if(request=='2') 
 		{
-			//TODO: Find Hero Characters 
+			
 			string temp2;
 			string hero;
 			string table = "Heros";
@@ -511,7 +516,7 @@ string Marvel :: find_character() // (Needs Help fixing  )
 
 		else if(request=='3') 
 		{
-			// TODO Find Group Affiliation 
+			
 			string temp3;
 			string group;
 			string table = "Groups";
@@ -527,7 +532,7 @@ string Marvel :: find_character() // (Needs Help fixing  )
 		
 		else if(request=='4'){
 			cout << "Exiting find character Menu" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 
 		cout << "1.) Find Marvel Human Characters" << endl;
@@ -546,7 +551,7 @@ string Marvel :: find_character() // (Needs Help fixing  )
 }
 
 
-string Marvel :: helper_create_character(){ // Done but need Parser Call 
+string Marvel :: helper_create_character(){ 
 
 	string id;
 	
@@ -618,16 +623,13 @@ string Marvel :: helper_create_character(){ // Done but need Parser Call
 	temp3 += "\"" + group_aff + "\"" + ", ";
 	temp3 += "\"" + group_aff_purp + "\"" + "); ";
 	
-	cout << temp1 << endl;// testing purposes
-	cout << temp2 << endl;
-	cout << temp3 << endl;
+
 
 	string all = temp1 + "\n" + temp2 + "\n" + temp1;
 
 	return all;
 
 	
-	// Call parser using temp1 temp2 temp3 
 }
 
 string Marvel :: create_character()
@@ -679,10 +681,10 @@ string Marvel :: create_character()
 	
 }
 
-string Marvel :: delete_character() //(Needs to be done )
+string Marvel :: delete_character() 
 {
 	Marvel db;
-	string quary;
+	string query;
 	string character;
 	string table;
 
@@ -704,9 +706,9 @@ string Marvel :: delete_character() //(Needs to be done )
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
 			
-			return quary;
+			return query;
 			
 		}
 		if(request=='2') {
@@ -715,9 +717,9 @@ string Marvel :: delete_character() //(Needs to be done )
 			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
 		
-			return quary;
+			return query;
 		}
 		if(request=='3') {
 		
@@ -725,13 +727,13 @@ string Marvel :: delete_character() //(Needs to be done )
 			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			quary = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE(name == " + "\"" + character + "\"" + ");";
 		
-			return quary;
+			return query;
 		}
 		else if(request=='4'){
 			cout << "Exiting Delete Character" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 
 		cout << "Character was deleted"<<endl;
@@ -752,11 +754,11 @@ string Marvel :: delete_character() //(Needs to be done )
 	return "";
 }
 
-string Marvel :: show_characters() // Done but need Parser call 
+string Marvel :: show_characters()  
 {
 	
 	string table_name;
-	string quary;
+	string query;
 	string quary1;
 	Marvel db;
 	
@@ -776,27 +778,27 @@ string Marvel :: show_characters() // Done but need Parser call
 
 		if(request=='1') {
 		 
-			quary = "SHOW Humans;";
+			query = "SHOW Humans;";
 			
-			return quary;
+			return query;
 		}
 		else if(request=='2'){
 			
-			quary = "SHOW Heros;";
-			quary1 = "SHOW Hero-Humans;";
-			string all = quary + "\n" + quary1;
+			query = "SHOW Heros;";
+			//quary1 = "SHOW Hero-Humans;";
+			string all = query ;
 				return all;	
 		}
 		else if(request=='3'){
 			
-			quary = "SHOW Groups;";
-			quary1 = "SHOW Hero-Groups;";
-			string all = quary + "\n" + quary1;
+			query = "SHOW Groups;";
+			//quary1 = "SHOW Hero-Groups;";
+			string all = query;
 				return all;		
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 
 		cout<<endl;
@@ -815,12 +817,12 @@ db.quit_app();
 return "";
 }
 
-string Marvel :: show_attribute(){//Projection
+string Marvel :: show_attribute(){
 
-	//projection ::= project ( attribute-list ) atomic-expr
+	
 
 	string table_name;
-	string quary;
+	string query;
 	string list;
 	Marvel db;
 	
@@ -840,24 +842,24 @@ string Marvel :: show_attribute(){//Projection
 
 		if(request=='1'){
 			list = "id,name,height,weight,occupation";
-			string quary = db.projection_rename_helper("Humans", "project",list);
-			return quary;
+			string query = db.projection_rename_helper("Humans", "project",list);
+			return query;
 
 		}
 		else if(request=='2'){
 			list = "id,name,height,weight,abilities";
-			string quary = db.projection_rename_helper("Heros", "project",list);
-			return quary;
+			string query = db.projection_rename_helper("Heros", "project",list);
+			return query;
 			
 		}
 		else if(request=='3'){
 			list = "id,name,purpose";
-			string quary = db.projection_rename_helper("Groups", "project",list);
-			return quary;	
+			string query = db.projection_rename_helper("Groups", "project",list);
+			return query;	
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
-			db.Menu();
+			//db.Menu();
 		}
 		
 		cout<<endl;

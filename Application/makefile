@@ -3,7 +3,7 @@ all: main
 main: Main.o Engine.o Table.o Parser.o Attribute.o 
 	g++ -std=c++11 Attribute.o Main.o Table.o Engine.o Parser.o -o main
 
-Main.o: Main.cpp Parser.h Engine.h Table.h
+Main.o: Main.cpp Parser.h Engine.h Table.h Token_stream.h
 	g++ -std=c++11 -c Main.cpp 
 	
 Attribute.o: Attribute.cpp Attribute.h
@@ -22,4 +22,4 @@ clean:
 	rm -f *.o
 
 run:
-	./main 
+	./main <input.txt
