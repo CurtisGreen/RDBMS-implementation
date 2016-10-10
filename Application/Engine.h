@@ -48,7 +48,7 @@ class Engine{
 	// Helper functions
 	vector<string> createTuples(Table t);
 	vector<string> rtn_Row(Table t,int index);
-	Table make_table(Table table,string name, vector< vector<string> > difference);
+	Table make_table(Table table,string name, vector<vector<string>> difference);
 	bool verify_Tables(Table table1, Table table2);
 };
 
