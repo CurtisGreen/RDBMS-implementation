@@ -34,9 +34,10 @@ void Engine::insert_into_table(string table_name, Table t)
 Table Engine::get_table(string table_name)
 {
 	bool found = false;
-	cout << "get_table() = " << table_name << endl;
+	//cout << "get_table() = " << table_name << endl;
 	for( int i = 0; i < all_tables.size();i++)
-	{
+	{	
+		//cout << "table" << i << " = " << all_tables[i].name << endl;
 		if(all_tables[i].getName() == table_name) // finds table in table database vector
 		{
 			found = true;
@@ -44,7 +45,7 @@ Table Engine::get_table(string table_name)
 		}
 	}
 	if (!found){ // error checking for tables that are not found in the database 
-		cout << "Error: [Engine]: table does not exist in get_table()"<< endl;
+		cout << "Error: [Engine]: table '" << table_name <<"' does not exist in get_table()"<< endl;
 	}
 	Table t;
 	t.setName(table_name); // sets the table name and returns it
@@ -351,7 +352,7 @@ Table Engine::selection(string table_name, string att_name, string op, string co
     	}
         for (int i = 0; i < table->att.size(); i++){
             if( (table->att[i].getName()) == att_name){
-                cout<<table->att[i].getName()<<endl<<endl; 
+                //cout<<"att name = " << table->att[i].getName()<<endl<<endl; 
                 for (int j = 0; j < table->att[i].data.size(); j++){	//Select the operation based on op
                 	if (op == "=="){
                 		if (table->att[i].data[j] == condition){

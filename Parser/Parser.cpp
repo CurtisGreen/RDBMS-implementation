@@ -37,17 +37,21 @@ bool Parser :: query(string rel_name)
         ts.out_buff();
         remove_spaces();
         table = execute_expression();
-    }
-    table.name = rel_name;
-    e.all_tables.push_back(table);
-    e.show(rel_name);
+		table.name = rel_name;
+		e.all_tables.push_back(table);
+		e.show(rel_name);
+		//t = ts.get();
+		/*if (t.value != '\n'){
+			ts.putback(t);
+		}*/
+	}
 }
 
 Table Parser :: execute_expression()
 {
     Token t('a');
     string input_str = "";
-    while (t.value != ' ' && t.value != '`' && t.value != '\n') {
+    while (t.value != ' ' && t.value != '`' && t.value != '\n' && t.value != ')' && t.value != ';') {
         t = ts.get();
         //cout << "value = " << t.value << endl;
         
@@ -57,10 +61,11 @@ Table Parser :: execute_expression()
         }
        // cout << "input str = " << input_str << endl;
     }
-    cout << " input string = " << input_str << endl;
+    //cout << " input string = " << input_str << endl;
     if (input_str == "select"){
         reset = true;
         return execute_selection();
+        //cout << "returning selection" << endl;
     }
     else if(input_str == "project"){
         return execute_projection();
@@ -94,7 +99,7 @@ Table Parser :: execute_expression()
             case '+': return execute_union(input_str); break;
             case 'J': return execute_join(input_str); break;	//needs to iterate through the rest of the word
             default: {  //Relation name
-                while (t.value != ';' && t.value != '`' && t.value != '\n') {
+                while (t.value != ';' && t.value != '`' && t.value != '\n' && t.value != ')') {
                     t = ts.get();
                     //cout << "value = " << t.value << endl;
                     input_str = "";
@@ -719,7 +724,7 @@ void Parser :: execute_show()
             default: ts.putback(t); break;
         }
         table_name = input_str;
-        if (t.value == ';' || t.value == '`'){
+        if (t.value == '\n' || t.value == '`'){
             cout << "Error: [Parser]: Expected semicolon in Show" << endl;
             correct = false;
         }
@@ -809,10 +814,11 @@ Table Parser ::selection_helper(string table_name){
     Table temp;
     string conjunction = "";
     if (t.value == '('){
+        cout << "found a parenthesis" << endl;
         return selection_helper(table_name);
     }
     else{
-    while (t.value != '\n'){
+    //while (t.value != '\n' && t.value != ';' ){
         ts.out_buff();
         while(t.value != ' ' && correct){  //Get relation name
             if(first){
@@ -859,17 +865,25 @@ Table Parser ::selection_helper(string table_name){
             }
         }
         condition = input_str;
+        //cout << "condition = " << condition << endl;
         remove_spaces();
         //t = ts.get();
+		string check = ts.out_buff();
+		//cout << "check = " << check << endl;
+		if (check == "&" || check == "|"){
+			t.value = check[0];
+		}
         //cout << "t = " << t.value << endl;
         if (t.value != '&' && t.value != '|'){
-            //cout << "about to return " << endl;
+            //cout << "returning the second table" << endl;
             //cout << table_name << " " << att_name << " " << op << " " << condition << endl;
             return e.selection(table_name, att_name, op, condition);
         }
         else{   //Has conjunction
+            //cout << "this thing is a conjunction" << endl;
             table = e.selection(table_name, att_name, op, condition);
             while (t.value != ' ' && correct){
+                t = ts.get();
                 switch(t.value){
                     case ' ': input_str = ts.out_buff(); break;
                     default: ts.putback(t); break;
@@ -881,14 +895,17 @@ Table Parser ::selection_helper(string table_name){
                 }
             }
             temp = selection_helper(table_name);
-            if (conjunction == "&&"){
-                return e.difference(table, temp);
+            temp.name = temp.name + "select";
+            e.all_tables.push_back(temp);
+            if (conjunction == "&"){
+                return e.selection(temp.name, att_name, op, condition);
+                //return e.difference(table, temp);
             }
-            else if (conjunction == "||"){
+            else if (conjunction == "|"){
                 return e.set_union(table, temp);
             }
         }
-    }
+    //}
 }
 }
 Table Parser :: execute_selection()
@@ -948,10 +965,9 @@ Table Parser :: execute_selection()
     }
     remove_spaces();
     Table testerino = selection_helper(table.name);
-    //cout << "after selection helper" << endl;
-   // e.all_tables.push_back(testerino);
 
-    //cout << "conditional = " << conditional << " expression = " << expression << endl;
+    //e.show(testerino.name);
+    e.all_tables.push_back(testerino);
     //e.show (testerino.name);
     //cin.putback(expression[expression.size()-1]);
     ts.out_buff();
@@ -1019,9 +1035,20 @@ Table Parser :: execute_projection()
 	//for (int i = 0; i < data.size(); i++){
 		//cout << data[i] << endl;
 	//}
+	
 	remove_spaces();
+	string check = ts.out_buff();
+	//cout << "check = " << check << endl;
+	if (check[0] == '('){
+		for (int i = 1; i < check.size(); i++){
+			ts.buffer.push_back(check[i]);
+		}
+	}
+	else{
+		ts.buffer = check;
+	}
     t.value = ' ';
-	while (t.value != ';' && t.value != '`' && t.value != ')' && correct) {	//CHECKS FOR RELATION-NAME
+	/*while (t.value != ';' && t.value != '`' && t.value != ')' && correct) {	//CHECKS FOR RELATION-NAME
 		input_str = "";
 		t = ts.get();
 		switch(t.kind){
@@ -1029,11 +1056,12 @@ Table Parser :: execute_projection()
 			default: ts.putback(t); break;
 		}
 		rel_name = input_str;
-	}
-
+	}*/
+	Table rel_table = execute_expression();
+	//cout << "relname = " << rel_name << endl;
 
 	    ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
-		Table newTable = e.projection(data,rel_name);
+		Table newTable = e.projection(data,rel_table.name);
         //cout << " about to return " << endl;
 		return newTable;
 
@@ -1147,7 +1175,7 @@ Table Parser :: execute_product(string rel_name_1)
         }
     }*/
     remove_spaces();
-    while (t.value != ';' && t.value != '`') {	//check for relation name
+    while (t.value != ';' && t.value != '`' && t.value != ')') {	//check for relation name
         input_str = "";
         t = ts.get();
         
@@ -1157,6 +1185,7 @@ Table Parser :: execute_product(string rel_name_1)
         }
         rel_name_2 = input_str;
     }
+	//cout << "rel2 = " << rel_name_2 << endl;
     //---------------testing----------------------------------------------//
     /*vector<string> cross_id = {"1","2","3","4","5","6","7"};
     vector<string> cross_name = {"Ramesh", "khilan", "kaushik", "chaitali", "hardik", "komal", "muff"};
