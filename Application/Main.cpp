@@ -24,8 +24,8 @@ using namespace std;
 int main()
 {
    
-	Parser parser; // reads everything in the txt file 
-	parser.input();
+	//Parser parser; // reads everything in the txt file 
+	//parser.input();
     int client, server;
     int portNum = 5006;
     bool isExit = false;
@@ -78,7 +78,7 @@ int main()
 		
         recv(server, buffer, bufsize, 0);
 		cout << buffer << endl;
-		Parser p;
+		Parser p(buffer);
 		p.input();
 		
 		
