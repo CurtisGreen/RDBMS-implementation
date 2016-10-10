@@ -18,11 +18,14 @@ struct Token
 class Token_stream 
 {
 public:
+  string input;
   string buffer;
+  int index;
   
 
 
-  Token_stream() : buffer("") {}
+  Token_stream(string in) : buffer(""), input(in), index(0){}
+  Token_stream() : buffer(""), input(""), index(0){}
   
 void putback(Token t)
   {
@@ -33,7 +36,11 @@ Token get()
   {
 	
     char ch;
-    if (cin >> noskipws >> ch){
+	if (index < input.size()){
+	
+	ch = input[index];
+	index++;
+    //if (cin >> noskipws >> ch){
         //cout << "HERE" << endl;;
     switch(ch) 
 	{
@@ -68,7 +75,8 @@ Token get()
     default : cout<< "Bad token: "<< ch <<endl;
 
 
-    } 
+    }
+	index++;
   }
   else{
 	  //cout << "eof" << endl;
