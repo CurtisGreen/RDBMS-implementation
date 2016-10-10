@@ -14,4 +14,4 @@ Eunsu Kim
   * Show(string table_name) can be used to print out the table to the console if it is in memory (Engine::all_tables)
   * [Log](https://github.tamu.edu/greencur000/RDBMS/wiki/Development-Log)
   * [Final Report](https://docs.google.com/a/tamu.edu/document/d/1VrtjGm660s0OG223xInd9UsObt6WJsMkDhY4RTFzqSo/edit?usp=sharing)
-  * How to compile and run Application : In one window to run the server "make" then "run" in another window to run the client type "g++ Marvel.cpp -o marvel" then "./marvel" 
+  * How to compile and run Application : (build.tamu.edu) In one window to run the server "make" then "run" in another window to run the client type "g++ Marvel.cpp -o marvel" then "./marvel" 
