@@ -72,12 +72,6 @@ int main()
 	char request;
 	cin>>request;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
-	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
-	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	send(client, s1.c_str(), bufsize, 0);
-	send(client, s2.c_str(), bufsize, 0);
-	send(client, s3.c_str(), bufsize, 0);
 	
 
 
@@ -120,7 +114,7 @@ int main()
 			case '5':
 				{
 				string s = db.create_character();
-				cout<<"TESTING:"<<s<<endl;
+				//cout<<"TESTING:"<<s<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -148,7 +142,7 @@ int main()
 		}
 
 	
-		recv(client,buffer, bufsize,0);
+		//recv(client,buffer, bufsize,0);
 		
 		
 	
@@ -569,9 +563,9 @@ string Marvel :: helper_create_character(){
 
 	string id;
 	
-	string temp1;
-	string temp2;
-	string temp3;
+	string temp1 ="";
+	string temp2 ="";
+	string temp3 ="";
 	
 	string human_name;
 	string human_height;
@@ -602,6 +596,7 @@ string Marvel :: helper_create_character(){
 	getline(cin, human_weight);
 	cout << "Enter your character's Human Occupation" << endl;
 	getline(cin, human_occ);
+
 	cout << "Enter your character's Hero Name" << endl;
 	getline(cin, hero_name);
 	cout << "Enter your character's Hero Height" << endl;
@@ -610,11 +605,11 @@ string Marvel :: helper_create_character(){
 	getline(cin, hero_weight);
 	cout << "Enter your character's Hero Abilities" << endl;
 	getline(cin, hero_ab);
+
 	cout << "Enter your character's Group Affiliation" << endl;
 	getline(cin, group_aff);
 	cout << "Enter your character's Group Affiliation Purpose" << endl;
 	getline(cin, group_aff_purp);
-	string temp;
 	
 	
 	temp1 += "INSERT INTO Humans VALUES FROM (";
@@ -622,24 +617,26 @@ string Marvel :: helper_create_character(){
 	temp1 += "\"" + human_name + "\"" + ", ";
 	temp1 += "\"" + human_height + "\"" + ", ";
 	temp1 += "\"" + human_weight + "\"" + ", ";
-	temp1 += "\"" + human_occ + "\"" + "); ";
+	temp1 += "\"" + human_occ + "\"" + ");";
 
-	
-	temp2 += "INSERT INTO Heros VALUES FROM (";
+	temp2 += "INSERT INTO Heroes VALUES FROM (";
 	temp2 += "\"" + id + "\"" + ", ";
 	temp2 += "\"" + hero_name + "\"" + ", ";
 	temp2 += "\"" + hero_height + "\"" + ", ";
 	temp2 += "\"" + hero_weight + "\"" + ", ";
-	temp2 += "\"" + hero_ab + "\"" + ") ;";
+	temp2 += "\"" + hero_ab + "\"" + ");";
+
 	
 	temp3 += "INSERT INTO Groups VALUES FROM (";
 	temp3 += "\"" + id + "\"" + ", ";
 	temp3 += "\"" + group_aff + "\"" + ", ";
-	temp3 += "\"" + group_aff_purp + "\"" + "); ";
+	temp3 += "\"" + group_aff_purp + "\"" + ");";
 	
 
+	string all = temp1 + temp2 + temp3;
 
-	string all = temp1 + "\n" + temp2 + "\n" + temp1;
+	cout<<"A:"<<all<<"A"<<endl;
+
 
 	return all;
 
@@ -862,7 +859,7 @@ string Marvel :: show_attribute(){
 		}
 		else if(request=='2'){
 			list = "id,name,height,weight,abilities";
-			string query = db.projection_rename_helper("Heros", "project",list);
+			string query = db.projection_rename_helper("Heroes", "project",list);
 			return query;
 			
 		}

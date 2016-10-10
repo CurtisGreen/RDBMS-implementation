@@ -213,6 +213,7 @@ void Parser :: execute_insert()
                 //cout << data[i] << endl;
             }
             e.insert(rel_name, data);
+            cout<<"TESTING:" << rel_name<<endl;
             e.show(rel_name);
             break;
         }
@@ -1438,6 +1439,10 @@ void Parser :: initial(){
             cout << "Executing (INSERT)" << endl;
             execute_insert();
         }
+          else if(input_str == ";INSERT"){
+            cout << "Executing (;INSERT)" << endl;
+            execute_insert();
+        }
         else if(input_str == "UPDATE"){
             cout << "Executing (UPDATE)" << endl;
             execute_update();
@@ -1472,7 +1477,8 @@ void Parser :: initial(){
             execute_drop();
         }
         else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){   //Must be a query
-            query(input_str);
+            //cout<<"INPUT_STRING"<<input_str<<endl;
+            //query(input_str);
         }
     }
 }

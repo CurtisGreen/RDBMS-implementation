@@ -22,6 +22,7 @@ public:
 	Parser(string b){
 		ts = Token_stream(b);
 	}
+	Parser(){}
 	int input();
 	void initial();
 	Engine e;
@@ -33,6 +34,10 @@ public:
 	bool reset;
 	
 	bool query(string rel_name);
+
+	void parsing(string b){
+		ts = Token_stream(b);
+	}
 	
 	// All of the things that need to be executed in the Engine 
 	Table execute_expression();
