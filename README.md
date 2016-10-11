@@ -5,7 +5,7 @@ Curtis Green
 Jose Ramos
 Eunsu Kim
 
-  * Note to grader: For engine resubmission use "Engine" folder and follow the same instructions
+  * Note to grader: For parser resubmission use "Parser" folder and follow the same instructions
   * To compile "make clean" then type "make" then type "make run"
   * Make run automatically executes: ./main < parser_test.txt
   * Run on compute.cs.tamu.edu
