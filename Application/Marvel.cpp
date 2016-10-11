@@ -71,11 +71,7 @@ int main()
 	
 	char request;
 	cin>>request;
-<<<<<<< HEAD
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-=======
->>>>>>> 9ccdf93d3cd40ad5341caaef96673c470be9639f
-	
+
 	while(request != 'q'){
 		
 			
@@ -643,7 +639,6 @@ string Marvel :: helper_create_character(){
 	cout<<"A:"<<all<<"A"<<endl;
 
 
-	string all = temp1 + "\n" + temp2 + "\n" + temp3;
 	
 
 	return all;
