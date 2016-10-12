@@ -75,7 +75,8 @@ int main()
 	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
 	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
 	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	string all = s1+s2+s3;
+	//string s4 = "INSERT INTO Humans VALUES FROM (1,PeterParker, 510,167, Photographer);";
+	string all = s1+s2+s3 ;//+s4 ;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
    
@@ -93,13 +94,10 @@ int main()
         recv(server, buffer, bufsize, 0);
 
 
-        all +=  buffer;
+        all +=buffer;
 
-		Parser p(all+ buffer);
-		p.input();
-
-		
-               
+		Parser p(all);
+		p.input();   
 	}
 
 	close(client);
