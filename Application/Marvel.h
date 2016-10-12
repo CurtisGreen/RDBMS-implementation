@@ -12,7 +12,7 @@ public:
 	Marvel(){};
 	//void Menu();
 	string update_info();
-	void initialize_tables();
+	//void initialize_tables();
 	string rename();
 	string find_character();
 	string create_character();///DONE

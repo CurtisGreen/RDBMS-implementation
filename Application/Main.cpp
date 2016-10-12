@@ -72,11 +72,47 @@ int main()
         cout << "=> Error on accepting..." << endl;
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	string s1 = "CREATE TABLE Humans (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
-	string s2 = "CREATE TABLE Heroes (id INTEGER,name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
-	string s3 = "CREATE TABLE Groups (id INTEGER,name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	//string s4 = "INSERT INTO Humans VALUES FROM (1,PeterParker, 510,167, Photographer);";
-	string all = s1+s2+s3 ;//+s4 ;
+	string s1 = "CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
+	string s2 = "CREATE TABLE Heroes (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
+	string s3 = "CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
+	string s4 = "INSERT INTO Humans VALUES FROM (PeterParker, 510, 167, Photographer);";
+	string s5 = "INSERT INTO Humans VALUES FROM (CarolDanvers, 511, 165, Pilot);";
+	string s6 = "INSERT INTO Humans VALUES FROM (RobertBanner, 66, 640, Teenager);";
+	string s7 = "INSERT INTO Humans VALUES FROM (ThorOrdison, 62, 220, War);";
+	string s8 = "INSERT INTO Humans VALUES FROM (AnthonyStark, 61, 225, BusinessMan);";
+	
+	string s9 = "INSERT INTO Humans VALUES FROM (OroroMonroe, 511, 127, AfricanPriestest);";
+	string s10 = "INSERT INTO Humans VALUES FROM (CharlesXavier, 60, 190, Teacher);";
+	string s11 = "INSERT INTO Humans VALUES FROM (JeanSummers, 56, 115, Telekinestic);";
+	string s12 = "INSERT INTO Humans VALUES FROM (HenryMcCoy, 511, 402, TeachersAssistant);";
+	string s13 = "INSERT INTO Humans VALUES FROM (KurtWagner, 59, 195, Adventurer);";
+	
+	string s14 = "INSERT INTO Heroes VALUES FROM (SpiderMan, 510, 167, SpiderSenses);";
+	string s15 = "INSERT INTO Heroes VALUES FROM (CaptainMarvel, 511, 165, SkilledCombat);";
+	string s16 = "INSERT INTO Heroes VALUES FROM (Hulk, 66, 640, SuperHuman);";
+	string s17 = "INSERT INTO Heroes VALUES FROM (Thor, 62, 220, War);";
+	string s18 = "INSERT INTO Heroes VALUES FROM (IronMan, 61, 225, Genius);";
+	
+	string s19 = "INSERT INTO Heroes VALUES FROM (Storm, 511, 127, ControlWeather);";
+	string s20 = "INSERT INTO Heroes VALUES FROM (ProfessorX, 60, 190, PsionicFounder);";
+	string s21 = "INSERT INTO Heroes VALUES FROM (JeanGrey, 56, 115, Telepathic);";
+	string s22 = "INSERT INTO Heroes VALUES FROM (Beast, 511, 402, SuperStrength);";
+	string s23 = "INSERT INTO Heroes VALUES FROM (NightCrwaler, 59, 195, Teleportation);";
+	
+	string s24 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	string s25 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	string s26 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	string s27 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	string s28 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	
+	string s29 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	string s30 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	string s31 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	string s32 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	string s33 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	
+	
+	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18 +s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
    
@@ -93,9 +129,7 @@ int main()
 
         recv(server, buffer, bufsize, 0);
 
-
         all +=buffer;
-
 		Parser p(all);
 		p.input();   
 	}
