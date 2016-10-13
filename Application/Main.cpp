@@ -72,6 +72,7 @@ int main()
         cout << "=> Error on accepting..." << endl;
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	//ORIGINAL TABLES IN THE DATABASE 
 	string s1 = "CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
 	string s2 = "CREATE TABLE Heroes (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
 	string s3 = "CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
@@ -111,8 +112,8 @@ int main()
 	string s32 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
 	string s33 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
 	
-	
-	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18 +s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
+	// Doesn't work : Rename , Select, Delete, Update
+	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18+s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
    
@@ -129,7 +130,7 @@ int main()
 
         recv(server, buffer, bufsize, 0);
 
-        all +=buffer;
+        all+=buffer;
 		Parser p(all);
 		p.input();   
 	}

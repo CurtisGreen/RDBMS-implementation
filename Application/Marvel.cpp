@@ -341,19 +341,24 @@ string Marvel :: rename(){
 }
 
 
-string  update_info_helper(string table,string type_name,string thing_to_update){
+string  update_info_helper(string table,string old_value,string thing_to_update){
 
 
 	string temp;
 
+
 	cout << "Enter new value for "+ thing_to_update + ": ";
 	string new_name;
 	getline(cin, new_name);
+	cout << "Enter old value for "+ thing_to_update + ": ";
+	string old;
+	getline(cin, old);
 	temp = "UPDATE ";
 	temp += table + " " + "SET "+ thing_to_update +" = ";
 	temp += "\"" + new_name + "\"" + " ";
-	temp += "WHERE "+ thing_to_update +  "= ";
-	temp += "\"" + type_name + "\"" + ";";
+	temp += "WHERE "+ thing_to_update +  "=";
+	temp += "\"" + old + "\"" + ";";
+	
 
 
 	return temp;
@@ -422,7 +427,7 @@ string Marvel :: update_info()
 			temp1 = update_info_helper(table,hero_name,"name");
 			temp2 = update_info_helper(table,hero_name,"height");
 			temp3 = update_info_helper(table,hero_name,"weight");
-			temp4 = update_info_helper(table,hero_name,"abilities");
+			temp4 = update_info_helper(table,hero_name ,"abilities");
 
 			string all = temp1 + "\n" + temp2 + "\n" +  temp3 + "\n" + temp4;
 			cout << "TESTING" << all << endl;
@@ -726,7 +731,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE(name =" + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE name =" + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 			
@@ -737,7 +742,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE(name = " + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE name = " + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 		}
@@ -747,7 +752,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE(name = " + "\"" + character + "\"" + ");";
+			query = "DELETE FROM " + table + " WHERE name = " + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 		}
