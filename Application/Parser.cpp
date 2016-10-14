@@ -536,6 +536,8 @@ void Parser :: execute_create()
     e.create(rel_name, type_att_list, keys);
 	cout << e.all_tables.size() << endl; 
     e.show(rel_name);
+
+	
 }
 
 void Parser :: execute_destroy()

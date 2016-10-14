@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 
 
@@ -33,6 +34,7 @@ public:
   Table(const Table& table);
   istream& Read(istream& input);
   ostream& Write(ostream& output);
+  std::string to_string(Table t);
 
  
 };

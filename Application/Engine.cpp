@@ -177,6 +177,14 @@ void Engine::show(string table_name){
 		    }
 		}
 		cout<<endl;
+		//----------------------------------
+		// ADDED CODE FOR APPLICTAION
+		
+		Engine e;
+		Table new_table = e.get_table(table_name);
+		string str = new_table.to_string(table);
+		cout << "TESTING" << str << endl;
+		//---------------------------------------
 	    }
 	    else{ // error checking for table data 
 		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
@@ -194,8 +202,10 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 
 	Table table(name,att,key);
 	all_tables.push_back(table); // adds table to engine vector of tables
-
+	
+	
 	return table; 
+	
 }
 
 /*--------------------------------------------------------------------------------------

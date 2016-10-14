@@ -73,3 +73,9 @@ ostream& operator << (ostream& output, Table& table){
 	table.Write(output);
 	return output;
 }
+string Table :: to_string(Table t)
+{
+	std::ostringstream ss;
+	ss << t;
+	return ss.str();
+}

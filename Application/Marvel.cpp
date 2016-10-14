@@ -21,37 +21,22 @@ int main()
     int bufsize = 1024;
     char buffer[bufsize];
     char* ip = "127.0.0.1";
-
-    struct sockaddr_in server_addr;
-
-    client = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (client < 0) 
-    {
+	struct sockaddr_in server_addr;
+	client = socket(AF_INET, SOCK_STREAM, 0);
+	if (client < 0){
         cout << "\nError establishing socket..." << endl;
         exit(1);
     }
-
-
-    cout << "\n=> Socket client has been created..." << endl;
-   
-
-    server_addr.sin_family = AF_INET;
+	cout << "\n=> Socket client has been created..." << endl;
+	server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(portNum);
-
-    if (connect(client,(struct sockaddr *)&server_addr, sizeof(server_addr)) == 0)
+	if (connect(client,(struct sockaddr *)&server_addr, sizeof(server_addr)) == 0)
         cout << "=> Connection to the server port number: " << portNum << endl;
-
-    cout << "=> Awaiting confirmation from the server..." << endl; //line 40
-    recv(client, buffer, bufsize, 0);
+	cout << "=> Awaiting confirmation from the server..." << endl; //line 40
+   // recv(client, buffer, bufsize, 0);
     cout << "=> Connection confirmed, you are good to go...";
-
-    cout << "\n\n=> Enter # to end the connection\n" << endl;
-
-    // Once it reaches here, the client can send a message first.
-
-	
-
+	cout << "\n\n=> Enter # to end the connection\n" << endl;
+	// Once it reaches here, the client can send a message first.
 
     Marvel db;
 
@@ -81,14 +66,14 @@ int main()
 			case '1':
 				{
 				string s = db.show_characters();
-				cout<<"TESTING:"<<endl;
+				cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '2':
 				{
 				string s = db.show_attribute();
-				cout<<"TESTING:"<<endl;
+				cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -96,21 +81,21 @@ int main()
 				
 				{
 				string s = db.rename();
-				cout<<"TESTING:"<<endl;
+				cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '4':
 				{
 				string s = db.find_character();
-				cout<<"TESTING:"<<endl;
+				cout<<"TESTING:" << s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '5':
 				{
 				string s = db.create_character();
-				//cout<<"TESTING:"<<s<<endl;
+				cout<<"TESTING:"<<s<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -139,15 +124,6 @@ int main()
 
 	
 		
-
-		//--------------------------------------
-		recv(client,buffer, bufsize,0);
-		//---------------------------------------
-
-		
-	
-	
-		
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 		cout << "User Options :" << endl;
@@ -167,12 +143,13 @@ int main()
 	}
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
-
+	//-------------------------------------
 	recv(client, buffer, bufsize, 0);
 	cout << buffer << endl;
-
     close(client);
     return 0;
+
+	//--------------------------------------
 }
  /*
  void Marvel :: Menu(){
@@ -784,7 +761,7 @@ string Marvel :: show_characters()
 	
 	string table_name;
 	string query;
-	string quary1;
+	
 	Marvel db;
 	
 	cout<<endl;

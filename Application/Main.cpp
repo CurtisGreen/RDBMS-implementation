@@ -23,103 +23,79 @@ using namespace std;
 
 int main()
 {
-   
-
-   
-	//Parser parser; // reads everything in the txt file 
-	//parser.input();
-
+  
     int client, server;
     int portNum = 5007;
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
-
-    struct sockaddr_in server_addr;
+	struct sockaddr_in server_addr;
     socklen_t size;
-
-    client = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (client < 0) 
-    {
+	client = socket(AF_INET, SOCK_STREAM, 0);
+	if (client < 0) {
         cout << "\nError establishing socket..." << endl;
         exit(1);
     }
-
-    cout << "\n=> Socket server has been created..." << endl;
-
-    server_addr.sin_family = AF_INET;
+	cout << "\n=> Socket server has been created..." << endl;
+	server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htons(INADDR_ANY);
     server_addr.sin_port = htons(portNum);
-
-    
-    if ((bind(client, (struct sockaddr*)&server_addr,sizeof(server_addr))) < 0) 
-    {
+	if ((bind(client, (struct sockaddr*)&server_addr,sizeof(server_addr))) < 0) {
         cout << "=> Error binding connection, the socket has already been established..." << endl;
         return -1;
     }
-
-    size = sizeof(server_addr);
+	size = sizeof(server_addr);
     cout << "=> Looking for clients..." << endl;
-
-    listen(client, 1);
-
-    int clientCount = 1;
+	listen(client, 1);
+	int clientCount = 1;
     server = accept(client,(struct sockaddr *)&server_addr,&size);
-
-  
-    if (server < 0) 
+	if (server < 0) 
         cout << "=> Error on accepting..." << endl;
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	//ORIGINAL TABLES IN THE DATABASE 
+	//ORIGINAL TABLES IN THE MARVEL DATABASE 
 	string s1 = "CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
 	string s2 = "CREATE TABLE Heroes (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
 	string s3 = "CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	string s4 = "INSERT INTO Humans VALUES FROM (PeterParker, 510, 167, Photographer);";
-	string s5 = "INSERT INTO Humans VALUES FROM (CarolDanvers, 511, 165, Pilot);";
-	string s6 = "INSERT INTO Humans VALUES FROM (RobertBanner, 66, 640, Teenager);";
-	string s7 = "INSERT INTO Humans VALUES FROM (ThorOrdison, 62, 220, War);";
-	string s8 = "INSERT INTO Humans VALUES FROM (AnthonyStark, 61, 225, BusinessMan);";
+	string s4 = "INSERT INTO Humans VALUES FROM (PPeterParker, 510, 167, Photographer);";
+	string s5 = "INSERT INTO Humans VALUES FROM (CCarolDanvers, 511, 165, Pilot);";
+	string s6 = "INSERT INTO Humans VALUES FROM (RRobertBanner, 66, 640, Teenager);";
+	string s7 = "INSERT INTO Humans VALUES FROM (TThorOrdison, 62, 220, War);";
+	string s8 = "INSERT INTO Humans VALUES FROM (AAnthonyStark, 61, 225, BusinessMan);";
 	
-	string s9 = "INSERT INTO Humans VALUES FROM (OroroMonroe, 511, 127, AfricanPriestest);";
-	string s10 = "INSERT INTO Humans VALUES FROM (CharlesXavier, 60, 190, Teacher);";
-	string s11 = "INSERT INTO Humans VALUES FROM (JeanSummers, 56, 115, Telekinestic);";
-	string s12 = "INSERT INTO Humans VALUES FROM (HenryMcCoy, 511, 402, TeachersAssistant);";
-	string s13 = "INSERT INTO Humans VALUES FROM (KurtWagner, 59, 195, Adventurer);";
+	string s9 = "INSERT INTO Humans VALUES FROM (OOroroMonroe, 511, 127, AfricanPriestest);";
+	string s10 = "INSERT INTO Humans VALUES FROM (CCharlesXavier, 60, 190, Teacher);";
+	string s11 = "INSERT INTO Humans VALUES FROM (JJeanSummers, 56, 115, Telekinestic);";
+	string s12 = "INSERT INTO Humans VALUES FROM (HHenryMcCoy, 511, 402, TeachersAssistant);";
+	string s13 = "INSERT INTO Humans VALUES FROM (KKurtWagner, 59, 195, Adventurer);";
 	
-	string s14 = "INSERT INTO Heroes VALUES FROM (SpiderMan, 510, 167, SpiderSenses);";
-	string s15 = "INSERT INTO Heroes VALUES FROM (CaptainMarvel, 511, 165, SkilledCombat);";
-	string s16 = "INSERT INTO Heroes VALUES FROM (Hulk, 66, 640, SuperHuman);";
-	string s17 = "INSERT INTO Heroes VALUES FROM (Thor, 62, 220, War);";
-	string s18 = "INSERT INTO Heroes VALUES FROM (IronMan, 61, 225, Genius);";
+	string s14 = "INSERT INTO Heroes VALUES FROM (SSpiderMan, 510, 167, SpiderSenses);";
+	string s15 = "INSERT INTO Heroes VALUES FROM (CCaptainMarvel, 511, 165, SkilledCombat);";
+	string s16 = "INSERT INTO Heroes VALUES FROM (HHulk, 66, 640, SuperHuman);";
+	string s17 = "INSERT INTO Heroes VALUES FROM (TThor, 62, 220, War);";
+	string s18 = "INSERT INTO Heroes VALUES FROM (IIronMan, 61, 225, Genius);";
 	
-	string s19 = "INSERT INTO Heroes VALUES FROM (Storm, 511, 127, ControlWeather);";
-	string s20 = "INSERT INTO Heroes VALUES FROM (ProfessorX, 60, 190, PsionicFounder);";
-	string s21 = "INSERT INTO Heroes VALUES FROM (JeanGrey, 56, 115, Telepathic);";
-	string s22 = "INSERT INTO Heroes VALUES FROM (Beast, 511, 402, SuperStrength);";
-	string s23 = "INSERT INTO Heroes VALUES FROM (NightCrwaler, 59, 195, Teleportation);";
+	string s19 = "INSERT INTO Heroes VALUES FROM (SStorm, 511, 127, ControlWeather);";
+	string s20 = "INSERT INTO Heroes VALUES FROM (PProfessorX, 60, 190, PsionicFounder);";
+	string s21 = "INSERT INTO Heroes VALUES FROM (JJeanGrey, 56, 115, Telepathic);";
+	string s22 = "INSERT INTO Heroes VALUES FROM (BBeast, 511, 402, SuperStrength);";
+	string s23 = "INSERT INTO Heroes VALUES FROM (NNightCrwaler, 59, 195, Teleportation);";
 	
-	string s24 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
-	string s25 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
-	string s26 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
-	string s27 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
-	string s28 = "INSERT INTO Groups VALUES FROM (Avengers, Heros);";
+	string s24 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
+	string s25 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
+	string s26 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
+	string s27 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
+	string s28 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
 	
-	string s29 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
-	string s30 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
-	string s31 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
-	string s32 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
-	string s33 = "INSERT INTO Groups VALUES FROM (Xmen, Heros);";
+	string s29 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
+	string s30 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
+	string s31 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
+	string s32 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
+	string s33 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
 	
-	// Doesn't work : Rename , Select, Delete, Update
+	// Doesn't work : Rename,Select, delete, Project 
 	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18+s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-
-   
-
-    string str;
-
 
     while (server > 0) 
     {
@@ -129,12 +105,12 @@ int main()
         cout << "\n=> Enter # to end the connection\n" << endl;
 
         recv(server, buffer, bufsize, 0);
-
+	
         all+=buffer;
 		Parser p(all);
-		p.input();   
-	}
-
+		p.input(); 
+		send(server,buffer,bufsize,0);
+	}	
 	close(client);
     
     return 0;
