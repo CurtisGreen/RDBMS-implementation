@@ -16,7 +16,7 @@ int main()
 {
 
     int client;
-    int portNum = 5007; // NOTE that the port number is same for both client and server
+    int portNum = 5008; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -33,11 +33,11 @@ int main()
 	if (connect(client,(struct sockaddr *)&server_addr, sizeof(server_addr)) == 0)
         cout << "=> Connection to the server port number: " << portNum << endl;
 	cout << "=> Awaiting confirmation from the server..." << endl; //line 40
-   // recv(client, buffer, bufsize, 0);
+	recv(client, buffer, bufsize, 0);
     cout << "=> Connection confirmed, you are good to go...";
 	cout << "\n\n=> Enter # to end the connection\n" << endl;
 	// Once it reaches here, the client can send a message first.
-
+	
     Marvel db;
 
 	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
@@ -59,15 +59,18 @@ int main()
 
 	while(request != 'q'){
 		
-			
+		
+	
 
 		switch(request)
 		{
 			case '1':
 				{
 				string s = db.show_characters();
-				cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
+				 recv(client, buffer, bufsize, 0);
+				 cout << "PRINT BUFF " << buffer << endl;
+				 
 				}
 				break;
 			case '2':
@@ -95,7 +98,6 @@ int main()
 			case '5':
 				{
 				string s = db.create_character();
-				cout<<"TESTING:"<<s<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -121,7 +123,6 @@ int main()
 				cout << "[Error] :Invalid Request... Please try again." << endl;
 				break;
 		}
-
 	
 		
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
@@ -144,8 +145,9 @@ int main()
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 	//-------------------------------------
-	recv(client, buffer, bufsize, 0);
-	cout << buffer << endl;
+	//recv(client, buffer, bufsize, 0); // does nothing 
+	//cout << buffer << endl;
+	
     close(client);
     return 0;
 
@@ -623,11 +625,6 @@ string Marvel :: helper_create_character(){
 	
 
 	string all = temp1 + temp2 + temp3;
-
-	cout<<"A:"<<all<<"A"<<endl;
-
-
-	
 
 	return all;
 

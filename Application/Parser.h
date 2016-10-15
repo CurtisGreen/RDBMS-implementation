@@ -27,19 +27,12 @@ public:
 	void initial();
 	Engine e;
 
-	Table execute_difference();
-
-
-
-	bool reset;
 	
+	bool reset;
 	bool query(string rel_name);
-
-	void parsing(string b){
-		ts = Token_stream(b);
-	}
 	
 	// All of the things that need to be executed in the Engine 
+	Table execute_difference();
 	Table execute_expression();
 	Table atomic_expression();
 	Table selection_helper(string table_name);
@@ -51,8 +44,8 @@ public:
 	Table execute_join(string);
 	
 	
+	string execute_show();
 	void execute_exit();
-	void execute_show();
 	void execute_open();
 	void execute_write();
 	void execute_close();

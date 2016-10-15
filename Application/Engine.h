@@ -25,7 +25,7 @@ class Engine{
 	void read(string table_name);
 	void write(Table table);
 	void exit_();
-	void show(string table_name);
+	string show(string table_name);
 	Table create(string, vector<Attribute>, vector<string>);
 	Table insert(string name, vector<string> new_row);
 	Table update(string table_name, vector<string> att_name_1, vector<string> newVal,string att_name_2,string key);

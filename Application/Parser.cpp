@@ -712,7 +712,7 @@ void Parser :: execute_close()
     
 }
 
-void Parser :: execute_show()
+string Parser :: execute_show()
 {
     //show-cmd ::== SHOW atomic-expr
     string table_name;
@@ -733,7 +733,9 @@ void Parser :: execute_show()
             correct = false;
         }
     }
-    e.show(table_name);
+   string str = e.show(table_name);
+   return str;
+	
     
 }
 void Parser :: execute_exit()

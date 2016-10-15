@@ -143,8 +143,7 @@ void Engine::exit_(){
 cerr << " [Engine] : Exiting RDBMS now" << endl;
 	exit(0);
 }
-
-void Engine::show(string table_name){
+string Engine::show(string table_name){
 
 
 	Table table;
@@ -177,14 +176,38 @@ void Engine::show(string table_name){
 		    }
 		}
 		cout<<endl;
+		
+		
+		
+		
+		
 		//----------------------------------
 		// ADDED CODE FOR APPLICTAION
 		
-		Engine e;
-		Table new_table = e.get_table(table_name);
-		string str = new_table.to_string(table);
-		cout << "TESTING" << str << endl;
+		Table table;
+		bool found = false;
+		for (int i = 0; i < all_tables.size(); i++){ // checks if table exists
+	    if (table_name == all_tables[i].getName()){
+	    	found = true;
+			table = all_tables[i];
+	    }
+		}
+		string str = table.to_string(table);
+		cout << "[Engine] testing to_string function :" << str << endl;
+		return str; 
+		
+		
+		
 		//---------------------------------------
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	    }
 	    else{ // error checking for table data 
 		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
