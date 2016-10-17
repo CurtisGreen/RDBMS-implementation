@@ -146,36 +146,36 @@ cerr << " [Engine] : Exiting RDBMS now" << endl;
 string Engine::show(string table_name){
 
 
-	Table table;
-	bool found = false;
-	//cout << "table_name in show = " << table_name << endl;
-	for (int i = 0; i < all_tables.size(); i++){
-		//cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
-	    if (table_name == all_tables[i].getName()){
-	    	found = true;
-		table = all_tables[i];
-	    }
-	}
-	if (found){
-	    if (table.att.size() != 0){
-		cout << '\n' << table.getName() <<endl;
-		cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
-		cout << "\n";
-		for (int i = 0; i < table.att.size(); i ++){
-            cout<<left;
-            cout.width(20);
-			cout << table.att[i].getName(); // formats the name of the attributes(columns)
-		}
-		cout << "\n";
-		for (int k = 0; k < table.att[0].data.size(); k++){
-		    cout << '\n';
-		    for (int i = 0; i < table.att.size(); i++){ // output formatted data 
-                cout<<left;
-                cout.width(20);
-				cout << table.att[i].data[k];
-		    }
-		}
-		cout<<endl;
+	// Table table;
+	// bool found = false;
+	////cout << "table_name in show = " << table_name << endl;
+	// for (int i = 0; i < all_tables.size(); i++){
+		////cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
+	    // if (table_name == all_tables[i].getName()){
+	    	// found = true;
+		// table = all_tables[i];
+	    // }
+	// }
+	// if (found){
+	    // if (table.att.size() != 0){
+		// cout << '\n' << table.getName() <<endl;
+		// cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
+		// cout << "\n";
+		// for (int i = 0; i < table.att.size(); i ++){
+            // cout<<left;
+            // cout.width(20);
+			// cout << table.att[i].getName(); // formats the name of the attributes(columns)
+		// }
+		// cout << "\n";
+		// for (int k = 0; k < table.att[0].data.size(); k++){
+		    // cout << '\n';
+		    // for (int i = 0; i < table.att.size(); i++){ // output formatted data 
+                // cout<<left;
+                // cout.width(20);
+				// cout << table.att[i].data[k];
+		    // }
+		// }
+		// cout<<endl;
 		
 		
 		
@@ -208,14 +208,14 @@ string Engine::show(string table_name){
 		
 		
 		
-	    }
-	    else{ // error checking for table data 
-		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
-	    }
-	}
-	else{ // error checking for tables that cannot be found in engine database vector
-	    cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
-	}
+	    // }
+	    // else{ // error checking for table data 
+		// cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
+	    // }
+	// }
+	// else{ // error checking for tables that cannot be found in engine database vector
+	    // cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
+	// }
 }
 
 /* ---------------------------------------------------------------------------------

@@ -26,6 +26,10 @@ public:
 	int input();
 	void initial();
 	Engine e;
+	
+	string parse(string b){
+		ts = Token_stream(b);
+	}
 
 	
 	bool reset;

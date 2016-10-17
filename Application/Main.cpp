@@ -109,12 +109,14 @@ int main()
 		
 	
         recv(server, buffer, bufsize, 0); // receives from the CLIENT 
-        all+=buffer ;
-		Parser p(all);
+		//all+=buffer ;
+		//Parser p(all);
+		Parser p;
+		string temp = p.parse(all);
 		p.input();
-	
 		
-		send(server, buffer, bufsize, 0);// SENDS what is in buffer TO CLIENT 
+
+		send(server,buffer, bufsize, 0);// SENDS what is in buffer TO CLIENT 
 	}
 	
 	
