@@ -16,7 +16,7 @@ int main()
 {
 
     int client;
-    int portNum = 5008; // NOTE that the port number is same for both client and server
+    int portNum = 5058; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -59,18 +59,12 @@ int main()
 
 	while(request != 'q'){
 		
-		
-	
-
 		switch(request)
 		{
 			case '1':
 				{
 				string s = db.show_characters();
-				 send(client, s.c_str(), bufsize, 0);
-				 recv(client, buffer, bufsize, 0);
-				 cout << "PRINT BUFF " << buffer << endl;
-				 
+				send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '2':
@@ -123,7 +117,11 @@ int main()
 				cout << "[Error] :Invalid Request... Please try again." << endl;
 				break;
 		}
-	
+
+
+		 recv(client, buffer, bufsize, 0);
+
+		 cout<<buffer<<endl;
 		
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
@@ -250,8 +248,8 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 	}
 
 	string new_att = store_att.substr(0, store_att.size()-1);
-	query = "a <- " + function_name+ " (" + new_att +") " + table_name +";";
-	cout << "TESTING" << query << endl;
+	query = function_name+ " (" + new_att +") " + table_name +";";
+	
 	return query;
 
 }
@@ -268,7 +266,6 @@ string Marvel :: rename(){
 	cout << "1.) Rename column in the Human table" << endl;
 	cout << "2.) Rename column in the Hero table" << endl;
 	cout << "3.) Rename column in the Group table" << endl;
-	//cout << "4.) GO to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
@@ -866,8 +863,7 @@ string Marvel :: show_attribute(){
 		cout << "1.) Show column names in Human table" << endl;
 		cout << "2.) Show column names in Hero table" << endl;
 		cout << "3.) Show column names in Group table" << endl;
-		//cout << "4.) GO to Main Menu"<<endl;
-		cout << "q.) Quit Application"<<endl;
+				cout << "q.) Quit Application"<<endl;
 		cout << "Please enter the number of your desired request" << endl;
 		cin>>request;
 	}

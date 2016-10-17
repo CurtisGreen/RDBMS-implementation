@@ -16,11 +16,18 @@ class Parser{
 
 public: 
 
-
 	Token_stream ts;
 	
 	Parser(string b){
 		ts = Token_stream(b);
+	}
+
+	string parse(string b){
+		ts = Token_stream(b);
+		
+		cout<<"PARSE::::::"<<ts.output<<endl;
+		
+		return ts.output;
 	}
 	Parser(){}
 	int input();

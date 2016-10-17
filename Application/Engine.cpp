@@ -146,43 +146,47 @@ cerr << " [Engine] : Exiting RDBMS now" << endl;
 string Engine::show(string table_name){
 
 
-	// Table table;
-	// bool found = false;
-	////cout << "table_name in show = " << table_name << endl;
-	// for (int i = 0; i < all_tables.size(); i++){
-		////cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
-	    // if (table_name == all_tables[i].getName()){
-	    	// found = true;
-		// table = all_tables[i];
-	    // }
-	// }
-	// if (found){
-	    // if (table.att.size() != 0){
-		// cout << '\n' << table.getName() <<endl;
-		// cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
-		// cout << "\n";
-		// for (int i = 0; i < table.att.size(); i ++){
-            // cout<<left;
-            // cout.width(20);
-			// cout << table.att[i].getName(); // formats the name of the attributes(columns)
-		// }
-		// cout << "\n";
-		// for (int k = 0; k < table.att[0].data.size(); k++){
-		    // cout << '\n';
-		    // for (int i = 0; i < table.att.size(); i++){ // output formatted data 
-                // cout<<left;
-                // cout.width(20);
-				// cout << table.att[i].data[k];
-		    // }
-		// }
-		// cout<<endl;
-		
+/*
+	string str;
+
+	 Table table;
+	 bool found = false;
+	cout << "table_name in show = " << table_name << endl;
+	 for (int i = 0; i < all_tables.size(); i++){
+	cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
+	     if (table_name == all_tables[i].getName()){
+	    	 found = true;
+		 table = all_tables[i];
+	     }
+	 }
+	 if (found){
+	     if (table.att.size() != 0){
+		 cout << '\n' << table.getName() <<endl;
+		 cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
+		 cout << "\n";
+		 for (int i = 0; i < table.att.size(); i ++){
+             cout<<left;
+             cout.width(20);
+			 cout << table.att[i].getName(); // formats the name of the attributes(columns)
+		 }
+		 cout << "\n";
+		for (int k = 0; k < table.att[0].data.size(); k++){
+		     cout << '\n';
+		     for (int i = 0; i < table.att.size(); i++){ // output formatted data 
+                 cout<<left;
+                 cout.width(20);
+				 str +=  table.att[i].data[k];
+		     }
+		 }
+		 cout<<endl;
+		*/
 		
 		
 		
 		
 		//----------------------------------
 		// ADDED CODE FOR APPLICTAION
+		
 		
 		Table table;
 		bool found = false;
@@ -193,7 +197,8 @@ string Engine::show(string table_name){
 	    }
 		}
 		string str = table.to_string(table);
-		cout << "[Engine] testing to_string function :" << str << endl;
+		//cout << "[Engine] testing to_string function :" << str << endl;
+		
 		return str; 
 		
 		

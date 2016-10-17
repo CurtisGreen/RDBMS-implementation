@@ -39,7 +39,7 @@ bool Parser :: query(string rel_name)
         table = execute_expression();
         table.name = rel_name;
         e.all_tables.push_back(table);
-        e.show(rel_name);
+        //e.show(rel_name);
         //t = ts.get();
         /*if (t.value != '\n'){
             ts.putback(t);
@@ -61,13 +61,19 @@ Table Parser :: execute_expression()
         }
        // cout << "input str = " << input_str << endl;
     }
-    //cout << " input string = " << input_str << endl;
+
+    cout << " CHEKING input string = " << input_str << endl;
+
     if (input_str == "select"){
         reset = true;
         return execute_selection();
         //cout << "returning selection" << endl;
     }
-    else if(input_str == "project"){
+    else if(input_str == "Humans"){
+        cout<<"PROJECTION TESTING::::::::"<<endl;
+        return execute_projection();
+    }
+     else if(input_str == ";Humans"){
         return execute_projection();
     }
     else if(input_str == "rename"){
@@ -213,8 +219,8 @@ void Parser :: execute_insert()
                 //cout << data[i] << endl;
             }
             e.insert(rel_name, data);
-            cout<<"TESTING:" << rel_name<<endl;
-            e.show(rel_name);
+            //cout<<"TESTING:" << rel_name<<endl;
+           // e.show(rel_name);
             break;
         }
         default: {  //Expression
@@ -535,7 +541,7 @@ void Parser :: execute_create()
     }
     e.create(rel_name, type_att_list, keys);
 	cout << e.all_tables.size() << endl; 
-    e.show(rel_name);
+    //e.show(rel_name);
 
 	
 }
@@ -733,8 +739,11 @@ string Parser :: execute_show()
             correct = false;
         }
     }
-   string str = e.show(table_name);
-   return str;
+  ts.output += e.show(table_name);
+
+  //cout<<"TESTING :::::"<< ts.output<<endl;
+  
+   return ts.output;
 	
     
 }
@@ -1069,6 +1078,8 @@ Table Parser :: execute_projection()
         ///TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
         Table newTable = e.projection(data,rel_table.name);
         //cout << " about to return " << endl;
+        cout<<"PRojecito name:::::"<<newTable.getName()<<endl;
+         e.show(newTable.getName());
         return newTable;
 
 }
@@ -1434,17 +1445,17 @@ void Parser :: initial(){
             case '0': input_str = ts.out_buff(); break;
             default: ts.putback(t); break;
         }
-        //cout << "input = " << input_str << endl;
+        //cout << "CHEKING input = " << input_str << endl;
         if (input_str == "CREATE"){
             cout << "Executing (CREATE)" << endl;
             execute_create();
         }
         else if(input_str == "INSERT"){
-            cout << "Executing (INSERT)" << endl;
+            //cout << "Executing (INSERT)" << endl;
             execute_insert();
         }
           else if(input_str == ";INSERT"){
-            cout << "Executing (;INSERT)" << endl;
+            //cout << "Executing (;INSERT)" << endl;
             execute_insert();
         }
         else if(input_str == "UPDATE"){
@@ -1460,12 +1471,16 @@ void Parser :: initial(){
             execute_close();
         }
         else if(input_str == "WRITE"){
-            cout << "Executing (WRITE)" << endl;
+            //cout << "Executing (WRITE)" << endl;
             execute_write();
         }
         else if(input_str == "EXIT"){
-            cout << "Executing (EXIT)" << endl;
+            //cout << "Executing (EXIT)" << endl;
             execute_exit();
+        }
+        else if(input_str == "project"){
+            //cout << "Executing (EXIT)" << endl;
+            execute_projection();
         }
         else if(input_str == "SHOW"){
             cout << "Executing (SHOW)" << endl;

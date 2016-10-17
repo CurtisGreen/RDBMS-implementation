@@ -25,7 +25,7 @@ int main()
 {
   
     int client, server;
-    int portNum = 5008;
+    int portNum = 5058;
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -97,7 +97,10 @@ int main()
 	// Doesn't work : Rename,Select, delete, Project 
 	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18+s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	
+	Parser p;
+   	p.parse(all);
+   	p.input();
+
     while (server > 0) 
     {
 		
@@ -106,15 +109,16 @@ int main()
         cout << "=> Connected with the client #" << clientCount << ", you are good to go..." << endl;
         cout << "\n=> Enter # to end the connection\n" << endl;
 
-		
-	
-        recv(server, buffer, bufsize, 0); // receives from the CLIENT 
-		all+=buffer ;
-		Parser p(all);
+		while(*buffer != '*'){
+
+		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
+		cout<<"Buffer::::"<<buffer<<endl;
+		p.parse(buffer);
 		p.input();
-		
-	
-		send(server,buffer, bufsize, 0);// SENDS what is in buffer TO CLIENT 
+		send(server,p.ts.output.c_str(), bufsize, 0);// SENDS what is in buffer TO CLIENT 
+
+		}
+        
 	}
 	
 	

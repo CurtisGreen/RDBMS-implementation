@@ -21,6 +21,7 @@ public:
   string input;
   string buffer;
   int index;
+  string output;
   
 
 
