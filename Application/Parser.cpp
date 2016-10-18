@@ -39,7 +39,7 @@ bool Parser :: query(string rel_name)
         table = execute_expression();
         table.name = rel_name;
         e.all_tables.push_back(table);
-        //e.show(rel_name);
+        e.show(rel_name);
         //t = ts.get();
         /*if (t.value != '\n'){
             ts.putback(t);
@@ -70,12 +70,9 @@ Table Parser :: execute_expression()
         //cout << "returning selection" << endl;
     }
     else if(input_str == "project"){
-        cout<<"EXECUTE PROJECTION"<<endl;
+   
         return execute_projection();
     }
-     // else if(input_str == ";Humans"){
-        // return execute_projection();
-    // }
     else if(input_str == "rename"){
         return execute_renaming();
     }
@@ -100,7 +97,7 @@ Table Parser :: execute_expression()
             ts.buffer = test_exp;
         }
         switch(t.value){
-            case '*': return execute_product(input_str); break;
+            case '*': return execute_product(input_str); cout << "EXECUTING PRODUCT" << endl; break;
             case '-': return execute_difference(); break;
             case '+': return execute_union(input_str); break;
             case 'J': return execute_join(input_str); break;    //needs to iterate through the rest of the word
@@ -1077,7 +1074,7 @@ Table Parser :: execute_projection()
 
         //TESTING PUPOSES CALLING PROJECTION FROM ENGINE and PASSING THE PARSE INPUT
         Table newTable = e.projection(data,rel_table.name);
-        cout<<"PROJECTION Table Name :::::"<< newTable.getName()<<endl;
+        //cout<<"PROJECTION Table Name :::::"<< newTable.getName()<<endl;
         ts.output += e.show(newTable.getName());
         return newTable;
 
@@ -1173,6 +1170,7 @@ Table Parser :: atomic_expression()
 }
 Table Parser :: execute_product(string rel_name_1)
 {
+	cout << "IN PRODUCT FUNCTION IN PARSER " << endl;
     // product ::= atomic-expr * atomic-expr
     string rel_name_2;
     string input_str = "";
@@ -1239,6 +1237,7 @@ Table Parser :: execute_product(string rel_name_1)
     Table t1 = e.get_table(rel_name_1);
     Table t2 = e.get_table(rel_name_2);
     Table new_table = e.cross_product(t1,t2);
+	ts.output += e.show(new_table.getName());
     return new_table;
 
     //TODO :: CROSS PRODUCT NEEDS WORK 
@@ -1353,7 +1352,7 @@ Table Parser :: execute_union(string rel_name_1)
     Table t1 = e.get_table(rel_name_1);
     Table t2 = e.get_table(rel_name_2);
     Table new_table = e.set_union(t1,t2);
-    //e.show(new_table.getName());
+    ts.output += e.show(new_table.getName());
     
     return new_table;
 }
@@ -1478,7 +1477,7 @@ void Parser :: initial(){
             execute_exit();
         }
         else if(input_str == "project"){
-            //cout << "Executing (EXIT)" << endl;
+          
             execute_projection();
         }
         else if(input_str == "SHOW"){
@@ -1501,7 +1500,7 @@ void Parser :: initial(){
         }
         else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){   //Must be a query
             //cout<<"INPUT_STRING"<<input_str<<endl;
-            //query(input_str);
+            query(input_str);
         }
     }
 }

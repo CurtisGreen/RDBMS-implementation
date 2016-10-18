@@ -18,7 +18,7 @@ int main()
     int client;
     int portNum = 5011; // NOTE that the port number is same for both client and server
     bool isExit = false;
-    int bufsize = 1024;
+    int bufsize = 10000;
     char buffer[bufsize];
     char* ip = "127.0.0.1";
 	struct sockaddr_in server_addr;
@@ -45,12 +45,13 @@ int main()
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
 	cout << "2.) View column name in Character tables" << endl;
-	//cout << "3.) Rename columns in Character tables"<<endl;
+	cout << "3.) View Heroes and Humans table combined"<<endl;
 	cout << "4.) Find Marvel Characters" << endl;
 	cout << "5.) Create Marvel Characters" << endl;
 	cout << "6.) Delete Marvel Characters" << endl;
 	cout << "7.) Update Marvel Characters" << endl;
 	cout << "8.) Exit Database" << endl;
+	cout << "9.) View Heroes and Humans tables similarities" << endl;
 	cout << "q.) Quit Application" << endl;
 
 	
@@ -77,7 +78,7 @@ int main()
 			case '3':
 				
 				{
-				string s = db.rename();
+				string s = db.cross_product();
 				//cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
@@ -108,11 +109,17 @@ int main()
 				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
-				
 				break;
 			case '8':
 				db.quit_app();	
-				break;	
+				break;
+			case '9':
+				{
+				string s = db.set_union();
+				//cout<<"TESTING:"<<endl;
+				 send(client, s.c_str(), bufsize, 0);
+				}
+				break;
 			default:
 				cout << "[Error] :Invalid Request... Please try again." << endl;
 				break;
@@ -128,12 +135,13 @@ int main()
 		cout << "User Options :" << endl;
 		cout << "1.) View Marvel Characters" << endl;
 		cout << "2.) View column name in Character tables" << endl;
-		//cout << "3.) Rename columns in Character tables"<<endl;
+		cout << "3.) View Heroes and Humans table combined"<<endl;
 		cout << "4.) Find Marvel Characters" << endl;
 		cout << "5.) Create Marvel Characters" << endl;
 		cout << "6.) Delete Marvel Characters" << endl;
 		cout << "7.) Update Marvel Characters" << endl;
 		cout << "8.) Exit Database" << endl;
+		cout << "9.) View Heroes and Humans tables similarities" << endl;
 		cout << "q.) Quit Application" << endl;
 
 
@@ -253,65 +261,18 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 
 }
 
-string Marvel :: rename(){
+string Marvel :: cross_product(){
 
-	string table_name;
-	string query;
-	string list;
-	Marvel db;
 	
-	cout<<endl;
-	cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
-	cout << "1.) Rename column in the Human table" << endl;
-	cout << "2.) Rename column in the Hero table" << endl;
-	cout << "3.) Rename column in the Group table" << endl;
-	cout << "q.) Quit Application"<<endl;
-	cout << "Please enter the number of your desired request" << endl;
+	string query = "HumansProdHeroes <- Humans * Heroes;";
+	return query;
+
+}
+string Marvel :: set_union(){
+
 	
-	char request;
-	cin >> request;
-
-	while(request != 'q'){
-
-		if(request=='1'){
-			list = "name,height,weight,occupation";
-			string query = db.projection_rename_helper("Humans", "rename",list);
-			//cout << "TESTING" << query << endl;
-			return query;
-		}
-		else if(request=='2'){
-			list = "name,height,weight,abilities";
-			string query = db.projection_rename_helper("Heroes", "rename",list);
-			//cout << "TESTING" << query << endl;
-			return query;
-		
-		}
-		else if(request=='3'){
-			list = "name,purpose";
-			string query = db.projection_rename_helper("Groups", "rename",list);
-			//cout << "TESTING" << query << endl;
-			return query;
-		
-		}
-		else if(request=='4'){
-			cout << "Exiting Show Menu" << endl;
-			//db.Menu();
-		}
-		
-		cout<<endl;
-		cout << "<<<<<<<<<<<<<<<<<<< Show Character Attributes Menu >>>>>>>>>>>>>>>>>>"  << endl;
-		cout << "1.) Rename column names in the Human table" << endl;
-		cout << "2.) Rename column names in the Hero table" << endl;
-		cout << "3.) Rename column names in the Group table" << endl;
-		//cout << "4.) GO to Main Menu"<<endl;
-		cout << "q.) Quit Application"<<endl;
-		cout << "Please enter the number of your desired request" << endl;
-	
-		cin>>request;
-	}
-
-	db.quit_app();
-	return "";
+	string query = "HumansUnionHeroes <- Humans + Heroes;";
+	return query;
 
 }
 

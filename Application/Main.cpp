@@ -27,7 +27,7 @@ int main()
     int client, server;
     int portNum = 5011;
     bool isExit = false;
-    int bufsize = 1024;
+    int bufsize = 10000;
     char buffer[bufsize];
 	struct sockaddr_in server_addr;
     socklen_t size;
