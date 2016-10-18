@@ -25,7 +25,7 @@ int main()
 {
   
     int client, server;
-    int portNum = 5058;
+    int portNum = 5011;
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -82,17 +82,17 @@ int main()
 	string s22 = "INSERT INTO Heroes VALUES FROM (BBeast, 511, 402, SuperStrength);";
 	string s23 = "INSERT INTO Heroes VALUES FROM (NNightCrwaler, 59, 195, Teleportation);";
 	
-	string s24 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
-	string s25 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
-	string s26 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
-	string s27 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
-	string s28 = "INSERT INTO Groups VALUES FROM (AAvengers, Heros);";
+	string s24 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
+	string s25 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
+	string s26 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
+	string s27 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
+	string s28 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
 	
-	string s29 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
-	string s30 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
-	string s31 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
-	string s32 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
-	string s33 = "INSERT INTO Groups VALUES FROM (XXmen, Heros);";
+	string s29 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
+	string s30 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
+	string s31 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
+	string s32 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
+	string s33 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
 	
 	// Doesn't work : Rename,Select, delete, Project 
 	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18+s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
@@ -112,7 +112,7 @@ int main()
 		while(*buffer != '*'){
 
 		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
-		cout<<"Buffer::::"<<buffer<<endl;
+		cout<<"Buffer MAIN::::"<<buffer<<endl;
 		p.parse(buffer);
 		p.input();
 		send(server,p.ts.output.c_str(), bufsize, 0);// SENDS what is in buffer TO CLIENT 

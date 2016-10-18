@@ -25,7 +25,7 @@ public:
 	string parse(string b){
 		ts = Token_stream(b);
 		
-		cout<<"PARSE::::::"<<ts.output<<endl;
+		cout<<"PARSE FUNCTION PRINTING (output) "<<ts.output<<endl;
 		
 		return ts.output;
 	}

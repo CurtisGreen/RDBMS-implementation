@@ -16,7 +16,7 @@ int main()
 {
 
     int client;
-    int portNum = 5058; // NOTE that the port number is same for both client and server
+    int portNum = 5011; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 1024;
     char buffer[bufsize];
@@ -45,7 +45,7 @@ int main()
 	cout << "User Options :" << endl;
 	cout << "1.) View Marvel Characters" << endl;
 	cout << "2.) View column name in Character tables" << endl;
-	cout << "3.) Rename columns in Character tables"<<endl;
+	//cout << "3.) Rename columns in Character tables"<<endl;
 	cout << "4.) Find Marvel Characters" << endl;
 	cout << "5.) Create Marvel Characters" << endl;
 	cout << "6.) Delete Marvel Characters" << endl;
@@ -70,7 +70,7 @@ int main()
 			case '2':
 				{
 				string s = db.show_attribute();
-				cout<<"TESTING:"<< s <<endl;
+				//cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -78,14 +78,14 @@ int main()
 				
 				{
 				string s = db.rename();
-				cout<<"TESTING:"<< s <<endl;
+				//cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '4':
 				{
 				string s = db.find_character();
-				cout<<"TESTING:" << s <<endl;
+				//cout<<"TESTING:" << s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -98,14 +98,14 @@ int main()
 			case '6':
 				{
 				string s = db.delete_character();
-				cout<<"TESTING:"<<endl;
+				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '7':
 				{
 				string s = db.update_info();
-				cout<<"TESTING:"<<endl;
+				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				
@@ -128,7 +128,7 @@ int main()
 		cout << "User Options :" << endl;
 		cout << "1.) View Marvel Characters" << endl;
 		cout << "2.) View column name in Character tables" << endl;
-		cout << "3.) Rename columns in Character tables"<<endl;
+		//cout << "3.) Rename columns in Character tables"<<endl;
 		cout << "4.) Find Marvel Characters" << endl;
 		cout << "5.) Create Marvel Characters" << endl;
 		cout << "6.) Delete Marvel Characters" << endl;
@@ -143,8 +143,7 @@ int main()
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 	//-------------------------------------
-	//recv(client, buffer, bufsize, 0); // does nothing 
-	//cout << buffer << endl;
+	
 	
     close(client);
     return 0;
@@ -277,20 +276,20 @@ string Marvel :: rename(){
 		if(request=='1'){
 			list = "name,height,weight,occupation";
 			string query = db.projection_rename_helper("Humans", "rename",list);
-			cout << "TESTING" << query << endl;
+			//cout << "TESTING" << query << endl;
 			return query;
 		}
 		else if(request=='2'){
 			list = "name,height,weight,abilities";
 			string query = db.projection_rename_helper("Heroes", "rename",list);
-			cout << "TESTING" << query << endl;
+			//cout << "TESTING" << query << endl;
 			return query;
 		
 		}
 		else if(request=='3'){
 			list = "name,purpose";
 			string query = db.projection_rename_helper("Groups", "rename",list);
-			cout << "TESTING" << query << endl;
+			//cout << "TESTING" << query << endl;
 			return query;
 		
 		}
@@ -330,7 +329,7 @@ string  update_info_helper(string table,string old_value,string thing_to_update)
 	string old;
 	getline(cin, old);
 	temp = "UPDATE ";
-	temp += table + " " + "SET "+ thing_to_update +" = ";
+	temp += table + " " + "SET "+ thing_to_update +"=";
 	temp += "\"" + new_name + "\"" + " ";
 	temp += "WHERE "+ thing_to_update +  "=";
 	temp += "\"" + old + "\"" + ";";
@@ -380,7 +379,7 @@ string Marvel :: update_info()
 			temp4 = update_info_helper(table,human_name,"occupation");
 
 			string all = temp1 + "\n" + temp2 + "\n" +  temp3 + "\n" + temp4;
-			cout << "TESTING" << all << endl;
+			//cout << "TESTING" << all << endl;
 
 			return all;
 			
@@ -406,7 +405,7 @@ string Marvel :: update_info()
 			temp4 = update_info_helper(table,hero_name ,"abilities");
 
 			string all = temp1 + "\n" + temp2 + "\n" +  temp3 + "\n" + temp4;
-			cout << "TESTING" << all << endl;
+			//cout << "TESTING" << all << endl;
 			return all;
 			
 			
@@ -418,16 +417,16 @@ string Marvel :: update_info()
 			string temp2;
 			
 			string table = "Groups";
-			cout << "Enter the Name of the Human character you would like to update" <<endl;
+			cout << "Enter the Name of the Group character you would like to update" <<endl;
 			cin.ignore();
 			string group_name;
 			getline(cin, group_name);
 			
-			temp1 = update_info_helper(table,group_name,"group");
+			temp1 = update_info_helper(table,group_name,"name");
 			temp2 = update_info_helper(table,group_name,"purpose");
 
 			string all = temp1 + "\n" + temp2 + "\n";
-			cout << "TESTING" << all << endl;
+			//cout << "TESTING" << all << endl;
 			return all;
 		}
 		else if(request=='4'){
@@ -702,7 +701,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE name =" + "\"" + character + "\"" + ";";
+			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 			
@@ -713,7 +712,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE name = " + "\"" + character + "\"" + ";";
+			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 		}
@@ -723,7 +722,7 @@ string Marvel :: delete_character()
 			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
 			cin.ignore();
 			getline(cin, character);
-			query = "DELETE FROM " + table + " WHERE name = " + "\"" + character + "\"" + ";";
+			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
 			cout << "TESTING" << query << endl;
 			return query;
 		}
