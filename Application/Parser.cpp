@@ -1431,10 +1431,11 @@ Table  Parser:: execute_difference()
 }*/
 
 void Parser :: initial(){
-	//cout << "in parser!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	
     Token t('a');
     while (t.value != ';' && t.value != '`' && t.value != '\n' && !reset) {
-        //Check input_str against commands, if not a command then keep that value stored and call expression. Expression should retrun a table and you will rename that table to be input_str
+        //Check input_str against commands, if not a command then keep that value stored and call expression. 
+		//Expression should retrun a table and you will rename that table to be input_str
         //Make sure to check to make sure input_str != ""   
         t = ts.get();
        // cout << "value = " << t.value << endl;
@@ -1445,7 +1446,7 @@ void Parser :: initial(){
         }
         //cout << "CHEKING input = " << input_str << endl;
         if (input_str == "CREATE"){
-            cout << "Executing (CREATE)" << endl;
+            //cout << "Executing (CREATE)" << endl;
             execute_create();
         }
         else if(input_str == "INSERT"){
@@ -1457,15 +1458,15 @@ void Parser :: initial(){
             execute_insert();
         }
         else if(input_str == "UPDATE"){
-            cout << "Executing (UPDATE)" << endl;
+           // cout << "Executing (UPDATE)" << endl;
             execute_update();
         }
         else if(input_str == "OPEN"){
-            cout << "Executing (OPEN)" << endl;
+            //cout << "Executing (OPEN)" << endl;
             execute_open();
         }
         else if(input_str == "CLOSE"){
-            cout << "Executing (CLOSE)" << endl;
+            //cout << "Executing (CLOSE)" << endl;
             execute_close();
         }
         else if(input_str == "WRITE"){
@@ -1481,7 +1482,7 @@ void Parser :: initial(){
             execute_projection();
         }
         else if(input_str == "SHOW"){
-            cout << "Executing (SHOW)" << endl;
+           // cout << "Executing (SHOW)" << endl;
             execute_show();
         }
 		 else if(input_str == "rename"){
@@ -1490,12 +1491,12 @@ void Parser :: initial(){
         }
 		
         else if(input_str == "DELETE"){
-            cout << "Executing (DELETE/DESTROY) " << endl;
+           // cout << "Executing (DELETE/DESTROY) " << endl;
             execute_destroy();
-            cout << "executed destroy" << endl;
+            //cout << "executed destroy" << endl;
         }
          else if(input_str == "DROP"){
-            cout << "Executing (DROP) " << endl;
+           // cout << "Executing (DROP) " << endl;
             execute_drop();
         }
         else if (input_str != "" && t.value == ' ' && t.value != '\n' && t.value != '`'){   //Must be a query

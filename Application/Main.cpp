@@ -27,7 +27,7 @@ int main()
     int client, server;
     int portNum = 5011;
     bool isExit = false;
-    int bufsize = 10000;
+    int bufsize = 15000;
     char buffer[bufsize];
 	struct sockaddr_in server_addr;
     socklen_t size;
@@ -110,13 +110,11 @@ int main()
         cout << "\n=> Enter # to end the connection\n" << endl;
 
 		while(*buffer != '*'){
-
 		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
 		cout<<"Buffer MAIN::::"<<buffer<<endl;
 		p.parse(buffer);
 		p.input();
 		send(server,p.ts.output.c_str(), bufsize, 0);// SENDS what is in buffer TO CLIENT 
-
 		}
         
 	}

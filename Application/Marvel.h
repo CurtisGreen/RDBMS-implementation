@@ -12,8 +12,8 @@ public:
 	Marvel(){};
 	//void Menu();
 	string update_info();// DONE 
-	string cross_product();
-	string set_union();
+	string cross_product(); //DONE 
+	string set_union(); //DONE 
 	string find_character();
 	string create_character();//DONE
 	string delete_character();//DONE

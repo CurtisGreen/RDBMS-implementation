@@ -18,7 +18,7 @@ int main()
     int client;
     int portNum = 5011; // NOTE that the port number is same for both client and server
     bool isExit = false;
-    int bufsize = 10000;
+    int bufsize = 15000;
     char buffer[bufsize];
     char* ip = "127.0.0.1";
 	struct sockaddr_in server_addr;
@@ -71,7 +71,6 @@ int main()
 			case '2':
 				{
 				string s = db.show_attribute();
-				//cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -79,7 +78,6 @@ int main()
 				
 				{
 				string s = db.cross_product();
-				//cout<<"TESTING:"<< s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -99,14 +97,12 @@ int main()
 			case '6':
 				{
 				string s = db.delete_character();
-				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '7':
 				{
 				string s = db.update_info();
-				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -116,7 +112,6 @@ int main()
 			case '9':
 				{
 				string s = db.set_union();
-				//cout<<"TESTING:"<<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
@@ -126,7 +121,7 @@ int main()
 		}
 
 
-		 recv(client, buffer, bufsize, 0);
+		 recv(client, buffer, bufsize, 0); // RECEIVE FROM THE SERVER 
 
 		 cout<<buffer<<endl;
 		
@@ -311,7 +306,6 @@ string Marvel :: update_info()
 	cout << "1.) Update Marvel Human Characters" << endl;
 	cout << "2.) Update Marvel Hero Characters" << endl;
 	cout << "3.) Update Group Affiliation" << endl;
-	//cout << "4.) GO to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
@@ -340,12 +334,7 @@ string Marvel :: update_info()
 			temp4 = update_info_helper(table,human_name,"occupation");
 
 			string all = temp1 + "\n" + temp2 + "\n" +  temp3 + "\n" + temp4;
-			//cout << "TESTING" << all << endl;
-
-			return all;
-			
-			
-			
+			return all;	
 		}
 
 		else if(request=='2') 
@@ -366,7 +355,6 @@ string Marvel :: update_info()
 			temp4 = update_info_helper(table,hero_name ,"abilities");
 
 			string all = temp1 + "\n" + temp2 + "\n" +  temp3 + "\n" + temp4;
-			//cout << "TESTING" << all << endl;
 			return all;
 			
 			
@@ -387,7 +375,6 @@ string Marvel :: update_info()
 			temp2 = update_info_helper(table,group_name,"purpose");
 
 			string all = temp1 + "\n" + temp2 + "\n";
-			//cout << "TESTING" << all << endl;
 			return all;
 		}
 		else if(request=='4'){
@@ -400,7 +387,6 @@ string Marvel :: update_info()
 		cout << "1.) Update Marvel Human Characters" << endl;
 		cout << "2.) Update Marvel Hero Characters" << endl;
 		cout << "3.) Update Group Affiliation" << endl;
-		//cout << "4.) GO to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
 		cout << "Please enter the number of your desired request" << endl;
 
@@ -426,7 +412,6 @@ string Marvel :: find_character()
 	cout << "1.) Find Marvel Human Characters" << endl;
 	cout << "2.) Find Marvel Hero Characters" << endl;
 	cout << "3.) Find Group Affiliation" << endl;
-	//cout << "4.) GO to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
@@ -532,9 +517,8 @@ string Marvel :: helper_create_character(){
 	cout << "Your character must have a human and hero identity, and a group" << endl;
 
 	
-	//cout << "Enter a number after 25, for your character's ID"<< endl;
+	
 	cin.ignore();
-	//getline(cin, id);
 	cout << "Enter your character's Human Name" << endl;
 	getline(cin, human_name);
 	cout << "Enter your character's Human Height" << endl;
@@ -560,7 +544,6 @@ string Marvel :: helper_create_character(){
 	
 	
 	temp1 += "INSERT INTO Humans VALUES FROM (";
-	//temp1 += "\"" + id + "\"" + ", ";
 	temp1 += "\"" + human_name + "\"" + ", ";
 	temp1 += "\"" + human_height + "\"" + ", ";
 	temp1 += "\"" + human_weight + "\"" + ", ";
@@ -568,7 +551,6 @@ string Marvel :: helper_create_character(){
 
 
 	temp2 += "INSERT INTO Heroes VALUES FROM (";
-	//temp2 += "\"" + id + "\"" + ", ";
 	temp2 += "\"" + hero_name + "\"" + ", ";
 	temp2 += "\"" + hero_height + "\"" + ", ";
 	temp2 += "\"" + hero_weight + "\"" + ", ";
@@ -576,7 +558,6 @@ string Marvel :: helper_create_character(){
 
 	
 	temp3 += "INSERT INTO Groups VALUES FROM (";
-	//temp3 += "\"" + id + "\"" + ", ";
 	temp3 += "\"" + group_aff + "\"" + ", ";
 	temp3 += "\"" + group_aff_purp + "\"" + ");";
 	
@@ -648,7 +629,6 @@ string Marvel :: delete_character()
 	cout << "1.) I want to Delete a Human character" << endl;
 	cout << "2.) I want to Delete a Super Hero character" << endl;
 	cout << "3.) I want to Delete a Group Affiliation" << endl;
-	//cout << "4.) I want to go to  Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 
 	char request;
@@ -663,7 +643,6 @@ string Marvel :: delete_character()
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
-			cout << "TESTING" << query << endl;
 			return query;
 			
 		}
@@ -674,7 +653,6 @@ string Marvel :: delete_character()
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
-			cout << "TESTING" << query << endl;
 			return query;
 		}
 		if(request=='3') {
@@ -684,7 +662,6 @@ string Marvel :: delete_character()
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
-			cout << "TESTING" << query << endl;
 			return query;
 		}
 		else if(request=='4'){
@@ -700,7 +677,6 @@ string Marvel :: delete_character()
 		cout << "1.) I want to Delete a Human character" << endl;
 		cout << "2.) I want to Delete a Super Hero character" << endl;
 		cout << "3.) I want to Delete a Group Affiliation" << endl;
-		//cout << "4.) I want to go to  Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
 
 		cin>>request;
@@ -723,7 +699,6 @@ string Marvel :: show_characters()
 	cout << "1.) Show Marvel Human Characters" << endl;
 	cout << "2.) Show Marvel Hero Characters" << endl;
 	cout << "3.) Show Group Affiliation" << endl;
-	//cout << "4.) GO to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
@@ -735,22 +710,17 @@ string Marvel :: show_characters()
 		if(request=='1') {
 		 
 			query = "SHOW Humans;";
-			
 			return query;
 		}
 		else if(request=='2'){
 			
 			query = "SHOW Heroes;";
-			
-			string all = query ;
-				return all;	
+			return query;	
 		}
 		else if(request=='3'){
 			
 			query = "SHOW Groups;";
-		
-			string all = query;
-				return all;		
+			return query;		
 		}
 		else if(request=='4'){
 			cout << "Exiting Show Menu" << endl;
@@ -762,7 +732,6 @@ string Marvel :: show_characters()
 		cout << "1.) Show Marvel Human Characters" << endl;
 		cout << "2.) Show Marvel Hero Characters" << endl;
 		cout << "3.) Show Group Affiliation" << endl;
-		//cout << "4.) GO to Main Menu"<<endl;
 		cout << "q.) Quit Application"<<endl;
 		cout << "Please enter the number of your desired request" << endl;
 
@@ -787,7 +756,6 @@ string Marvel :: show_attribute(){
 	cout << "1.) Show column names in Human table" << endl;
 	cout << "2.) Show column names in Hero table" << endl;
 	cout << "3.) Show column names in Group table" << endl;
-	//cout << "4.) GO to Main Menu"<<endl;
 	cout << "q.) Quit Application"<<endl;
 	cout << "Please enter the number of your desired request" << endl;
 	
