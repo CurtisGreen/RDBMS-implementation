@@ -5,7 +5,7 @@ Curtis Green
 Jose Ramos
 Eunsu Kim
 
-  * Note to grader: For parser resubmission use "Application" folder and follow the same instructions
+  * Note to grader: For parser resubmission use "Application" folder and follow these instructions
   * How to compile and run Application : (build.tamu.edu) In one window to run the server "make" then " make run" in another window to run the client type "g++ Marvel.cpp -o marvel" then "./marvel" 
   * Using [Catch](https://github.com/philsquared/Catch) testing framework
   * All tests can be found under Main.cpp
