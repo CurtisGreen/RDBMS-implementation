@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 void Parser:: remove_spaces(){  //removes spaces following up to a character
     Token t('a');
     t = ts.get();
@@ -180,6 +179,10 @@ void Parser :: execute_insert()
             correct = false;
         }
     }
+
+
+    
+
     remove_spaces();
     ts.out_buff();
     t = ts.get();
@@ -191,6 +194,8 @@ void Parser :: execute_insert()
         case 'A': ts.out_buff();    //remove quotes
         case '8': { //List of literals
             remove_spaces();
+
+
             while (t.value != ')' && correct) { //pass back data
                 input_str = "";
                 t = ts.get();
@@ -203,6 +208,7 @@ void Parser :: execute_insert()
                         break;
                     }
                 }
+
                 if (t.value == ',' || t.value == ')'){  //Get attribute name
                     data.push_back(input_str);
                     remove_spaces();
@@ -212,6 +218,7 @@ void Parser :: execute_insert()
                     correct = false;
                 }
             }
+
             for (int i = 0; i < data.size(); i++){
                 //cout << data[i] << endl;
             }

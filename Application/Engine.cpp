@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-
+#include <stdio.h>
 
 #include "Engine.h"
 #include "Attribute.h"
@@ -145,82 +145,45 @@ cerr << " [Engine] : Exiting RDBMS now" << endl;
 }
 string Engine::show(string table_name){
 
-
-/*
+	Table table;
+	bool found = false;
 	string str;
 
-	 Table table;
-	 bool found = false;
-	cout << "table_name in show = " << table_name << endl;
-	 for (int i = 0; i < all_tables.size(); i++){
-	cout << "table name = " << all_tables[i].getName() << endl;	//Writes all table names
-	     if (table_name == all_tables[i].getName()){
-	    	 found = true;
-		 table = all_tables[i];
-	     }
-	 }
-	 if (found){
-	     if (table.att.size() != 0){
-		 cout << '\n' << table.getName() <<endl;
-		 cout << table.att[0].data.size() << "x" << table.att.size() << endl; // out but the width and length of the table
-		 cout << "\n";
-		 for (int i = 0; i < table.att.size(); i ++){
-             cout<<left;
-             cout.width(20);
-			 cout << table.att[i].getName(); // formats the name of the attributes(columns)
-		 }
-		 cout << "\n";
-		for (int k = 0; k < table.att[0].data.size(); k++){
-		     cout << '\n';
-		     for (int i = 0; i < table.att.size(); i++){ // output formatted data 
-                 cout<<left;
-                 cout.width(20);
-				 str +=  table.att[i].data[k];
-		     }
-		 }
-		 cout<<endl;
-		*/
+	for (int i = 0; i < all_tables.size(); i++){
 		
-		
-		
-		
-		//----------------------------------
-		// ADDED CODE FOR APPLICTAION
-		
-		
-		Table table;
-		bool found = false;
-		for (int i = 0; i < all_tables.size(); i++){ // checks if table exists
 	    if (table_name == all_tables[i].getName()){
 	    	found = true;
-			table = all_tables[i];
+		table = all_tables[i];
 	    }
+	}
+	if (found){
+	    if (table.att.size() != 0){
+			string size_str = to_string(table.att.size());
+			str += size_str + " ";
+	
+		for (int i = 0; i < table.att.size(); i ++){
+            
+			str += table.att[i].getName() + " ";
 		}
-		string str = table.to_string(table);
-		//cout << "[Engine] testing to_string function :" << str << endl;
+	
+		for (int k = 0; k < table.att[0].data.size(); k++){
+		    cout << '\n';
+		    for (int i = 0; i < table.att.size(); i++){ // output formatted data 
+				str += table.att[i].data[k] + " ";
+		    }
+		}
+		cout<<endl;
+	    }
+	    else{ // error checking for table data 
+		cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
+	    }
+	}
+	else{ // error checking for tables that cannot be found in engine database vector
+	    cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
+	}
+	
+	return str; 
 		
-		return str; 
-		
-		
-		
-		//---------------------------------------
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	    // }
-	    // else{ // error checking for table data 
-		// cout << " Error: [Engine]: Table with name " << table_name <<" is empty in Show()" << endl;
-	    // }
-	// }
-	// else{ // error checking for tables that cannot be found in engine database vector
-	    // cout << "Table with name "<< table_name<< " not found, cannot show" << endl;
-	// }
 }
 
 /* ---------------------------------------------------------------------------------
@@ -233,7 +196,6 @@ Table Engine::create(string name, vector<Attribute> att, vector<string> key){
 	
 	
 	return table; 
-	
 }
 
 /*--------------------------------------------------------------------------------------

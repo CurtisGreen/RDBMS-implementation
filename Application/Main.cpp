@@ -58,28 +58,28 @@ int main()
 	string s1 = "CREATE TABLE Humans (name VARCHAR(20), height VARCHAR(10), weight INTEGER, occupation VARCHAR(8)) PRIMARY KEY (name);";
 	string s2 = "CREATE TABLE Heroes (name VARCHAR(20), height VARCHAR(10), weight INTEGER, abilities VARCHAR(8)) PRIMARY KEY (name);";
 	string s3 = "CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
-	string s4 = "INSERT INTO Humans VALUES FROM (PPeterParker, 510, 167, Photographer);";
-	string s5 = "INSERT INTO Humans VALUES FROM (CCarolDanvers, 511, 165, Pilot);";
-	string s6 = "INSERT INTO Humans VALUES FROM (RRobertBanner, 66, 640, Teenager);";
-	string s7 = "INSERT INTO Humans VALUES FROM (TThorOrdison, 62, 220, War);";
+	string s4 = "INSERT INTO Humans VALUES FROM (PPeter_Parker, 510, 167, Photographer);";
+	string s5 = "INSERT INTO Humans VALUES FROM (CCarol_Danvers, 511, 165, Pilot);";
+	string s6 = "INSERT INTO Humans VALUES FROM (RRober_tBanner, 66, 640, Teenager);";
+	string s7 = "INSERT INTO Humans VALUES FROM (TThor_Ordison, 62, 220, War);";
 	string s8 = "INSERT INTO Humans VALUES FROM (AAnthonyStark, 61, 225, BusinessMan);";
 	
-	string s9 = "INSERT INTO Humans VALUES FROM (OOroroMonroe, 511, 127, AfricanPriestest);";
-	string s10 = "INSERT INTO Humans VALUES FROM (CCharlesXavier, 60, 190, Teacher);";
-	string s11 = "INSERT INTO Humans VALUES FROM (JJeanSummers, 56, 115, Telekinestic);";
-	string s12 = "INSERT INTO Humans VALUES FROM (HHenryMcCoy, 511, 402, TeachersAssistant);";
+	string s9 = "INSERT INTO Humans VALUES FROM (OOroro_Monroe, 511, 127, African_Priestest);";
+	string s10 = "INSERT INTO Humans VALUES FROM (CCharles_Xavier, 60, 190, Teacher);";
+	string s11 = "INSERT INTO Humans VALUES FROM (JJean_Summers, 56, 115, Telekinestic);";
+	string s12 = "INSERT INTO Humans VALUES FROM (HHenry_McCoy, 511, 402, Teachers_Assistant);";
 	string s13 = "INSERT INTO Humans VALUES FROM (KKurtWagner, 59, 195, Adventurer);";
 	
-	string s14 = "INSERT INTO Heroes VALUES FROM (SSpiderMan, 510, 167, SpiderSenses);";
-	string s15 = "INSERT INTO Heroes VALUES FROM (CCaptainMarvel, 511, 165, SkilledCombat);";
-	string s16 = "INSERT INTO Heroes VALUES FROM (HHulk, 66, 640, SuperHuman);";
+	string s14 = "INSERT INTO Heroes VALUES FROM (SSpider_Man, 510, 167, Spider_Senses);";
+	string s15 = "INSERT INTO Heroes VALUES FROM (CCaptain_Marvel, 511, 165, Skilled_Combat);";
+	string s16 = "INSERT INTO Heroes VALUES FROM (HHulk, 66, 640, Super_Human);";
 	string s17 = "INSERT INTO Heroes VALUES FROM (TThor, 62, 220, War);";
 	string s18 = "INSERT INTO Heroes VALUES FROM (IIronMan, 61, 225, Genius);";
 	
-	string s19 = "INSERT INTO Heroes VALUES FROM (SStorm, 511, 127, ControlWeather);";
-	string s20 = "INSERT INTO Heroes VALUES FROM (PProfessorX, 60, 190, PsionicFounder);";
-	string s21 = "INSERT INTO Heroes VALUES FROM (JJeanGrey, 56, 115, Telepathic);";
-	string s22 = "INSERT INTO Heroes VALUES FROM (BBeast, 511, 402, SuperStrength);";
+	string s19 = "INSERT INTO Heroes VALUES FROM (SStorm, 511, 127, Control_Weather);";
+	string s20 = "INSERT INTO Heroes VALUES FROM (PProfessorX, 60, 190, Psionic_Founder);";
+	string s21 = "INSERT INTO Heroes VALUES FROM (JJean_Grey, 56, 115, Telepathic);";
+	string s22 = "INSERT INTO Heroes VALUES FROM (BBeast, 511, 402, Super_Strength);";
 	string s23 = "INSERT INTO Heroes VALUES FROM (NNightCrwaler, 59, 195, Teleportation);";
 	
 	string s24 = "INSERT INTO Groups VALUES FROM (AAvengers, Heroes);";
@@ -110,11 +110,14 @@ int main()
         cout << "\n=> Enter # to end the connection\n" << endl;
 
 		while(*buffer != '*'){
+
 		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
-		cout<<"Buffer MAIN::::"<<buffer<<endl;
+		cout<<"Buffer Server::::"<<buffer<<endl;
 		p.parse(buffer);
 		p.input();
+
 		send(server,p.ts.output.c_str(), bufsize, 0);// SENDS what is in buffer TO CLIENT 
+			p.ts.output = "";
 		}
         
 	}

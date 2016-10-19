@@ -22,12 +22,9 @@ public:
 		ts = Token_stream(b);
 	}
 
-	string parse(string b){
+	void parse(string b){
 		ts = Token_stream(b);
-		
-		cout<<"PARSE FUNCTION PRINTING (output) "<<ts.output<<endl;
-		
-		return ts.output;
+		cout<<"PARSE FUNCTION PRINTING (output) "<<endl;
 	}
 	Parser(){}
 	int input();

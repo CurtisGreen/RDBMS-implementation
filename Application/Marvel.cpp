@@ -9,8 +9,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <vector>
+#include <sstream>
 
 using namespace std;
+
+void my_print(vector<string> v);
 
 int main()
 {
@@ -20,24 +24,37 @@ int main()
     bool isExit = false;
     int bufsize = 15000;
     char buffer[bufsize];
+    string temp_str;
+	string buf;
+	vector<string> tokens;
     char* ip = "127.0.0.1";
 	struct sockaddr_in server_addr;
+
+	//---------------------------------SOCKET-------------------------------------------//
 	client = socket(AF_INET, SOCK_STREAM, 0);
+
 	if (client < 0){
         cout << "\nError establishing socket..." << endl;
         exit(1);
     }
+
 	cout << "\n=> Socket client has been created..." << endl;
 	server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(portNum);
-	if (connect(client,(struct sockaddr *)&server_addr, sizeof(server_addr)) == 0)
+
+	if (connect(client,(struct sockaddr *)&server_addr, sizeof(server_addr)) == 0){
         cout << "=> Connection to the server port number: " << portNum << endl;
+    }
+
 	cout << "=> Awaiting confirmation from the server..." << endl; //line 40
 	recv(client, buffer, bufsize, 0);
     cout << "=> Connection confirmed, you are good to go...";
 	cout << "\n\n=> Enter # to end the connection\n" << endl;
-	// Once it reaches here, the client can send a message first.
+	//---------------------------------SOCKET-------------------------------------------//
+
+
 	
+	//---------------------------------Interactive System-------------------------------------------//
     Marvel db;
 
 	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
@@ -54,7 +71,6 @@ int main()
 	cout << "9.) View Heroes and Humans tables similarities" << endl;
 	cout << "q.) Quit Application" << endl;
 
-	
 	char request;
 	cin>>request;
 
@@ -75,7 +91,6 @@ int main()
 				}
 				break;
 			case '3':
-				
 				{
 				string s = db.cross_product();
 				 send(client, s.c_str(), bufsize, 0);
@@ -84,26 +99,25 @@ int main()
 			case '4':
 				{
 				string s = db.find_character();
-				//cout<<"TESTING:" << s <<endl;
 				 send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '5':
 				{
 				string s = db.create_character();
-				 send(client, s.c_str(), bufsize, 0);
+				send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '6':
 				{
 				string s = db.delete_character();
-				 send(client, s.c_str(), bufsize, 0);
+				send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '7':
 				{
 				string s = db.update_info();
-				 send(client, s.c_str(), bufsize, 0);
+				send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			case '8':
@@ -112,7 +126,7 @@ int main()
 			case '9':
 				{
 				string s = db.set_union();
-				 send(client, s.c_str(), bufsize, 0);
+				send(client, s.c_str(), bufsize, 0);
 				}
 				break;
 			default:
@@ -120,11 +134,24 @@ int main()
 				break;
 		}
 
+		recv(client, buffer, bufsize, 0); // RECEIVE FROM THE SERVER 
+		temp_str = buffer;
+    	stringstream ss(temp_str); // Insert the string into a stream
+   		while (ss >> buf){
+        	tokens.push_back(buf);
+		}
+		temp_str = "";
 
-		 recv(client, buffer, bufsize, 0); // RECEIVE FROM THE SERVER 
+		cout<<endl;
+		cout<<endl;
 
-		 cout<<buffer<<endl;
-		
+		my_print(tokens);
+		tokens.clear();
+
+ 		cout<<endl;
+ 		cout<<endl;
+ 		cout<<endl;
+
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 		cout << "User Options :" << endl;
@@ -139,20 +166,57 @@ int main()
 		cout << "9.) View Heroes and Humans tables similarities" << endl;
 		cout << "q.) Quit Application" << endl;
 
-
 		cin>>request;
-
 	}
 
 	cout<<"--------------------------GOOD BYE----------------------------------"<<endl;
 	//-------------------------------------
-	
 	
     close(client);
     return 0;
 
 	//--------------------------------------
 }
+
+void my_print(vector<string> v){
+
+	int att_size = atoi(v[0].c_str());
+	cout<<"TESTING SIZE: " <<att_size<<endl;
+	v.erase(v.begin());
+
+	vector<string> tokens = v ;
+	vector<string> temp;
+	vector<vector<string>> rows;
+
+	int count = 0;
+	int count2 = 1;
+
+	for(int i = 0; i<tokens.size();i++){
+		if(count < att_size){
+			temp.push_back(tokens[i]);
+			 count++;
+		}
+		if(count > att_size-1){
+			rows.push_back(temp);
+			temp.clear();
+			count = 0;
+		}
+	}
+	for (int i = 0; i < rows.size(); i++) {
+   		for (int j = 0; j < rows[i].size(); j++) {
+   		    cout<<left;
+   			cout.width(20);
+    		cout << rows[i][j]<<"  ";
+  		}
+  		cout<<endl;
+  		cout<<endl;
+	}
+	
+	temp.clear();
+	rows.clear();
+}
+
+
  /*
  void Marvel :: Menu(){
  Marvel db;
