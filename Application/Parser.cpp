@@ -120,7 +120,135 @@ Table Parser :: execute_expression()
 }
 void Parser :: execute_insert()
 {
+	/*
+	
     //insert-cmd ::= INSERT INTO relation-name VALUES FROM ( literal { , literal } )
+    //  | INSERT INTO relation-name VALUES FROM RELATION expr
+    vector<string> data;
+    string rel_name;
+    string input_str = "";
+    remove_spaces();
+    bool correct = true;
+    while (input_str != "INTO" && correct) {    //checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected INTO in Insert" << endl;
+            correct = false;
+        }
+    }
+
+    remove_spaces();
+    Token t = ('a');
+    while (t.value != ' ' && correct) { //checks for relation-name
+        input_str = "";
+        t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ' '){
+            rel_name = input_str;
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected relation-name in Insert" << endl;
+            correct = false;
+        }
+    }
+	
+    remove_spaces();
+    while (input_str != "VALUES" && correct) {  //checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected VALUES in Insert" << endl;
+            correct = false;
+        }
+    }
+	
+    remove_spaces();
+    while (input_str != "FROM" && correct) {    //checks for TABLE
+        Token t = ts.get();
+        switch(t.kind){
+            case '0': input_str = ts.out_buff(); break;
+            default: ts.putback(t); break;
+        }
+        if (t.value == ';' || t.value == '`'){
+            cout << "Error: [Parser]: Expected FROM in Insert" << endl;
+            correct = false;
+        }
+    }
+	
+    remove_spaces();
+    ts.out_buff();
+    t = ts.get();
+    switch(t.kind){
+        case '0': input_str = ts.out_buff(); break;
+        default: ts.putback(t); break;
+    }
+    switch(t.kind){
+        case 'A': ts.out_buff();    //remove quotes
+        case '8': { //List of literals
+            remove_spaces();
+	
+            while (t.value != ')' && correct) { //pass back data
+                input_str = "";
+                t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: {
+                        if (t.value != '"'){
+                            ts.putback(t);
+                        }
+                        break;
+                    }
+                }
+				
+                if (t.value == ',' || t.value == ')'){  //Get attribute name
+                    data.push_back(input_str);
+                    remove_spaces();
+                }
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected literals in Insert" << endl;
+                    correct = false;
+                }
+            }
+
+            for (int i = 0; i < data.size(); i++){
+                //cout << data[i] << endl;
+            }
+            e.insert(rel_name, data);
+            //cout<<"TESTING:" << rel_name<<endl;
+           // e.show(rel_name);
+            break;
+			
+        }
+        default: {  //Expression
+            while (input_str != "RELATION" && correct) {    //checks for TABLE
+                Token t = ts.get();
+                switch(t.kind){
+                    case '0': input_str = ts.out_buff(); break;
+                    default: ts.putback(t); break;
+                }
+                if (t.value == ';' || t.value == '`'){
+                    cout << "Error: [Parser]: Expected RELATION in Insert" << endl;
+                    correct = false;
+                }
+            }
+            remove_spaces();
+            Table table = execute_expression();
+            e.insert_into_table(rel_name, table);
+            e.show(rel_name);
+            break;
+        }
+    }
+	*/ //insert-cmd ::= INSERT INTO relation-name VALUES FROM ( literal { , literal } )
     //  | INSERT INTO relation-name VALUES FROM RELATION expr
     vector<string> data;
     string rel_name;
@@ -179,10 +307,6 @@ void Parser :: execute_insert()
             correct = false;
         }
     }
-
-
-    
-
     remove_spaces();
     ts.out_buff();
     t = ts.get();
@@ -194,8 +318,6 @@ void Parser :: execute_insert()
         case 'A': ts.out_buff();    //remove quotes
         case '8': { //List of literals
             remove_spaces();
-
-
             while (t.value != ')' && correct) { //pass back data
                 input_str = "";
                 t = ts.get();
@@ -208,7 +330,6 @@ void Parser :: execute_insert()
                         break;
                     }
                 }
-
                 if (t.value == ',' || t.value == ')'){  //Get attribute name
                     data.push_back(input_str);
                     remove_spaces();
@@ -218,13 +339,12 @@ void Parser :: execute_insert()
                     correct = false;
                 }
             }
-
             for (int i = 0; i < data.size(); i++){
                 //cout << data[i] << endl;
             }
             e.insert(rel_name, data);
             //cout<<"TESTING:" << rel_name<<endl;
-           // e.show(rel_name);
+            ts.output +=e.show(rel_name);
             break;
         }
         default: {  //Expression
@@ -246,6 +366,11 @@ void Parser :: execute_insert()
             break;
         }
     }
+
+	
+    
+
+
 }
 void Parser :: execute_update()
 {

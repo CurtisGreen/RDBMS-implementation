@@ -25,7 +25,7 @@ int main()
 {
   
     int client, server;
-    int portNum = 5011;
+    int portNum = 5024;
     bool isExit = false;
     int bufsize = 15000;
     char buffer[bufsize];
@@ -112,7 +112,7 @@ int main()
 		while(*buffer != '*'){
 
 		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
-		cout<<"Buffer Server::::"<<buffer<<endl;
+		//cout<<"Buffer Server::::"<<buffer<<endl;
 		p.parse(buffer);
 		p.input();
 

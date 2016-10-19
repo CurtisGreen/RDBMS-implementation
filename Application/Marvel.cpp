@@ -20,7 +20,7 @@ int main()
 {
 
     int client;
-    int portNum = 5011; // NOTE that the port number is same for both client and server
+    int portNum = 5024; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 15000;
     char buffer[bufsize];
@@ -181,7 +181,7 @@ int main()
 void my_print(vector<string> v){
 
 	int att_size = atoi(v[0].c_str());
-	cout<<"TESTING SIZE: " <<att_size<<endl;
+	//cout<<"TESTING SIZE: " <<att_size<<endl;
 	v.erase(v.begin());
 
 	vector<string> tokens = v ;
@@ -388,6 +388,7 @@ string Marvel :: update_info()
 			string temp4;
 			string table = "Humans";
 			cout << "Enter the Name of the Human you would like to update" <<endl;
+			cout << "HEY, do you need a suggestion?? TRY: Peter_Parker " << endl;
 			cin.ignore();
 			string human_name;
 			getline(cin, human_name);
@@ -409,6 +410,7 @@ string Marvel :: update_info()
 			string temp4;
 			string table = "Heroes";
 			cout << "Enter the Name of the Hero character you would like to update" <<endl;
+			cout << "HEY, do you need a suggestion?? TRY : Spider_Man " << endl;
 			cin.ignore();
 			string hero_name;
 			getline(cin, hero_name);
@@ -431,6 +433,7 @@ string Marvel :: update_info()
 			
 			string table = "Groups";
 			cout << "Enter the Name of the Group character you would like to update" <<endl;
+			cout << "HEY, do you need a suggestion?? TRY: Avengers " << endl;
 			cin.ignore();
 			string group_name;
 			getline(cin, group_name);
@@ -629,6 +632,8 @@ string Marvel :: helper_create_character(){
 	string all = temp1 + temp2 + temp3;
 
 	return all;
+
+
 
 	
 }
