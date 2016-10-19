@@ -508,7 +508,7 @@ string Marvel :: find_character()
 			getline(cin, human);
 			temp1 = human + " <- " + " select ";
 			temp1 += "(name == ";
-			temp1 += "\"" + human + "\"" + ") " + table + ";";
+			temp1 += "\"" + human + "\"" + ")(" + table + ");";
 			//cout << "TESTING" << temp1 << endl;
 			return temp1;
 		}

@@ -110,7 +110,7 @@ Table Parser :: execute_expression()
                         default: ts.putback(t); break;
                     }
                 }
-                //cout << "returning table " << input_str << endl;
+                cout << "returning table " << input_str << endl;
                 return e.get_table(input_str);
             } 
 
@@ -973,15 +973,15 @@ Table Parser :: execute_selection()
             correct = false;
         }
     }
-    for (int i = expression.size()-1; i >= 0; i--){
+    for (int i = 0; i < expression.size(); i++){
         //cout << expression[i] << " ";
-        cin.putback(expression[i]);
+        ts.input.push_back(expression[i]);
     }
     Table table = execute_expression();
     cout<< "table name " << table.name << endl;
-    for (int i = conditional.size()-1; i >= 0; i--){
-        cout << conditional[i] << " ";
-        cin.putback(conditional[i]);
+    for (int i = 0; i < conditional.size(); i++){
+        //cout << conditional[i] << " ";
+        ts.input.push_back(conditional[i]);
     }
     remove_spaces();
     Table testerino = selection_helper(table.name);
