@@ -20,7 +20,7 @@ int main()
 {
 
     int client;
-    int portNum = 5024; // NOTE that the port number is same for both client and server
+    int portNum = 5031; // NOTE that the port number is same for both client and server
     bool isExit = false;
     int bufsize = 15000;
     char buffer[bufsize];
@@ -56,7 +56,7 @@ int main()
 	
 	//---------------------------------Interactive System-------------------------------------------//
     Marvel db;
-
+	cout << "WELCOME !!!!" << endl;
 	cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 	cout << "User Options :" << endl;
@@ -106,6 +106,7 @@ int main()
 				{
 				string s = db.create_character();
 				send(client, s.c_str(), bufsize, 0);
+	
 				}
 				break;
 			case '6':
@@ -155,15 +156,15 @@ int main()
 		cout << "<<<<<<<<<<<<<<<<<< Marvel Main Menu>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
 	
 		cout << "User Options :" << endl;
-		cout << "1.) View Marvel Characters" << endl;
-		cout << "2.) View column name in Character tables" << endl;
-		cout << "3.) View Heroes and Humans table combined"<<endl;
-		cout << "4.) Find Marvel Characters" << endl;
-		cout << "5.) Create Marvel Characters" << endl;
-		cout << "6.) Delete Marvel Characters" << endl;
-		cout << "7.) Update Marvel Characters" << endl;
+		cout << "1.) View Marvel Characters!" << endl;
+		cout << "2.) View column names in Character tables!" << endl;
+		cout << "3.) View Heroes and Humans table combined!"<<endl;
+		cout << "4.) Find Marvel Characters!" << endl;
+		cout << "5.) Create Marvel Characters!" << endl;
+		cout << "6.) Delete Marvel Characters!" << endl;
+		cout << "7.) Update Marvel Characters!" << endl;
 		cout << "8.) Exit Database" << endl;
-		cout << "9.) View Heroes and Humans tables similarities" << endl;
+		cout << "9.) View Heroes and Humans tables similarities!" << endl;
 		cout << "q.) Quit Application" << endl;
 
 		cin>>request;
@@ -300,10 +301,10 @@ string Marvel :: projection_rename_helper(string table_name, string function_nam
 	string att;
 	string store_att;
 	string query;
-	cout<< "List of Attributes that we can " + function_name + " for the Humans character table"<<endl;
+	cout<< "List of Column Names that we can choose from!"<<endl;
 	cout<< list <<endl;
 	cout<<"Choose one or as many as you want follow by enter"<<endl;
-	cout<<"Type f after you finish typing the attributes and follow by enter"<<endl;
+	cout<<"Type f after you finish typing the names and follow by enter"<<endl;
 	cout<<endl;
 
 	cin>>att;
@@ -354,7 +355,7 @@ string  update_info_helper(string table,string old_value,string thing_to_update)
 	temp += "WHERE "+ thing_to_update +  "=";
 	temp += "\"" + old + "\"" + ";";
 	
-
+	
 
 	return temp;
 
@@ -382,16 +383,18 @@ string Marvel :: update_info()
 		if(request=='1') 
 		{
 			
+			string human_name = "Humans";
 			string temp1;
 			string temp2;
 			string temp3;
 			string temp4;
 			string table = "Humans";
-			cout << "Enter the Name of the Human you would like to update" <<endl;
-			cout << "HEY, do you need a suggestion?? TRY: Peter_Parker " << endl;
+			// cout << "Enter the Name of the Human you would like to update" <<endl;
+			// cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Peter_Parker :old valued (510 165 Photographer)" << endl;
 			cin.ignore();
-			string human_name;
-			getline(cin, human_name);
+			// string human_name;
+			// getline(cin, human_name);
 
 			temp1 = update_info_helper(table,human_name,"name");
 			temp2 = update_info_helper(table,human_name,"height");
@@ -404,16 +407,18 @@ string Marvel :: update_info()
 
 		else if(request=='2') 
 		{
+			string hero_name = "Heroes";
 			string temp1;
 			string temp2;
 			string temp3;
 			string temp4;
 			string table = "Heroes";
-			cout << "Enter the Name of the Hero character you would like to update" <<endl;
-			cout << "HEY, do you need a suggestion?? TRY : Spider_Man " << endl;
+			// cout << "Enter the Name of the Hero character you would like to update" <<endl;
+			// cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY : Spider_Man : old values (510 165 Spider_Senses)" << endl;
 			cin.ignore();
-			string hero_name;
-			getline(cin, hero_name);
+			// string hero_name;
+			// getline(cin, hero_name);
 			
 			temp1 = update_info_helper(table,hero_name,"name");
 			temp2 = update_info_helper(table,hero_name,"height");
@@ -430,13 +435,14 @@ string Marvel :: update_info()
 		{
 			string temp1;
 			string temp2;
-			
+			string group_name = "Groups";
 			string table = "Groups";
-			cout << "Enter the Name of the Group character you would like to update" <<endl;
-			cout << "HEY, do you need a suggestion?? TRY: Avengers " << endl;
+			// cout << "Enter the Name of the Group character you would like to update" <<endl;
+			// cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Avengers : old values (Avengers Heroes" << endl;
 			cin.ignore();
-			string group_name;
-			getline(cin, group_name);
+			// string group_name;
+			// getline(cin, group_name);
 			
 			temp1 = update_info_helper(table,group_name,"name");
 			temp2 = update_info_helper(table,group_name,"purpose");
@@ -448,6 +454,7 @@ string Marvel :: update_info()
 			cout << "Exiting find character Menu" << endl;
 			//db.Menu();
 		}
+		cout << "GREAT ! Your character has been updated! Take a look in the view Option" << endl;
 
 		cout << "--------------------Update Info Menu --------------------------"  << endl;
 	
@@ -495,12 +502,14 @@ string Marvel :: find_character()
 			string human;
 			string table = "Humans";
 			cout << "Enter the Name of the Human character you would like to find" <<endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Carol_Danvers " << endl;
 			cin.ignore();
 			getline(cin, human);
-			temp1 = human + " <- " + "select ";
+			temp1 = human + " <- " + " select ";
 			temp1 += "(name == ";
 			temp1 += "\"" + human + "\"" + ") " + table + ";";
-			cout << "TESTING" << temp1 << endl;
+			//cout << "TESTING" << temp1 << endl;
 			return temp1;
 		}
 
@@ -511,12 +520,14 @@ string Marvel :: find_character()
 			string hero;
 			string table = "Heroes";
 			cout << "Enter the Name of the Hero character you would like to find" <<endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Thor " << endl;
 			cin.ignore();
 			getline(cin, hero);
-			temp2 = hero + " <- " + "select ";
-			temp2 += "(name == ";
+			temp2 = hero + " <- " + " select ";
+			temp2 += "( name == ";
 			temp2 += "\"" + hero + "\"" + ") " + table + ";";
-			cout << "TESTING" << temp2 << endl;
+			//cout << "TESTING" << temp2 << endl;
 			return temp2;
 			
 		}
@@ -528,12 +539,14 @@ string Marvel :: find_character()
 			string group;
 			string table = "Groups";
 			cout << "Enter the Name of the Group Affiliation you would like to find" <<endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Xmen " << endl;
 			cin.ignore();
 			getline(cin, group);
-			temp3 = group + " <- " + "select ";
-			temp3 += "(name == ";
+			temp3 = group + " <- " + " select ";
+			temp3 += "( name == ";
 			temp3 += "\"" + group + "\"" + ") " + table + ";";
-			cout << "TESTING" << temp3 << endl;
+			//cout << "TESTING" << temp3 << endl;
 			return temp3;
 		}
 		
@@ -630,6 +643,8 @@ string Marvel :: helper_create_character(){
 	
 
 	string all = temp1 + temp2 + temp3;
+	
+	cout << "GREAT, your character was created, take a look in the VIEW options!!" << endl;
 
 	return all;
 
@@ -644,6 +659,7 @@ string Marvel :: create_character()
 	Marvel db;
 
 	string str = helper_create_character();
+	
 	return str; 
 
 	
@@ -709,6 +725,8 @@ string Marvel :: delete_character()
 			
 			string table = "Humans";
 			cout << " Please enter the Human name of the character that you want to delete"<< endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Ororo_Monroe " << endl;
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
@@ -719,15 +737,20 @@ string Marvel :: delete_character()
 		
 			table = "Heroes";
 			cout << " Please enter the Super Hero name of the character that you want to delete"<< endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Hulk" << endl;
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
+			//cout << "TESTING" << query <<endl;
 			return query;
 		}
 		if(request=='3') {
 		
 			table = "Groups";
 			cout << " Please enter the Group Affiliation name that you want to delete"<< endl;
+			cout << endl;
+			cout << "HEY, do you need a suggestion?? TRY: Xmen " << endl;
 			cin.ignore();
 			getline(cin, character);
 			query = "DELETE FROM " + table + " WHERE name=" + "\"" + character + "\"" + ";";
@@ -738,7 +761,7 @@ string Marvel :: delete_character()
 			//db.Menu();
 		}
 
-		cout << "Character was deleted"<<endl;
+		cout << "Character was deleted !"<<endl;
 		cout<<endl;
 
 		

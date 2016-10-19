@@ -25,7 +25,7 @@ int main()
 {
   
     int client, server;
-    int portNum = 5024;
+    int portNum = 5031;
     bool isExit = false;
     int bufsize = 15000;
     char buffer[bufsize];
@@ -60,7 +60,7 @@ int main()
 	string s3 = "CREATE TABLE Groups (name VARCHAR(20), purpose VARCHAR(8)) PRIMARY KEY (name);";
 	string s4 = "INSERT INTO Humans VALUES FROM (PPeter_Parker, 510, 167, Photographer);";
 	string s5 = "INSERT INTO Humans VALUES FROM (CCarol_Danvers, 511, 165, Pilot);";
-	string s6 = "INSERT INTO Humans VALUES FROM (RRober_tBanner, 66, 640, Teenager);";
+	string s6 = "INSERT INTO Humans VALUES FROM (RRobert_Banner, 66, 640, Teenager);";
 	string s7 = "INSERT INTO Humans VALUES FROM (TThor_Ordison, 62, 220, War);";
 	string s8 = "INSERT INTO Humans VALUES FROM (AAnthonyStark, 61, 225, BusinessMan);";
 	
@@ -94,7 +94,7 @@ int main()
 	string s32 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
 	string s33 = "INSERT INTO Groups VALUES FROM (XXmen, Heroes);";
 	
-	// Doesn't work : Rename,Select, delete, Project 
+
 	string all = s1+s2+s3 +s4+s5+s6 +s7+s8+s9+s10+s11+s12+s13+s14+s15+s16+s17+s18+s19+s20+s21+s22+s23+s24+s25+s26+s27+s28+s29+s30+s31+s32 +s33;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	Parser p;
@@ -111,7 +111,7 @@ int main()
 
 		while(*buffer != '*'){
 
-		recv(server, buffer, bufsize, 0); // receives from the CLIENT 
+		recv(server, buffer, bufsize, 0); // RECEIVES from the CLIENT 
 		//cout<<"Buffer Server::::"<<buffer<<endl;
 		p.parse(buffer);
 		p.input();
